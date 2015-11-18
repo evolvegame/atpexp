@@ -1,0 +1,136 @@
+<!-- START BREADCRUMB -->
+<div class="col-md-6 mini-dash-left">
+    <ul class="breadcrumb breadcrumb-dashboard">
+        <li><a href="#">Home</a></li>
+        <li class="active">Settings</li>
+    </ul>
+</div>
+<div class="col-md-6  text-right mini-dash-right">
+    <div ng-include="'components/minidash/minidash.html'"></div>
+</div>
+<!-- END BREADCRUMB -->
+
+<div class="page-title">
+    <h2>Settings</h2>
+</div>
+
+<!-- PAGE CONTENT WRAPPER -->
+<div class="page-content-wrap">
+
+    <div class="row">
+        <div class="col-md-12">
+            
+            <form class="form-horizontal" name="form" ng-submit="saveTeam(form)">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><strong>Team:</strong> {{team().name}}</h3>
+                    <ul class="panel-controls">
+                        <li><a href="#" ng-click="isCollapsedTeam = !isCollapsedTeam" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body" collapse="isCollapsedTeam">
+                    <p>Setting up  your team by filling in the forms below (Don't forget to click the 'Save' button).</p>
+                </div>
+                <div class="panel-body" collapse="isCollapsedTeam">
+                    
+                    <div class="form-group">
+                        <label class="col-md-3 col-xs-12 control-label">Slogan</label>
+                        <div class="col-md-6 col-xs-12">                                            
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                <input type="text" class="form-control" ng-model="team().slogan"/>
+                            </div>                                            
+                            <span class="help-block">Enter a slogan phrase that represents your team</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="col-md-3 col-xs-12 control-label">Team members</label>
+                        <div class="col-md-6 col-xs-12">                                                                                            
+                            <tags-input ng-model="members" class="bootstrap" placeholder="Add e-mail"></tags-input>
+                            <span class="help-block">Choose the members in your team. All members listed here will receive in-game notifications by e-mail</span>
+                        </div>
+                    </div>
+                    
+                    <!-- <div class="form-group">
+                        <label class="col-md-3 col-xs-12 control-label">Language</label>
+                        <div class="col-md-6 col-xs-12">                                                                                            
+                            <select class="form-control select">
+                                <option>English</option>
+                                <option>Dutch</option>
+                                <option>German</option>
+                                <option>Italian</option>
+                                <option>Spanish</option>
+                            </select>
+                            <span class="help-block">Choose your default language</span>
+                        </div>
+                    </div> -->
+                    
+                    <!-- <div class="form-group">
+                        <label class="col-md-3 col-xs-12 control-label">Team Picture</label>
+                        <div class="col-md-6 col-xs-12">                                                                                                                                        
+                            <input type="file" class="fileinput btn-primary" name="filename" id="filename" title="Browse file"/>
+                            <span class="help-block">Upload team photo</span>
+                        </div>
+                    </div> -->
+                    
+
+                </div>
+                <div class="panel-footer" collapse="isCollapsedTeam">
+                    <button class="btn btn-primary pull-right" type="submit">Save</button>
+                </div>
+            </div>
+            </form>
+            
+        </div>
+    </div>     
+
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal" name="form" ng-submit="changePassword(form)" novalidate>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Change Password</h3>
+                    <ul class="panel-controls">
+                        <li><a href="#" ng-click="isCollapsedPassword = !isCollapsedPassword;toggleArrow()" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body" collapse="isCollapsedPassword">
+                    <p>If you want to change your password, you can do so in the form below.</p>
+                </div>
+                <div class="panel-body" collapse="isCollapsedPassword">                                                                        
+                    <div class="form-group">
+                        <label class="col-md-3 col-xs-12 control-label">Current Password</label>
+                        <div class="col-md-6 col-xs-12">                                            
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                <input type="password" name="password" class="form-control" ng-model="user.oldPassword" mongoose-error/>
+                            </div>
+                            <span class="help-block" ng-show="form.password.$error.mongoose">{{ errors.other }}</span>                       
+                            <span class="help-block">Type in your current password</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 col-xs-12 control-label">New Password</label>
+                        <div class="col-md-6 col-xs-12">                                            
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                <input type="password" name="newPassword" class="form-control" ng-model="user.newPassword" ng-minlength="3" required/>
+                            </div>
+                            <span class="help-block" ng-show="(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty || submitted)">Password must be at least 3 characters.</span>                       
+                            <span class="help-block">Type in your new password</span>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="panel-footer" collapse="isCollapsedPassword">
+                    <button class="btn btn-primary pull-right" type="submit">Save</button>
+                </div>
+            </div>
+            </form>
+            
+        </div>
+    </div>     
+</div>
+<!-- END PAGE CONTENT WRAPPER -->

@@ -1,0 +1,113 @@
+<div class="panel panel-default as-panel-customer">
+    <div class="panel-body profile bg-info" style="margin-bottom:15px">
+        <div class="profile-data">
+            <div class="profile-data-name">{{ selected.name }}</div>
+        </div>
+    </div>
+    <div class="panel-body as-panel-customer">
+        <div class="col-md-12">
+            <span href="#" class="tile tile-default">
+            <div style="font-size:12px;"><h6>Customer</h6></div>
+            <div class="col-md-3">
+                <img src="assets/img/flags/{{ selected.countryCode }}.png" width="32" height="32" style="margin-bottom:4px">
+                <p style="margin-top:2px;line-height:14px;">{{selected.country}}<small style="color:#bbb"><br>({{ selected.industry }} Sector)</small></p>
+            </div>
+            <div class="col-md-3">
+                <span class="label label-warning label-form"><span class="fa fa-cogs"></span> 80+</span>
+                <p style="line-height:14px;margin-top:10px;">Service Need<small style="color:#bbb"><br>Your score is 82</small></p>
+            </div>
+            <div class="col-md-3">
+                <span class="wi wi-day-cloudy" style="font-size: 28px;line-height: 36px;"></span>
+                <p style="line-height:14px;margin-top:2px;">Good Risk<small style="color:#bbb"><br>Overall Risk Level</small></p>
+            </div>
+            <div class="col-md-3">
+                <span style="font-size:28px;line-height:36px;">$3,959</span>
+                <p style="margin-top:2px;line-height:14px;">Turnover<small style="color:#bbb"><br>In million Euro</small></p>
+            </div>
+            </span>
+        </div>
+    </div>
+    <div class="panel-body as-panel-customer">
+        <div class="col-md-4 as-col-md-4">
+            <span class="tile tile-default">
+            <div style="font-size:12px;"><h6>Buyer 1</h6></div>
+            <p style="font-size:12px;"><img src="assets/img/flags/{{ selected.countryCode }}.png" width="12" height="12" style="margin-bottom:4px">
+            {{selected.country}}</p>
+            <p style="font-size:12px"><span class="fa fa-globe" style="font-size: 12px;line-height: 18px;"></span> {{ selected.industry }}</p>
+            <p><span class="wi wi-day-sunny" style="font-size: 32px;line-height: 54px;"></span></p>
+            <p>Excellent</p>
+            <p>
+            <div ng-controller="SpinnerCtrl as spinner" style="margin-top:10px;"><input jq-spinner type="text" class="form-control spinner_default" ng-model="spinner.val" />
+            <div class="progress progress-small">
+                <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{ spinner.val }}%;"></div>
+            </div>
+            <p style="font-size:12px;">Acceptance Rate: {{ spinner.val }}%</p>
+        </div>
+        </p>
+        </span>
+    </div>
+    <div class="col-md-4 as-col-md-4">
+        <span class="tile tile-default">
+        <div style="font-size:12px;"><h6>Buyer 2</h6></div>
+        <p style="font-size:12px;"><img src="assets/img/flags/gb.png" width="12" height="12" style="margin-bottom:4px">
+        United Kingdom</p>
+        <p style="font-size:12px"><span class="fa fa-globe" style="font-size: 12px;line-height: 18px;"></span> Food</p>
+        <p><span class="wi wi-day-cloudy" style="font-size: 32px;line-height: 54px;"></span></p>
+        <p>Good</p>
+        <p>
+        <div ng-controller="SpinnerCtrl as spinner" style="margin-top:10px;"><input jq-spinner type="text" class="form-control spinner_default" ng-model="spinner.val" />
+        <div class="progress progress-small">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{ spinner.val }}%;"></div>
+        </div>
+        <p style="font-size:12px">Acceptance Rate: {{ spinner.val }}%</p>
+    </div>
+    </p>
+    </span>
+</div>
+<div class="col-md-4 as-col-md-4" style="padding-right:15px;">
+    <span class="tile tile-default">
+    <div style="font-size:12px;"><h6>Buyer 3</h6></div>
+    <p style="font-size:12px;"><img src="assets/img/flags/nl.png" width="12" height="12" style="margin-bottom:4px">
+    The Netherlands</p>
+    <p style="font-size:12px"><span class="fa fa-globe" style="font-size: 12px;line-height: 18px;"></span> Construction</p>
+    <p><span class="wi wi-storm-showers" style="font-size: 32px;line-height: 54px;"></span></p>
+    <p>Fair</p>
+    <p>
+    <div ng-controller="SpinnerCtrl as spinner" style="margin-top:10px;"><input jq-spinner type="text" class="form-control spinner_default" ng-model="spinner.val" />
+    <div class="progress progress-small">
+        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{ spinner.val }}%;"></div>
+    </div>
+    <p style="font-size:12px">Acceptance Rate: {{ spinner.val }}%</p>
+</div>
+</p>
+</span>
+</div>
+</div>
+<div class="panel-body as-panel-customer">
+<div class="col-md-6 as-col-md-6">
+<span href="#" class="tile tile-default" style="height:130px;">
+<div style="font-size:12px;"><h6>Price</h6></div>
+<div class="input-group" style="margin-top:15px;padding-right:40px;padding-left:40px;">
+    <span class="input-group-addon"><span class="fa fa-eur"></span></span>
+    <input type="text" class="form-control">
+</div>
+<span class="help-block" style="padding-right:40px;padding-left:40px;">The average price is 0.2 of the turnover.</span>
+</span>
+</div>
+<div class="col-md-6 as-col-md-6" style="padding-right:15px">
+<span href="#" class="tile tile-default" style="height:130px;">
+<div style="font-size:12px;"><h6>Service</h6></div>
+<span class="label label-warning label-form"><span class="fa fa-cogs"></span> 82</span> / <span class="label label-danger label-form"><span class="fa fa-flash"></span> 100</span>
+<p style="line-height:14px;margin-top:10px;padding-right:40px;padding-left:40px;">Experience Score<small style="color:#bbb"><br>You have enough Experience Score to insure {{ selected.name }}.</small></p>
+</span>
+</div>
+</div>
+<div class="panel-body as-panel-customer" style="margin-bottom:15px;">
+<div class="col-md-12">
+<a href="#" class="btn btn-block btn-lg btn-success"><span class="fa fa-comments-o"></span> Make an offer!</a>
+</div>
+</div>
+<div class="panel-body list-group">
+<a href="#" class="list-group-item btn btn-lg" ng-click="closeModal()"><span></span> (close)</a>
+</div>
+</div>

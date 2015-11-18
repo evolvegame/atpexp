@@ -1,0 +1,31 @@
+<!-- START MINI DASHBOARD -->
+<div class="mini-dashboard" ng-controller="MiniDashCtrl">
+    <!-- TILES -->                
+    <ul class="list-inline mini-stat">
+        <li style="margin-right:20px"></li>
+        <li style="margin-right:20px"></li>
+        <li style="margin-right:20px" class="text-left">
+            <h5 style="float:left;margin:0px 10px 0px 0px;"><small>CAPITAL</small> <br><span style="color:#5cb85c;"><i class="fa fa-plus-circle"></i> €81,450mn</span></h5>
+            <span id="mini-bar-chart1" class="mini-bar-chart" style="float:left;">
+                <div style="overflow:hidden;height:35px;width:80px;">
+                    <nvd3-discrete-bar-chart
+                        data="exampleData"
+                        id="exampleId3"
+                        showXAxis="false"
+                        showYAxis="false"
+                        margin={left:0,top:0,bottom:8,right:0}
+                        width="80"
+                        height="35"
+                        showValues="false"
+                        showLegend="false"
+                        tooltips="true"
+                        color="colorFunction()">
+                        <svg height="35px"></svg>
+                    </nvd3-discrete-bar-chart>
+                </div>
+            </span>
+        </li>
+    </ul>                     
+    <!-- END TILES -->
+</div>
+<!-- END MINI DASHBOARD -->

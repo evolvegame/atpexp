@@ -1,0 +1,96 @@
+.thing-form {
+    margin: 20px 0;
+}
+
+#banner {
+    border-bottom: none;
+    margin-top: -20px;
+}
+
+#banner h1 {
+    font-size: 60px;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+.hero-unit {
+    position: relative;
+    padding: 30px 15px;
+    color: #F5F5F5;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+    background: #4393B9;
+}
+
+.footer {
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 70px;
+    border-top: 1px solid #E5E5E5;
+}
+
+.tw {
+  font-family: arial;
+  font-size: 12px;
+  overflow: hidden;
+  background-color: #fff;
+  border: solid 1px #fff;
+  overflow: hidden;
+  cursor:pointer;
+  cursor:hand;
+  border:dashed 1px #d9d8d8;
+}
+
+.tw .post {
+  clear: both;
+  overflow: hidden;
+}
+
+.tw .post .img {
+  float: left;
+  width: 60px;
+}
+
+.tw .post .name {
+  float: left;
+  width: 230px;
+  padding-top: 9px;
+}
+
+.tw .post .follow {
+  float: right;
+  width: 130px;
+}
+
+.clear {
+  clear: both;
+}
+
+.tw .post .message {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 22px;
+  color: #333335;
+  margin: 15px 0 10px 0;
+  line-height: 120%;
+  width: 420px;
+}
+
+.tw .post ul#options {
+  padding: 0;
+  margin: 0;
+  overflow: auto;
+}
+
+.tw .post ul#options li {
+  color: #0084b4;
+  float: left;
+  list-style: none;
+  margin-right: 10px;
+}
+
+.tw .post .date {
+  color: #999999;
+  font-size: 12px;
+  display: block;
+  margin-top: 10px;
+}

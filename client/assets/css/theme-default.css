@@ -14,6 +14,7 @@
 @import "dropzone/dropzone.css";
 @import "introjs/introjs.min.css";
 @import "animate/animate.min.css";
+@import "custom/default.css";
 
 .clearfix {
   zoom: 1;
@@ -67,6 +68,7 @@ body {
   min-height: 1px;
   padding-left: 10px;
   padding-right: 10px;
+  padding-top: 10px;
 }
 .row.stacked [class^='col-xs-'],
 .row.stacked [class^='col-sm-'],
@@ -993,14 +995,14 @@ body.page-container-boxed.wall_10 {
 .x-navigation > li.xn-logo > a:first-child {
   font-size: 0px;
   text-indent: -9999px;
-  background: url("../img/logo.png") top center no-repeat #e34724;
+  background: url("../img/logo.png") top center no-repeat #FFFFFF;
   padding: 0px;
   border-bottom: 0px;
   color: #FFF;
   height: 50px;
 }
 .x-navigation > li.xn-logo > a:first-child:hover {
-  background-color: #e0401d;
+  background-color: #EEEEEE;
 }
 .x-navigation > li.xn-profile {
   padding: 0px;
@@ -1158,7 +1160,7 @@ body.page-container-boxed.wall_10 {
   float: left;
   padding: 15px 10px;
   position: relative;
-  background: #2d3945;
+  background-color: #d81e42;
 }
 .profile .profile-image {
   float: left;
@@ -1190,7 +1192,7 @@ body.page-container-boxed.wall_10 {
   float: left;
   font-size: 11px;
   font-weight: 400;
-  color: #999;
+  color: #eee;
 }
 .profile .profile-controls a {
   width: 30px;
@@ -1226,8 +1228,8 @@ body.page-container-boxed.wall_10 {
   margin-right: auto;
 }
 .profile .profile-controls a:hover {
-  border-color: #DDD;
-  color: #DDD;
+  border-color: #890122;
+  color: #890122;
 }
 /* X-NAVIGATION FEATURES */
 .x-navigation.x-navigation-minimized .profile {
@@ -3904,6 +3906,18 @@ td.dataTables_empty {
 .tile.tile-default:hover {
   background: #FAFAFA;
 }
+.tile.tile-transparent{
+  color: #656d78;
+  font-size: 24px;
+  min-height: 50px;
+}
+.tile.tile-transparent p {
+  font-size: 14px;
+}
+.tile.tile-transparent:hover {
+  color: #333333;
+  background-color: #f8f8f8;
+}
 .tile.tile-primary {
   background: #33414e;
   border-color: #33414e;
@@ -5580,8 +5594,14 @@ td.dataTables_empty {
 .flag.flag-de {
   background-image: url(../img/flags/de.png);
 }
-.flag.flag-cn {
-  background-image: url(../img/flags/cn.png);
+.flag.flag-es {
+  background-image: url(../img/flags/es.png);
+}
+.flag.flag-fr {
+  background-image: url(../img/flags/fr.png);
+}
+.flag.flag-it {
+  background-image: url(../img/flags/it.png);
 }
 /* END FLAGS */
 /* PAGE LOADING FRAME */
@@ -8769,6 +8789,11 @@ li.ext_zip {
   .x-navigation > li.xn-logo > a:first-child {
     background-image: url("../img/logo@2x.png");
     background-size: 220px 50px;
+  }
+  .x-navigation > li.xn-line {
+    background-image: url("../img/dynamic-line-default.png");
+    background-size: 220px 50px;
+    height: 10px;
   }
   .x-navigation.x-navigation-minimized > li.xn-logo > a:first-child {
     background-image: url("../img/logo-small@2x.png");

@@ -1,0 +1,49 @@
+/*CUSTOM STYLES*/
+/*MINI-DASHBOARD*/
+
+.mini-dashboard {
+    background: #e8e8e8;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-bottom: 10px;
+}
+
+.mini-dashboard .col-breadcrumb {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.mini-dashboard .col-dashboard {
+    padding-left: 0px;
+    padding-right: 15px;
+    margin-top: 20px;
+}
+
+.mini-dashboard .col-align {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+@media only screen and (max-width: 768px) {
+    [class^='col-xs-'],
+    [class^='col-sm-'],
+    [class^='col-md-'],
+    [class^='col-lg-'] {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .mini-dashboard .col-dashboard {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
+/*END MINI-DASHBOARD*/
+/*SIDEBAR*/
+
+.profile .profile-image img:hover {
+    border: 3px solid #890122;
+}
+
+/*END SIDEBAR*/
+/*END CUSTOM STYLES*/

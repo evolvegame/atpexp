@@ -60,7 +60,7 @@
 
             <div ng-include="'components/navbar/navbar.html'"></div>
 
-            <!-- PAGE CONTENT WRAPPER -->            
+            <!-- PAGE CONTENT WRAPPER -->
             <div ui-view=""></div>
             <!-- END PAGE CONTENT WRAPPER -->
         </div>
@@ -154,13 +154,13 @@
             $scope.addMargin = 'add-margin'
             $scope.removeMargin = 'remove-margin'
 
-            $rootScope.$on('$stateChangeStart', 
-            function(event, toState, toParams, fromState, fromParams){ 
+            $rootScope.$on('$stateChangeStart',
+            function(event, toState, toParams, fromState, fromParams){
                 $scope.isLoginPage = function(route) {
                   if (route === $location.path())
                     return $scope.removeMargin
                   else
-                    return $scope.addMargin 
+                    return $scope.addMargin
                 };
             })
           });

@@ -23,7 +23,8 @@ angular.module('atpexpApp')
 
     $scope.logoutActive = ''
     $scope.actionsActive = ''
-    
+    $scope.languageActive = ''
+
     $scope.toggleLogout = function(){
     if ($scope.logoutActive === '')
         $scope.logoutActive = 'active'
@@ -36,5 +37,12 @@ angular.module('atpexpApp')
         $scope.actionsActive = 'active'
       else
         $scope.actionsActive = ''
+    };
+
+    $scope.toggleLanguage = function(){
+      if ($scope.languageActive === '')
+        $scope.languageActive = 'active'
+      else
+        $scope.languageActive = ''
     };
   });

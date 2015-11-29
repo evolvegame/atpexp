@@ -1,0 +1,103 @@
+; cli configs
+long = true
+user-agent = "npm/3.3.12 node/v5.1.0 win32 ia32"
+
+; userconfig C:\Users\Rangarajan_Ramadass\.npmrc
+registry = "http://infygit.ad.infosys.com:4873/"
+
+; builtin config undefined
+prefix = "C:\\Users\\Rangarajan_Ramadass\\AppData\\Roaming\\npm"
+
+; default values
+access = null
+also = null
+always-auth = false
+bin-links = true
+browser = null
+ca = null
+cache = "C:\\Users\\Rangarajan_Ramadass\\AppData\\Roaming\\npm-cache"
+cache-lock-retries = 10
+cache-lock-stale = 60000
+cache-lock-wait = 10000
+cache-max = null
+cache-min = 10
+cafile = undefined
+cert = null
+color = true
+depth = null
+description = true
+dev = false
+dry-run = false
+editor = "notepad.exe"
+engine-strict = false
+fetch-retries = 2
+fetch-retry-factor = 10
+fetch-retry-maxtimeout = 60000
+fetch-retry-mintimeout = 10000
+force = false
+git = "git"
+git-tag-version = true
+global = false
+globalconfig = "C:\\Users\\Rangarajan_Ramadass\\AppData\\Roaming\\npm\\etc\\npmrc"
+globalignorefile = "C:\\Users\\Rangarajan_Ramadass\\AppData\\Roaming\\npm\\etc\\npmignore"
+group = 0
+heading = "npm"
+https-proxy = null
+if-present = false
+ignore-scripts = false
+init-author-email = ""
+init-author-name = ""
+init-author-url = ""
+init-license = "ISC"
+init-module = "C:\\Users\\Rangarajan_Ramadass\\.npm-init.js"
+init-version = "1.0.0"
+json = false
+key = null
+link = false
+local-address = undefined
+loglevel = "warn"
+; long = false (overridden)
+message = "%s"
+node-version = "5.1.0"
+npat = false
+onload-script = null
+only = null
+optional = true
+parseable = false
+; prefix = "C:\\Program Files\\nodejs" (overridden)
+production = false
+progress = true
+proprietary-attribs = true
+proxy = null
+rebuild-bundle = true
+; registry = "https://registry.npmjs.org/" (overridden)
+rollback = true
+save = false
+save-bundle = false
+save-dev = false
+save-exact = false
+save-optional = false
+save-prefix = "^"
+scope = ""
+searchexclude = null
+searchopts = ""
+searchsort = "name"
+shell = "C:\\windows\\system32\\cmd.exe"
+shrinkwrap = true
+sign-git-tag = false
+strict-ssl = true
+tag = "latest"
+tag-version-prefix = "v"
+tmp = "C:\\Users\\Rangarajan_Ramadass\\AppData\\Local\\Temp"
+umask = 0
+unicode = true
+unsafe-perm = true
+usage = false
+user = 0
+; user-agent = "npm/{npm-version} node/{node-version} {platform} {arch}" (overridden)
+userconfig = "C:\\Users\\Rangarajan_Ramadass\\.npmrc"
+version = false
+versions = false
+viewer = "browser"
+
+

@@ -1,15 +1,10 @@
-<!-- START BREADCRUMB -->
-<ul class="breadcrumb">
-    <li><a href="#">Admin</a></li>
-    <li class="active">Customer Pool</li>
-</ul>
-<!-- END BREADCRUMB -->
+
 <div class="page-title">
-    <h2>Customer Pool</h2>
+    <h2>Ranking</h2>
 </div>
 <!-- PAGE CONTENT TABBED -->
 <tabset>
-<tab heading="Customers">
+<tab heading="Overall Ranking">
 <div class="tab-container" style="height:700px;">
     <br>
     <div class="row">
@@ -17,29 +12,27 @@
             <!-- START DEFAULT DATATABLE -->
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <div class="table-responsive" ng-controller="CustomerPoolCtrl">
+                    <div class="table-responsive" ng-controller="">
+                        <b>Capital Ranking</b>
                         <table class="table datatable" datatable="">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
+                                    <th>Rank</th>
+                                    <th>Team Name</th>
                                     <th>Country</th>
-                                    <th>Region</th>
-                                    <th>Industry</th>
-                                    <th>Buyer 1</th>
-                                    <th>Buyer 2</th>
-                                    <th>Buyer 3</th>
+                                    <th>Capital(Euros Million)</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="cust in objects | filter : paginate">
-                                    <td>{{ cust.name }}</td>
+                                <!-- <tr ng-repeat="cust in objects | filter : paginate">
+                                    <td></td>
                                     <td>{{ cust.country }}</td>
                                     <td>{{ cust.region }}</td>
                                     <td>{{ cust.industry }}</td>
                                     <td>{{ cust.buyerTpe1 }}</td>
                                     <td>{{ cust.buyerTpe2 }}</td>
                                     <td>{{ cust.buyerTpe3 }}</td>
-                                </tr>
+                                </tr>  -->
                             </tbody>
                         </table>
                         <pagination total-items="totalItems" ng-model="currentPage"
@@ -54,5 +47,6 @@
     </div>
 </div>
 </tab>
+<tab heading="NL Country Ranking">
 </tabset>
 <!-- END PAGE CONTENT TABBED  -->

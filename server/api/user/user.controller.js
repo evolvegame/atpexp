@@ -1,6 +1,7 @@
 'use strict';
 
 var User = require('./user.model');
+var Team = require('../team/team.model');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
@@ -18,6 +19,17 @@ exports.index = function(req, res) {
     if(err) return res.send(500, err);
     res.json(200, users);
   });
+};
+
+/**
+ * Get list of users sorted by teamName
+ * restriction: 'admin'
+ */
+exports.sortedUsersList = function(req, res) {
+  User.find({}, '-salt -hashedPassword', function (err, users) {
+    if(err) return res.send(500, err);
+    res.json(200, users);
+  }).sort({'teamName':1});
 };
 
 /**
@@ -84,11 +96,11 @@ exports.changePassword = function(req, res, next) {
  */
 exports.teamSettings = function(req, res, next) {
   var userId = req.user._id;
-  var newSlogan = String(req.body.slogan);
-  var newMembers = req.body.members
+  //var newSlogan = String(req.body.slogan);
+  //var newMembers = req.body.members
   User.findById(userId, function (err, user) {
-    user.slogan = newSlogan
-    user.members = newMembers
+    //user.slogan = newSlogan
+    //user.members = newMembers
     user.save(function(err) {
       if (err) return validationError(res, err);
       res.send(200);
@@ -117,6 +129,20 @@ exports.me = function(req, res, next) {
     if (err) return next(err);
     if (!user) return res.json(401);
     res.json(user);
+  });
+};
+
+/**
+ * Get Team info
+ */
+exports.teamInfo = function(req, res, next) {
+  var teamName = req.user.teamName;
+  Team.findOne({
+    teamName: teamName
+  }, function(err, team) {
+    if (err) return next(err);
+    if (!team) return res.json(401);
+    res.json(team);
   });
 };
 

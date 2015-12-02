@@ -1,0 +1,195 @@
+#MongoDB
+sc.exe create MongoDB binPath= "C:\Program Files\MongoDB\Server\3.0\bin\mongod.exe --service --config=\"C:\Program Files\MongoDB\Server\3.0\bin\mongod.cfg\"" DisplayName= "MongoDB" start= "auto"
+#mongo
+> db.teams.find({"teamName" : "Team Z"})
+{ "_id" : ObjectId("56570ace8f16371042ca4f57"), "teamName" : "Team Z", "slogan"
+: "Second Team", "picture" : "function String() { [native code] }", "role" : "fu
+nction String() { [native code] }", "members" : [ { "name" : "User4", "email" :
+"user4@atradius.com", "hashedPassword" : "Tester4", "provider" : "local", "_id"
+: ObjectId("56570ace8f16371042ca4f5a") }, { "name" : "User5", "email" : "user5@a
+tradius.com", "hashedPassword" : "Tester5", "provider" : "local", "_id" : Object
+Id("56570ace8f16371042ca4f59") }, { "name" : "User6", "email" : "user6@atradius.
+com", "hashedPassword" : "Tester6", "provider" : "local", "_id" : ObjectId("5657
+0ace8f16371042ca4f58") } ], "__v" : 0 }
+> db.teams.find({"members.name" : "User1"})
+{ "_id" : ObjectId("56570ace8f16371042ca4f53"), "teamName" : "Team Y", "slogan"
+: "First Team", "picture" : "function String() { [native code] }", "role" : "fun
+ction String() { [native code] }", "members" : [ { "name" : "User1", "email" : "
+user1@atradius.com", "hashedPassword" : "Tester1", "provider" : "local", "_id" :
+ ObjectId("56570ace8f16371042ca4f56") }, { "name" : "User2", "email" : "user2@at
+radius.com", "hashedPassword" : "Tester2", "provider" : "local", "_id" : ObjectI
+d("56570ace8f16371042ca4f55") }, { "name" : "User3", "email" : "user3@atradius.c
+om", "hashedPassword" : "Tester3", "provider" : "local", "_id" : ObjectId("56570
+ace8f16371042ca4f54") } ], "__v" : 0 }
+> db.teams.find({"members.name" : "User1", "members.name":1})
+> db.teams.find({"members.name" : "User1"},{"members.name":1})
+{ "_id" : ObjectId("56570ace8f16371042ca4f53"), "members" : [ { "name" : "User1"
+ }, { "name" : "User2" }, { "name" : "User3" } ] }
+> db.teams.find({"members.name" : "User1"},{"members.name":1,"members.password:1
+"})
+2015-11-26T16:59:30.176+0100 E QUERY    SyntaxError: Unexpected token }
+> ^C
+bye
+
+C:\Users\Administrator>mongo
+2015-11-26T17:00:44.978+0100 I CONTROL  Hotfix KB2731284 or later update is not
+installed, will zero-out data files
+MongoDB shell version: 3.0.7
+connecting to: test
+> use atpexp-dev
+switched to db atpexp-dev
+> show collections
+customers
+dummy
+economies
+rounds
+system.indexes
+teams
+users
+> db.teams.find(members:'User1')
+2015-11-26T17:14:53.946+0100 E QUERY    SyntaxError: Unexpected token :
+> db.teams.find(members:"User1")
+2015-11-26T17:15:07.887+0100 E QUERY    SyntaxError: Unexpected token :
+> db.teams.find("members":"User1")
+2015-11-26T17:15:22.639+0100 E QUERY    SyntaxError: Unexpected token :
+> db.teams.find({"members":"User1"})
+> db.teams.find({"members.name":"User1"})
+{ "_id" : ObjectId("56570ace8f16371042ca4f53"), "teamName" : "Team Y", "slogan"
+: "First Team", "picture" : "function String() { [native code] }", "role" : "fun
+ction String() { [native code] }", "members" : [ { "name" : "User1", "email" : "
+user1@atradius.com", "hashedPassword" : "Tester1", "provider" : "local", "_id" :
+ ObjectId("56570ace8f16371042ca4f56") }, { "name" : "User2", "email" : "user2@at
+radius.com", "hashedPassword" : "Tester2", "provider" : "local", "_id" : ObjectI
+d("56570ace8f16371042ca4f55") }, { "name" : "User3", "email" : "user3@atradius.c
+om", "hashedPassword" : "Tester3", "provider" : "local", "_id" : ObjectId("56570
+ace8f16371042ca4f54") } ], "__v" : 0 }
+> db.teams.find({members.name:"User1"})
+2015-11-26T17:18:40.751+0100 E QUERY    SyntaxError: Unexpected token .
+> db.teams.find({"members.name":"User1"})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

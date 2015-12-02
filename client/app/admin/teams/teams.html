@@ -6,15 +6,30 @@
 
 <div class="page-title">
     <h2>Admin</h2>
-</div>
 
-<div class="container">
+</div>
+<tabset>
+<tab heading="Users">
+  <div class="tab-container">
   <p>The delete user and user index api routes are restricted to users with the 'admin' role.</p>
+    <h3>{{getCurrentTeam().slogan}} </h3>
   <ul class="list-group">
     <li class="list-group-item" ng-repeat="user in users">
         <strong>{{user.name}}</strong><br>
-        <span class="text-muted">{{user.email}}</span>
+        <span class="text-muted">{{user.teamName}} - {{user.email}}</span>
         <a ng-click="delete(user)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
     </li>
   </ul>
 </div>
+ </tab>
+  <tab heading="Teams">
+    <div class="tab-container">
+      <h2>Total Number of Teams: {{teamList.length}}</h2>
+      <ul class="list-group">
+        <li class="list-group-item" ng-repeat="team in teamList">
+          <strong>{{team.teamName}}</strong><br>
+        </li>
+      </ul>
+    </div>
+  </tab>
+</tabset>

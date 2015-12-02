@@ -23,6 +23,12 @@ angular.module('atpexpApp')
         params: {
           id:'me'
         }
+      },
+      teamInfo: {
+        method: 'GET',
+        params: {
+          id:'teamInfo'
+        }
       }
 	  });
   });

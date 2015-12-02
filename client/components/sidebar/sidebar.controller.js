@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('atpexpApp')
-  .controller('SidebarCtrl', function ($scope, $location, Auth, settings) {
+  .controller('SidebarCtrl', function ($scope, $location, Auth, settings,$http) {
     $scope.menu = [{
       'title': 'Dashboard',
       'link': '/',
@@ -28,7 +28,22 @@ angular.module('atpexpApp')
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
     $scope.getCurrentUser = Auth.getCurrentUser;
-    // $scope.slogan = Auth.getCurrentUser().slogan
+    
+    $http.get('/api/team').success(function (teams) {
+      $scope.teamList = teams
+    })
+
+
+    $scope.getCurrentTeam = function () {
+      var team = $scope.teamList;
+      var teamName = $scope.getCurrentUser().teamName;
+      var teamSize = $scope.teamList.length;
+      for (var i = 0; i < teamSize; i++) {
+        if (team[i].teamName === teamName) {
+         return team[i];
+        }
+      }
+    };
 
     $scope.isActive = function(route) {
       // if route === '/admin'

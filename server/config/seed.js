@@ -10,6 +10,27 @@ var User = require('../api/user/user.model');
 var Round = require('../api/round/round.model');
 var Offer = require('../api/offer/offer.model');
 var Customer = require('../api/customer/customer.model');
+var Team = require('../api/team/team.model');
+
+
+Team.find({}).remove(function() {
+  Team.create({
+    teamName: 'Team1',
+    slogan: 'Slogan for Team1',
+    picture: ''    
+  },{
+    teamName: 'Team2',
+    slogan: 'Slogan for Team2',
+    picture: ''    
+  },{
+    teamName: 'TeamAdmin',
+    slogan: 'Slogan for TeamAdmin',
+    picture: ''    
+  }, function() {
+      console.log('** Finished populating Teams.');
+    }
+  );
+});
 
 Economy.find({}).remove(function() {
   Economy.create({
@@ -102,35 +123,70 @@ Economy.find({}).remove(function() {
 User.find({}).remove(function() {
   User.create({
     provider: 'local',
-    name: 'Team 1',
-    email: 'team1',
-    password: 'team1',
-    slogan: '',
-    members: []
+    name: 'User1',
+    email: 'user1@atradius.com',
+    password: 'Tester1' ,   
+    teamName:'Team1'
+  },{
+    provider: 'local',
+    name: 'User2',
+    email: 'user2@atradius.com',
+    password: 'Tester1' ,   
+    teamName:'Team1'
+  },{
+    provider: 'local',
+    name: 'User3',
+    email: 'user3@atradius.com',
+    password: 'Tester1' ,   
+    teamName:'Team1'
+  },{
+    provider: 'local',
+    name: 'User4',
+    email: 'user4@atradius.com',
+    password: 'Tester1' ,   
+    teamName:'Team2'
+  },{
+    provider: 'local',
+    name: 'User5',
+    email: 'user5@atradius.com',
+    password: 'Tester1',    
+    teamName:'Team2'
+  },{
+    provider: 'local',
+    name: 'User6',
+    email: 'user6@atradius.com',
+    password: 'Tester1' ,   
+    teamName:'Team2'
   },{
     provider: 'local',
     role: 'admin',
     name: 'Emanuel',
     email: 'emanuel@atradius.com',
     password: 'admin',
-    slogan: '',
-    members: [{text:'emanuel.de.graaff@atradius.com'},{text:'jonathan.elsen@atradius.com'}]
+    teamName:'TeamAdmin'
   },{
     provider: 'local',
     role: 'admin',
     name: 'Jonathan',
     email: 'jonathan@atradius.com',
     password: 'admin',
-    slogan: '',
-    members: [{text:'jonathan.elsen@atradius.com'}]
-  }, function() {
-      console.log('** Finished populating teams.');
+    teamName:'TeamAdmin'    
+  },{
+      provider: 'local',
+      role: 'admin',
+      name: 'Rajasekaran Jeganathan',
+      email: 'raj@atradius.com',
+      password: 'admin',
+      teamName:'TeamAdmin'
+     
+    }, function() {
+      console.log('** Finished populating Users.');
     }
   );
 });
 
 Round.find({}).remove(function() {
-  Round.create({
+  Round.create( {
     currentRound: 0,
     calculated: false
   }, function() {

@@ -105,6 +105,7 @@ angular.module('atpexpApp')
         }).$promise;
       },
 
+
       /**
        * Gets all available info on authenticated user
        *
@@ -113,6 +114,7 @@ angular.module('atpexpApp')
       getCurrentUser: function() {
         return currentUser;
       },
+
 
       /**
        * Check if a user is logged in
@@ -155,5 +157,6 @@ angular.module('atpexpApp')
       getToken: function() {
         return $cookieStore.get('token');
       }
+
     };
   });

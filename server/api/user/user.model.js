@@ -13,9 +13,8 @@ var UserSchema = new Schema({
   },
   hashedPassword: String,
   provider: String,
-  salt: String,
-  slogan: String,
-  members: Array
+  salt: String,  
+  teamName: String  
 });
 
 /**

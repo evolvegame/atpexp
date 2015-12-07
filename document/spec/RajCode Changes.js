@@ -1,4 +1,23 @@
-angular.module('atpexpApp')
+// Login Validation code changes
+
+
+
+//CSS entry
+.loginErrorText{
+  color: red;
+}
+
+
+//login.html 
+<!-- Validation Error message code Added   -->
+<div class="loginErrorText" ng-show="showErrorMessage" ng-model="errors" >{{errors}}</div>
+
+
+//login controller changes
+
+'use strict';
+
+angular.module('atrExpApp')
   .controller('LoginCtrl', function ($scope, Auth, $location) {
     $scope.user = {};
     $scope.errors = {};

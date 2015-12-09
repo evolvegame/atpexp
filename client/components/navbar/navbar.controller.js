@@ -38,6 +38,7 @@ angular.module('atpexpApp')
       else
         $scope.actionsActive = ''
     };
+$scope.language="flag flag-gb";
 
     $scope.toggleLanguage = function(){
       if ($scope.languageActive === '')
@@ -45,4 +46,13 @@ angular.module('atpexpApp')
       else
         $scope.languageActive = ''
     };
+	
+	
+	
+	$scope.changeLang = function(value) {
+	
+	var lan = value;
+	$scope.language = lan;
+	};
+	
   });

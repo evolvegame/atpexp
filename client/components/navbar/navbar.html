@@ -77,16 +77,16 @@
   <!--START LANG-->
   <li class="xn-icon-button pull-right" ng-class="languageActive">
     <a href="#" ng-click="toggleLanguage()"><span
-    class="flag flag-gb"></span></a>
+    class="{{language}}"></span></a>
     <ul class="xn-drop-left xn-drop-white animated zoomIn">
-      <li><a href="#"><span class="flag flag-gb"></span>
+      <li><a href="#" ng-click="changeLang('flag flag-gb')"><span class="flag flag-gb"></span>
         English</a></li>
-      <li><a href="#"><span class="flag flag-es"></span>
+      <li><a href="#" ng-click="changeLang('flag flag-es')"><span class="flag flag-es"></span>
         Spanish</a></li>
-      <li><a href="#"><span class="flag flag-de"></span> German</a></li>
-      <li><a href="#"><span class="flag flag-it"></span>
+      <li><a href="#" ng-click="changeLang('flag flag-de')"><span class="flag flag-de"></span> German</a></li>
+      <li><a href="#" ng-click="changeLang('flag flag-it')"><span class="flag flag-it"></span>
         Italian</a></li>
-      <li><a href="#"><span class="flag flag-fr"></span> French</a></li>
+      <li><a href="#" ng-click="changeLang('flag flag-fr')"><span class="flag flag-fr"></span> French</a></li>
     </ul>
   </li>
   <!--END LANG-->

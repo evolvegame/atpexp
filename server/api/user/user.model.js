@@ -4,17 +4,34 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var crypto = require('crypto');
 
+/**var MemberSchema= new Schema({ 
+	email: { type: String, lowercase: true },
+	role: {
+		type: String,
+		default: 'user'
+	},
+	hashedPassword: String,
+	salt: String  
+});**/
+
 var UserSchema = new Schema({
   name: String,
-  email: { type: String, lowercase: true },
-  role: {
-    type: String,
-    default: 'user'
-  },
-  hashedPassword: String,
   provider: String,
-  salt: String,  
-  teamName: String  
+  teamName: String  ,
+  members : [
+	{
+		email: { 
+			type: String, 
+			lowercase: true 
+		},
+		role: {
+			type: String,
+			default: 'user'
+		},
+		hashedPassword: String,
+		salt: String
+	}
+	],
 });
 
 /**
@@ -23,9 +40,18 @@ var UserSchema = new Schema({
 UserSchema
   .virtual('password')
   .set(function(password) {
-    this._password = password;
-    this.salt = this.makeSalt();
-    this.hashedPassword = this.encryptPassword(password);
+//	console.log("Password is : " + password);
+   this._password = password;
+	var i;
+	console.log("Members are :" + this);
+	for ( i=0; i < this.members.length; i++) {
+		this.members[i].salt = this.makeSalt();
+		//console.log("Salt is " + this.members[i].salt);
+		this.members[i].hashedPassword = this.encryptPassword(password , i);
+	}
+	this.members.push();
+	this.save();
+	console.log(" This is " + this);
   })
   .get(function() {
     return this._password;
@@ -56,7 +82,7 @@ UserSchema
  */
 
 // Validate empty email
-UserSchema
+/**UserSchema
   .path('email')
   .validate(function(email) {
     return email.length;
@@ -64,7 +90,7 @@ UserSchema
 
 // Validate empty password
 UserSchema
-  .path('hashedPassword')
+  .path('members.hashedPassword')
   .validate(function(hashedPassword) {
     return hashedPassword.length;
   }, 'Password cannot be blank');
@@ -83,7 +109,7 @@ UserSchema
       respond(true);
     });
 }, 'The specified email address is already in use.');
-
+**/
 var validatePresenceOf = function(value) {
   return value && value.length;
 };
@@ -133,9 +159,9 @@ UserSchema.methods = {
    * @return {String}
    * @api public
    */
-  encryptPassword: function(password) {
-    if (!password || !this.salt) return '';
-    var salt = new Buffer(this.salt, 'base64');
+  encryptPassword: function(password, element) {
+    if (!password || !this.members[element].salt) return '';
+    var salt = new Buffer(this.members[element].salt, 'base64');
     return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');
   }
 };

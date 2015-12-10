@@ -14,22 +14,48 @@ var Team = require('../api/team/team.model');
 
 
 Team.find({}).remove(function() {
-  Team.create({
-    teamName: 'Team1',
-    slogan: 'Slogan for Team1',
-    picture: ''    
+  try { 
+  Team.create(
+  {
+    provider: 'local',
+    password: 'Tester1' ,   
+    name:'Team1',
+    slogan:'Team1 Slogan awesome',
+    members :[
+    {email: 'user1@atradius.com' },
+    {email: 'user2@atradius.com' },
+    {email: 'user3@atradius.com'}
+  ]
   },{
-    teamName: 'Team2',
-    slogan: 'Slogan for Team2',
-    picture: ''    
+    provider: 'local',
+    password: 'admin' ,   
+    name:'Team Admin',
+    slogan:'Admin Slogan live',
+    role:'admin',
+    members :[
+    {email: 'raj@atradius.com' },
+    {email: 'jonathan@atradius.com'},
+    {email: 'dav@atradius.com'}
+  ]
   },{
-    teamName: 'TeamAdmin',
-    slogan: 'Slogan for TeamAdmin',
-    picture: ''    
+    provider: 'local',
+    password: 'Tester1' ,   
+    name:'Team2',
+    slogan:'Team3 Slogan awesome',
+    members :[
+    {email: 'user4@atradius.com' },
+    {email: 'user5@atradius.com' },
+    {email: 'user6@atradius.com'}
+  ]
   }, function() {
-      console.log('** Finished populating Teams.');
+      console.log('** Finished populating Teams and Users.');
     }
   );
+  }
+  catch(e){
+    console.log(e);
+  }
+  
 });
 
 Economy.find({}).remove(function() {
@@ -122,15 +148,28 @@ Economy.find({}).remove(function() {
 
 User.find({}).remove(function() {
   try {	
-  User.create({
+  User.create(
+  {
     provider: 'local',
     password: 'Tester1' ,   
-    teamName:'Team2',
-	members :[
+    name:'Team1',
+    slogan:'Team1 Slogan awesome',
+	  members :[
 		{email: 'user1@atradius.com' },
 		{email: 'user2@atradius.com' },
 		{email: 'user3@atradius.com'}
-	],
+	]
+  },{
+    provider: 'local',
+    password: 'admin' ,   
+    name:'Team Admin',
+    slogan:'Admin Slogan live',
+    role:'admin',
+    members :[
+    {email: 'raj@atradius.com' },
+    {email: 'jonathan@atradius.com'},
+    {email: 'dav@atradius.com'}
+  ]
   }, function() {
       console.log('** Finished populating Users.');
     }

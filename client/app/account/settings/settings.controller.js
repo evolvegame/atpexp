@@ -24,12 +24,13 @@ angular.module('atpexpApp')
     $scope.isCollapsedPassword = false;
 
     $scope.getCurrentUser = Auth.getCurrentUser;
-    $scope.members = Auth.getCurrentUser().members;
+    //$scope.members = Auth.getCurrentUser().members;
+    $scope.teamName = Auth.getCurrentUser().name; 
 
     $scope.saveTeam = function (form) {
       console.log ($scope.slogan);
 
-      Auth.teamSettings($scope.team().slogan, $scope.members)
+      Auth.teamSettings($scope.slogan, $scope.members)
       .then(function() {
         toastr.success('Save team settings to the database.', 'Saved!');
       })

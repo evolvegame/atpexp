@@ -121,68 +121,25 @@ Economy.find({}).remove(function() {
 });
 
 User.find({}).remove(function() {
+  try {	
   User.create({
     provider: 'local',
-    name: 'User1',
-    email: 'user1@atradius.com',
     password: 'Tester1' ,   
-    teamName:'Team1'
-  },{
-    provider: 'local',
-    name: 'User2',
-    email: 'user2@atradius.com',
-    password: 'Tester1' ,   
-    teamName:'Team1'
-  },{
-    provider: 'local',
-    name: 'User3',
-    email: 'user3@atradius.com',
-    password: 'Tester1' ,   
-    teamName:'Team1'
-  },{
-    provider: 'local',
-    name: 'User4',
-    email: 'user4@atradius.com',
-    password: 'Tester1' ,   
-    teamName:'Team2'
-  },{
-    provider: 'local',
-    name: 'User5',
-    email: 'user5@atradius.com',
-    password: 'Tester1',    
-    teamName:'Team2'
-  },{
-    provider: 'local',
-    name: 'User6',
-    email: 'user6@atradius.com',
-    password: 'Tester1' ,   
-    teamName:'Team2'
-  },{
-    provider: 'local',
-    role: 'admin',
-    name: 'Emanuel',
-    email: 'emanuel@atradius.com',
-    password: 'admin',
-    teamName:'TeamAdmin'
-  },{
-    provider: 'local',
-    role: 'admin',
-    name: 'Jonathan',
-    email: 'jonathan@atradius.com',
-    password: 'admin',
-    teamName:'TeamAdmin'    
-  },{
-      provider: 'local',
-      role: 'admin',
-      name: 'Rajasekaran Jeganathan',
-      email: 'raj@atradius.com',
-      password: 'admin',
-      teamName:'TeamAdmin'
-     
-    }, function() {
+    teamName:'Team2',
+	members :[
+		{email: 'user1@atradius.com' },
+		{email: 'user2@atradius.com' },
+		{email: 'user3@atradius.com'}
+	],
+  }, function() {
       console.log('** Finished populating Users.');
     }
   );
+  }
+  catch(e){
+	  console.log(e);
+  }
+  
 });
 
 Round.find({}).remove(function() {

@@ -11,7 +11,7 @@ angular.module('atpexpApp')
       $scope.currentPage = 1;
       $scope.numPerPage = 5;
       $scope.loggedInTeam = {
-    		  country: "NL"
+    		  country: "USA"
       };
       
       $scope.paginate = function(value) {

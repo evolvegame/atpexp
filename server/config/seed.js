@@ -21,6 +21,9 @@ Team.find({}).remove(function() {
     password: 'Tester1' ,   
     name:'Team C',
     slogan:'Make the Difference',
+    teamCountry: "USA",
+    capital: 750,
+    experienceScore: 50,
     members :[
     {email: 'user1@atradius.com' },
     {email: 'user2@atradius.com' },
@@ -32,6 +35,9 @@ Team.find({}).remove(function() {
     name:'Team Admin',
     slogan:'Do it youself',
     role:'admin',
+    teamCountry: "NL",
+    capital: 400,
+    experienceScore: 75,
     members :[
     {email: 'raj@atradius.com' },
     {email: 'jonathan@atradius.com'},
@@ -42,6 +48,9 @@ Team.find({}).remove(function() {
     password: 'Tester1' ,   
     name:'Team B',
     slogan:'We are awesome',
+    teamCountry: "DE",
+    capital: 250,
+    experienceScore: 98,
     members :[
     {email: 'user4@atradius.com' },
     {email: 'user5@atradius.com' },

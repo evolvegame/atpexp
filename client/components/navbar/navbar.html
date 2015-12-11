@@ -10,12 +10,12 @@
         <a href="#" ng-click="toggleLogout()"><span class="fa fa-power-off"></span></a>
         <div class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging">
             <div class="panel-heading">
-                <h3 class="panel-title">Are you sure you want to log out?</h3>
+                <h3 class="panel-title">{{logOutMsg}}</h3>
             </div>
             <div class="panel-footer text-center">
                 <div class="pull-right">
-                    <button type="button" class="btn btn-success btn-sm" ng-click="logout()"><span class="fa fa-coffee"></span> Yes</button>
-                    <button type="button" class="btn btn-danger btn-sm" ng-click="toggleLogout()"><span class="fa fa-heart"></span> No</button>
+                    <button type="button" class="btn btn-success btn-sm" ng-click="logout()"><span class="fa fa-coffee"></span> {{btnYes}}</button>
+                    <button type="button" class="btn btn-danger btn-sm" ng-click="toggleLogout()"><span class="fa fa-heart"></span> {{btnNo}}</button>
                 </div>
             </div>
         </div>
@@ -91,4 +91,5 @@
   </li>
   <!--END LANG-->
 </ul>
+
 <!-- END X-NAVIGATION HORIZONTAL -->

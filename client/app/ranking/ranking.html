@@ -5,14 +5,14 @@
 <!-- PAGE CONTENT TABBED -->
 <tabset>
 <tab heading="Overall Ranking">
-<div class="tab-container" style="height:700px;">
+<div class="tab-container" >
     <br>
     <div class="row">
         <div class="col-md-12">
             <!-- START DEFAULT DATATABLE -->
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <div class="table-responsive" ng-controller="">
+                    <div class="table-responsive" ng-controller="RankingCtrl">
                         <b>Capital Ranking</b>
                         <table class="table datatable" datatable="">
                             <thead>
@@ -24,21 +24,114 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- <tr ng-repeat="cust in objects | filter : paginate">
-                                    <td></td>
-                                    <td>{{ cust.country }}</td>
-                                    <td>{{ cust.region }}</td>
-                                    <td>{{ cust.industry }}</td>
-                                    <td>{{ cust.buyerTpe1 }}</td>
-                                    <td>{{ cust.buyerTpe2 }}</td>
-                                    <td>{{ cust.buyerTpe3 }}</td>
-                                </tr>  -->
+                                 <tr ng-repeat="team in objects | orderBy: 'capital' :true">
+                                   	<td>{{$index + 1 }}</td>
+                                    <td>{{ team.teamName }}</td>
+                                    <td>{{ team.teamCountry }}</td>
+                                    <td>{{ team.capital }}</td>
+                                </tr> 
                             </tbody>
                         </table>
-                        <pagination total-items="totalItems" ng-model="currentPage"
-                          max-size="5" boundary-links="true"
-                          items-per-page="numPerPage" class="pagination-sm">
-                        </pagination>
+                    </div>
+                </div>
+            </div>
+            <!-- END DEFAULT DATATABLE -->
+        </div>
+    </div>
+    
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- START DEFAULT DATATABLE -->
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="table-responsive" ng-controller="RankingCtrl">
+                        <b>Experience Score Ranking</b>
+                        <table class="table datatable" datatable="">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Team Name</th>
+                                    <th>Country</th>
+                                    <th>Exp Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                 <tr ng-repeat="team in objects | orderBy: 'experienceScore' :true">
+                                   	<td>{{$index + 1 }}</td>
+                                    <td>{{ team.teamName }}</td>
+                                    <td>{{ team.teamCountry }}</td>
+                                    <td>{{ team.experienceScore }}</td>
+                                </tr> 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- END DEFAULT DATATABLE -->
+        </div>
+    </div>
+    
+</div>
+
+</tab>
+<tab heading="{{loggedInTeam.country}} Country Ranking">
+<div class="tab-container" >
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- START DEFAULT DATATABLE -->
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="table-responsive" ng-controller="RankingCtrl">
+                        <b>Capital Ranking</b>
+                        <table class="table datatable" datatable="">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Team Name</th>
+                                    <th>Capital(Euros Million)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                 <tr ng-repeat="team in objects | filter:loggedInTeam.country |orderBy: 'capital' :true">
+                                   	<td>{{$index + 1 }}</td>
+                                   	<td>{{ team.teamName }}</td>
+                                    <td>{{ team.capital }}</td>
+                                </tr> 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- END DEFAULT DATATABLE -->
+        </div>
+    </div>
+    
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- START DEFAULT DATATABLE -->
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="table-responsive" ng-controller="RankingCtrl">
+                        <b>Experience Score Ranking</b>
+                        <table class="table datatable" datatable="">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Team Name</th>
+                                    <th>Exp Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                 <tr ng-repeat="team in objects | filter:loggedInTeam.country | orderBy: 'experienceScore' :true">
+                                   	<td>{{$index + 1 }}</td>
+                                    <td>{{ team.teamName }}</td>
+                                    <td>{{ team.experienceScore }}</td>
+                                </tr> 
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -46,7 +139,5 @@
         </div>
     </div>
 </div>
-</tab>
-<tab heading="NL Country Ranking">
 </tabset>
 <!-- END PAGE CONTENT TABBED  -->

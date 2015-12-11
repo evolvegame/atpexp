@@ -6,7 +6,7 @@ angular.module('atpexpApp')
       .state('ranking', {
         url: '/ranking',
         templateUrl: 'app/ranking/ranking.html',
-        controller: '',
+        controller: 'RankingCtrl',
         authenticate: true
       });
   });

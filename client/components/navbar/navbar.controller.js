@@ -10,7 +10,7 @@ angular.module('atpexpApp')
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
-    $scope.getCurrentTeam = Auth.getCurrentTeam;
+    $scope.getCurrentUser = Auth.getCurrentUser;
 
     $scope.logout = function() {
       Auth.logout();
@@ -38,7 +38,11 @@ angular.module('atpexpApp')
       else
         $scope.actionsActive = ''
     };
+	
 $scope.language="flag flag-gb";
+$scope.logOutMsg = "Are you sure you want to log out? test";
+$scope.btnYes = "Yes";
+$scope.btnNo = "No";
 
     $scope.toggleLanguage = function(){
       if ($scope.languageActive === '')
@@ -51,8 +55,33 @@ $scope.language="flag flag-gb";
 	
 	$scope.changeLang = function(value) {
 	
+	var eng = {lan:"Are you sure you want to log out?", y:"Yes", n:"No"}; 
+var spa = {lan:"¿Seguro que quieres salir?", y:"sí", n:"Sin"}; 
+
 	var lan = value;
+	if(value === 'flag flag-gb')
+	{
+	
 	$scope.language = lan;
+	var test = eng;
+	$scope.logOutMsg = test.lan;
+$scope.btnYes = test.y;
+$scope.btnNo = test.n;
+$location.reload(forceGet);
+	}
+	if(value === 'flag flag-es')
+	{
+	$scope.language = lan;
+	var test = spa;
+	$scope.logOutMsg = test.lan;
+$scope.btnYes = test.y;
+$scope.btnNo = test.n;
+$location.reload(forceGet);
+	}
+	else 
+	{
+	$scope.language = lan;
+	}
 	};
 	
   });

@@ -2,7 +2,7 @@
 
 angular.module('atpexpApp')
   .service('settings', function (Auth) {
-    var slogan = Auth.getCurrentUser().slogan;
+    var slogan = Auth.getCurrentTeam().slogan;
     console.log('Slogan: ', slogan)
     this.slogan = slogan;
   });

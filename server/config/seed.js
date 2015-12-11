@@ -19,8 +19,8 @@ Team.find({}).remove(function() {
   {
     provider: 'local',
     password: 'Tester1' ,   
-    name:'Team1',
-    slogan:'Team1 Slogan awesome',
+    name:'Team C',
+    slogan:'Make the Difference',
     members :[
     {email: 'user1@atradius.com' },
     {email: 'user2@atradius.com' },
@@ -30,7 +30,7 @@ Team.find({}).remove(function() {
     provider: 'local',
     password: 'admin' ,   
     name:'Team Admin',
-    slogan:'Admin Slogan live',
+    slogan:'Do it youself',
     role:'admin',
     members :[
     {email: 'raj@atradius.com' },
@@ -40,8 +40,8 @@ Team.find({}).remove(function() {
   },{
     provider: 'local',
     password: 'Tester1' ,   
-    name:'Team2',
-    slogan:'Team3 Slogan awesome',
+    name:'Team B',
+    slogan:'We are awesome',
     members :[
     {email: 'user4@atradius.com' },
     {email: 'user5@atradius.com' },

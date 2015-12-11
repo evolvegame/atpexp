@@ -42,7 +42,7 @@ angular.module('atpexpApp')
     // re-add selectedCustomer to $scope.selected
     $scope.selected = selectedCustomer;
 
-    $scope.team = Auth.getCurrentUser;
+    $scope.team = Auth.getCurrentTeam;
 
     // $scope.ok = function () {
     //   $modalInstance.close($scope.selected.item);

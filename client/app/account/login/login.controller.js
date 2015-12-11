@@ -20,6 +20,10 @@ angular.module('atpexpApp')
           $scope.errors = err.message;
         });
       }
+      else{
+        $scope.showErrorMessage=true;     
+          $scope.errors = 'Please provide valid email and password.';
+      }
     };
 
   });

@@ -10,7 +10,7 @@ angular.module('atpexpApp')
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
-    $scope.getCurrentUser = Auth.getCurrentUser;
+    $scope.getCurrentTeam = Auth.getCurrentTeam;
 
     $scope.logout = function() {
       Auth.logout();

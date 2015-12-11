@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('atpexpApp')
-  .factory('User', function ($resource) {
-    return $resource('/api/users/:id/:controller', {
+  .factory('Team', function ($resource) {
+    return $resource('/api/team/:id/:controller', {
       id: '@_id'
     },
     {
@@ -23,12 +23,6 @@ angular.module('atpexpApp')
         params: {
           id:'me'
         }
-      },
-      teamInfo: {
-        method: 'GET',
-        params: {
-          id:'teamInfo'
-        }
-      }
+      }     
 	  });
   });

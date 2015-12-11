@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('atpexpApp')
-  .factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q) {
-    var currentUser = {};
+  .factory('Auth', function Auth($location, $rootScope, $http, Team, $cookieStore, $q) {
+    var currentTeam = {};
     if($cookieStore.get('token')) {
-      currentUser = User.get();
+      currentTeam = Team.get();
     }
 
     return {
@@ -26,7 +26,7 @@ angular.module('atpexpApp')
         }).
         success(function(data) {
           $cookieStore.put('token', data.token);
-          currentUser = User.get();
+          currentTeam = Team.get();
           deferred.resolve(data);
           return cb();
         }).
@@ -46,7 +46,7 @@ angular.module('atpexpApp')
        */
       logout: function() {
         $cookieStore.remove('token');
-        currentUser = {};
+        currentTeam = {};
       },
 
       /**
@@ -59,10 +59,10 @@ angular.module('atpexpApp')
       createUser: function(user, callback) {
         var cb = callback || angular.noop;
 
-        return User.save(user,
+        return Team.save(user,
           function(data) {
             $cookieStore.put('token', data.token);
-            currentUser = User.get();
+            currentTeam = Team.get();
             return cb(user);
           },
           function(err) {
@@ -82,7 +82,7 @@ angular.module('atpexpApp')
       changePassword: function(oldPassword, newPassword, callback) {
         var cb = callback || angular.noop;
 
-        return User.changePassword({ id: currentUser._id }, {
+        return Team.changePassword({ id: currentTeam._id }, {
           oldPassword: oldPassword,
           newPassword: newPassword
         }, function(user) {
@@ -95,7 +95,7 @@ angular.module('atpexpApp')
       teamSettings: function(slogan, members, callback) {
         var cb = callback || angular.noop;
 
-        return User.teamSettings({ id: currentUser._id }, {
+        return Team.teamSettings({ id: currentTeam._id }, {
           slogan: slogan,
           members: members
         }, function(user) {
@@ -111,8 +111,8 @@ angular.module('atpexpApp')
        *
        * @return {Object} user
        */
-      getCurrentUser: function() {
-        return currentUser;
+      getCurrentTeam: function() {
+        return currentTeam;
       },
 
 
@@ -122,20 +122,20 @@ angular.module('atpexpApp')
        * @return {Boolean}
        */
       isLoggedIn: function() {
-        return currentUser.hasOwnProperty('role');
+        return currentTeam.hasOwnProperty('role');
       },
 
       /**
-       * Waits for currentUser to resolve before checking if user is logged in
+       * Waits for currentTeam to resolve before checking if user is logged in
        */
       isLoggedInAsync: function(cb) {
-        if(currentUser.hasOwnProperty('$promise')) {
-          currentUser.$promise.then(function() {
+        if(currentTeam.hasOwnProperty('$promise')) {
+          currentTeam.$promise.then(function() {
             cb(true);
           }).catch(function() {
             cb(false);
           });
-        } else if(currentUser.hasOwnProperty('role')) {
+        } else if(currentTeam.hasOwnProperty('role')) {
           cb(true);
         } else {
           cb(false);
@@ -148,7 +148,7 @@ angular.module('atpexpApp')
        * @return {Boolean}
        */
       isAdmin: function() {
-        return currentUser.role === 'admin';
+        return currentTeam.role === 'admin';
       },
 
       /**

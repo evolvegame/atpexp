@@ -63,7 +63,7 @@ exports.destroy = function(req, res) {
  * Change a users password
  */
 exports.changePassword = function(req, res, next) {
-  var teamId = req.team._id;
+  var teamId = req.user._id;
   var oldPass = String(req.body.oldPassword);
   var newPass = String(req.body.newPassword);
 
@@ -84,7 +84,7 @@ exports.changePassword = function(req, res, next) {
  * Change teamSettings
  */
 exports.teamSettings = function(req, res, next) {
-  var teamId = req.team._id;
+  var teamId = req.user._id;
   var newSlogan = String(req.body.slogan);
   var newMembers = req.body.members
   Team.findById(teamId, function (err, team) {
@@ -102,7 +102,7 @@ exports.teamSettings = function(req, res, next) {
  * Get my info
  */
 exports.me = function(req, res, next) {
-  var teamId = req.team._id;
+  var teamId = req.user._id;
   Team.findOne({
     _id: teamId
   }, '-salt -hashedPassword', function(err, team) { // don't ever give out the password or salt

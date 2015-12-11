@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('atpexpApp')
-  .controller('SettingsCtrl', function ($scope, User, Auth, toastr,$http) {
+  .controller('SettingsCtrl', function ($scope, Team, Auth, toastr,$http) {
     $scope.errors = {};
 
     $scope.changePassword = function(form) {
@@ -23,9 +23,9 @@ angular.module('atpexpApp')
     $scope.isCollapsedTeam = false;
     $scope.isCollapsedPassword = false;
 
-    $scope.getCurrentUser = Auth.getCurrentUser;
+    $scope.getCurrentTeam = Auth.getCurrentTeam;
     //$scope.members = Auth.getCurrentUser().members;
-    $scope.teamName = Auth.getCurrentUser().name; 
+    $scope.teamName = Auth.getCurrentTeam().name; 
 
     $scope.saveTeam = function (form) {
       console.log ($scope.slogan);
@@ -44,18 +44,7 @@ $http.get('/api/team').success(function (teams) {
       $scope.teamList = teams
     })
 
-
-    $scope.getCurrentTeam = function () {
-      var team = $scope.teamList;
-      var teamName = $scope.getCurrentUser().teamName;
-      var teamSize = $scope.teamList.length;
-      for (var i = 0; i < teamSize; i++) {
-        if (team[i].teamName === teamName) {
-         return team[i];
-        }
-      }
-    };
-  
+ 
 
     
   })

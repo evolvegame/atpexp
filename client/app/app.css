@@ -200,3 +200,5 @@ tags-input .tags .tag-item {
 /**
  * END FOR NGTAGSINPUT
  */
+/* MODAL FOR IMAGE UPLOAD IN SIDEBAR*/
+body.modal-open div.modal-backdrop { z-index: 0; }

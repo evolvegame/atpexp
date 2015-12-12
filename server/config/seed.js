@@ -11,6 +11,9 @@ var Round = require('../api/round/round.model');
 var Offer = require('../api/offer/offer.model');
 var Customer = require('../api/customer/customer.model');
 var Team = require('../api/team/team.model');
+var Industry = require('../api/industry/industry.model');
+var Strategy = require('../api/strategy/strategy.model');
+var Country = require('../api/country/country.model');
 
 
 Team.find({}).remove(function() {
@@ -335,3 +338,74 @@ Customer.find({}).remove(function() {
       console.log('** Creating the market...');
     })
 });
+
+
+Industry.find({}).remove(function() {
+  try { 
+  Industry.create(
+  {    sno: '1',    industry: 'Agriculture' },
+  {    sno: '2',   industry : 'Chemicals'},
+  {	    sno: '3',	   industry : 'Construction'      
+	  },
+  {    sno: '4',    industry: 'Construction Materials' },
+  {    sno: '5',   industry : 'Consumer Durables'},
+  {	    sno: '6',	   industry : 'Electronics'      
+	  },
+	  {    sno: '7',    industry: 'Finances' },
+	  {    sno: '8',   industry : 'Food'},
+	  {	    sno: '9',	   industry : 'Machines'      
+		  },
+		  {    sno: '10',    industry: 'Metals' },
+		  {    sno: '11',   industry : 'Paper'},
+		  {	    sno: '12',	   industry : 'Services'      
+			  },  {    sno: '13',   industry : 'Textiles'},
+		  {	    sno: '14',	   industry : 'Transport'      
+			  }
+  ,function() {
+      console.log('** Finished populating Industry');
+    }
+  );
+  }
+  catch(e){
+    console.log(e);
+  }
+  
+});
+
+Strategy.find({}).remove(function() {
+  try { 
+  Strategy.create(
+  {    strategyNo: '1', strategyName: 'abc',    strategyRatingBand: '10%', country:'USA', industry : 'Chemical' },
+  { strategyNo: '2', strategyName: 'abc2',    strategyRatingBand: '20%', country:'USA', industry : 'Textile'}
+  
+  ,function() {
+      console.log('** Finished populating Strategy');
+    }
+  );
+  }
+  catch(e){
+    console.log(e);
+  }
+  
+});
+
+Country.find({}).remove(function() {
+	  try { 
+	  Country.create(
+	  {    sno: '1',  country:'USA' },
+	  { sno: '2',  country:'USA'}
+	  
+	  ,function() {
+	      console.log('** Finished populating Country');
+	    }
+	  );
+	  }
+	  catch(e){
+	    console.log(e);
+	  }
+	  
+	});
+
+
+
+

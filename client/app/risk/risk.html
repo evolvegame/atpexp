@@ -13,7 +13,7 @@
   <div class="col-sm-8">
    <!-- Trigger the modal with a button -->
   <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Add New Strategy</button> </div></div>
-  <div class="panel-body">
+  <div class="panel-body" ng-controller="riskCtrl">
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -28,15 +28,19 @@
 	 
     </thead>
     <tbody>
-      <tr>
-        <td>1</td>
-        <td>Western Europe - Safe Industry</td>
-        <td>Germany</td>
-		 <td>Metal</td>
-		 <td></td>
-        <td><a>Modify</a></td>
-        <td><a>Delete</a></td>
-      </tr>
+    
+      <tr ng-repeat="strategies in objects">
+                                  
+                                    <td>{{strategies.strategyNo }}</td>
+                                    <td>{{strategies.strategyName}}</td>
+                                       <td>{{strategies.country}}</td>
+                                       
+                                          <td>{{strategies.industry}}</td>
+                                    <td>{{strategies.strategyRatingBand}}</td>
+                                  <td><a>Modify</a></td>
+                                  <td><a>Delete</a></td>
+                                 
+                                </tr> 
       
   </table></div>
 </div>

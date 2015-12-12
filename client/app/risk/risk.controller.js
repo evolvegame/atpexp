@@ -21,3 +21,15 @@ angular.module('atpexpApp')
 	      $scope.objects = industries;
   })
   })
+  
+  
+  .controller('countryCtrl', function ($scope, $http) {
+
+   
+	    $http.get('/api/country').success(function (countries) {
+	    
+	      console.log(countries);
+	      $scope.objects = countries;
+  })
+  })
+

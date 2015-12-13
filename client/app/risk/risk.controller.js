@@ -9,6 +9,11 @@ angular.module('atpexpApp')
 	    
 	      console.log(strategies);
 	      $scope.objects = strategies;
+	      
+	      $scope.deleteStrategy = function(sno) {
+	          $http.delete('/api/strategy/' + sno);
+	          alert("hi");
+	        };
   })
   })
 

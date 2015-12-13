@@ -81,15 +81,34 @@
     <ul class="xn-drop-left xn-drop-white animated zoomIn">
       <li><a href="#" ng-click="changeLang('flag flag-gb')"><span class="flag flag-gb"></span>
         English</a></li>
-      <li><a href="#" ng-click="changeLang('flag flag-es')"><span class="flag flag-es"></span>
+      <li><a href="#" ng-click="changeLanguage('de')" translate="BUTTON_TEXT_DE"><span class="flag flag-es"></span>
         Spanish</a></li>
       <li><a href="#" ng-click="changeLang('flag flag-de')"><span class="flag flag-de"></span> German</a></li>
       <li><a href="#" ng-click="changeLang('flag flag-it')"><span class="flag flag-it"></span>
         Italian</a></li>
       <li><a href="#" ng-click="changeLang('flag flag-fr')"><span class="flag flag-fr"></span> French</a></li>
     </ul>
-  </li>
+  </li>  
   <!--END LANG-->
 </ul>
+<script>
+var app = angular.module('atpexpApp', ['pascalprecht.translate']);
+  app.config(function($translateProvider) {
+   $translateProvider.translations('en', {
+    HEADLINE: 'Hello there, This is my awesome app!',
+    INTRO_TEXT: 'And it has i18n support!'
+  })
+  .translations('de', {
+    HEADLINE: 'Hey, das ist meine großartige App!',
+    INTRO_TEXT: 'Und sie untersützt mehrere Sprachen!'
+  });
+  $translateProvider.preferredLanguage('de');
+});
 
+app.controller('NavbarCtrl', function($translate, $scope) {
+  $scope.changeLanguage = function (langKey) {
+    $translate.use(langKey);
+  };
+});
+</script>
 <!-- END X-NAVIGATION HORIZONTAL -->

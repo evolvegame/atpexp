@@ -94,7 +94,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 <tr ng-repeat="team in objects | filter:loggedInTeam.country |orderBy: 'capital' :true">
+                                 <tr ng-repeat="team in objects | filter:loggedInTeam |orderBy: 'capital' :true">
                                    	<td>{{$index + 1 }}</td>
                                    	<td>{{ team.name }}</td>
                                     <td>{{ team.capital }}</td>
@@ -116,7 +116,7 @@
                 <div class="panel-body">
                     <div class="table-responsive" ng-controller="RankingCtrl">
                         <b>Experience Score Ranking</b>
-                        <table class="table datatable" datatable="">
+                        <table class="table datatable" >
                             <thead>
                                 <tr>
                                     <th>Rank</th>
@@ -125,7 +125,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 <tr ng-repeat="team in objects | filter:loggedInTeam.country | orderBy: 'experienceScore' :true">
+                                 <tr ng-repeat="team in objects | filter:loggedInTeam | orderBy: 'experienceScore' :true">
                                    	<td>{{$index + 1 }}</td>
                                     <td>{{ team.name }}</td>
                                     <td>{{ team.experienceScore }}</td>

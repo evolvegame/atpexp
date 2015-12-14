@@ -1,74 +1,150 @@
 <!-- START BREADCRUMB -->
 <div class="mini-dash-left">
-    <ul class="breadcrumb breadcrumb-dashboard">
-        <li><a href="#">Home</a></li>
-        <li class="active">Risk</li>
-    </ul>
+	<ul class="breadcrumb breadcrumb-dashboard">
+		<li><a href="#">Home</a></li>
+		<li class="active">Risk</li>
+	</ul>
 </div>
 
 
 
 <div class="panel panel-default">
-  <div class="panel-heading">  <div class="col-sm-4">UW STRATEGIES</div>
-  <div class="col-sm-8">
-   <!-- Trigger the modal with a button -->
-  <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Add New Strategy</button> </div></div>
-  <div class="panel-body">
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Strategy Name</th>
-        <th>Countries</th>
-		 <th>Industries</th>
-		  <th>RiskAcceptance (IER)</th>
-		   <th>Modify</th>
-		    <th>Delete</th>
-      </tr>
-	 
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>Western Europe - Safe Industry</td>
-        <td>Germany</td>
-		 <td>Metal</td>
-		 <td></td>
-        <td><a>Modify</a></td>
-        <td><a>Delete</a></td>
-      </tr>
-      
-  </table></div>
+	<div class="panel-heading">
+		<div class="col-sm-4">UW STRATEGIES</div>
+		<div class="col-sm-8">
+			<!-- Trigger the modal with a button -->
+			<button type="button" class="btn btn-info btn-sm pull-right"
+				data-toggle="modal" data-target="#myModal">Add New Strategy</button>
+		</div>
+	</div>
+	<div class="panel-body" ng-controller="riskCtrl">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Strategy Name</th>
+					<th>Countries</th>
+					<th>Industries</th>
+					<th colspan="5">RiskAcceptance (IER)</th>
+					<th>Modify</th>
+					<th>Delete</th>
+				</tr>
+
+			</thead>
+			<tbody>
+
+				<tr ng-repeat="strategies in objects">
+
+					<td>{{strategies.strategyNo }}</td>
+					<td>{{strategies.strategyName}}</td>
+					<td>{{strategies.country}}</td>
+					<td>{{strategies.industry}}</td>
+					<td>{{strategies.strategyRatingBand1}}</td>
+					<td>{{strategies.strategyRatingBand2}}</td>
+					<td>{{strategies.strategyRatingBand3}}</td>
+					<td>{{strategies.strategyRatingBand4}}</td>
+					<td>{{strategies.strategyRatingBand5}}</td>
+					<td>
+						<button type="button" class="btn btn-info btn-sm"
+							data-toggle="modal" data-target="#myModal">Modify</button>
+					</td>
+					<td><button type="button" class="btn btn-info btn-sm"
+							ng-click="deleteStrategy(1)">Delete</button></td>
+
+				</tr>
+		</table>
+	</div>
 </div>
 
 <div class="container">
- 
- 
 
 
- 
-  <!-- Modal -->
-  <div class="modal" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
-        </div>
-        <div class="modal-body">
-          <p>Some text in the modal.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-  
 
-  
+
+
+	<!-- Modal -->
+	<div class="modal" id="myModal" role="dialog">
+		<div class="modal-dialog modal-sm">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">UW Settings</h4>
+				</div>
+				<div class="modal-body">
+
+					<div class="container">
+
+						<div class="row">
+							Strategy Name <input type="text" />
+						</div>
+						<div class="row">
+							<table>
+								<th colspan="2">Rating Band Settings</th>
+								<br>
+								<tr>
+									<td>1-30</td>
+									<td><input type="text" /></td>
+								</tr>
+								<tr>
+									<td>31-40</td>
+									<td><input type="text" /></td>
+								</tr>
+								<tr>
+									<td>41-50</td>
+									<td><input type="text" /></td>
+								</tr>
+								<tr>
+									<td>51-60</td>
+									<td><input type="text" /></td>
+								</tr>
+								<tr>
+									<td>60+</td>
+									<td><input type="text" /></td>
+								</tr>
+							</table>
+						</div>
+						<br>
+						<div class="row">
+							<table>
+							<tr>
+							<th>Country</th>
+							<th>Industry</th>
+							</tr>
+								<tr>
+									<td><div ng-controller="countryCtrl">
+											<select multiple>
+												<option ng-repeat="countries in objects"
+													value="{{countries.country}">{{countries.country}}</option>
+											</select>
+										</div></td>
+									
+									<td>
+										<div ng-controller="indusCtrl">
+											<select multiple>
+												<option ng-repeat="industries in objects"
+													value="{{industries.industry}">{{industries.industry}}</option>
+											</select>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+						</center>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<div class = "pull-left">Save?</div>
+					<button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+
 </div>
 

@@ -11,6 +11,9 @@ var Round = require('../api/round/round.model');
 var Offer = require('../api/offer/offer.model');
 var Customer = require('../api/customer/customer.model');
 var Team = require('../api/team/team.model');
+var Industry = require('../api/industry/industry.model');
+var Strategy = require('../api/strategy/strategy.model');
+var Country = require('../api/country/country.model');
 
 
 Team.find({}).remove(function() {
@@ -336,3 +339,108 @@ Customer.find({}).remove(function() {
       console.log('** Creating the market...');
     })
 });
+
+
+Industry.find({}).remove(function() {
+  try { 
+  Industry.create(
+  {    sno: '1',    industry: 'Agriculture' },
+  {    sno: '2',   industry : 'Chemicals'},
+  {	    sno: '3',	   industry : 'Construction'      
+	  },
+  {    sno: '4',    industry: 'Construction Materials' },
+  {    sno: '5',   industry : 'Consumer Durables'},
+  {	    sno: '6',	   industry : 'Electronics'      
+	  },
+	  {    sno: '7',    industry: 'Finances' },
+	  {    sno: '8',   industry : 'Food'},
+	  {	    sno: '9',	   industry : 'Machines'      
+		  },
+		  {    sno: '10',    industry: 'Metals' },
+		  {    sno: '11',   industry : 'Paper'},
+		  {	    sno: '12',	   industry : 'Services'      
+			  },  {    sno: '13',   industry : 'Textiles'},
+		  {	    sno: '14',	   industry : 'Transport'      
+			  }
+  ,function() {
+      console.log('** Finished populating Industry');
+    }
+  );
+  }
+  catch(e){
+    console.log(e);
+  }
+  
+});
+
+Strategy.find({}).remove(function() {
+  try { 
+  Strategy.create(
+  {    strategyNo: '1', strategyName: 'abc',    strategyRatingBand1: '10%',strategyRatingBand2: '20%',strategyRatingBand3: '30%',strategyRatingBand4: '10%',strategyRatingBand5: '10%', country:'USA', industry : 'Chemical' },
+  { strategyNo: '2', strategyName: 'abc2',     strategyRatingBand1: '10%',strategyRatingBand2: '20%',strategyRatingBand3: '30%',strategyRatingBand4: '40%',strategyRatingBand5: '10%', country:'USA', industry : 'Textile'}
+  
+  ,function() {
+      console.log('** Finished populating Strategy');
+    }
+  );
+  }
+  catch(e){
+    console.log(e);
+  }
+  
+});
+
+Country.find({}).remove(function() {
+	  try { 
+	  Country.create(
+	  {    sno: '1',  region: 'Americas', country:'Canada' },
+	  {    sno: '2',  region: 'Americas', country:'Mexico' },
+	  {    sno: '3',  region: 'Americas', country:'United States' },
+	  {    sno: '4',  region: 'Americas', country:'Brazil' },
+	  {    sno: '5',  region: 'Americas', country:'Colombia' },
+	  {    sno: '6',  region: 'Americas', country:'Peru' },
+	  {    sno: '7',  region: 'Americas', country:'Chile' },
+	  {    sno: '8',  region: 'Asia', country:'China' },
+	  {    sno: '9',  region: 'Asia', country:'Hong Kong' },
+	  {    sno: '10',  region: 'Asia', country:'India' },
+	  {    sno: '11',  region: 'Asia', country:'Japan' },
+	  {    sno: '12',  region: 'Asia', country:'Singapore' },
+	  {    sno: '13',  region: 'Asia', country:'Thailand' },
+	  {    sno: '14',  region: 'Eastern-Europe', country:'Czech Republic' },
+	  {    sno: '15',  region: 'Eastern-Europe', country:'Hungary' },
+	  {    sno: '16',  region: 'Eastern-Europe', country:'Poland' },
+	  {    sno: '17',  region: 'Eastern-Europe', country:'Russia' },
+	  {    sno: '18',  region: 'Eastern-Europe', country:'Slovak Republic' },
+	  {    sno: '19',  region: 'Northern-Europe', country:'Denmark' },
+	  {    sno: '20',  region: 'Northern-Europe', country:'Finland' },
+	  {    sno: '21',  region: 'Northern-Europe', country:'Norway' },
+	  {    sno: '22',  region: 'Northern-Europe', country:'Sweden' },
+	  {    sno: '23',  region: 'Northern-Europe', country:'United Kingdom' },
+	  {    sno: '24',  region: 'Northern-Europe', country:'Ireland' },
+	  {    sno: '25',  region: 'Oceania', country:'Australia' },
+	  {    sno: '26',  region: 'Oceania', country:'New Zealand' },
+	  {    sno: '27',  region: 'Southern-Europe', country:'Greece' },
+	  {    sno: '28',  region: 'Southern-Europe', country:'Portugal' },
+	  {    sno: '29',  region: 'Southern-Europe', country:'Spain' },
+	  {    sno: '30',  region: 'Southern-Europe', country:'Italy' },
+	  {    sno: '31',  region: 'Southern-Europe', country:'Belgium' },
+	  {    sno: '32',  region: 'Western-Europe', country:'France' },
+	  {    sno: '33',  region: 'Western-Europe', country:'Luxembourg' },
+	  {    sno: '34',  region: 'Western-Europe', country:'Austria' },
+	  {    sno: '35',  region: 'Western-Europe', country:'Germany' },
+	  {    sno: '36',  region: 'Western-Europe', country:'Switzerland' },
+	  {    sno: '37',  region: 'Western-Europe', country:'Netherlands' }
+	  ,function() {
+	      console.log('** Finished populating Country');
+	    }
+	  );
+	  }
+	  catch(e){
+	    console.log(e);
+	  }
+	  
+	});
+
+	
+
+

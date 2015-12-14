@@ -1,5 +1,12 @@
 <div class="page-sidebar" ng-controller="SidebarCtrl" ng-show="isLoggedIn()">
     <!-- START X-NAVIGATION -->
+    <modal title="Image upload" visible="showModal">
+    	<div id="upload" ng-controller="SidebarCtrl" ng-show="isLoggedIn()">
+        	 Picture: 
+        	 <input accept="image/*" ngf-max-size="1MB" type = "file" file-model = "myFile"/>
+         	 <button ng-click = "uploadFile()">Upload</button>
+		</div>
+    </modal>
     <ul class="x-navigation">
         <li class="xn-logo">
             <a href="index.html">ATLANT</a>
@@ -11,7 +18,7 @@
             </a>
             <div class="profile">
                 <div class="profile-image">
-                    <img src="assets/img/default/evolve-avatar.png" alt="Team Profile Picture" onclick="window.open('components/sidebar/image.upload.html', 'newwindow', 'width=300, height=250'); return false;">
+                    <img src="assets/img/default/evolve-avatar.png" alt="Team Profile Picture" ng-click="toggleModal()">
                 </div>
                 <div class="profile-data">
                     <div class="profile-data-name">{{getCurrentTeam().name }}</div>

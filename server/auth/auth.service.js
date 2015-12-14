@@ -25,10 +25,11 @@ function isAuthenticated() {
     })
     // Attach user to request
     .use(function(req, res, next) {
-      Team.findById(req.user._id, function (err, user) {
+      console.log('isAuthenticated :'+ JSON.stringify(req.user));       
+      Team.findOne({"members._id":req.user._id},{'members.$': 1}, function (err, user) {
+        console.log('Inside :'+JSON.stringify(user));
         if (err) return next(err);
         if (!user) return res.send(401);
-
         req.user = user;
         next();
       });

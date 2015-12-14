@@ -14,5 +14,4 @@ router.put('/:id/password', auth.isAuthenticated(), controller.changePassword);
 router.put('/:id/team', auth.isAuthenticated(), controller.teamSettings);
 router.get('/:id', auth.isAuthenticated(), controller.show);
 router.post('/', controller.create);
-
 module.exports = router;

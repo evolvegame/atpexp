@@ -7,6 +7,7 @@ angular.module('atpexpApp')
     $scope.teams = Team.query();
 
     $scope.delete = function (team) {
+      console.log(team._id);
       Team.remove({id: team._id});
       angular.forEach($scope.teams, function (u, i) {
         if (u === team) {
@@ -14,10 +15,5 @@ angular.module('atpexpApp')
         }
       });
     };
-
-    $http.get('/api/team').success(function (teams) {
-      $scope.teamList = teams
-    })
-
-
+    
   });

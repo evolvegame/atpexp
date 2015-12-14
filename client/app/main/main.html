@@ -1,91 +1,59 @@
-<!-- START BREADCRUMB -->
-<ul class="breadcrumb">
-    <li class="active">Dashboard</li>
-</ul>
-<!-- END BREADCRUMB -->
-<div class="page-title">
-    <h2>Home</h2>
-</div>
 
-<div class="page-content-wrap">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Dashboard</h3>
-                </div>
-                <div class="panel-body">
-                    DASHBOARD WILL BE LOADED HERE...    
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- <div class="page-content-wrap">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Dashboard</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="col-md-3 col-xs-12 control-label">Textarea</label>
-                            <div class="col-md-6 col-xs-12">                                            
-                                <textarea class="form-control" rows="5" ng-model="tweet"></textarea>
-                                <span class="help-block">{{twCounter}} characters remaining</span>
+                <div class="mini-dashboard col-md-12">
+                    <div class="col-breadcrumb col-md-2">
+                        <!-- START BREADCRUMB -->
+                        <ul class="breadcrumb">
+                            <li><a href="#">Link</a></li>
+                            <li class="active">Active Page</li>
+                        </ul>
+                        <!-- END BREADCRUMB -->
+                    </div>
+                    <div class="col-dashboard col-md-10">
+                        <div class="col-md-2 col-sm-12 col-align">
+                            <div class="tile tile-transparent">
+                                78
+                                <p>Ranking</p>
+                                <div class="informer informer-warning dir-tr"><span class="fa fa-arrow-circle-right"></span></div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-12 col-align">
+                            <div class="tile tile-transparent">
+                                32
+                                <p>Experience score</p>
+                                <div class="informer informer-success dir-tr"><span class="fa fa-arrow-circle-up"></span></div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-12 col-align">
+                            <div class="tile tile-transparent">
+                                65
+                                <p>Customers</p>
+                                <div class="informer informer-success dir-tr"><span class="fa fa-arrow-circle-up"></span></div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-12 col-align">
+                            <div class="tile tile-transparent">
+                                87%
+                                <p>Acceptance Rate</p>
+                                <div class="informer informer-danger dir-tr"><span class="fa fa-arrow-circle-down"></span></div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-12 col-align">
+                            <div class="tile tile-transparent">
+                                €104,599.49
+                                <p>Claims</p>
+                                <div class="informer informer-danger dir-tr"><span class="fa fa-arrow-circle-up"></span></div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-12 col-align">
+                            <div class="tile tile-transparent">
+                                €252,785.87
+                                <p>Capital</p>
+                                <div class="informer informer-success dir-tr"><span class="fa fa-arrow-circle-up"></span></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="tw" style="margin-left:0px;padding:20px;" id="download">
-                                
-                            <div class="post">
-                                <div class="img">
-                                    <img src="http://simitator.com/gfx/generators/twitter/profile.jpg" width="50" height="50" id="profile" class="img-rounded">
-                                </div>
-                                <div class="name">
-                                    <div class="username"><span class="text-name">Team.com</span></div>
-                                    <div class="at">@<span class="text-at">Team</span></div>
-                                </div>
-                                <div class="follow">
-                                    <img src="http://simitator.com/gfx/generators/twitter/profile_dropdown.jpg" width="42" height="30" alt="profile"><img src="http://simitator.com/gfx/generators/twitter/follow_no.jpg" width="86" height="30" alt="Follow" id="follow-img">
-                                </div>
-                                <div class="clear"></div>
-                                <div class="message">
-                                     <span class="text-message">{{ tweet }}</span>
-                                </div>
-                                <ul id="options">
-                                    <li><img src="http://simitator.com/gfx/generators/twitter/reply.jpg" width="22" height="15"> <span class="text-reply">Reply</span></li>
-                                    <li><img src="http://simitator.com/gfx/generators/twitter/retweet.jpg" width="22" height="15"> <span class="text-retweet">Retweet</span></li>
-                                    <li><img src="http://simitator.com/gfx/generators/twitter/favorite.jpg" width="22" height="15"> <span class="text-favorite">Favorite</span></li>
-                                    <li><img src="http://simitator.com/gfx/generators/twitter/more.jpg" width="22" height="15"> <span class="text-more">More</span></li>
-                                </ul>
-                                <div class="date">
-                                    <span class="text-date">3:41 PM - 20 Jan 13</span> · <span class="text-embed">Embed this Tweet</span>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
- -->
-<!-- <ul class="" ng-repeat="thing in awesomeThings">
-            <li><a href="#" tooltip="{{thing.info}}">{{thing.name}}<button type="button" class="close" ng-click="deleteThing(thing)">&times;</button></a></li>
-</ul>
-<form class="thing-form">
-            <label>Syncs in realtime across clients</label>
-            <p class="input-group">
-            <input type="text" class="form-control" placeholder="Add a new thing here." ng-model="newThing">
-            <span class="input-group-btn">
-            <button type="submit" class="btn btn-primary" ng-click="addThing()">Add New</button>
-            </span>
-            </p>
-</form> -->
 
+                <div class="page-title">
+                    <h2>Page Title</h2>
+                </div>

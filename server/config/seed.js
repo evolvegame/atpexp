@@ -25,9 +25,10 @@ Team.find({}).remove(function() {
     capital: 750,
     experienceScore: 50,
     members :[
-    {email: 'user1@atradius.com' },
-    {email: 'user2@atradius.com' },
-    {email: 'user3@atradius.com'}
+    {name :'User1',email: 'user1@atradius.com' },
+    {name :'User2',email: 'user2@atradius.com' },
+    {name :'User3',email: 'user3@atradius.com'},
+    {name :'User7',email: 'user7@atradius.com'}
   ]
   },{
     provider: 'local',
@@ -39,9 +40,9 @@ Team.find({}).remove(function() {
     capital: 400,
     experienceScore: 75,
     members :[
-    {email: 'raj@atradius.com' },
-    {email: 'jonathan@atradius.com'},
-    {email: 'dav@atradius.com'}
+    {name :'Rajasekaran',email: 'raj@atradius.com' },
+    {name :'Jonathan',email: 'jonathan@atradius.com'},
+    {name :'Emanuel',email: 'emanuel@atradius.com'}
   ]
   },{
     provider: 'local',
@@ -52,9 +53,9 @@ Team.find({}).remove(function() {
     capital: 250,
     experienceScore: 98,
     members :[
-    {email: 'user4@atradius.com' },
-    {email: 'user5@atradius.com' },
-    {email: 'user6@atradius.com'}
+    {name :'User4',email: 'user4@atradius.com' },
+    {name :'User5',email: 'user5@atradius.com' },
+    {name :'User6',email: 'user6@atradius.com'}
   ]
   }, function() {
       console.log('** Finished populating Teams and Users.');

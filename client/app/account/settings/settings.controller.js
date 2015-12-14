@@ -24,13 +24,12 @@ angular.module('atpexpApp')
     $scope.isCollapsedPassword = false;
 
     $scope.getCurrentTeam = Auth.getCurrentTeam;
-    //$scope.members = Auth.getCurrentUser().members;
+    $scope.members = Auth.getCurrentTeam().members;
     $scope.teamName = Auth.getCurrentTeam().name; 
 
     $scope.saveTeam = function (form) {
       console.log ($scope.slogan);
-
-      Auth.teamSettings($scope.slogan, $scope.members)
+      Auth.teamSettings($scope.slogan)
       .then(function() {
         toastr.success('Save team settings to the database.', 'Saved!');
       })
@@ -38,12 +37,6 @@ angular.module('atpexpApp')
         $scope.errors.other = 'Incorrect team settings'
       })
     };
-
-    
-$http.get('/api/team').success(function (teams) {
-      $scope.teamList = teams
-    })
-
  
 
     

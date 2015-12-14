@@ -4,26 +4,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var crypto = require('crypto');
 
-var UserSchema = new Schema({
-  name: String,
-  provider: String,
-  slogan: String,
-  role: {
-      type: String,
-      default: 'user'
-    },
-  members : [
-	{
-		email: { 
-			type: String, 
-			lowercase: true 
-		},
-		hashedPassword: String,
-		salt: String
-	}
-	],
-});
-
 var TeamSchema = mongoose.Schema({
   name: String,
   provider: String,
@@ -216,7 +196,7 @@ TeamSchema.methods = {
    * @api public
    */
   authenticate: function(plainText) {
-    return this.encryptPassword(plainText) === this.members[0].hashedPassword;
+    return this.encryptPassword(plainText,0) === this.members[0].hashedPassword;
   },
 
   /**
@@ -237,10 +217,9 @@ TeamSchema.methods = {
    * @api public
    */
   encryptPassword: function(password, element) {
-    console.log('password:'+password+' '+element);
-   if (typeof element === "undefined") {
+   /* if (typeof element === "undefined") {
     element =0;
-   }
+   }*/
     if (!password || !this.members[element].salt) return '';
     var salt = new Buffer(this.members[element].salt, 'base64');
     return crypto.pbkdf2Sync(password, salt, 10000, 64).toString('base64');

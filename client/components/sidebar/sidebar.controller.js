@@ -37,7 +37,7 @@ angular.module('atpexpApp')
          }]);
  
 angular.module('atpexpApp')
-  .controller('SidebarCtrl', function ($scope, $location, Auth, settings, fileUpload) {
+  .controller('SidebarCtrl', function ($scope, $location, Auth, Team,settings, fileUpload) {
     $scope.menu = [{
       'title': 'Dashboard',
       'link': '/',
@@ -63,19 +63,19 @@ angular.module('atpexpApp')
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
-    $scope.getCurrentUser = Auth.getCurrentUser;
-    // $scope.slogan = Auth.getCurrentUser().slogan
+    $scope.getCurrentTeam = Auth.getCurrentTeam;
+    /*$scope.slogan = Auth.getCurrentTeam().slogan;
+    $scope.teamName=Auth.getCurrentTeam().name;*/
 
     $scope.isActive = function(route) {
       // if route === '/admin'
       return route === $location.path();
     };
-    $scope.slogan = settings.slogan;
-
-    $scope.$watch('slogan.length', function (newValue, oldValue) {
+   
+  /*  $scope.$watch('slogan.length', function (newValue, oldValue) {
       if (newValue !== oldValue)
         $scope.slogan = settings.slogan
-    }, true);
+    }, true);*/
 	
 	$scope.uploadFile = function(){
             

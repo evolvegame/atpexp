@@ -1,24 +1,43 @@
 <!-- START BREADCRUMB -->
 <ul class="breadcrumb">
-    <li class="active">Admin</li>
+  <li class="active">Admin</li>
 </ul>
 <!-- END BREADCRUMB -->
 
 <div class="page-title">
-    <h2>Admin</h2>
+  <h2>Admin</h2>
 
 </div>
 <tabset>
-<tab heading="Teams">
-  <div class="tab-container">
-  <p>The delete team and user index api routes are restricted to team with the 'admin' role.</p>
-    <h3>Total Teams : {{teams.length}} </h3>
-  <ul class="list-group">
-    <li class="list-group-item" ng-repeat="team in teams">
-        <strong>{{team.name}}</strong><br>
-        <a ng-click="delete(team)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
-    </li>
-  </ul>
-</div>
- </tab>
- </tabset>
+  <tab heading="Teams">
+    <div class="tab-container">
+      <p>The delete team and user index api routes are restricted to team with the 'admin' role.</p>
+      
+      <div class="panel-heading">
+        <h3 class="panel-title">Total Teams : {{teams.length}}</h3>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped table-actions">
+
+          <tbody ng-repeat="team in teams">
+            <tr>
+              <th colspan="2"> {{team.name}} 
+
+                <a  class="btn btn-danger btn-rounded btn-condensed btn-sm pull-right" onclick="delete('team');"><span class="fa fa-times"></span></a>  </th>
+              </tr>
+              <tr>                               
+                <td>Name</td>       
+                <td>Email</td>
+
+              </tr>
+              <tr ng-repeat="member in team.members">
+                <td>{{ member.name }}</td>
+                <td>{{ member.email }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </tab>
+  </tabset>

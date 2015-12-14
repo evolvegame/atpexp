@@ -2,7 +2,7 @@
 
 angular.module('atpexpApp')
   .factory('Auth', function Auth($location, $rootScope, $http, Team, $cookieStore, $q) {
-    var currentTeam = {};
+    var currentTeam = {};   
     if($cookieStore.get('token')) {
       currentTeam = Team.get();
     }
@@ -25,7 +25,7 @@ angular.module('atpexpApp')
           password: user.password
         }).
         success(function(data) {
-          $cookieStore.put('token', data.token);
+          $cookieStore.put('token', data.token);          
           currentTeam = Team.get();
           deferred.resolve(data);
           return cb();
@@ -92,13 +92,9 @@ angular.module('atpexpApp')
         }).$promise;
       },
 
-      teamSettings: function(slogan, members, callback) {
+      teamSettings: function(slogan, callback) {
         var cb = callback || angular.noop;
-
-        return Team.teamSettings({ id: currentTeam._id }, {
-          slogan: slogan,
-          members: members
-        }, function(user) {
+        return Team.teamSettings({ id: currentTeam._id }, {slogan: slogan}, function(user) {
           return cb(user);
         }, function(err) {
           return cb(err);

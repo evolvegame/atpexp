@@ -23,6 +23,6 @@ angular.module('atpexpApp')
         params: {
           id:'me'
         }
-      }     
+      }
 	  });
   });

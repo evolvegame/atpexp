@@ -59,21 +59,37 @@ exports.destroy = function(req, res) {
   });
 };
 
+
 /**
  * Change a users password
  */
+
 exports.changePassword = function(req, res, next) {
   var teamId = req.user._id;
   var oldPass = String(req.body.oldPassword);
   var newPass = String(req.body.newPassword);
-
-  Team.findById(teamId, function (err, team) {
+  var userId = req.user.members[0]._id;
+  var email = req.user.members[0].email;  
+  var oldEncryptPassword={};
+  var newEncryptPassword={};
+  console.log(req.user);
+  console.log('oldPass '+oldPass); 
+  console.log('newPass '+newPass);
+  console.log('teamId '+teamId);
+  console.log('email '+ email);
+  
+  Team.findOne({ 'members._id' :  userId },{'members.$': 1}, function (err, team) {    
     if(team.authenticate(oldPass)) {
-      team.password = newPass;
-      team.save(function(err) {
-        if (err) return validationError(res, err);
+      oldEncryptPassword =team.encryptPassword(oldPass,0);
+      console.log('oldEncryptPassword '+oldEncryptPassword);
+      console.log('oldEncryptPassword from db '+team.members[0].hashedPassword);
+      newEncryptPassword =team.encryptPassword(newPass,0);
+      console.log('newEncryptPassword '+newEncryptPassword);
+      Team.update({"members._id":userId,"members.hashedPassword" :oldEncryptPassword },{$set:{"members.$.hashedPassword" : newEncryptPassword}},function(err){
+      if (err) return validationError(res, err);
         res.send(200);
-      });
+      });  
+
     } else {
       res.send(403);
     }
@@ -86,11 +102,9 @@ exports.changePassword = function(req, res, next) {
 exports.teamSettings = function(req, res, next) {
   var teamId = req.user._id;
   var newSlogan = String(req.body.slogan);
-  var newMembers = req.body.members
   Team.findById(teamId, function (err, team) {
     team.slogan = newSlogan
-    team.members = newMembers
-    team.save(function(err) {
+     team.save(function(err) {
       if (err) return validationError(res, err);
       res.send(200);
     });
@@ -102,10 +116,12 @@ exports.teamSettings = function(req, res, next) {
  * Get my info
  */
 exports.me = function(req, res, next) {
-  var teamId = req.user._id;
+  var userId = req.user.members[0]._id;
+  console.log('exports.me userId '+userId);
   Team.findOne({
-    _id: teamId
+    "members._id": userId
   }, '-salt -hashedPassword', function(err, team) { // don't ever give out the password or salt
+     console.log('exports.me team '+JSON.stringify(team));
     if (err) return next(err);
     if (!team) return res.json(401);
     res.json(team);

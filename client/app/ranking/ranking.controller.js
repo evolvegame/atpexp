@@ -2,7 +2,7 @@
 
 angular.module('atpexpApp')
 
-  .controller('RankingCtrl', function ($scope, $http) {
+  .controller('RankingCtrl', function ($scope, $http, Auth,Team) {
     
     $http.get('/api/team').success(function (teams) {
       console.log(teams)
@@ -10,9 +10,11 @@ angular.module('atpexpApp')
       $scope.totalItems = $scope.objects.length;
       $scope.currentPage = 1;
       $scope.numPerPage = 5;
-      $scope.loggedInTeam = {
+      $scope.getCurrentTeam = Auth.getCurrentTeam;      
+      $scope.loggedInTeam =  $scope.getCurrentTeam().teamCountry;
+      /*{
     		  country: "USA"
-      };
+      };*/
       
       $scope.paginate = function(value) {
         var begin, end, index;

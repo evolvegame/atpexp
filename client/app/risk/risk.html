@@ -38,7 +38,6 @@
 					<td>{{strategies.strategyNo }}</td>
 					<td>{{strategies.strategyName}}</td>
 					<td>{{strategies.country}}</td>
-
 					<td>{{strategies.industry}}</td>
 					<td>{{strategies.strategyRatingBand1}}</td>
 					<td>{{strategies.strategyRatingBand2}}</td>
@@ -74,53 +73,62 @@
 					<h4 class="modal-title">UW Settings</h4>
 				</div>
 				<div class="modal-body">
+				
 					<div class="container">
-						<div class="row">
-							Strategy Name <input type="text" />
-						</div>
-						<div class="row">
-							<table>
-								<th>Rating Band Settings</th>
-								<tr>
-									<td>1-30</td>
-									<td><input type="text" /></td>
-								</tr>
-								<tr>
-									<td>31-40</td>
-									<td><input type="text" /></td>
-								</tr>
-								<tr>
-									<td>41-50</td>
-									<td><input type="text" /></td>
-								</tr>
-								<tr>
-									<td>51-60</td>
-									<td><input type="text" /></td>
-								</tr>
-								<tr>
-									<td>60+</td>
-									<td><input type="text" /></td>
-								</tr>
-							</table>
-						</div>
-
-						<div class="row">
-							<div class="col-sm-4" ng-controller="indusCtrl">
-								<select multiple>
-									<option ng-repeat="industries in objects"
-										value="{{industries.industry}">{{industries.industry}}</option>
-								</select>
+						
+							<div class="row">
+								Strategy Name <input type="text" />
 							</div>
-							<div class="col-sm-4" ng-controller="countryCtrl">
-								<select multiple>
-									<option ng-repeat="countries in objects"
-										value="{{countries.country}">{{countries.country}}</option>
-								</select>
+							<div class="row">
+								<table>
+									<th>Rating Band Settings</th>
+									<tr>
+										<td>1-30</td>
+										<td><input type="text" /></td>
+									</tr>
+									<tr>
+										<td>31-40</td>
+										<td><input type="text" /></td>
+									</tr>
+									<tr>
+										<td>41-50</td>
+										<td><input type="text" /></td>
+									</tr>
+									<tr>
+										<td>51-60</td>
+										<td><input type="text" /></td>
+									</tr>
+									<tr>
+										<td>60+</td>
+										<td><input type="text" /></td>
+									</tr>
+								</table>
 							</div>
-						</div>
 
-
+							<div class="row">
+								<table>
+									<tr>
+										<td><div ng-controller="countryCtrl">
+												<select multiple>
+													<option ng-repeat="countries in objects"
+														value="{{countries.country}">{{countries.country}}</option>
+												</select>
+											</div></td>
+										<td></td>
+										<td>
+											<div ng-controller="indusCtrl">
+												<select multiple>
+													<option ng-repeat="industries in objects"
+														value="{{industries.industry}">{{industries.industry}}</option>
+												</select>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+							</center>
 					</div>
+
 				</div>
 				<div class="modal-footer">
 					Save?

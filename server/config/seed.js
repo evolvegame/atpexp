@@ -392,9 +392,43 @@ Strategy.find({}).remove(function() {
 Country.find({}).remove(function() {
 	  try { 
 	  Country.create(
-	  {    sno: '1',  country:'USA' },
-	  { sno: '2',  country:'USA'}
-	  
+	  {    sno: '1',  region: 'Americas', country:'Canada' },
+	  {    sno: '2',  region: 'Americas', country:'Mexico' },
+	  {    sno: '3',  region: 'Americas', country:'United States' },
+	  {    sno: '4',  region: 'Americas', country:'Brazil' },
+	  {    sno: '5',  region: 'Americas', country:'Colombia' },
+	  {    sno: '6',  region: 'Americas', country:'Peru' },
+	  {    sno: '7',  region: 'Americas', country:'Chile' },
+	  {    sno: '8',  region: 'Asia', country:'China' },
+	  {    sno: '9',  region: 'Asia', country:'Hong Kong' },
+	  {    sno: '10',  region: 'Asia', country:'India' },
+	  {    sno: '11',  region: 'Asia', country:'Japan' },
+	  {    sno: '12',  region: 'Asia', country:'Singapore' },
+	  {    sno: '13',  region: 'Asia', country:'Thailand' },
+	  {    sno: '14',  region: 'Eastern-Europe', country:'Czech Republic' },
+	  {    sno: '15',  region: 'Eastern-Europe', country:'Hungary' },
+	  {    sno: '16',  region: 'Eastern-Europe', country:'Poland' },
+	  {    sno: '17',  region: 'Eastern-Europe', country:'Russia' },
+	  {    sno: '18',  region: 'Eastern-Europe', country:'Slovak Republic' },
+	  {    sno: '19',  region: 'Northern-Europe', country:'Denmark' },
+	  {    sno: '20',  region: 'Northern-Europe', country:'Finland' },
+	  {    sno: '21',  region: 'Northern-Europe', country:'Norway' },
+	  {    sno: '22',  region: 'Northern-Europe', country:'Sweden' },
+	  {    sno: '23',  region: 'Northern-Europe', country:'United Kingdom' },
+	  {    sno: '24',  region: 'Northern-Europe', country:'Ireland' },
+	  {    sno: '25',  region: 'Oceania', country:'Australia' },
+	  {    sno: '26',  region: 'Oceania', country:'New Zealand' },
+	  {    sno: '27',  region: 'Southern-Europe', country:'Greece' },
+	  {    sno: '28',  region: 'Southern-Europe', country:'Portugal' },
+	  {    sno: '29',  region: 'Southern-Europe', country:'Spain' },
+	  {    sno: '30',  region: 'Southern-Europe', country:'Italy' },
+	  {    sno: '31',  region: 'Southern-Europe', country:'Belgium' },
+	  {    sno: '32',  region: 'Western-Europe', country:'France' },
+	  {    sno: '33',  region: 'Western-Europe', country:'Luxembourg' },
+	  {    sno: '34',  region: 'Western-Europe', country:'Austria' },
+	  {    sno: '35',  region: 'Western-Europe', country:'Germany' },
+	  {    sno: '36',  region: 'Western-Europe', country:'Switzerland' },
+	  {    sno: '37',  region: 'Western-Europe', country:'Netherlands' }
 	  ,function() {
 	      console.log('** Finished populating Country');
 	    }
@@ -406,6 +440,6 @@ Country.find({}).remove(function() {
 	  
 	});
 
-
+	
 
 

@@ -375,8 +375,8 @@ Industry.find({}).remove(function() {
 Strategy.find({}).remove(function() {
   try { 
   Strategy.create(
-  {    strategyNo: '1', strategyName: 'abc',    strategyRatingBand: '10%', country:'USA', industry : 'Chemical' },
-  { strategyNo: '2', strategyName: 'abc2',    strategyRatingBand: '20%', country:'USA', industry : 'Textile'}
+  {    strategyNo: '1', strategyName: 'abc',    strategyRatingBand1: '10%',strategyRatingBand2: '20%',strategyRatingBand3: '30%',strategyRatingBand4: '10%',strategyRatingBand5: '10%', country:'USA', industry : 'Chemical' },
+  { strategyNo: '2', strategyName: 'abc2',     strategyRatingBand1: '10%',strategyRatingBand2: '20%',strategyRatingBand3: '30%',strategyRatingBand4: '40%',strategyRatingBand5: '10%', country:'USA', industry : 'Textile'}
   
   ,function() {
       console.log('** Finished populating Strategy');

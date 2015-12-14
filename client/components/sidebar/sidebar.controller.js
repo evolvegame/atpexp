@@ -37,7 +37,7 @@ angular.module('atpexpApp')
          }]);
  
 angular.module('atpexpApp')
-  .controller('SidebarCtrl', function ($scope, $location, Auth, settings, fileUpload) {
+  .controller('SidebarCtrl', function ($scope, $location, Team,Auth, settings, fileUpload) {
     $scope.menu = [{
       'title': 'Dashboard',
       'link': '/',
@@ -63,7 +63,7 @@ angular.module('atpexpApp')
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
-    $scope.getCurrentUser = Auth.getCurrentUser;
+    $scope.getCurrentTeam = Auth.getCurrentTeam;
     // $scope.slogan = Auth.getCurrentUser().slogan
 
     $scope.isActive = function(route) {

@@ -79,19 +79,22 @@
     <a href="#" ng-click="toggleLanguage()"><span
     class="{{language}}"></span></a>
     <ul class="xn-drop-left xn-drop-white animated zoomIn">
-      <li><a href="#" ng-click="changeLang('flag flag-gb')"><span class="flag flag-gb"></span>
-        English</a></li>
-      <li><a href="#" ng-click="changeLanguage('de')" translate="BUTTON_TEXT_DE"><span class="flag flag-es"></span>
-        Spanish</a></li>
-      <li><a href="#" ng-click="changeLang('flag flag-de')"><span class="flag flag-de"></span> German</a></li>
-      <li><a href="#" ng-click="changeLang('flag flag-it')"><span class="flag flag-it"></span>
-        Italian</a></li>
-      <li><a href="#" ng-click="changeLang('flag flag-fr')"><span class="flag flag-fr"></span> French</a></li>
+      <li><a href="#" ng-click="changeLang('flag flag-gb','en')" ><span class="flag flag-gb"></span>
+        {{ 'ENG' | translate }}</a></li>
+      <li><a href="#" ng-click="changeLanguage('flag flag-es','de')" ><span class="flag flag-es"></span>
+        {{'SPAN' | translate}}</a></li>
+      <li><a href="#" ng-click="changeLang('flag flag-de','en')" ><span class="flag flag-de"></span> {{'DEU' | translate}}</a></li>
+      <li><a href="#" ng-click="changeLang('flag flag-it','de')"  ><span class="flag flag-it"></span>
+        {{'ITA' | translate}}</a></li>
+      <li><a href="#" ng-click="changeLang('flag flag-fr','fr')"  ><span class="flag flag-fr"></span> {{'FRE' | translate}}</a></li>
     </ul>
   </li>  
   <!--END LANG-->
+  
+    <h1>{{ 'HEADLINE' | translate }}</h1>
+  
 </ul>
-<script>
+<!-- <script>
 var app = angular.module('atpexpApp', ['pascalprecht.translate']);
   app.config(function($translateProvider) {
    $translateProvider.translations('en', {
@@ -110,5 +113,5 @@ app.controller('NavbarCtrl', function($translate, $scope) {
     $translate.use(langKey);
   };
 });
-</script>
+</script> -->
 <!-- END X-NAVIGATION HORIZONTAL -->

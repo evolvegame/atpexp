@@ -12,14 +12,17 @@ angular.module('atpexpApp', [
   'datatables',
   'ngResource',
   'nvd3ChartDirectives',
-  'ngTagsInput'
+  'ngTagsInput',
+  'pascalprecht.translate'
 ])
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider,$translateProvider) {
     $urlRouterProvider
       .otherwise('/');
 
     $locationProvider.html5Mode(true);
     $httpProvider.interceptors.push('authInterceptor');
+    //set preferredLanguage
+    $translateProvider.preferredLanguage('en');
   })
 
   .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {

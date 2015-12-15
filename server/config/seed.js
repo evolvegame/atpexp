@@ -34,6 +34,20 @@ Team.find({}).remove(function() {
     {name :'User7',email: 'user7@atradius.com'}
   ]
   },{
+	 provider: 'local',
+	 password: 'Tester1' ,   
+	 name:'Team Team',
+	 slogan:'Make it happen',
+	 teamCountry: "NL",
+	 capital: 775,
+	 experienceScore: 60,
+	 members :[
+	   {name :'User1',email: 'user1@atradius.com' },
+	   {name :'User2',email: 'user2@atradius.com' },
+	   {name :'User3',email: 'user3@atradius.com'},
+	   {name :'User7',email: 'user7@atradius.com'}
+	 ]
+  },{
     provider: 'local',
     password: 'admin' ,   
     name:'Team Admin',

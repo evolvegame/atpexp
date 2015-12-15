@@ -23,6 +23,14 @@ angular.module('atpexpApp')
         index = $scope.objects.indexOf(value);
         return (begin <= index && index < end);
       };
-    })
+    });
+    
+    $scope.fontStyle = function(teamName) {
+    	var color = "";
+    	if (teamName == $scope.getCurrentTeam().name) {
+    		color = "red";
+    	}
+    	return color;
+    };
 
   })

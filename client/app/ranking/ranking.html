@@ -24,7 +24,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 <tr ng-repeat="team in objects | orderBy: 'capital' :true">
+                                 <tr ng-repeat="team in objects | orderBy: 'capital' :true" style="color:{{fontStyle(team.name)}};">
                                    	<td>{{$index + 1 }}</td>
                                     <td>{{ team.name }}</td>
                                     <td>{{ team.teamCountry }}</td>
@@ -57,7 +57,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 <tr ng-repeat="team in objects | orderBy: 'experienceScore' :true">
+                                 <tr ng-repeat="team in objects | orderBy: 'experienceScore' :true" style="color:{{fontStyle(team.name)}};">
                                    	<td>{{$index + 1 }}</td>
                                     <td>{{ team.name }}</td>
                                     <td>{{ team.teamCountry }}</td>
@@ -94,7 +94,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 <tr ng-repeat="team in objects | filter:loggedInTeam |orderBy: 'capital' :true">
+                                 <tr ng-repeat="team in objects | filter:loggedInTeam |orderBy: 'capital' :true" style="color:{{fontStyle(team.name)}};">
                                    	<td>{{$index + 1 }}</td>
                                    	<td>{{ team.name }}</td>
                                     <td>{{ team.capital }}</td>
@@ -125,7 +125,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 <tr ng-repeat="team in objects | filter:loggedInTeam | orderBy: 'experienceScore' :true">
+                                 <tr ng-repeat="team in objects | filter:loggedInTeam | orderBy: 'experienceScore' :true" style="color:{{fontStyle(team.name)}};">
                                    	<td>{{$index + 1 }}</td>
                                     <td>{{ team.name }}</td>
                                     <td>{{ team.experienceScore }}</td>

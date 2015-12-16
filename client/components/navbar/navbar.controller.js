@@ -32,7 +32,13 @@ angular.module('atpexpApp')
 			  }
 		  );
 
-		  $translateProvider.preferredLanguage('en');
+	
+	/*$translateProvider.useStaticFilesLoader({
+	    prefix: 'locale-',
+	    suffix: '.json'
+	});
+	$translateProvider.preferredLanguage('fr');*/
+		//  $translateProvider.preferredLanguage('en');
 		  
   
     //set preferredLanguage

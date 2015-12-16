@@ -14,6 +14,7 @@ var Team = require('../api/team/team.model');
 var Industry = require('../api/industry/industry.model');
 var Strategy = require('../api/strategy/strategy.model');
 var Country = require('../api/country/country.model');
+var France = require('../api/france/france.model');
 
 
 Team.find({}).remove(function() {
@@ -457,4 +458,27 @@ Country.find({}).remove(function() {
 
 	
 
-
+France.find({}).remove(function() {
+	  try { 
+	  France.create(
+			  {
+				  HEADLINE: 'String',
+				    INTRO_TEXT:'String',
+				    ENG: 'String',
+				    SPAN:'String',
+				    DEU:'String',
+				    ITA: 'String',
+				    FRE:'String'
+			  }
+	 
+	  
+	  ,function() {
+	      console.log('** Finished populating Strategy');
+	    }
+	  );
+	  }
+	  catch(e){
+	    console.log(e);
+	  }
+	  
+	});

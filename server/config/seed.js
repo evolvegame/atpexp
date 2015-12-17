@@ -473,7 +473,7 @@ France.find({}).remove(function() {
 	 
 	  
 	  ,function() {
-	      console.log('** Finished populating Strategy');
+	      console.log('** Finished populating France');
 	    }
 	  );
 	  }

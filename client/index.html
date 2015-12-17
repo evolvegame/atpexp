@@ -156,8 +156,20 @@
         'use strict';
 
         angular.module('atpexpApp')
-          .controller('SidebarWidthCtrl', function ($rootScope, $scope, $location) {
-
+          .controller('SidebarWidthCtrl', function ($rootScope, $scope, $location,$cookieStore) {
+        	  var language = $cookieStore.get('lan');
+        	  var flag = $cookieStore.get('flag');
+        	  if(language === 'undefined')
+        		  {
+        		  $cookieStore.put('lan','en');
+        		  $cookieStore.put('flag','flag flag-gb');
+        		  }
+        	  else
+        		  {
+        		  $cookieStore.put('lan',language);
+        		  $cookieStore.put('flag',flag);
+        		  }
+        	
             $scope.addMargin = 'add-margin'
             $scope.removeMargin = 'remove-margin'
 

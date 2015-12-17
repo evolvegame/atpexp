@@ -38,13 +38,13 @@ angular.module('atpexpApp')
 	    suffix: '.json'
 	});
 	$translateProvider.preferredLanguage('fr');*/
-		//  $translateProvider.preferredLanguage('en');
+		  $translateProvider.preferredLanguage('en');
 		  
   
     //set preferredLanguage
    // $translateProvider.preferredLanguage('en');
   })
-.controller('NavbarCtrl', function ($scope, $location, Auth, $translate) {
+.controller('NavbarCtrl', function ($scope, $location, Auth, $translate, $window,$cookieStore) {
 	$scope.menu = [{
 		'title': 'Home',
 		'link': '/'
@@ -82,11 +82,18 @@ angular.module('atpexpApp')
 					$scope.actionsActive = ''
 	};
 
-	$scope.language="flag flag-gb";
+	var flag = $cookieStore.get('flag');
+	$scope.language=flag;
+	
+	var variable = $cookieStore.get('lan');
+	 $translate.use(variable);
+	 
 	$scope.logOutMsg = "Are you sure you want to log out? test";
 	$scope.btnYes = "Yes";
 	$scope.btnNo = "No";
 
+	
+	
 	$scope.toggleLanguage = function(){
 		if ($scope.languageActive === '')
 			$scope.languageActive = 'active'
@@ -101,6 +108,12 @@ angular.module('atpexpApp')
 	
 			$scope.language = value;
 			 $translate.use(lan);
+			 
+			 $cookieStore.put('flag',value);
+			 $cookieStore.put('lan',lan);
+			
+
+			 $window.location.reload();
 		
 	};
 

@@ -1,10 +1,26 @@
 'use strict';
 
 angular.module('atpexpApp')
+.config(function ($translateProvider) {
+	
+	  $translateProvider.translations('en', {		   
+		  Modify:'FRANCE'
+		  })
+		  .translations('de', {		  
+		    Modify:'FRDE'
+		  })
+		  .translations('fr', {			   
+			    Modify:'FRANdedCE'
+			  }
+		  );
 
-  .controller('riskCtrl', function ($scope, $http) {
+	
+	
+  })
+  .controller('riskCtrl', function ($scope, $http, $translate) {
 
-   
+	
+		 
 	    $http.get('/api/strategy').success(function (strategies) {
 	    
 	      console.log(strategies);

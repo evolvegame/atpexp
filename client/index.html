@@ -88,9 +88,14 @@
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-translate/angular-translate.js"></script>
+    <script src="bower_components/angular-translate-loader-url/angular-translate-loader-url.js"></script>
+    <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
     <script src="bower_components/lodash/dist/lodash.compat.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/highcharts-ng/dist/highcharts-ng.js"></script>
+    <script src="bower_components/highcharts/highcharts.js"></script>
+    <script src="bower_components/highcharts/highcharts-more.js"></script>
+    <script src="bower_components/highcharts/modules/exporting.js"></script>
     <script src="bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/datatables/media/js/jquery.dataTables.js"></script>
@@ -125,6 +130,8 @@
     <script src="app/admin/simulation/simulation.js"></script>
     <script src="app/admin/teams/teams.controller.js"></script>
     <script src="app/admin/teams/teams.js"></script>
+    <script src="app/company/company.controller.js"></script>
+    <script src="app/company/company.js"></script>
     <script src="app/customer-portfolio/customer-portfolio.controller.js"></script>
     <script src="app/customer-portfolio/customer-portfolio.js"></script>
     <script src="app/main/main.controller.js"></script>
@@ -140,6 +147,7 @@
     <script src="components/auth/team.service.js"></script>
     <script src="components/minidash/minidash.js"></script>
     <script src="components/mongoose-error/mongoose-error.directive.js"></script>
+    <script src="components/navbar/angular-translate.js"></script>
     <script src="components/navbar/navbar.controller.js"></script>
     <script src="components/sidebar/sidebar.controller.js"></script>
     <!-- endinjector -->
@@ -150,8 +158,20 @@
         'use strict';
 
         angular.module('atpexpApp')
-          .controller('SidebarWidthCtrl', function ($rootScope, $scope, $location) {
-
+          .controller('SidebarWidthCtrl', function ($rootScope, $scope, $location,$cookieStore) {
+        	  var language = $cookieStore.get('lan');
+        	  var flag = $cookieStore.get('flag');
+        	  if(language === 'undefined')
+        		  {
+        		  $cookieStore.put('lan','en');
+        		  $cookieStore.put('flag','flag flag-gb');
+        		  }
+        	  else
+        		  {
+        		  $cookieStore.put('lan',language);
+        		  $cookieStore.put('flag',flag);
+        		  }
+        	
             $scope.addMargin = 'add-margin'
             $scope.removeMargin = 'remove-margin'
 

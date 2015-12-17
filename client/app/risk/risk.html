@@ -1,7 +1,7 @@
 <!-- START BREADCRUMB -->
 <div class="mini-dash-left">
 	<ul class="breadcrumb breadcrumb-dashboard">
-	  <li><a href="/">Home</a></li>
+		<li><a href="/">Home</a></li>
 		<li class="active">Risk</li>
 	</ul>
 </div>
@@ -21,13 +21,20 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>#</th>
-					<th>Strategy Name</th>
-					<th>Countries</th>
-					<th>Industries</th>
-					<th colspan="5">RiskAcceptance (IER)</th>
-					<th> {{ 'Modify' | translate }}</th>
-					<th>Delete</th>
+					<th rowspan="2" class="text-center">#</th>
+					<th rowspan="2"  class="text-center">Strategy Name</th>
+					<th rowspan="2"  class="text-center">Countries</th>
+					<th rowspan="2" class="text-center" >Industries</th>
+					<th colspan="5"  class="text-center">RiskAcceptance (IER)</th>
+					<th rowspan="2"  class="text-center">{{ 'Modify' | translate }}</th>
+					<th rowspan="2"  class="text-center">Delete</th>
+				</tr>
+				<tr>
+					<th  class="text-center">1-30</th>
+					<th  class="text-center">31-40</th>
+					<th  class="text-center">41-50</th>
+					<th  class="text-center">51-60</th>
+					<th  class="text-center">60+</th>
 				</tr>
 
 			</thead>
@@ -35,20 +42,20 @@
 
 				<tr ng-repeat="strategies in objects">
 
-					<td>{{strategies.strategyNo }}</td>
-					<td>{{strategies.strategyName}}</td>
-					<td>{{strategies.country}}</td>
-					<td>{{strategies.industry}}</td>
-					<td>{{strategies.strategyRatingBand1}}</td>
-					<td>{{strategies.strategyRatingBand2}}</td>
-					<td>{{strategies.strategyRatingBand3}}</td>
-					<td>{{strategies.strategyRatingBand4}}</td>
-					<td>{{strategies.strategyRatingBand5}}</td>
-					<td>
+					<td  class="text-center">{{strategies.strategyNo }}</td>
+					<td  class="text-center">{{strategies.strategyName}}</td>
+					<td  class="text-center">{{strategies.country}}</td>
+					<td  class="text-center">{{strategies.industry}}</td>
+					<td  class="text-center">{{strategies.strategyRatingBand1}}</td>
+					<td  class="text-center">{{strategies.strategyRatingBand2}}</td>
+					<td  class="text-center">{{strategies.strategyRatingBand3}}</td>
+					<td  class="text-center">{{strategies.strategyRatingBand4}}</td>
+					<td  class="text-center">{{strategies.strategyRatingBand5}}</td>
+					<td  class="text-center">
 						<button type="button" class="btn btn-info btn-sm"
 							data-toggle="modal" data-target="#myModal">Modify</button>
 					</td>
-					<td><button type="button" class="btn btn-info btn-sm"
+					<td  class="text-center"><button type="button" class="btn btn-info btn-sm"
 							ng-click="deleteStrategy(1)">Delete</button></td>
 
 				</tr>
@@ -85,7 +92,7 @@
 								<br>
 								<tr>
 									<td>1-30</td>
-									<td><input type="text" /></td>
+									<td><input type="text" ng-model="stName" /></td>
 								</tr>
 								<tr>
 									<td>31-40</td>
@@ -108,10 +115,10 @@
 						<br>
 						<div class="row">
 							<table>
-							<tr>
-							<th>Country</th>
-							<th>Industry</th>
-							</tr>
+								<tr>
+									<th>Country</th>
+									<th>Industry</th>
+								</tr>
 								<tr>
 									<td><div ng-controller="countryCtrl">
 											<select multiple>
@@ -119,7 +126,7 @@
 													value="{{countries.country}">{{countries.country}}</option>
 											</select>
 										</div></td>
-									
+
 									<td>
 										<div ng-controller="indusCtrl">
 											<select multiple>
@@ -136,7 +143,7 @@
 
 				</div>
 				<div class="modal-footer">
-					<div class = "pull-left">Save?</div>
+					<div class="pull-left">Save?</div>
 					<button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
 				</div>
 			</div>

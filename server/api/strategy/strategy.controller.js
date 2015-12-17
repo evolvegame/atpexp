@@ -13,7 +13,7 @@ exports.index = function(req, res) {
 
 //Deletes a customer from the DB.
 exports.destroy = function(req, res) {
-	Strategy.findById(req.params.sno, function (err, strategy) {
+	Strategy.findById(req.params.id, function (err, strategy) {
     if(err) { return handleError(res, err); }
     if(!strategy) { return res.send(404); }
     strategy.remove(function(err) {

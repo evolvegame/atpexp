@@ -113,7 +113,7 @@ angular.module('atpexpApp')
 			 $cookieStore.put('lan',lan);
 			
 
-			 $window.location.reload();
+		
 		
 	};
 

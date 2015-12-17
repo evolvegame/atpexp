@@ -1,0 +1,157 @@
+<!-- START BREADCRUMB -->
+<div class="col-md-6 mini-dash-left">
+    <ul class="breadcrumb breadcrumb-dashboard">
+        <li><a href="/">Home</a></li>
+        <li class="active">Company</li>
+    </ul>
+</div>
+<div class="col-md-6  text-right mini-dash-right">
+    <div ng-include="'components/minidash/minidash.html'"></div>
+</div>
+<!-- END BREADCRUMB -->
+
+<div class="page-title">
+    <h2>Company</h2>
+</div>
+<!-- PAGE CONTENT TABBED -->
+<tabset>
+<tab heading="Projects">
+<div class="tab-container" >
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- START DEFAULT DATATABLE -->
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="table-responsive" ng-controller="RankingCtrl">
+                        <b>Capital Ranking</b>
+                        <table class="table datatable">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Team Name</th>
+                                    <th>Country</th>
+                                    <th>Capital(Euros Million)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                 <tr ng-repeat="team in objects | orderBy: 'capital' :true" style="color:{{fontStyle(team.name)}};">
+                                   	<td>{{$index + 1 }}</td>
+                                    <td>{{ team.name }}</td>
+                                    <td>{{ team.teamCountry }}</td>
+                                    <td>{{ team.capital }}</td>
+                                </tr> 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- END DEFAULT DATATABLE -->
+        </div>
+    </div>
+    
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- START DEFAULT DATATABLE -->
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="table-responsive" ng-controller="RankingCtrl">
+                        <b>Experience Score Ranking</b>
+                        <table class="table datatable">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Team Name</th>
+                                    <th>Country</th>
+                                    <th>Exp Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                 <tr ng-repeat="team in objects | orderBy: 'experienceScore' :true" style="color:{{fontStyle(team.name)}};">
+                                   	<td>{{$index + 1 }}</td>
+                                    <td>{{ team.name }}</td>
+                                    <td>{{ team.teamCountry }}</td>
+                                    <td>{{ team.experienceScore }}</td>
+                                </tr> 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- END DEFAULT DATATABLE -->
+        </div>
+    </div>
+    
+</div>
+
+</tab>
+<tab heading="Departments">
+<div class="tab-container" >
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- START DEFAULT DATATABLE -->
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="table-responsive" ng-controller="RankingCtrl">
+                        <b>Capital Ranking</b>
+                        <table class="table datatable">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Team Name</th>
+                                    <th>Capital(Euros Million)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                 <tr ng-repeat="team in objects | filter: {teamCountry:loggedInTeam} |orderBy: 'capital' :true" style="color:{{fontStyle(team.name)}};">
+                                   	<td>{{$index + 1 }}</td>
+                                   	<td>{{ team.name }}</td>
+                                    <td>{{ team.capital }}</td>
+                                </tr> 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- END DEFAULT DATATABLE -->
+        </div>
+    </div>
+    
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- START DEFAULT DATATABLE -->
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="table-responsive" ng-controller="RankingCtrl">
+                        <b>Experience Score Ranking</b>
+                        <table class="table datatable" >
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Team Name</th>
+                                    <th>Exp Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                 <tr ng-repeat="team in objects | filter: {teamCountry:loggedInTeam} | orderBy: 'experienceScore' :true" style="color:{{fontStyle(team.name)}};">
+                                   	<td>{{$index + 1 }}</td>
+                                    <td>{{ team.name }}</td>
+                                    <td>{{ team.experienceScore }}</td>
+                                </tr> 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- END DEFAULT DATATABLE -->
+        </div>
+    </div>
+</div>
+</tab>
+<tab heading="Financials">
+</tab>
+</tabset>
+<!-- END PAGE CONTENT TABBED  -->

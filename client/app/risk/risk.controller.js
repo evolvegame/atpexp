@@ -3,36 +3,50 @@
 angular.module('atpexpApp')
 .config(function ($translateProvider) {
 	
-	  $translateProvider.translations('en', {		   
-		  Modify:'FRANCE'
+	  $translateProvider.translations('en', {
+		  Strategy_Name: ' Strategy Name',
+		   Country: 'Country',
+		    Industry: 'Industry',
+		    RiskAcceptance :'RiskAcceptance (IER)',
+		    Modify:'Modify',
+		    Delete: 'Delete',
+		    Add_New_Strategy:'Add New Strategy'
 		  })
-		  .translations('de', {		  
-		    Modify:'FRDE'
+		  .translations('de', {
+			  Strategy_Name: 'Strategie -Name',
+			  Country: 'Land',
+			  Industry: 'Industrie',
+			  RiskAcceptance:'Risikoakzeptanz',
+			  Modify:'Ändern',
+			  Delete: 'Löschen',
+			  Add_New_Strategy:'Fügen Sie neue Strategie'
 		  })
-		  .translations('fr', {			   
-			    Modify:'FRANdedCE'
+		  .translations('fr', {
+			  Strategy_Name: 'Nom Stratégie',
+			  Country: 'Pays',
+			  Industry: 'Industrie',
+			  RiskAcceptance:'Acceptation des risques',
+			  Modify:'Modifier',
+			  Delete: 'Effacer',
+			  Add_New_Strategy:'Ajouter une nouvelle stratégie'
 			  }
 		  );
 
 	
 	
+		  $translateProvider.preferredLanguage('en');
+		  
+  
+    
   })
-  .controller('riskCtrl', function ($scope, $http, $translate) {
+  .controller('riskCtrl', function ($scope, $http, Auth,Team, $translate) {
+    
+    $http.get('/api/team').success(function (teams) {     
+      $scope.getCurrentTeam = Auth.getCurrentTeam;       
+      $scope.strategies = Auth.getCurrentTeam().riskStrategy; 
+    });
 
-	
-		 
-	    $http.get('/api/strategy').success(function (strategies) {
-	    
-	      console.log(strategies);
-	      $scope.objects = strategies;
-	      
-	      $scope.deleteStrategy = function(sno) {
-	          $http.delete('/api/strategy/' + sno);
-	          alert("hi");
-	        };
-  })
-  })
-
+  })  
   .controller('indusCtrl', function ($scope, $http) {
 
    
@@ -41,9 +55,7 @@ angular.module('atpexpApp')
 	      console.log(industries);
 	      $scope.objects = industries;
   })
-  })
-  
-  
+  })  
   .controller('countryCtrl', function ($scope, $http) {
 
    
@@ -53,4 +65,3 @@ angular.module('atpexpApp')
 	      $scope.objects = countries;
   })
   })
-

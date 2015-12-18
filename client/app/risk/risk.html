@@ -14,7 +14,8 @@
 		<div class="col-sm-8">
 			<!-- Trigger the modal with a button -->
 			<button type="button" class="btn btn-info btn-sm pull-right"
-				data-toggle="modal" data-target="#myModal">Add New Strategy</button>
+				data-toggle="modal" data-target="#myModal">{{
+				'Add_New_Strategy' | translate }}</button>
 		</div>
 	</div>
 	<div class="panel-body" ng-controller="riskCtrl">
@@ -22,41 +23,47 @@
 			<thead>
 				<tr>
 					<th rowspan="2" class="text-center">#</th>
-					<th rowspan="2"  class="text-center">Strategy Name</th>
-					<th rowspan="2"  class="text-center">Countries</th>
-					<th rowspan="2" class="text-center" >Industries</th>
-					<th colspan="5"  class="text-center">RiskAcceptance (IER)</th>
-					<th rowspan="2"  class="text-center">{{ 'Modify' | translate }}</th>
-					<th rowspan="2"  class="text-center">Delete</th>
+					<th rowspan="2" class="text-center">{{ 'Strategy_Name' |
+						translate }}</th>
+					<th rowspan="2" class="text-center">{{ 'Country' | translate
+						}}</th>
+					<th rowspan="2" class="text-center">{{ 'Industry' | translate
+						}}</th>
+					<th colspan="5" class="text-center">{{ 'RiskAcceptance' |
+						translate }}</th>
+					<th rowspan="2" class="text-center">{{ 'Modify' | translate }}</th>
+					<th rowspan="2" class="text-center">{{ 'Delete' | translate }}</th>
 				</tr>
 				<tr>
-					<th  class="text-center">1-30</th>
-					<th  class="text-center">31-40</th>
-					<th  class="text-center">41-50</th>
-					<th  class="text-center">51-60</th>
-					<th  class="text-center">60+</th>
+					<th class="text-center">1-30</th>
+					<th class="text-center">31-40</th>
+					<th class="text-center">41-50</th>
+					<th class="text-center">51-60</th>
+					<th class="text-center">60+</th>
 				</tr>
 
 			</thead>
 			<tbody>
 
-				<tr ng-repeat="strategies in objects">
+				<tr ng-repeat="strategy in strategies">
 
-					<td  class="text-center">{{strategies.strategyNo }}</td>
-					<td  class="text-center">{{strategies.strategyName}}</td>
-					<td  class="text-center">{{strategies.country}}</td>
-					<td  class="text-center">{{strategies.industry}}</td>
-					<td  class="text-center">{{strategies.strategyRatingBand1}}</td>
-					<td  class="text-center">{{strategies.strategyRatingBand2}}</td>
-					<td  class="text-center">{{strategies.strategyRatingBand3}}</td>
-					<td  class="text-center">{{strategies.strategyRatingBand4}}</td>
-					<td  class="text-center">{{strategies.strategyRatingBand5}}</td>
-					<td  class="text-center">
+					<td class="text-center">{{strategy.round}}</td>
+					<td class="text-center">{{strategy.strategyName}}</td>
+					<td class="text-center">{{strategy.buyerCountry}}</td>
+					<td class="text-center">{{strategy.buyerIndustry}}</td>
+					<td class="text-center">{{strategy.strategyRatingBand1}}</td>
+					<td class="text-center">{{strategy.strategyRatingBand2}}</td>
+					<td class="text-center">{{strategy.strategyRatingBand3}}</td>
+					<td class="text-center">{{strategy.strategyRatingBand4}}</td>
+					<td class="text-center">{{strategy.strategyRatingBand5}}</td>
+					<td class="text-center">
 						<button type="button" class="btn btn-info btn-sm"
-							data-toggle="modal" data-target="#myModal">Modify</button>
+							data-toggle="modal" data-target="#myModal">{{ 'Modify' |
+							translate }}</button>
 					</td>
-					<td  class="text-center"><button type="button" class="btn btn-info btn-sm"
-							ng-click="deleteStrategy(1)">Delete</button></td>
+					<td class="text-center"><button type="button"
+							class="btn btn-info btn-sm" ng-click="deleteStrategy(1)">{{
+							'Delete' | translate }}</button></td>
 
 				</tr>
 		</table>

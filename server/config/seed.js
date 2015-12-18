@@ -12,7 +12,6 @@ var Offer = require('../api/offer/offer.model');
 var Customer = require('../api/customer/customer.model');
 var Team = require('../api/team/team.model');
 var Industry = require('../api/industry/industry.model');
-var Strategy = require('../api/strategy/strategy.model');
 var Country = require('../api/country/country.model');
 var France = require('../api/france/france.model');
 
@@ -412,22 +411,6 @@ Industry.find({}).remove(function() {
 
 });
 
-Strategy.find({}).remove(function() {
-	try { 
-		Strategy.create(
-				{    strategyNo: '1', strategyName: 'abc',    strategyRatingBand1: '10%',strategyRatingBand2: '20%',strategyRatingBand3: '30%',strategyRatingBand4: '10%',strategyRatingBand5: '10%', country:'USA', industry : 'Chemical' },
-				{ strategyNo: '2', strategyName: 'abc2',     strategyRatingBand1: '10%',strategyRatingBand2: '20%',strategyRatingBand3: '30%',strategyRatingBand4: '40%',strategyRatingBand5: '10%', country:'USA', industry : 'Textile'}
-
-				,function() {
-					console.log('** Finished populating Strategy');
-				}
-		);
-	}
-	catch(e){
-		console.log(e);
-	}
-
-});
 
 Country.find({}).remove(function() {
 	try { 

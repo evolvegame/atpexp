@@ -15,6 +15,7 @@ var Industry = require('../api/industry/industry.model');
 var Strategy = require('../api/strategy/strategy.model');
 var Country = require('../api/country/country.model');
 var France = require('../api/france/france.model');
+var Projects = require('../api/projects/projects.model');
 
 
 Team.find({}).remove(function() {
@@ -109,6 +110,63 @@ Team.find({}).remove(function() {
 				}
 
 	});
+
+Projects.find({}).remove(function(){
+	Projects.create({
+		type: 'Compliance',
+		name: 'Standard Formula',
+		amount: 100000
+	},{
+		type: 'Compliance',
+		name: 'Internal Model',
+		amount: 2000000
+	},{
+		type: 'IT',
+		name: 'Website',
+		amount: 5000
+	},{
+		type: 'IT',
+		name: 'UW system',
+		amount: 100000
+	},{
+		type: 'IT',
+		name: 'Claims system',
+		amount: 50000
+	},{
+		type: 'IT',
+		name: 'App',
+		amount: 20000
+	},{
+		type: 'Marketing',
+		name: 'Newspaper',
+		amount: 5000
+	},{
+		type: 'Marketing',
+		name: 'radio',
+		amount: 10000
+	},{
+		type: 'Marketing',
+		name: 'television',
+		amount: 20000
+	},{
+		type: 'Marketing',
+		name: 'internet',
+		amount: 40000
+	},{
+		type: 'Strategy',
+		name: 'Expand',
+		amount: 100000
+	},{
+		type: 'Strategy',
+		name: 'Evolve',
+		amount: 50000
+	},{
+		type: 'Strategy',
+		name: 'Innovate',
+		amount: 5000
+	}	
+	);
+});
 
 Economy.find({}).remove(function() {
 	Economy.create({

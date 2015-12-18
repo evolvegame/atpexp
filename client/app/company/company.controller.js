@@ -4,9 +4,9 @@ angular.module('atpexpApp')
 
   .controller('CompanyCtrl', function ($scope, $http, Auth,Team) {
     
-    $http.get('/api/team').success(function (teams) {
-      console.log(teams)
-      $scope.objects = teams
+    $http.get('/api/projects').success(function (projects) {
+      console.log(projects)
+      $scope.objects = projects
       $scope.totalItems = $scope.objects.length;
       $scope.currentPage = 1;
       $scope.numPerPage = 5;

@@ -18,72 +18,67 @@
 <tab heading="Projects">
 <div class="tab-container" >
     <br>
-    <div class="row">
-        <div class="col-md-12">
-            <!-- START DEFAULT DATATABLE -->
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="table-responsive" ng-controller="RankingCtrl">
-                        <b>Capital Ranking</b>
-                        <table class="table datatable">
-                            <thead>
-                                <tr>
-                                    <th>Rank</th>
-                                    <th>Team Name</th>
-                                    <th>Country</th>
-                                    <th>Capital(Euros Million)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                 <tr ng-repeat="team in objects | orderBy: 'capital' :true" style="color:{{fontStyle(team.name)}};">
-                                   	<td>{{$index + 1 }}</td>
-                                    <td>{{ team.name }}</td>
-                                    <td>{{ team.teamCountry }}</td>
-                                    <td>{{ team.capital }}</td>
-                                </tr> 
-                            </tbody>
+
+                    <div style="width:100%;" ng-controller="CompanyCtrl">
+                        <div style="widht:20%; float: left; margin-left: 200px;margin-right: 150px;">
+	                        <table>
+	                            <thead>
+	                                <tr>
+	                                    <th style="height: 100px; text-decoration: underline;">Compliance</th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                 <tr style="height:100px;" ng-repeat="project in objects | filter: {type : 'Compliance'}">
+	                                 	<td>{{project.name}}</td>
+	                                </tr> 
+	                            </tbody>
                         </table>
+                        </div>
+                        <div style="widht:20%; float: left; margin-right: 150px;">
+	                        <table>
+	                            <thead >
+	                                <tr>
+	                                    <th style="height: 100px;text-decoration: underline;">IT</th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                 <tr  style="height:100px;" ng-repeat="project in objects | filter: {type : 'IT'}">
+	                                   	<td>{{project.name}}</td>
+	                                </tr> 
+	                            </tbody>
+                        </table>
+                        </div>
+                        <div style="widht:20%; float: left; margin-right: 150px;">
+	                        <table>
+	                            <thead >
+	                                <tr>
+	                                    <th style="height: 100px;text-decoration: underline;">Marketing</th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                 <tr style="height:100px;" ng-repeat="project in objects | filter: {type : 'Marketing'}">
+	                                   	<td>{{project.name}}</td>
+	                                </tr> 
+	                            </tbody>
+                        </table>
+                        </div>
+                        <div style="widht:20%; float: left;">
+	                        <table>
+	                            <thead >
+	                                <tr>
+	                                    <th style="height: 100px;text-decoration: underline;">Strategy</th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                 <tr style="height:100px;" ng-repeat="project in objects | filter: {type : 'Strategy'}">
+	                                   	<td>{{project.name}}</td>
+	                                </tr> 
+	                            </tbody>
+                        </table>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- END DEFAULT DATATABLE -->
-        </div>
-    </div>
-    
-    <br>
-    <div class="row">
-        <div class="col-md-12">
-            <!-- START DEFAULT DATATABLE -->
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="table-responsive" ng-controller="RankingCtrl">
-                        <b>Experience Score Ranking</b>
-                        <table class="table datatable">
-                            <thead>
-                                <tr>
-                                    <th>Rank</th>
-                                    <th>Team Name</th>
-                                    <th>Country</th>
-                                    <th>Exp Score</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                 <tr ng-repeat="team in objects | orderBy: 'experienceScore' :true" style="color:{{fontStyle(team.name)}};">
-                                   	<td>{{$index + 1 }}</td>
-                                    <td>{{ team.name }}</td>
-                                    <td>{{ team.teamCountry }}</td>
-                                    <td>{{ team.experienceScore }}</td>
-                                </tr> 
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <!-- END DEFAULT DATATABLE -->
-        </div>
-    </div>
-    
-</div>
+
 
 </tab>
 <tab heading="Departments">
@@ -94,14 +89,12 @@
             <!-- START DEFAULT DATATABLE -->
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <div class="table-responsive" ng-controller="RankingCtrl">
+                    <div class="table-responsive" ng-controller="CompanyCtrl">
                         <b>Capital Ranking</b>
                         <table class="table datatable">
                             <thead>
                                 <tr>
-                                    <th>Rank</th>
-                                    <th>Team Name</th>
-                                    <th>Capital(Euros Million)</th>
+
                                 </tr>
                             </thead>
                             <tbody>

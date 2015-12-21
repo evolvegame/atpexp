@@ -20,25 +20,38 @@
     <br>
 
                     <div style="width:100%;" ng-controller="CompanyCtrl">
-                        <div style="widht:20%; float: left; margin-left: 200px;margin-right: 150px;">
+                        <div style="width:20%; float: left; margin-left: 100px;">
 	                        <table>
 	                            <thead>
 	                                <tr>
-	                                    <th style="height: 100px; text-decoration: underline;">Compliance</th>
+	                                    <th style="height: 100px; text-decoration: underline;" align="center">Compliance</th>
 	                                </tr>
 	                            </thead>
 	                            <tbody>
 	                                 <tr style="height:100px;" ng-repeat="project in objects | filter: {type : 'Compliance'}">
-	                                 	<td>{{project.name}}</td>
+												<td align="center">
+													<table border="2" style="width:40px;">
+														<tr onclick="">
+															<td align="center">
+																{{project.name}}
+															</td>        
+														</tr>
+														<tr>
+															<td align="center">
+																{{project.amount}}
+															</td>        
+														</tr>
+													</table>
+												</td>												                     	
 	                                </tr> 
 	                            </tbody>
                         </table>
                         </div>
-                        <div style="widht:20%; float: left; margin-right: 150px;">
+                        <div style="width:20%; float: left; ">
 	                        <table>
 	                            <thead >
 	                                <tr>
-	                                    <th style="height: 100px;text-decoration: underline;">IT</th>
+	                                    <th style="height: 100px;text-decoration: underline;" align="center">IT</th>
 	                                </tr>
 	                            </thead>
 	                            <tbody>
@@ -48,11 +61,11 @@
 	                            </tbody>
                         </table>
                         </div>
-                        <div style="widht:20%; float: left; margin-right: 150px;">
+                        <div style="width:20%; float: left; ">
 	                        <table>
 	                            <thead >
 	                                <tr>
-	                                    <th style="height: 100px;text-decoration: underline;">Marketing</th>
+	                                    <th style="height: 100px;text-decoration: underline;" align="center">Marketing</th>
 	                                </tr>
 	                            </thead>
 	                            <tbody>
@@ -62,11 +75,11 @@
 	                            </tbody>
                         </table>
                         </div>
-                        <div style="widht:20%; float: left;">
+                        <div style="width:20%; float: left;">
 	                        <table>
 	                            <thead >
 	                                <tr>
-	                                    <th style="height: 100px;text-decoration: underline;">Strategy</th>
+	                                    <th style="height: 100px;text-decoration: underline;" align="center">Strategy</th>
 	                                </tr>
 	                            </thead>
 	                            <tbody>

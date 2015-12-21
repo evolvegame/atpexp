@@ -20,22 +20,25 @@
     <br>
 					<div style="color:black;" ng-controller="CompanyCtrl">
                         <div style="width:20%; float: left; margin-left: 100px;">
-	                        <table>
+                        	<table>
 	                            <thead>
 	                                <tr>
 	                                    <th style="height: 100px; text-decoration: underline; text-align: center;">Compliance</th>
 	                                </tr>
 	                            </thead>
 	                            <tbody>
-	                                 <tr style="height:100px;" ng-repeat="project in objects | filter: {type : 'Compliance'}">
+	                            <style>
+	                             .orange-background {background-color: orange;}
+	                            </style>
+	                                 <tr style="height:100px; padding:0;" ng-repeat="project in objects | filter: {type : 'Compliance'}">
 												<td align="center">
-													<table style="width:100px; height: 70px" >
-														<tr onclick="" bgcolor="#BDBDBD">
+													<table style="width:100px; height: 70px; background:{{project.background}};" ng-mouseenter="bgcolorEnter(project)" ng-mouseleave="bgcolorLeave(project)">
+														<tr>
 															<td align="center" style="border: 1px solid black;" nowrap="nowrap">
 																<font color="black">{{project.name}}</font>
 															</td>        
 														</tr>
-														<tr bgcolor="#BDBDBD">
+														<tr>
 															<td align="center" style="border: 1px solid black;" nowrap="nowrap">
 																<font color="black">{{project.amount}}</font>
 															</td>        
@@ -46,7 +49,7 @@
 	                            </tbody>
                         </table>
                         </div>
-                        <div style="width:20%; float: left; ">
+                        <div style="width:20%; float: left;">
 	                        <table>
 	                            <thead >
 	                                <tr>
@@ -56,13 +59,13 @@
 	                            <tbody>
 	                                 <tr style="height:100px;" ng-repeat="project in objects | filter: {type : 'IT'}">
 												<td align="center">
-													<table style="width:90px; height: 70px">
-														<tr onclick="" bgcolor="#BDBDBD">
+													<table style="width:90px; height: 70px; background:{{project.background}};" ng-mouseenter="bgcolorEnter(project)" ng-mouseleave="bgcolorLeave(project)">
+														<tr>
 															<td align="center" style="border: 1px solid black;" nowrap="nowrap">
 																<font color="black">{{project.name}}</font>
 															</td>        
 														</tr>
-														<tr bgcolor="#BDBDBD">
+														<tr>
 															<td align="center" style="border: 1px solid black;" nowrap="nowrap">
 																<font color="black">{{project.amount}}</font>
 															</td>        
@@ -83,13 +86,13 @@
 	                            <tbody>
 	                                 <tr style="height:100px;" ng-repeat="project in objects | filter: {type : 'Marketing'}">
 												<td align="center">
-													<table style="width:90px; height: 70px">
-														<tr onclick="" bgcolor="#BDBDBD">
+													<table style="width:90px; height: 70px; background:{{project.background}};" ng-mouseenter="bgcolorEnter(project)" ng-mouseleave="bgcolorLeave(project)">
+														<tr>
 															<td align="center" style="border: 1px solid black;" nowrap="nowrap">
 																<font color="black">{{project.name}}</font>
 															</td>        
 														</tr>
-														<tr bgcolor="#BDBDBD">
+														<tr>
 															<td align="center" style="border: 1px solid black;" nowrap="nowrap">
 																<font color="black">{{project.amount}}</font>
 															</td>        
@@ -110,13 +113,13 @@
 	                            <tbody>
 	                                 <tr style="height:100px;" ng-repeat="project in objects | filter: {type : 'Strategy'}">
 												<td align="center">
-													<table style="width:90px; height: 70px">
-														<tr onclick="" bgcolor="#BDBDBD">
+													<table style="width:90px; height: 70px; background:{{project.background}};" ng-mouseenter="bgcolorEnter(project)" ng-mouseleave="bgcolorLeave(project)">
+														<tr>
 															<td align="center" style="border: 1px solid black;" nowrap="nowrap">
 																<font color="black">{{project.name}}</font>
 															</td>        
 														</tr>
-														<tr bgcolor="#BDBDBD">
+														<tr>
 															<td align="center" style="border: 1px solid black;" nowrap="nowrap">
 																<font color="black">{{project.amount}}</font>
 															</td>        

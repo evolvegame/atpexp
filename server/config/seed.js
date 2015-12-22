@@ -14,6 +14,7 @@ var Team = require('../api/team/team.model');
 var Industry = require('../api/industry/industry.model');
 var Country = require('../api/country/country.model');
 var France = require('../api/france/france.model');
+var Projects = require('../api/projects/projects.model');
 
 
 Team.find({}).remove(function() {
@@ -112,8 +113,7 @@ Team.find({}).remove(function() {
 
   });
 
-<<<<<<< HEAD
-=======
+
 Projects.find({}).remove(function(){
   Projects.create({
     type: 'Compliance',
@@ -171,7 +171,6 @@ Projects.find({}).remove(function(){
   );
 });
 
->>>>>>> 86f2d1b2b549200e15103634ee331a10f04faad8
 Economy.find({}).remove(function() {
   Economy.create({
     name: 'The Netherlands',

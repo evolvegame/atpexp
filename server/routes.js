@@ -18,7 +18,6 @@ module.exports = function(app) {
   app.use('/api/users', require('./api/user'));
   app.use('/api/rounds', require('./api/round'));
   app.use('/api/team', require('./api/team'));
-  app.use('/api/projects', require('./api/projects'));
   app.use('/api/industry', require('./api/industry'));
   app.use('/api/country', require('./api/country'));
   app.use('/api/locale-fr', require('./api/france'));

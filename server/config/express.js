@@ -15,10 +15,11 @@ var errorHandler = require('errorhandler');
 var path = require('path');
 var config = require('./environment');
 var passport = require('passport');
+var multipart = require('connect-multiparty');
 
 module.exports = function(app) {
-  var env = app.get('env');
-
+  var env = app.get('env'); 
+  app.use(multipart({ uploadDir: config.root + config.tempUploadDir}));
   app.set('views', config.root + '/server/views');
   app.engine('html', require('ejs').renderFile);
   app.set('view engine', 'html');

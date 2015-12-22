@@ -12,7 +12,7 @@ angular.module('atpexpApp')
           controller:'password'
         }
       },
-      teamSettings: {
+     teamSettings: {
         method: 'PUT',
         params: {
           controller:'team'

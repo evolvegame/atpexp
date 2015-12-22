@@ -2249,8 +2249,8 @@ ul.panel-controls > li > .dropdown-menu:before {
 .btn-primary:active,
 .btn-primary.active,
 .open > .dropdown-toggle.btn-primary {
-  background-color: #29343f;
-  border-color: #29343f;
+  background-color: #DC0028;
+  border-color: #DC0028;
 }
 .btn-primary[disabled],
 .btn-primary.disabled {
@@ -4538,7 +4538,7 @@ td.dataTables_empty {
   background: url("../img/logo-grey.png") top center no-repeat;
 }
 .login-container.login-v2 .login-box .login-body .login-title {
-  color: #33414e;
+  color: #808080;
 }
 .login-container.login-v2 .login-box .login-body .form-control {
   background: #FFF;

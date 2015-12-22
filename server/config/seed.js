@@ -93,6 +93,7 @@ Team.find({}).remove(function() {
                                        password: 'Tester1' ,   
                                        name:'Team B',
                                        slogan:'We are awesome',
+                                       picture:'evolve-avatar.png',
                                        teamCountry: "DE",
                                        capital: 250,
                                        experienceScore: 98,

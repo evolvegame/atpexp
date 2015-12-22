@@ -34,6 +34,11 @@ angular.module('atpexpApp')
     });
 
 
+    function refreshAvatar(){
+        $http.get('/api/team/me').success( function (team){
+        $scope.avatar = team.picture;
+        });
+    }
    
        
            
@@ -87,7 +92,7 @@ angular.module('atpexpApp')
       }).then(function (resp) {
        toastr.success ('You successfully uploaded your team avatar!');
        console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
-       reloadPage();
+       refreshAvatar();
      }, function (resp) {
       toastr.success ('Error:'+resp.status);
       console.log('Error status: ' + resp.status);

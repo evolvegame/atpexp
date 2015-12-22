@@ -83,7 +83,7 @@ body {
   float: left;
   min-height: 100%;
   position: relative;
- /* background: #33414e;*/
+  background: #33414e;
   -webkit-transition: all 200ms ease;
   -moz-transition: all 200ms ease;
   -ms-transition: all 200ms ease;
@@ -111,6 +111,12 @@ body {
 .page-container .page-content {
   min-height: 100%;
   margin-left: 220px;
+  background: #f5f5f5 url('../img/bg.png') left top repeat;
+  position: relative;
+  zoom: 1;
+}
+.page-container .page-content-login {
+  min-height: 100%;
   background: #f5f5f5 url('../img/bg.png') left top repeat;
   position: relative;
   zoom: 1;

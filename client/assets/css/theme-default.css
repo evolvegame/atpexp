@@ -83,7 +83,7 @@ body {
   float: left;
   min-height: 100%;
   position: relative;
-  background: #33414e;
+ /* background: #33414e;*/
   -webkit-transition: all 200ms ease;
   -moz-transition: all 200ms ease;
   -ms-transition: all 200ms ease;
@@ -2235,8 +2235,8 @@ ul.panel-controls > li > .dropdown-menu:before {
   border-color: #a7c479;
 }
 .btn-primary {
-  background-color: #33414e;
-  border-color: #33414e;
+  background-color: #DC0028;
+  border-color: #DC0028;
 }
 .btn-primary:hover,
 .btn-primary:focus,
@@ -4542,7 +4542,7 @@ td.dataTables_empty {
 }
 .login-container.login-v2 .login-box .login-body .input-group-addon {
   background: #FFF;
-  color: #33414e;
+  color: #DC0028;
   line-height: 40px;
   font-size: 21px;
   border-color: #D5D5D5;

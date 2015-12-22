@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('atpexpApp')
-  .controller('SettingsCtrl', function ($scope, Team, Auth, toastr,$http) {
+  .controller('SettingsCtrl', function ($scope, Team, Auth, toastr,$http,$window) {
     $scope.errors = {};
 
     $scope.changePassword = function(form) {
@@ -10,7 +10,7 @@ angular.module('atpexpApp')
         Auth.changePassword( $scope.user.oldPassword, $scope.user.newPassword )
         .then( function() {
           $scope.message = 'Password successfully changed.';
-          toastr.success ('Password successfully changed');
+          toastr.success ('Password successfully changed');          
         })
         .catch( function() {
           form.password.$setValidity('mongoose', false);
@@ -32,12 +32,14 @@ angular.module('atpexpApp')
       Auth.teamSettings($scope.slogan)
       .then(function() {
         toastr.success('Save team settings to the database.', 'Saved!');
+        reloadPage();
       })
       .catch(function() {
         $scope.errors.other = 'Incorrect team settings'
       })
     };
  
-
+    //temporary Solution to refresh model object later this will be replaced using server push
+    function reloadPage(){ $window.location.reload(); }
     
   })

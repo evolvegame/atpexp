@@ -8818,3 +8818,8 @@ li.ext_zip {
     margin-left: 0px;
   }
 }
+
+/* Login Screen Validation */
+.loginErrorText{
+  color: red;
+}

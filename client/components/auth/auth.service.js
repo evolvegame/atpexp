@@ -100,8 +100,7 @@ angular.module('atpexpApp')
           return cb(err);
         }).$promise;
       },
-
-
+       
       /**
        * Gets all available info on authenticated user
        *
@@ -111,6 +110,9 @@ angular.module('atpexpApp')
         return currentTeam;
       },
 
+       getCurrentTeamPicture: function() {
+        return currentTeam.picture;
+      },
 
       /**
        * Check if a user is logged in

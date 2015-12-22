@@ -13,7 +13,8 @@ angular.module('atpexpApp', [
   'ngResource',
   'nvd3ChartDirectives',
   'ngTagsInput',
-  'pascalprecht.translate'
+  'pascalprecht.translate',
+  'ngFileUpload'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider,$translateProvider) {
     $urlRouterProvider

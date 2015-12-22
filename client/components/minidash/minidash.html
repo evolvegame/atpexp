@@ -1,31 +1,46 @@
 <!-- START MINI DASHBOARD -->
-<div class="mini-dashboard" ng-controller="MiniDashCtrl">
-    <!-- TILES -->                
-    <ul class="list-inline mini-stat">
-        <li style="margin-right:20px"></li>
-        <li style="margin-right:20px"></li>
-        <li style="margin-right:20px" class="text-left">
-            <h5 style="float:left;margin:0px 10px 0px 0px;"><small>CAPITAL</small> <br><span style="color:#5cb85c;"><i class="fa fa-plus-circle"></i> €81,450mn</span></h5>
-            <span id="mini-bar-chart1" class="mini-bar-chart" style="float:left;">
-                <div style="overflow:hidden;height:35px;width:80px;">
-                    <nvd3-discrete-bar-chart
-                        data="exampleData"
-                        id="exampleId3"
-                        showXAxis="false"
-                        showYAxis="false"
-                        margin={left:0,top:0,bottom:8,right:0}
-                        width="80"
-                        height="35"
-                        showValues="false"
-                        showLegend="false"
-                        tooltips="true"
-                        color="colorFunction()">
-                        <svg height="35px"></svg>
-                    </nvd3-discrete-bar-chart>
-                </div>
-            </span>
-        </li>
-    </ul>                     
-    <!-- END TILES -->
-</div>
+                        <div class="col-dashboard col-md-10">
+                        <div class="col-md-2 col-sm-12 col-align">
+                            <div class="tile tile-transparent">
+                                78
+                                <p>Ranking</p>
+                                <div class="informer informer-warning dir-tr"><span class="fa fa-arrow-circle-right"></span></div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-12 col-align">
+                            <div class="tile tile-transparent">
+                                32
+                                <p>Experience score</p>
+                                <div class="informer informer-success dir-tr"><span class="fa fa-arrow-circle-up"></span></div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-12 col-align">
+                            <div class="tile tile-transparent">
+                                65
+                                <p>Customers</p>
+                                <div class="informer informer-success dir-tr"><span class="fa fa-arrow-circle-up"></span></div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-12 col-align">
+                            <div class="tile tile-transparent">
+                                87%
+                                <p>Acceptance Rate</p>
+                                <div class="informer informer-danger dir-tr"><span class="fa fa-arrow-circle-down"></span></div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-12 col-align">
+                            <div class="tile tile-transparent">
+                                €104,599.49
+                                <p>Claims</p>
+                                <div class="informer informer-danger dir-tr"><span class="fa fa-arrow-circle-up"></span></div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-12 col-align">
+                            <div class="tile tile-transparent">
+                                €252,785.87
+                                <p>Capital</p>
+                                <div class="informer informer-success dir-tr"><span class="fa fa-arrow-circle-up"></span></div>
+                            </div>
+                        </div>
+                    </div>
 <!-- END MINI DASHBOARD -->

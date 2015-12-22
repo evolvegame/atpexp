@@ -18,6 +18,10 @@ var all = {
   // Root path of server
   root: path.normalize(__dirname + '/../../..'),
 
+  tempUploadDir: '/client/assets/img/uploads/temp',
+
+  targetUploadDir: '/client/assets/img/uploads',
+
   // Server port
   port: process.env.PORT || 9000,
 

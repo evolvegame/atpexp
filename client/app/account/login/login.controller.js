@@ -1,5 +1,5 @@
 angular.module('atpexpApp')
-  .controller('LoginCtrl', function ($scope, Auth, $location) {
+  .controller('LoginCtrl', function ($scope, Auth, $location,$window) {
     $scope.user = {};
     $scope.errors = {};
     
@@ -14,6 +14,7 @@ angular.module('atpexpApp')
         .then( function() {
           // Logged in, redirect to home
           $location.path('/');
+          reloadPage();
         })
         .catch( function(err) {
           $scope.showErrorMessage=true;     
@@ -25,5 +26,8 @@ angular.module('atpexpApp')
           $scope.errors = 'Please provide valid email and password.';
       }
     };
+
+    //temporary Solution to refresh model object later this will be replaced using server push
+    function reloadPage(){ $window.location.reload(); }
 
   });

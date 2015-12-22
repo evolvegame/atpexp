@@ -4,6 +4,8 @@ var Team = require('./team.model');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
+var _ = require('lodash');
+var fs =require('fs');
 
 var validationError = function(res, err) {
   return res.json(422, err);
@@ -110,6 +112,33 @@ exports.teamSettings = function(req, res, next) {
     });
     
   });
+};
+
+/**
+ * Change teamAvatar
+ */
+ exports.changeAvatar = function(req, res, next) {
+  var teamId = req.user._id;
+  var file = req.files.file;
+  var tmp_path=file.path;
+  var newPicture =teamId+'_'+file.name;
+  var target_path = '.'+config.targetUploadDir +'/'+ newPicture;  
+  fs.rename(tmp_path, target_path, function(err) {
+    if (err) throw err;
+        // delete the temporary file, so that the explicitly set temporary upload dir does not get filled with unwanted files
+        fs.unlink(tmp_path, function() {
+          if (err) throw err;
+          Team.findById(teamId, function (err, team) {
+            team.picture = newPicture
+            team.save(function(err) {
+              if (err) return validationError(res, err);
+              res.send(200);
+            });
+
+          });
+        });
+      });
+  
 };
 
 /**

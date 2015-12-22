@@ -41,7 +41,11 @@ var TeamSchema = mongoose.Schema({
     marketingBudget: Number,
     facilities: Number,
     totalExpense: Number,
-    rankingPosition: Number
+    rankingPosition: Number,
+    project: [{
+    	type: Schema.ObjectId,
+    	ref: 'Projects'
+    }]
   },
   riskStrategy:[ {
     round: Number,

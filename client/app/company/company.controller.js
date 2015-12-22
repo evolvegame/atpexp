@@ -6,35 +6,53 @@ angular.module('atpexpApp')
     
     $http.get('/api/projects').success(function (projects) {
       console.log(projects)
-      for (var i = 0; i<projects.length;i++)
-      {
+      $scope.getCurrentTeam = Auth.getCurrentTeam;
+      
+      for (var i = 0; i<projects.length;i++) {
          var obj = projects[i];
-         obj.background = "#BDBDBD"; 
+         obj.lockedFromFurtherClicks = false;
+		 obj.background = "#BDBDBD"; 
+         for(var j = 0; j < $scope.getCurrentTeam().roundLevelInformation.project.length; j++) {
+        	 var proj = $scope.getCurrentTeam().roundLevelInformation.project[j];
+        	 if (proj == obj._id) {
+        		 obj.background = "#FACC2E";
+        		 obj.lockedFromFurtherClicks = true;
+        		 console.log("project id - " + obj._id);
+        		 break;
+        	 }   	 
+         }
       }
       $scope.objects = projects;
       $scope.totalItems = $scope.objects.length;
       $scope.currentPage = 1;
-      $scope.numPerPage = 5;
-      $scope.getCurrentTeam = Auth.getCurrentTeam;      
-      $scope.loggedInTeam =  $scope.getCurrentTeam().teamCountry;
-      /*{
-    		  country: "USA"
-      };*/
-      
-      $scope.paginate = function(value) {
-        var begin, end, index;
-        begin = ($scope.currentPage - 1) * $scope.numPerPage;
-        end = begin + $scope.numPerPage;
-        index = $scope.objects.indexOf(value);
-        return (begin <= index && index < end);
-      };
+      $scope.numPerPage = 5;      
     });
+    
     
     $scope.bgcolorEnter = function(project) {
     	project.background = "#FACC2E";
     };
 
     $scope.bgcolorLeave = function(project) {
-    	project.background = "#BDBDBD";
+    	console.log($scope.projectClicked);
+    	if(project.lockedFromFurtherClicks) {
+    		return;
+    	}
+    	if(!$scope.projectClicked) {
+    		project.background = "#BDBDBD";
+    	} else {
+    		project.background = "#FACC2E";
+    	}
+    	$scope.projectClicked = false;
     };
+    
+    $scope.addProject= function(project) {
+    	if(project.lockedFromFurtherClicks) {
+    		return;
+    	}
+    	$scope.projectClicked = true;
+    	console.log('Selected project name' + project.name);
+    	Team.teamCompany(project);
+    };
+    
   })

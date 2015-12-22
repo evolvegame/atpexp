@@ -1,6 +1,7 @@
 'use strict';
 
 var Team = require('./team.model');
+var Projects = require('../projects/projects.model');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
@@ -111,6 +112,30 @@ exports.teamSettings = function(req, res, next) {
     
   });
 };
+
+exports.teamCompany = function(req, res, next) {
+	  var teamId = req.user._id;
+	  var projectId = req.params.id;
+	  console.log("Logged in Team id - " + teamId);
+	  console.log("Company screen - " + projectId);
+	  Team.findById(teamId, function (err, team) {
+		  Projects.findById(projectId, function(err, project){
+			  console.log("team projects length --x " + team.roundLevelInformation.project.length);
+			  var projectArray = team.roundLevelInformation.project;
+			  projectArray.push(projectId);
+			  team.roundLevelInformation.project = projectArray;
+			  var teamCapital = team.capital;
+			  team.roundLevelInformation.capital = teamCapital - project.amount;
+			  team.capital = team.roundLevelInformation.capital;
+			  team.save(function(err){
+				  if (err) return validationError(res, err);
+			      res.send(200);
+			  });  
+		  });
+		  
+		  
+	  });
+	};
 
 /**
  * Get my info

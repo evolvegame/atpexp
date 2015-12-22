@@ -32,7 +32,8 @@
 	                            </style>
 	                                 <tr style="height:100px; padding:0;" ng-repeat="project in objects | filter: {type : 'Compliance'}">
 												<td align="center">
-													<table style="width:100px; height: 70px; background:{{project.background}};" ng-mouseenter="bgcolorEnter(project)" ng-mouseleave="bgcolorLeave(project)">
+													<table style="width:100px; height: 70px; background:{{project.background}};" 
+													ng-mouseenter="bgcolorEnter(project)" ng-mouseleave="bgcolorLeave(project)" ng-click="addProject(project)">
 														<tr>
 															<td align="center" style="border: 1px solid black;" nowrap="nowrap">
 																<font color="black">{{project.name}}</font>

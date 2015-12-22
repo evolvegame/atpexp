@@ -3,7 +3,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-var CustomerSchema = new Schema({
+/*var CustomerSchema = new Schema({
   name: String,
   country: String,
   countryCode: String,
@@ -19,6 +19,30 @@ var CustomerSchema = new Schema({
   buyerCountry3: String,
   buyerIndustry3: String,
   buyerTpe3: Number
-});
+});*/
+
+var CustomerSchema = new Schema({
+  name:String,
+  region:String,
+  regionCode:String,
+  country:String,
+  countryCode:String,
+  industry:String,
+  industryCode:String,
+  buyerPortfolio:[
+  {region:String,
+    regionCode:String,
+    country:String,
+    countryCode:String,
+    industry:String,
+    industryCode:String,
+    tpe:Number}                
+    ],
+    inGame:Boolean,
+    hasPolicy:Boolean,
+    policyHolder:[]
+
+  });
+
 
 module.exports = mongoose.model('Customer', CustomerSchema);

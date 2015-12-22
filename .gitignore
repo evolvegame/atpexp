@@ -9,4 +9,5 @@ dist
 .project
 .settings/
 document/css zip
+client/assets/img/uploads
 

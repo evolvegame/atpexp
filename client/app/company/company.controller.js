@@ -4,9 +4,14 @@ angular.module('atpexpApp')
 
   .controller('CompanyCtrl', function ($scope, $http, Auth,Team) {
     
-    $http.get('/api/team').success(function (teams) {
-      console.log(teams)
-      $scope.objects = teams
+    $http.get('/api/projects').success(function (projects) {
+      console.log(projects)
+      for (var i = 0; i<projects.length;i++)
+      {
+         var obj = projects[i];
+         obj.background = "#BDBDBD"; 
+      }
+      $scope.objects = projects;
       $scope.totalItems = $scope.objects.length;
       $scope.currentPage = 1;
       $scope.numPerPage = 5;
@@ -25,12 +30,11 @@ angular.module('atpexpApp')
       };
     });
     
-    $scope.fontStyle = function(teamName) {
-    	var color = "";
-    	if (teamName == $scope.getCurrentTeam().name) {
-    		color = "red";
-    	}
-    	return color;
+    $scope.bgcolorEnter = function(project) {
+    	project.background = "#FACC2E";
     };
 
+    $scope.bgcolorLeave = function(project) {
+    	project.background = "#BDBDBD";
+    };
   })

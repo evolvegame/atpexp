@@ -43,13 +43,17 @@ var TeamSchema = mongoose.Schema({
     totalExpense: Number,
     rankingPosition: Number
   },
-  riskStrategy: {
+  riskStrategy:[ {
     round: Number,
+    strategyName: String,
     buyerCountry: String,
     buyerIndustry: String,
-    buyerRatingRange: Number,
-    riskAcceptanceRate: Number
-  },
+    strategyRatingBand1: Number,
+    strategyRatingBand2: Number,
+    strategyRatingBand3: Number,
+    strategyRatingBand4: Number,
+    strategyRatingBand5: Number
+  }],
   offer: {
     round: Number,
     marketBusinessName: String,

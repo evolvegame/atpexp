@@ -42,12 +42,12 @@ Team.find({}).remove(function() {
           teamCountry: "NL",
           capital: 775,
           experienceScore: 60,
-         members :[
-               {name :'User8',email: 'user8@atradius.com' },
-               {name :'User9',email: 'user9@atradius.com' },
-               {name :'User10',email: 'user10@atradius.com'},
-               {name :'User11',email: 'user11@atradius.com'}
-             ]
+          members :[
+                    {name :'User8',email: 'user8@atradius.com' },
+                    {name :'User9',email: 'user9@atradius.com' },
+                    {name :'User10',email: 'user10@atradius.com'},
+                    {name :'User11',email: 'user11@atradius.com'}
+                    ],
         },{
           provider: 'local',
           password: 'admin' ,   

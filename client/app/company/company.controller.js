@@ -10,13 +10,10 @@ angular.module('atpexpApp')
       
       for (var i = 0; i<projects.length;i++) {
          var obj = projects[i];
-         obj.lockedFromFurtherClicks = false;
-		 obj.background = "#BDBDBD"; 
          for(var j = 0; j < $scope.getCurrentTeam().roundLevelInformation.project.length; j++) {
         	 var proj = $scope.getCurrentTeam().roundLevelInformation.project[j];
         	 if (proj == obj._id) {
-        		 obj.background = "#FACC2E";
-        		 obj.lockedFromFurtherClicks = true;
+        		 obj.switchStatus = true;
         		 console.log("project id - " + obj._id);
         		 break;
         	 }   	 
@@ -47,11 +44,11 @@ angular.module('atpexpApp')
     };
     
     $scope.addProject= function(project) {
-    	if(project.lockedFromFurtherClicks) {
-    		return;
-    	}
-    	$scope.projectClicked = true;
-    	console.log('Selected project name' + project.name);
+//    	console.log('event ' + event);
+    	console.log('state ' + project.switchStatus);
+//    	console.log('Selected project name -- ' + dom.name);
+    	console.log("Hi i am here " + project.name);
+    	console.log("Hi i am here " + project.amount);
     	Team.teamCompany(project);
     };
     

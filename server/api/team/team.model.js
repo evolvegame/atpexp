@@ -58,12 +58,12 @@ var TeamSchema = mongoose.Schema({
     strategyRatingBand4: Number,
     strategyRatingBand5: Number
   }],
-  offer: {
+  offer: [{
     round: Number,
     marketBusinessName: String,
     premium: Number,
     premiumPercentage: Number
-  },
+  }],
   customer: {
     businessName: Number,
     businessRevenue: String,

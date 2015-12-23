@@ -111,14 +111,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="offer in offers">
-                                    <td>{{ offer.customerName }}</td>
+                                <tr ng-repeat="offer in team().offer">
+                                    <td>{{ offer.marketBusinessName }}</td>
                                     <td>{{ offer.avgAr }}</td>
                                     <td>{{ offer.price }}</td>
                                     <td>{{ offer.serviceScore }}</td>
                                     <td><button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showOffer(offer); improveOffer()">Improve Offer</button></td>
                                     <td><button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showOffer(offer); deleteOffer(offer)">Delete Offer</button></td>
-                                    <td>{{offer}}</td>
+                                    <td>{{offer._id}}</td>
                                 </tr>
                             </tbody>
                         </table>

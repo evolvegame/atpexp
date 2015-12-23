@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('atpexpApp')
-  .controller('MarketCtrl', function ($scope, $modal, $http, Market) {
+  .controller('MarketCtrl', function ($scope, $modal, $http, Market,Auth) {
         // load selected customer in modal
     $scope.showCustomer = function(cust) {
       $scope.selected = cust;
@@ -32,9 +32,14 @@ angular.module('atpexpApp')
       $scope.customers = customers;
     });
 
-    Market.offers.query().$promise.then(function (offers) {
+    /*Market.offers.query().$promise.then(function (offers) {
       $scope.offers = offers;
-    });
+    });*/
+
+    $scope.team = Auth.getCurrentTeam;
+
+  
+
 
   })
 

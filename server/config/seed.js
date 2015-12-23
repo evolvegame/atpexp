@@ -38,7 +38,7 @@ Team.find({}).remove(function() {
         },{
           provider: 'local',
           password: 'Tester1' ,   
-          name:'Team Team',
+          name:'Team D',
           slogan:'Make it happen',
           teamCountry: "NL",
           capital: 775,
@@ -49,6 +49,11 @@ Team.find({}).remove(function() {
                     {name :'User10',email: 'user10@atradius.com'},
                     {name :'User11',email: 'user11@atradius.com'}
                     ],
+          offer:[
+                { round: 1,marketBusinessName: 'Ajo',premium: 0,premiumPercentage: 0},
+                { round: 1,marketBusinessName: 'Dolent',premium: 0,premiumPercentage: 0},
+                { round: 1,marketBusinessName: 'Calcent',premium: 0,premiumPercentage: 0}
+                ]          
         },{
           provider: 'local',
           password: 'admin' ,   
@@ -61,10 +66,16 @@ Team.find({}).remove(function() {
           experienceScore: 75,
           members :[
                     {name :'Rajasekaran',email: 'raj@atradius.com' },
+                    {name :'Ranagarajan',email: 'ranga@atradius.com' },
                     {name :'Jonathan',email: 'jonathan@atradius.com'},
                     {name :'Emanuel',email: 'emanuel@atradius.com'},
-                    {name :'Praj',email: 'Praj@a.com'}
+                    {name :'Prajakta',email: 'prajakta@atradius.com'}
                     ],
+          offer:[
+                { round: 1,marketBusinessName: 'Ajo',premium: 0,premiumPercentage: 0},
+                { round: 1,marketBusinessName: 'Dolent',premium: 0,premiumPercentage: 0},
+                { round: 1,marketBusinessName: 'Calcent',premium: 0,premiumPercentage: 0}
+                ],                        
                     riskStrategy :[
                                    { round: 1,
                                      strategyName: 'Strategy 1',

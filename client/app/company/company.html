@@ -27,25 +27,12 @@
 	                                </tr>
 	                            </thead>
 	                            <tbody>
-	                            <style>
-	                             .orange-background {background-color: orange;}
-	                            </style>
+
 	                                 <tr style="height:100px; padding:0;" ng-repeat="project in objects | filter: {type : 'Compliance'}">
-												<td align="center">
-													<table style="width:100px; height: 70px; background:{{project.background}};" 
-													ng-mouseenter="bgcolorEnter(project)" ng-mouseleave="bgcolorLeave(project)" ng-click="addProject(project)">
-														<tr>
-															<td align="center" style="border: 1px solid black;" nowrap="nowrap">
-																<font color="black">{{project.name}}</font>
-															</td>        
-														</tr>
-														<tr>
-															<td align="center" style="border: 1px solid black;" nowrap="nowrap">
-																<font color="black">{{project.amount}}</font>
-															</td>        
-														</tr>
-													</table>
-												</td>												                     	
+										<td align="center">
+										<toggle-switch class="switch-success" html="true" ng-model="project.switchStatus" off-label="&#10006;&nbsp;&euro;&nbsp;{{project.amount}}" on-label="&#10004;&nbsp;&euro;&nbsp;{{project.amount}}" knob-label="{{project.name}}" 
+											ng-click="addProject(project, switchStatus)"><toggle-switch>
+										</td>												                     	
 	                                </tr> 
 	                            </tbody>
                         </table>
@@ -60,18 +47,8 @@
 	                            <tbody>
 	                                 <tr style="height:100px;" ng-repeat="project in objects | filter: {type : 'IT'}">
 												<td align="center">
-													<table style="width:90px; height: 70px; background:{{project.background}};" ng-mouseenter="bgcolorEnter(project)" ng-mouseleave="bgcolorLeave(project)">
-														<tr>
-															<td align="center" style="border: 1px solid black;" nowrap="nowrap">
-																<font color="black">{{project.name}}</font>
-															</td>        
-														</tr>
-														<tr>
-															<td align="center" style="border: 1px solid black;" nowrap="nowrap">
-																<font color="black">{{project.amount}}</font>
-															</td>        
-														</tr>
-													</table>
+													<toggle-switch class="switch-success" html="true" ng-model="project.switchStatus" off-label="&#10006;&nbsp;&euro;&nbsp;{{project.amount}}" on-label="&#10004;&nbsp;&euro;&nbsp;{{project.amount}}" knob-label="{{project.name}}" 
+														ng-click="addProject(project, switchStatus)"><toggle-switch>
 												</td>												                     	
 	                                </tr> 
 	                            </tbody>
@@ -87,18 +64,8 @@
 	                            <tbody>
 	                                 <tr style="height:100px;" ng-repeat="project in objects | filter: {type : 'Marketing'}">
 												<td align="center">
-													<table style="width:90px; height: 70px; background:{{project.background}};" ng-mouseenter="bgcolorEnter(project)" ng-mouseleave="bgcolorLeave(project)">
-														<tr>
-															<td align="center" style="border: 1px solid black;" nowrap="nowrap">
-																<font color="black">{{project.name}}</font>
-															</td>        
-														</tr>
-														<tr>
-															<td align="center" style="border: 1px solid black;" nowrap="nowrap">
-																<font color="black">{{project.amount}}</font>
-															</td>        
-														</tr>
-													</table>
+													<toggle-switch class="switch-success" html="true" ng-model="project.switchStatus" off-label="&#10006;&nbsp;&euro;&nbsp;{{project.amount}}" on-label="&#10004;&nbsp;&euro;&nbsp;{{project.amount}}" knob-label="{{project.name}}" 
+														ng-click="addProject(project, switchStatus)"><toggle-switch>
 												</td>												                     	
 	                                </tr> 
 	                            </tbody>
@@ -114,18 +81,8 @@
 	                            <tbody>
 	                                 <tr style="height:100px;" ng-repeat="project in objects | filter: {type : 'Strategy'}">
 												<td align="center">
-													<table style="width:90px; height: 70px; background:{{project.background}};" ng-mouseenter="bgcolorEnter(project)" ng-mouseleave="bgcolorLeave(project)">
-														<tr>
-															<td align="center" style="border: 1px solid black;" nowrap="nowrap">
-																<font color="black">{{project.name}}</font>
-															</td>        
-														</tr>
-														<tr>
-															<td align="center" style="border: 1px solid black;" nowrap="nowrap">
-																<font color="black">{{project.amount}}</font>
-															</td>        
-														</tr>
-													</table>
+													<toggle-switch class="switch-success" html="true" ng-model="project.switchStatus" off-label="&#10006;&nbsp;&euro;&nbsp;{{project.amount}}" on-label="&#10004;&nbsp;&euro;&nbsp;{{project.amount}}" knob-label="{{project.name}}" 
+														ng-click="addProject(project, switchStatus)"><toggle-switch>
 												</td>												                     	
 	                                </tr> 
 	                            </tbody>
@@ -136,70 +93,103 @@
 
 
 </tab>
+
+
+
 <tab heading="Departments">
-<div class="tab-container" >
+<div class="tab-container" style="background: #FAFAFA;">
     <br>
-    <div class="row">
-        <div class="col-md-12">
-            <!-- START DEFAULT DATATABLE -->
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="table-responsive" ng-controller="CompanyCtrl">
+
+                    <div style="color:black;" ng-controller="CompanyCtrl">
                         <b></b>
                         <table class="table datatable">
-                            <thead>
-                                <tr>
-
-                                </tr>
-                            </thead>
                             <tbody>
-                                 <tr ng-repeat="team1 in objects1 | filter: {teamCountry:loggedInTeam} |orderBy: 'capital' :true" style="color:{{fontStyle(team.name)}};">
-                                   	<td>{{$index + 1 }}</td>
-                                   	<td>{{ team.name }}</td>
-                                    <td>{{ team.capital }}</td>
+                                 <tr ng-repeat="department in departments">
+                                   	<td>{{department.name }}</td>
+                                   	<td ng-repeat="size in department.size">
+                                   	<toggle-switch class="switch-success" html="true" ng-model="size.switchStatus" off-label="&#10006;&nbsp;&nbsp;" on-label="&#10004;&nbsp;&nbsp;" knob-label="{{size.unit}}"
+                                   		ng-click="addDepartment(department, size)"></toggle-switch>
+                                   	</td>
+                                    <td>&euro;&nbsp;{{ department.selectedCost }}</td>
                                 </tr> 
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
-            <!-- END DEFAULT DATATABLE -->
-        </div>
+
     </div>
     
-    <br>
-    <div class="row">
-        <div class="col-md-12">
-            <!-- START DEFAULT DATATABLE -->
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="table-responsive" ng-controller="RankingCtrl">
+</tab>
+
+
+
+<tab heading="Financials">
+<div class="tab-container" style="background: #FAFAFA;">
+ <br>
+
+                    <div style="color:black;" ng-controller="CompanyCtrl">
                         <b></b>
-                        <table class="table datatable" >
-                            <thead>
-                                <tr>
-                                    <th>Rank</th>
-                                    <th>Team Name</th>
-                                    <th>Exp Score</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                 <tr ng-repeat="team in objects1 | filter: {teamCountry:loggedInTeam} | orderBy: 'experienceScore' :true" style="color:{{fontStyle(team.name)}};">
-                                   	<td>{{$index + 1 }}</td>
-                                    <td>{{ team.name }}</td>
-                                    <td>{{ team.experienceScore }}</td>
-                                </tr> 
-                            </tbody>
+                        <b>Profit & Loss</b>
+                        <table>
+	                            <thead >
+	                                <tr>
+	                                    <th style="height: 100px; width: 150px;text-align: left;"></th>
+	                                    <th style="height: 100px; width: 110px;text-align: left;">Round 1</th>
+	                                    <th style="height: 100px; width: 110px;text-align: left;">Round 2</th>
+	                                    <th style="height: 100px; width: 110px;text-align: left;">Round 3</th>
+	                                    <th style="height: 100px; width: 110px;text-align: left;">Round 4</th>
+	                                    <th style="height: 100px; width: 110px;text-align: left;">Round 5</th>
+	                                    <th style="height: 100px; width: 110px;text-align: left;">Round 6</th>
+	                                    <th style="height: 100px; width: 110px;text-align: left;">Round 7</th>
+	                                    <th style="height: 100px; width: 110px;text-align: left;">Round 8</th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                 <tr style="height:25px;">
+												<td align="left">
+													<font> Premium Income </font>
+												</td>							
+												<td ng-repeat="round in getCurrentTeam().rounds">
+													{{round.premiumIncome}}
+												</td>					                     	
+	                                </tr> 
+	                                <tr style="height:25px;">
+												<td align="left">
+													<font> Claims Paid </font>
+												</td>							
+												<td ng-repeat="round in getCurrentTeam().rounds">
+													{{round.claimsPaid}}
+												</td>					                     	
+	                                </tr> 
+	                                <tr style="height:25px;">
+												<td align="left">
+													<font> Operating Expenses </font>
+												</td>							
+												<td ng-repeat="round in getCurrentTeam().rounds">
+													{{round.operatingExpenses}}
+												</td>					                     	
+	                                </tr> 
+	                                <tr style="height:25px;">
+												<td align="left">
+													<font> Gross Income </font>
+												</td>							
+												<td ng-repeat="round in getCurrentTeam().rounds">
+													{{round.grossIncome}}
+												</td>					                     	
+	                                </tr> 
+	                                <tr style="height:25px;">
+												<td align="left">
+													<font> Profit </font>
+												</td>							
+												<td ng-repeat="round in getCurrentTeam().rounds">
+													{{round.profit}}
+												</td>					                     	
+	                                </tr> 
+	                            </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
-            <!-- END DEFAULT DATATABLE -->
-        </div>
+
     </div>
-</div>
-</tab>
-<tab heading="Financials">
+ 
 </tab>
 </tabset>
 <!-- END PAGE CONTENT TABBED  -->

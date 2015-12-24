@@ -24,6 +24,12 @@ angular.module('atpexpApp')
             controller:'company'
           }
         },
+      teamDepartment: {
+            method: 'PUT',
+            params: {
+              controller:'department'
+           }
+      },
       get: {
         method: 'GET',
         params: {

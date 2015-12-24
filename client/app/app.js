@@ -14,7 +14,8 @@ angular.module('atpexpApp', [
   'nvd3ChartDirectives',
   'ngTagsInput',
   'pascalprecht.translate',
-  'ngFileUpload'
+  'ngFileUpload',
+  'toggle-switch'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider,$translateProvider) {
     $urlRouterProvider

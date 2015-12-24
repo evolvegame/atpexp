@@ -5,7 +5,7 @@ angular.module('atpexpApp')
   .controller('CompanyCtrl', function ($scope, $http, Auth,Team) {
     
     $http.get('/api/projects').success(function (projects) {
-      console.log(projects)
+//      console.log(projects)
       $scope.getCurrentTeam = Auth.getCurrentTeam;
       
       for (var i = 0; i<projects.length;i++) {
@@ -14,7 +14,7 @@ angular.module('atpexpApp')
         	 var proj = $scope.getCurrentTeam().roundLevelInformation.project[j];
         	 if (proj == obj._id) {
         		 obj.switchStatus = true;
-        		 console.log("project id - " + obj._id);
+//        		 console.log("project id - " + obj._id);
         		 break;
         	 }   	 
          }
@@ -25,6 +25,56 @@ angular.module('atpexpApp')
       $scope.numPerPage = 5;      
     });
     
+    $http.get('/api/departments').success(function(departments){
+//    	console.log('Department - ' + departments)
+    	for (var i = 0; i < departments.length ; i++) {
+    		var obj = departments[i];
+    		var departmentFound = false;
+    		
+    			for (var j = 0; j < $scope.getCurrentTeam().roundLevelInformation.department.length; j++) {
+        			var depart = $scope.getCurrentTeam().roundLevelInformation.department[j];
+        			
+        			if (depart.name == obj.name) {
+        				departmentFound = true;
+        				for (var k=0; k < obj.size.length; k++) {
+        					var sizeUnit = obj.size[k];
+        					
+        					if (sizeUnit.unit == depart.sizeUnit) {
+        						sizeUnit.switchStatus = true;
+        						obj.selectedCost = sizeUnit.cost;
+        					/*	console.log("Depart Name --> " + depart.name);
+        						console.log("SizeUnit --> " + sizeUnit.unit);
+        						console.log("SizeUnit --> " + sizeUnit.switchStatus);*/
+        						break;		
+        					}
+        					
+        				}
+        				
+        			}
+        		}
+    			
+    			if (!departmentFound) {
+    				for (var k=0; k < obj.size.length; k++) {
+    					var sizeUnit = obj.size[k];
+    					
+    					if (sizeUnit.unit == 'Small') {
+    						sizeUnit.switchStatus = true;
+    						obj.selectedCost = sizeUnit.cost;
+    					/*	console.log("Depart Name --> " + depart.name);
+    						console.log("SizeUnit --> " + sizeUnit.unit);
+    						console.log("SizeUnit --> " + sizeUnit.switchStatus);*/
+    						break;		
+    					}
+    					
+    				}
+    			}
+    		
+    		
+    	}
+    	
+    	
+    	$scope.departments = departments;
+    });
     
     $scope.bgcolorEnter = function(project) {
     	project.background = "#FACC2E";
@@ -51,5 +101,18 @@ angular.module('atpexpApp')
     	console.log("Hi i am here " + project.amount);
     	Team.teamCompany(project);
     };
+    
+    $scope.addDepartment = function(department, size) {
+    	console.log('department ' + department.name);
+    	console.log('size ' + JSON.stringify(size));
+//    	console.log('Selected project name -- ' + dom.name);
+//    	console.log("Hi i am here " + project.name);
+//    	console.log("Hi i am here " + project.amount);
+    	Team.teamDepartment(department, size);
+    	reloadPage();
+    };
+    
+    //temporary Solution to refresh model object
+    function reloadPage(){ $window.location.reload(); }
     
   })

@@ -2,6 +2,7 @@
 
 var Team = require('./team.model');
 var Projects = require('../projects/projects.model');
+var Departments = require('../departments/departments.model');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
@@ -138,6 +139,50 @@ exports.teamCompany = function(req, res, next) {
 		  
 	  });
 	};
+	
+exports.teamDepartment = function(req, res, next){
+	var teamId = req.user._id;
+	var departmentId = req.params.id;
+	console.log('logged in team ya - ' + teamId);
+	console.log('Department size -- ya - ' + departmentId);
+	Team.findById(teamId, function (err, team) {
+		Departments.findOne({'size._id' : departmentId}, {'size.$' : 1}, function(err, sizeUnit){
+			Departments.findById(sizeUnit._id, function(err, depart){
+				console.log("depart -- " + depart.name);
+				console.log("sizeUnit -- " + sizeUnit.size[0].unit);
+				console.log("sizeCost -- " + sizeUnit.size[0].cost);
+				team.roundLevelInformation.department.push({name: depart.name, sizeUnit: sizeUnit.size[0].unit, cost: sizeUnit.size[0].cost});
+				team.save(function(err){
+					  if (err) return validationError(res, err);
+				      res.send(200);
+				  });  
+			});		
+		
+		 }); 		
+	});
+	
+	/*teamId = req.user._id;
+	var departmentId = req.params.id;
+	Team.findById(teamId, function (err, team1) {
+		Departments.findOne({'size._id' : departmentId}, {'size.$' : 1}, function(err, depart){
+//			console.log('departments array -- ' + team.roundLevelInformation.department);
+			var departmentsArray = team1.roundLevelInformation.department;
+			console.log('teamId --- ' + teamId);
+			console.log('team.roundLevelInformation.department --- ' + team1.roundLevelInformation.department);
+			console.log('departmentsArray --- ' + departmentsArray);
+			for (var i=0; i < departmentsArray.length ; i++) {
+				var obj = departmentsArray[i];
+				console.log('obj 00 0000 000 --- ' + obj);
+				if (obj) {
+					
+				}
+			}
+			console.log('Queried department unit -- ' + depart);
+		});
+	});*/
+	
+	
+}
 
 /**
  * Change teamAvatar

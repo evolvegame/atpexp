@@ -15,6 +15,7 @@ var Industry = require('../api/industry/industry.model');
 var Country = require('../api/country/country.model');
 var France = require('../api/france/france.model');
 var Projects = require('../api/projects/projects.model');
+var Departments = require('../api/departments/departments.model');
 
 
 Team.find({}).remove(function() {
@@ -64,6 +65,28 @@ Team.find({}).remove(function() {
           teamCountry: "NL",
           capital: 400,
           experienceScore: 75,
+          rounds: [{
+        	  roundNumber: 1,
+        	  premiumIncome: 235256,
+        	  claimsPaid: 12341,
+        	  operatingExpenses: 57373,
+        	  grossIncome: 46262,
+        	  profit: 57438
+          },{
+        	  roundNumber: 2,
+        	  premiumIncome: 2356256,
+        	  claimsPaid: 12347671,
+        	  operatingExpenses: 1257373,
+        	  grossIncome: 87646262,
+        	  profit: 457438
+          },{
+        	  roundNumber: 3,
+        	  premiumIncome: 2356,
+        	  claimsPaid: 123416,
+        	  operatingExpenses: 5733473,
+        	  grossIncome: 462262,
+        	  profit: 572438
+          }],
           members :[
                     {name :'Rajasekaran',email: 'raj@atradius.com' },
                     {name :'Ranagarajan',email: 'ranga@atradius.com' },
@@ -124,6 +147,53 @@ Team.find({}).remove(function() {
 
   });
 
+Departments.find({}).remove(function(){
+	  Departments.create(
+		{
+		  name: 'Local Sales',
+		  size: [
+			{unit: 'Small', cost: 200000 },
+			{unit: 'Medium', cost: 300000},
+			{unit: 'Large', cost: 400000},
+			{unit: 'Huge', cost: 1000000}
+			]
+		},{
+		  name: 'Global Sales',
+		  size: [
+			{unit: 'Small', cost: 200000 },
+			{unit: 'Medium', cost: 300000},
+			{unit: 'Large', cost: 400000},
+			{unit: 'Huge', cost: 1000000}
+			]
+		},{
+		  name: 'Marketing',
+		  size: [
+			{unit: 'Small', cost: 200000 },
+			{unit: 'Medium', cost: 300000},
+			{unit: 'Large', cost: 400000},
+			{unit: 'Huge', cost: 1000000}
+			]
+		},{
+		  name: 'IT',
+		  size: [
+			{unit: 'Small', cost: 200000 },
+			{unit: 'Medium', cost: 300000},
+			{unit: 'Large', cost: 400000},
+			{unit: 'Huge', cost: 1000000}
+			]
+		},{
+		  name: 'Risk',
+		  size: [
+			{unit: 'Small', cost: 200000 },
+			{unit: 'Medium', cost: 300000},
+			{unit: 'Large', cost: 400000},
+			{unit: 'Huge', cost: 1000000}
+			]
+		}
+		
+		);	
+		  
+	});
 
 Projects.find({}).remove(function(){
   Projects.create({
@@ -181,6 +251,8 @@ Projects.find({}).remove(function(){
   } 
   );
 });
+
+
 
 Economy.find({}).remove(function() {
   Economy.create({

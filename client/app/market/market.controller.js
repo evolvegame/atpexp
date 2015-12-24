@@ -85,6 +85,31 @@ angular.module('atpexpApp')
       // update customer with new offerId
       toastr.success('Your offer has been submitted to ' + selectedCustomer.name + '.', 'Offer sent!');
     };
+
+//code added to get risk acceptance rate from team risk strtagy
+    $scope.getRiskAcceptanceRate = function (country,insdustry,rating){
+    var strategies = Auth.getCurrentTeam().riskStrategy;
+    for (var i = strategies.length - 1; i >= 0; i--) {
+      if (strategies[i].buyerCountry===country && strategies[i].buyerIndustry === insdustry ){
+        if (1>=rating && rating<=30){
+          $scope.riskAcceptance =strategies[i].strategyRatingBand1;
+        } else if (31>=rating && rating<=40){
+          $scope.riskAcceptance =strategies[i].strategyRatingBand2;
+        } else if (41>=rating && rating<=50){
+          $scope.riskAcceptance =strategies[i].strategyRatingBand3;
+        } else if (51>=rating && rating<=60){
+          $scope.riskAcceptance =strategies[i].strategyRatingBand4;
+        } else {
+          $scope.riskAcceptance =strategies[i].strategyRatingBand5;
+        }        
+        //console.log('riskAcceptance >'+country+ '-'+insdustry +' '+$scope.riskAcceptance);
+        return $scope.riskAcceptance;
+      }
+    };
+
+    
+  }
+
   })
 
 .controller('SpinnerCtrl', SpinnerCtrl)
@@ -94,6 +119,7 @@ angular.module('atpexpApp')
       var spinner = this;
       spinner.val = 0;
   }
+
 
   function jqSpinner($rootScope) {
       return {
@@ -109,4 +135,6 @@ angular.module('atpexpApp')
           }
       };
   }
+
+  
 

@@ -36,7 +36,8 @@ var CustomerSchema = new Schema({
     countryCode:String,
     industry:String,
     industryCode:String,
-    tpe:Number}                
+    tpe:Number,
+    rating:Number}                
     ],
     inGame:Boolean,
     hasPolicy:Boolean,

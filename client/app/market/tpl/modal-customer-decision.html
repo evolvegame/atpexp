@@ -38,13 +38,14 @@
             <p style="font-size:12px"><span class="fa fa-globe" style="font-size: 12px;line-height: 18px;"></span> {{ buyer.industry }}</p>
         <p><span class="wi wi-day-sunny" style="font-size: 32px;line-height: 54px;"></span></p>
         <p>Excellent</p>
-        <p>
+       
+            <p style="font-size:20px;">{{ getRiskAcceptanceRate(buyer.country,buyer.industry,buyer.rating)}}%</p>
+             <p>
             <div ng-controller="SpinnerCtrl as spinner" style="margin-top:10px;">
-                <input jq-spinner type="text" class="form-control spinner_default" ng-model="spinner.val" />
                 <div class="progress progress-small">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{ spinner.val }}%;"></div>
+                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{ getRiskAcceptanceRate(buyer.country,buyer.industry,buyer.rating) }}%;"></div>
                 </div>
-                <p style="font-size:12px;">Acceptance Rate: {{ spinner.val }}%{{spinner}}</p>
+                
             </div>
         </p>
         </span>

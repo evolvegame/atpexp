@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('atpexpApp')
-  .controller('MiniDashCtrl', function ($scope) {
+  .controller('MiniDashCtrl', function ($scope,$http,Auth) {
     
     $scope.exampleData = [
        {
@@ -23,5 +23,8 @@ angular.module('atpexpApp')
       };
 
     }
+//$http.get('/api/team').success(function (teams) {
+    $scope.getCurrentTeam = Auth.getCurrentTeam;
+   // } 
 
   });

@@ -23,7 +23,7 @@
             <form class="form-horizontal" name="form" ng-submit="saveTeam(form)">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><strong>Team:</strong> {{teamName}}</h3>
+                    <h3 class="panel-title"><strong>Team:</strong> {{team.name}}</h3>
                     <ul class="panel-controls">
                         <li><a href="#" ng-click="isCollapsedTeam = !isCollapsedTeam" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
                     </ul>
@@ -38,7 +38,7 @@
                         <div class="col-md-6 col-xs-12">
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                <input type="text" class="form-control" ng-model="slogan" />
+                                <input type="text" class="form-control" ng-model="team.slogan"/>
                             </div>
                             <span class="help-block">Enter a slogan phrase that represents your team</span>
                         </div>

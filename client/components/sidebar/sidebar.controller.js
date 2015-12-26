@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('atpexpApp')
-  .controller('SidebarCtrl', function ($scope, $location, Team,Auth, settings, Upload,toastr,$window,$http) {
+  .controller('SidebarCtrl', function ($scope, $location,Auth, settings, Upload,toastr,$http,$rootScope) {
     $scope.menu = [{
       'title': 'Dashboard',
       'link': '/',
@@ -30,13 +30,12 @@ angular.module('atpexpApp')
     $scope.getCurrentTeam = Auth.getCurrentTeam; 
 
     $http.get('/api/team/me').success( function (team){
-    $scope.avatar = team.picture;
+    $rootScope.team = team;
     });
-
 
     function refreshAvatar(){
         $http.get('/api/team/me').success( function (team){
-        $scope.avatar = team.picture;
+        $rootScope.team = team;
         });
     }
    
@@ -53,11 +52,7 @@ angular.module('atpexpApp')
         $scope.slogan = settings.slogan
     }, true);
 
-    
-    //temporary Solution to refresh model object
-    function reloadPage(){ $window.location.reload(); }
-	
-	
+        	
     // upload avatar function start
     $scope.uploadAvatar = function (file) {
       var error =false;

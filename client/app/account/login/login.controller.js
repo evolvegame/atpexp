@@ -1,5 +1,5 @@
 angular.module('atpexpApp')
-  .controller('LoginCtrl', function ($scope, Auth, $location,$window) {
+  .controller('LoginCtrl', function ($scope,$location,Auth,$rootScope,$http) {
     $scope.user = {};
     $scope.errors = {};
     
@@ -11,10 +11,14 @@ angular.module('atpexpApp')
           email: $scope.user.email,
           password: $scope.user.password
         })
-        .then( function() {
+        .then( function() {          
+          //after scuccessfull authentication - store the team object at rootScope level
+          $http.get('/api/team/me').success( function (team){
+          $rootScope.team = team;
+          });          
           // Logged in, redirect to home
           $location.path('/');
-          reloadPage();
+          
         })
         .catch( function(err) {
           $scope.showErrorMessage=true;     
@@ -26,8 +30,5 @@ angular.module('atpexpApp')
           $scope.errors = 'Please provide valid email and password.';
       }
     };
-
-    //temporary Solution to refresh model object later this will be replaced using server push
-    function reloadPage(){ $window.location.reload(); }
-
+   
   });

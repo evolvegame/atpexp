@@ -10,12 +10,12 @@
             </a>
             <div class="profile">            
             <div  class="profile-image" ngf-select="uploadAvatar($file)" ng-model="file" >
-                 <img src="assets/img/uploads/{{avatar}}" ng-model="picture" alt="Team Profile Picture" >
+                 <img src="assets/img/uploads/{{team.picture}}" alt="Team Profile Picture" >
               </div>
 
                 <div class="profile-data">
-                    <div class="profile-data-name">{{getCurrentTeam().name }}</div>
-                    <div class="profile-data-name">{{getCurrentTeam().slogan}}</div>
+                    <div class="profile-data-name">{{team.name }}</div>
+                    <div class="profile-data-name">{{team.slogan}}</div>
                 </div>
                 <div class="profile-controls">
                     <a href="/settings" class="profile-control-left"><span class="fa fa-cogs"></span></a>

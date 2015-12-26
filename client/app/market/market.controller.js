@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('atpexpApp')
-  .controller('MarketCtrl', function ($scope, $modal, $http, Market,Auth) {
+  .controller('MarketCtrl', function ($scope, $modal, $http, Market,Auth,$rootScope) {
         // load selected customer in modal
     $scope.showCustomer = function(cust) {
       $scope.selected = cust;
@@ -36,7 +36,7 @@ angular.module('atpexpApp')
       $scope.offers = offers;
     });*/
 
-    $scope.team = Auth.getCurrentTeam;
+    //$scope.team = Auth.getCurrentTeam;
 
   
 
@@ -47,7 +47,7 @@ angular.module('atpexpApp')
     // re-add selectedCustomer to $scope.selected
     $scope.selected = selectedCustomer;
 
-    $scope.team = Auth.getCurrentTeam;
+    //$scope.team = Auth.getCurrentTeam;
 
     // $scope.ok = function () {
     //   $modalInstance.close($scope.selected.item);
@@ -86,27 +86,34 @@ angular.module('atpexpApp')
       toastr.success('Your offer has been submitted to ' + selectedCustomer.name + '.', 'Offer sent!');
     };
 
-//code added to get risk acceptance rate from team risk strtagy
+    //function to check a number between two numbers
+    Number.prototype.between = function(first,last){
+    return (first < last ? this >= first && this <= last : this >= last && this <= first);
+    }
+
+    //code added to get risk acceptance rate from team risk strtagy
     $scope.getRiskAcceptanceRate = function (country,insdustry,rating){
     var strategies = Auth.getCurrentTeam().riskStrategy;
     for (var i = strategies.length - 1; i >= 0; i--) {
+     // console.log('rating '+rating);
       if (strategies[i].buyerCountry===country && strategies[i].buyerIndustry === insdustry ){
-        if (1>=rating && rating<=30){
+        if (rating.between(1,30)){
           $scope.riskAcceptance =strategies[i].strategyRatingBand1;
-        } else if (31>=rating && rating<=40){
+          //console.log('match:1to30'+i);
+        } else if (rating.between(31,40)){
           $scope.riskAcceptance =strategies[i].strategyRatingBand2;
-        } else if (41>=rating && rating<=50){
+          console.log('match:31to40'+i);
+        } else if (rating.between(41,50)){
           $scope.riskAcceptance =strategies[i].strategyRatingBand3;
-        } else if (51>=rating && rating<=60){
+        } else if (rating.between(51,60)){
           $scope.riskAcceptance =strategies[i].strategyRatingBand4;
         } else {
           $scope.riskAcceptance =strategies[i].strategyRatingBand5;
         }        
-        //console.log('riskAcceptance >'+country+ '-'+insdustry +' '+$scope.riskAcceptance);
+        console.log('riskAcceptance >'+country+ '-'+insdustry +' '+$scope.riskAcceptance);
         return $scope.riskAcceptance;
       }
     };
-
     
   }
 

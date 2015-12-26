@@ -2,7 +2,7 @@
 
 angular.module('atpexpApp')
 
-  .controller('CompanyCtrl', function ($scope, $http, Auth,Team) {
+  .controller('CompanyCtrl', function ($scope, $http, Auth,Team,$rootScope) {
     
     $http.get('/api/projects').success(function (projects) {
 //      console.log(projects)
@@ -100,6 +100,7 @@ angular.module('atpexpApp')
     	console.log("Hi i am here " + project.name);
     	console.log("Hi i am here " + project.amount);
     	Team.teamCompany(project);
+        refresh();
     };
     
     $scope.addDepartment = function(department, size) {
@@ -109,10 +110,16 @@ angular.module('atpexpApp')
 //    	console.log("Hi i am here " + project.name);
 //    	console.log("Hi i am here " + project.amount);
     	Team.teamDepartment(department, size);
-    	reloadPage();
+    	refresh();
     };
     
     //temporary Solution to refresh model object
     function reloadPage(){ $window.location.reload(); }
+
+    function refresh(){
+        $http.get('/api/team/me').success( function (team){
+        $rootScope.team = team;
+        });
+    }
     
   })

@@ -41,6 +41,7 @@ Team.find({}).remove(function() {
           password: 'Tester1' ,   
           name:'Team D',
           slogan:'Make it happen',
+          picture:'evolve-avatar.png',
           teamCountry: "NL",
           capital: 775,
           experienceScore: 60,
@@ -430,8 +431,8 @@ Customer.find({}).remove(function() {
     industry:"Services",
     industryCode:"ser",
     buyerPortfolio:[
-                    {region:"West-Europe",regionCode:"we",country:"Belgium",countryCode:"be",industry:"Food",industryCode:"foo",tpe:3579440,rating:5},
-                    {region:"West-Europe",regionCode:"we",country:"Germany",countryCode:"de",industry:"Finance",industryCode:"fin",tpe:1587862,rating:5},
+                    {region:"West-Europe",regionCode:"we",country:"Belgium",countryCode:"be",industry:"Food",industryCode:"foo",tpe:3579440,rating:30},
+                    {region:"West-Europe",regionCode:"we",country:"Germany",countryCode:"de",industry:"Finance",industryCode:"fin",tpe:1587862,rating:60},
                     {region:"South-America",regionCode:"sa",country:"Argentina",countryCode:"ar",industry:"Finance",industryCode:"fin",tpe:3159834,rating:5}
                     ],
                     inGame:true,

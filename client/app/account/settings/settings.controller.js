@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('atpexpApp')
-  .controller('SettingsCtrl', function ($scope, Team, Auth, toastr,$http,$window) {
+  .controller('SettingsCtrl', function ($scope, Team, Auth, toastr,$http,$window,$rootScope) {
     $scope.errors = {};
 
     $scope.changePassword = function(form) {
@@ -28,11 +28,11 @@ angular.module('atpexpApp')
     $scope.teamName = Auth.getCurrentTeam().name; 
 
     $scope.saveTeam = function (form) {
-      console.log ($scope.slogan);
-      Auth.teamSettings($scope.slogan)
+      console.log ($scope.team.slogan);
+      Auth.teamSettings($scope.team.slogan)
       .then(function() {
         toastr.success('Save team settings to the database.', 'Saved!');
-        reloadPage();
+        refresh();
       })
       .catch(function() {
         $scope.errors.other = 'Incorrect team settings'
@@ -41,5 +41,11 @@ angular.module('atpexpApp')
  
     //temporary Solution to refresh model object later this will be replaced using server push
     function reloadPage(){ $window.location.reload(); }
+
+    function refresh(){
+        $http.get('/api/team/me').success( function (team){
+        $rootScope.team = team;
+        });
+    }
     
   })

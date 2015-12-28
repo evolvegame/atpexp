@@ -2,7 +2,7 @@
 
 angular.module('atpexpApp')
 
-  .controller('CompanyCtrl', function ($scope, $http, Auth,Team,$rootScope) {
+  .controller('CompanyCtrl', function ($scope, $http, Auth,Team, $rootScope) {
     
     $http.get('/api/projects').success(function (projects) {
 //      console.log(projects)

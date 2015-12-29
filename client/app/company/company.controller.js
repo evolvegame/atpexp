@@ -2,7 +2,7 @@
 
 angular.module('atpexpApp')
 
-  .controller('CompanyCtrl', function ($scope, $http, Auth,Team, $rootScope) {
+  .controller('CompanyCtrl', function ($scope, $http, Auth,Team, $rootScope, Project) {
     
     $http.get('/api/projects').success(function (projects) {
 //      console.log(projects)
@@ -99,7 +99,7 @@ angular.module('atpexpApp')
 //    	console.log('Selected project name -- ' + dom.name);
     	console.log("Hi i am here " + project.name);
     	console.log("Hi i am here " + project.amount);
-    	Team.teamCompany(project);
+    	Project.teamCompany(project);
         refresh();
     };
     

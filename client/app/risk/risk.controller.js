@@ -39,11 +39,11 @@ angular.module('atpexpApp')
 
 
 })
-.controller('riskCtrl', function ($scope, $http, Auth,Team, $translate) {
+.controller('riskCtrl', function ($scope, $http, Auth, Team , $translate, Risk, $rootScope) {
 
-	$http.get('/api/team').success(function (teams) {     
-		$scope.getCurrentTeam = Auth.getCurrentTeam;       
-		$scope.strategies = Auth.getCurrentTeam().riskStrategy; 
+	$http.get('/api/team/me').success(function (team) {     
+		$rootScope.team = team;       
+		$scope.strategies = $rootScope.team.riskStrategy; 
 	});
 
 	//delete strategy
@@ -78,12 +78,34 @@ angular.module('atpexpApp')
 
 
 	//add strategy
-	$scope.saveStrategy = function()
+	$scope.saveStrategy = function(strategyName, country, industries)
 	{
-		var test = $scope.strategyName;
-		console.log(test);
-		alert(test);
+//		var test = strate;
+		console.log("Strategy name --> " + strategyName);
+		console.log("Country name --> " + country);
+		console.log("Industries name ???--> " + industries);
+//		alert(test);
+		var riskStrategy = {
+			    round: 1,
+			    strategyName: strategyName,
+			    buyerCountry: country,
+			    buyerIndustry: industries,
+			    strategyRatingBand1: 23,
+			    strategyRatingBand2: 33,
+			    strategyRatingBand3: 45,
+			    strategyRatingBand4: 67,
+			    strategyRatingBand5: 45
+			  };
+		Risk.addRisk(riskStrategy);
+		refresh();
 	};
+	
+	function refresh(){
+        $http.get('/api/team/me').success( function (team){
+        $rootScope.team = team;
+        $scope.strategies = $rootScope.team.riskStrategy; 
+        });
+    }
 
 });
 

@@ -119,16 +119,30 @@ exports.teamSettings = function(req, res, next) {
 exports.teamCompany = function(req, res, next) {
 	  var teamId = req.user._id;
 	  var projectId = req.params.id;
-	  console.log("Logged in Team id - " + teamId);
-	  console.log("Company screen - " + projectId);
+	  var state = req.params.switchStatus;
+	  console.log("Logged project id - " + projectId);
+	  console.log("Company screen - " + state);
+//	  console.log("params -- " + req.params);
 	  Team.findById(teamId, function (err, team) {
 		  Projects.findById(projectId, function(err, project){
 			  console.log("team projects length --x " + team.roundLevelInformation.project.length);
+			  console.log("Project in server api - > " + project);
 			  var projectArray = team.roundLevelInformation.project;
-			  projectArray.push(projectId);
+			  if (state == 'true') {
+				  console.log('About to push the project from team');
+				  projectArray.push(projectId);
+			  } else {
+				  console.log('About to pull the project from team');
+				  projectArray.pull(projectId);
+			  }
 			  team.roundLevelInformation.project = projectArray;
 			  var teamCapital = team.capital;
-			  team.roundLevelInformation.capital = teamCapital - project.amount;
+			  if(state == 'true'){
+				  team.roundLevelInformation.capital = teamCapital - project.amount;
+			  } else {
+				  team.roundLevelInformation.capital = teamCapital + project.amount;
+			  }
+			  
 			  team.capital = team.roundLevelInformation.capital;
 			  team.save(function(err){
 				  if (err) return validationError(res, err);
@@ -159,30 +173,50 @@ exports.teamDepartment = function(req, res, next){
 			});		
 		
 		 }); 		
+	});	
+}
+
+exports.addRisk = function(req, res, next) {
+	var teamId = req.user._id;
+	var strategyName = req.params.strategyName;
+	var round = req.params.round;
+	var buyerCountry = req.params.buyerCountry;
+	var buyerIndustry = req.params.buyerIndustry;
+	var strategyRatingBand1 = req.params.strategyRatingBand1;
+	var strategyRatingBand2 = req.params.strategyRatingBand2;
+	var strategyRatingBand3 = req.params.strategyRatingBand3;
+	var strategyRatingBand4 = req.params.strategyRatingBand4;
+	var strategyRatingBand5 = req.params.strategyRatingBand5;
+	console.log('Reached team controller!!! - strategyName ' + strategyName);
+	console.log('Reached team controller!!! - round ' + round);
+	console.log('Reached team controller!!! - buyerCountry ' + buyerCountry);
+	console.log('Reached team controller!!! - buyerIndustry ' + buyerIndustry);
+	console.log('Reached team controller!!! - strategyRatingBand1 ' + strategyRatingBand1);
+	console.log('Reached team controller!!! - strategyRatingBand2 ' + strategyRatingBand2);
+	console.log('Reached team controller!!! - strategyRatingBand3 ' + strategyRatingBand3);
+	console.log('Reached team controller!!! - strategyRatingBand4 ' + strategyRatingBand4);
+	console.log('Reached team controller!!! - strategyRatingBand5 ' + strategyRatingBand5);
+	console.log('Reached team controller!!! - teamId ' + teamId);
+	
+	Team.findById(teamId, function (err, team) {
+		team.riskStrategy.push({
+			round: round,
+		    strategyName: strategyName,
+		    buyerCountry: buyerCountry,
+		    buyerIndustry: buyerIndustry,
+		    strategyRatingBand1: strategyRatingBand1,
+		    strategyRatingBand2: strategyRatingBand2,
+		    strategyRatingBand3: strategyRatingBand3,
+		    strategyRatingBand4: strategyRatingBand4,
+		    strategyRatingBand5: strategyRatingBand5
+		});
+		team.save(function(err){
+			  if (err) return validationError(res, err);
+		      res.send(200);
+		});  
 	});
 	
-	/*teamId = req.user._id;
-	var departmentId = req.params.id;
-	Team.findById(teamId, function (err, team1) {
-		Departments.findOne({'size._id' : departmentId}, {'size.$' : 1}, function(err, depart){
-//			console.log('departments array -- ' + team.roundLevelInformation.department);
-			var departmentsArray = team1.roundLevelInformation.department;
-			console.log('teamId --- ' + teamId);
-			console.log('team.roundLevelInformation.department --- ' + team1.roundLevelInformation.department);
-			console.log('departmentsArray --- ' + departmentsArray);
-			for (var i=0; i < departmentsArray.length ; i++) {
-				var obj = departmentsArray[i];
-				console.log('obj 00 0000 000 --- ' + obj);
-				if (obj) {
-					
-				}
-			}
-			console.log('Queried department unit -- ' + depart);
-		});
-	});*/
-	
-	
-}
+};
 
 /**
  * Change teamAvatar
@@ -216,11 +250,11 @@ exports.teamDepartment = function(req, res, next){
  */
 exports.me = function(req, res, next) {
   var userId = req.user.members[0]._id;
-  console.log('exports.me userId '+userId);
+//  console.log('exports.me userId '+userId);
   Team.findOne({
     "members._id": userId
   }, '-salt -hashedPassword', function(err, team) { // don't ever give out the password or salt
-     console.log('exports.me team '+JSON.stringify(team));
+//     console.log('exports.me team '+JSON.stringify(team));
     if (err) return next(err);
     if (!team) return res.json(401);
     res.json(team);

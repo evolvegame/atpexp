@@ -6,9 +6,9 @@
         </li>
         <li class="xn-profile">
             <a href="#" class="profile-mini">
-                <img src="assets/img/uploads/{{avatar}}" alt="Team Profile Picture">
+                <img src="assets/img/uploads/{{avatar}}" alt={{"sidebar.TeamProfilePic" | translate}}>
             </a>
-            <div class="profile">            
+            <div class="profile">
             <div  class="profile-image" ngf-select="uploadAvatar($file)" ng-model="file" >
                  <img src="assets/img/uploads/{{team.picture}}" alt="Team Profile Picture" >
               </div>
@@ -23,29 +23,26 @@
                 </div>
             </div>
         </li>
-        <li class="xn-title">Navigation</li>
+        <li class="xn-title">{{"sidebar.Navigation" | translate}}</li>
         <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
             <a ng-href="{{item.link}}"><span class="fa fa-{{item.icon}}"></span> <span class="xn-text">{{item.title}}</span></a>
         </li>
         <li class="xn-openable" ng-show="isAdmin()" ng-class="{active: isActive('/admin')}">
-            <a href="/admin"><span class="fa fa-smile-o"></span> <span class="xn-text">Admin</span></a>
+            <a href="/admin"><span class="fa fa-smile-o"></span> <span class="xn-text">{{"sidebar.Admin" | translate}}</span></a>
             <ul>
                 <li ng-class="{active: isActive('/admin/simulation')}">
-                    <a href="/admin/simulation"><span class="fa fa-gears"></span> <span class="xn-text">Simulation</span></a>
+                    <a href="/admin/simulation"><span class="fa fa-gears"></span> <span class="xn-text">{{"sidebar.Simulation" | translate}}</span></a>
                 </li>
                 <li>
-                    <a href="/admin/customer-pool"><span class="fa fa-gears"></span> <span class="xn-text">Customer Pool</span></a>
+                    <a href="/admin/customer-pool"><span class="fa fa-gears"></span> <span class="xn-text">{{"sidebar.CustomerPool" | translate}}</span></a>
                 </li>
                 <li>
                     <a href="/admin/teams"><span class="fa fa-users"></span> <span class="xn-text">Teams</span></a>
                 </li>
             </ul>
         </li>
-        <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/signup')}"><a href="/signup">Sign up</a></li>
-        <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/login')}"><a href="/login">Login</a></li>
+        <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/signup')}"><a href="/signup">{{"sidebar.SignUp" | translate}}</a></li>
+        <li ng-hide="isLoggedIn()" ng-class="{active: isActive('/login')}"><a href="/login">{{"sidebar.Login" | translate}}</a></li>
     </ul>
     <!-- END X-NAVIGATION -->
 </div>
-
-
-

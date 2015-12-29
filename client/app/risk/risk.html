@@ -1,4 +1,4 @@
-<!-- START BREADCRUMB -->
+	<!-- START BREADCRUMB -->
 <div class="mini-dashboard col-md-12">
    <div class="col-breadcrumb col-md-2">
     <ul class="breadcrumb">
@@ -22,8 +22,8 @@
 				'Add_New_Strategy' | translate }}</button>
 		</div>
 	</div>
-	<div class="panel-body">
-		<table class="table table-bordered">
+	<div class="panel-body" style="height: 400px; overflow:scroll;">
+		<table class="table table-bordered" >
 			<thead>
 				<tr>
 					<th rowspan="2" class="text-center">#</th>
@@ -54,7 +54,11 @@
 					<td class="text-center">{{strategy.round}}</td>
 					<td class="text-center">{{strategy.strategyName}}</td>
 					<td class="text-center">{{strategy.buyerCountry}}</td>
-					<td class="text-center">{{strategy.buyerIndustry}}</td>
+					<td class="text-center">
+						<label style="font-weight: 400;" ng-repeat="buyerIndustry in strategy.buyerIndustry">
+							{{buyerIndustry}}{{$last ? '' : ',&nbsp'}}
+						</label>
+					</td>
 					<td class="text-center">{{strategy.strategyRatingBand1}}%</td>
 					<td class="text-center">{{strategy.strategyRatingBand2}}%</td>
 					<td class="text-center">{{strategy.strategyRatingBand3}}%</td>
@@ -66,7 +70,7 @@
 							translate }}</button>
 					</td>
 					<td class="text-center"><button type="button"
-							class="btn btn-info btn-sm" ng-click="delete(strategy._id)">{{
+							class="btn btn-info btn-sm" ng-click="delete(strategy)">{{
 							'Delete' | translate }}</button></td>
 
 				</tr>
@@ -182,17 +186,17 @@
 								</tr>
 								<tr>
 									<td><div>
-											<select multiple>
+											<select multiple ng-model="selectedCountry">
 												<option ng-repeat="countries in cou"
-													value="{{countries.country}">{{countries.country}}</option>
+													value="{{countries.country}}">{{countries.country}}</option>
 											</select>
 										</div></td>
 
 									<td>
 										<div>
-											<select multiple>
+											<select multiple ng-model="selectedIndustries">
 												<option ng-repeat="industries in ind"
-													value="{{industries.industry}">{{industries.industry}}</option>
+													value="{{industries.industry}}">{{industries.industry}}</option>
 											</select>
 										</div>
 									</td>
@@ -212,7 +216,7 @@
   myForm.band4.$dirty && myForm.band4.$invalid
   ||
   myForm.band5.$dirty && myForm.band5.$invalid"
-									data-dismiss="modal" ng-click="saveStrategy('test')">
+									data-dismiss="modal" ng-click="saveStrategy(strategy.strategyName, selectedCountry, selectedIndustries)">
 							</div>
 
 

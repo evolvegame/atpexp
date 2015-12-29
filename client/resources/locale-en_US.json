@@ -1,0 +1,12 @@
+{
+  "sidebar.TeamProfilePic":"Team Profile Picture",
+  "sidebar.Navigation":"Navigation",
+  "sidebar.Admin":"Admin",
+  "sidebar.Simulation":"Simulation",
+  "sidebar.CustomerPool":"Customer Pool",
+  "sidebar.SignUp":"Sign Up",
+  "sidebar.Login":"Login",
+  "Modify":"Modify",
+  "Dashboard":"Dashboard",
+  "Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG."
+}

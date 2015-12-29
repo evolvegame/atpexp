@@ -84,7 +84,7 @@
   -o-user-select: none;
   user-select: none;
   vertical-align: middle;
-  min-width: 100px;
+  min-width: 210px;
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }

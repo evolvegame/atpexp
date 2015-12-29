@@ -16,17 +16,42 @@ angular.module('atpexpApp', [
   'pascalprecht.translate',
   'ngFileUpload',
   'toggle-switch'
+  'tmh.dynamicLocale',//angular-dynamic-locale
+  'ngFileUpload'
 ])
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider,$translateProvider) {
+  .constant('DEBUG_MODE', /*DEBUG_MODE*/true/*DEBUG_MODE*/)
+  .constant('LOCALES',{
+     'locales':{
+       'es_ES':'Spanish',
+       'en_US':'English'
+     },
+     'preferredLocale':'en_US'
+  })
+  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
       .otherwise('/');
-
     $locationProvider.html5Mode(true);
     $httpProvider.interceptors.push('authInterceptor');
-    //set preferredLanguage
-    $translateProvider.preferredLanguage('en');
   })
+  // Angular Translate
+  .config(function ($translateProvider,DEBUG_MODE,LOCALES) {
+    if(DEBUG_MODE){
+      $translateProvider.useMissingTranslationHandlerLog();// warns about missing translates
+    }
 
+    $translateProvider.useStaticFilesLoader({
+      prefix: '/resources/locale-',
+      suffix: '.json'
+    });
+
+
+    $translateProvider.useLocalStorage();
+    $translateProvider.preferredLanguage('en-US');
+  })
+  // Angular Dynamic Locale
+  .config(function (tmhDynamicLocaleProvider) {
+    tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js');
+  })
   .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
     return {
       // Add authorization token to headers
@@ -63,7 +88,3 @@ angular.module('atpexpApp', [
       });
     });
   })
-
-  
-
-  

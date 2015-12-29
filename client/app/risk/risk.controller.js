@@ -48,8 +48,10 @@ angular.module('atpexpApp')
 
 	//delete strategy
 	$scope.delete = function (strategy) {
-		console.log(strategy);
-		alert(strategy);
+		console.log('strategy--> ' + JSON.stringify(strategy));
+		var toBedeletedRiskStrategy = {toBeDeletedId:strategy._id};
+		Risk.deleteRisk(toBedeletedRiskStrategy);
+		refresh();		
 	};
 
 	//get industry

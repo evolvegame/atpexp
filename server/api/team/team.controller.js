@@ -218,6 +218,22 @@ exports.addRisk = function(req, res, next) {
 	
 };
 
+
+exports.deleteRisk = function(req, res, next) {
+	var riskStrategyId = req.params.id;
+	var teamId = req.user._id;
+	Team.findById(teamId, function (err, team) {
+		var riskStrategies = team.riskStrategy;
+		riskStrategies.pull(riskStrategyId);
+		team.save(function(err){
+			  if (err) return validationError(res, err);
+		      res.send(200);
+		});
+	});
+	
+	
+};
+
 /**
  * Change teamAvatar
  */

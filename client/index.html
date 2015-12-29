@@ -48,7 +48,7 @@
 <!-- Add your site or application content here -->
 <!-- START PAGE CONTAINER -->
 <div ng-controller="SidebarWidthCtrl">
-  <div class="page-container">
+  <div ng-class="isLoginPage('/login') ? 'page-container-login': 'page-container'">
     <!-- START PAGE SIDEBAR -->
      
       <div ng-include="'components/sidebar/sidebar.html'"></div>  

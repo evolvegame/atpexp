@@ -15,7 +15,7 @@ angular.module('atpexpApp', [
   'ngTagsInput',
   'pascalprecht.translate',
   'ngFileUpload',
-  'toggle-switch'
+  'toggle-switch',
   'tmh.dynamicLocale',//angular-dynamic-locale
   'ngFileUpload'
 ])

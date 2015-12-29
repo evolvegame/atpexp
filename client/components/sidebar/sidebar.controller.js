@@ -1,7 +1,37 @@
 'use strict';
 
 angular.module('atpexpApp')
-  .controller('SidebarCtrl', function ($scope, $location,Auth, settings, Upload,toastr,$http,$rootScope) {
+  .controller('SidebarCtrl', function ($scope,$rootScope, $location, Team,Auth, settings, Upload,toastr,$window,$http,$translate) {
+
+    $rootScope.$on('$translateChangeSuccess', function () {
+      $scope.errWrongFile = $translate.instant('Error1');
+      $scope.dashboardName=$translate.instant('Dashboard');
+      $scope.menu = [{
+        'title': $scope.dashboardName,
+        'link': '/',
+        'icon': 'dashboard'
+      },{
+        'title': 'Market',
+        'link': '/market',
+        'icon': 'globe'
+      },{
+        'title': 'Risk',
+        'link': '/risk',
+        'icon': 'umbrella'
+      },{
+        'title': 'Company',
+        'link': '/company',
+        'icon': 'building-o'
+      },{
+        'title': 'Customer Portfolio',
+        'link': '/customer-portfolio',
+        'icon': 'search-plus'
+      }];
+      console.log("Error--"+$scope.errWrongFile);
+      console.log("Dashboard--"+$scope.dashboardName);
+    });
+    $scope.dash=$scope.dashboardName;
+
     $scope.menu = [{
       'title': 'Dashboard',
       'link': '/',
@@ -27,7 +57,7 @@ angular.module('atpexpApp')
     $scope.isCollapsed = true;
     $scope.isLoggedIn = Auth.isLoggedIn;
     $scope.isAdmin = Auth.isAdmin;
-    $scope.getCurrentTeam = Auth.getCurrentTeam; 
+    $scope.getCurrentTeam = Auth.getCurrentTeam;
 
     $http.get('/api/team/me').success( function (team){
     $rootScope.team = team;
@@ -38,9 +68,9 @@ angular.module('atpexpApp')
         $rootScope.team = team;
         });
     }
-   
-       
-           
+
+
+
     $scope.isActive = function(route) {
       // if route === '/admin'
       return route === $location.path();
@@ -52,15 +82,22 @@ angular.module('atpexpApp')
         $scope.slogan = settings.slogan
     }, true);
 
-        	
+
+
+    //temporary Solution to refresh model object
+    function reloadPage(){ $window.location.reload(); }
+
+
     // upload avatar function start
     $scope.uploadAvatar = function (file) {
       var error =false;
-      
+
       if (file){
     //File extension validation
     if (! /\.(jpe?g|png)$/i.test(file.name) ) {
-     toastr.error ('Error : The selected file is not a valid image. Please select an image file like JPG or PNG.');
+
+     console.log("errorValue - "+$scope.errWrongFile)
+     toastr.error ($scope.errWrongFile);
      error =true;
    }
 

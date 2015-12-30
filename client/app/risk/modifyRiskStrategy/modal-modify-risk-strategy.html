@@ -1,0 +1,86 @@
+<div class="panel panel-default as-panel-customer">
+    <div class="panel-body profile bg-info" style="margin-bottom:15px">
+        <div class="profile-data">
+            <div class="profile-data-name">UW Settings</div>
+        </div>
+    </div>
+    <div class="panel-body as-panel-customer">
+        <div class="col-md-12">
+            <span href="#" class="tile tile-default">
+	            <div style="float:left;margin: auto;height:20px; padding:5px;">
+	                <label style="text-align:center;">Strategy Name</label>
+	            </div>
+				<div class="col-md-4">
+					<input type="text" class="form-control" ng-model="selected.strategyName"/>
+				</div> <br> <br> <br> <br>
+				<span href="#" class="tile tile-default">
+					<div style="font-size:12px;"><h6>Rating band Settings</h6>
+						
+					        <table style="border: 1px solid;width:50%;" class="table datatable" align="center">
+					        	<thead class="table datatable">
+					        		<tr>
+					        			<th style="text-align: center;border: 1px solid;">Buyer Ratings</th>
+					        			<th style="text-align: center;border: 1px solid;">Acceptance percentage</th>
+					        		</tr>
+					        	</thead>
+					        	<tbody>
+					        			<tr ng-repeat="ratingBand in ratingBands | orderBy : 'sno'">
+					        				<td style="text-align: center;border: 1px solid;">{{ratingBand.ratingFrom}} - {{ratingBand.ratingTo}}</td>
+					        				<td style="text-align: center;border: 1px solid;">
+						        				<input type="number"
+													ng-model="selected.strategyRatingBand2"
+													required />
+											</td>
+					        			</tr>			        	
+					        	</tbody>
+					        
+					        </table>
+					  
+					    
+					    </div>
+			</span>
+			
+			<span href="#" class="tile tile-default">
+			 	<table style="border: 1px solid;width:50%;" class="table datatable" align="center">
+			 		<thead class="table datatable">
+						<tr>
+					    	<th style="text-align: center;border: 1px solid;">Country</th>
+					        <th style="text-align: center;border: 1px solid;">Industries</th>
+					    </tr>
+					 </thead>
+					 <tbody>
+					 	<tr>
+					 		<td>
+					 			<select multiple="multiple" ng-model="selected.buyerCountry">
+									<option ng-repeat="country in cou"
+													value="{{country.country}}">{{country.country}}</option>
+								</select>
+					 		</td>
+					 		<td>
+					 			<select multiple="multiple" ng-model="selected.buyerIndustry">
+									<option ng-repeat="industry in ind"
+													value="{{industry.industry}}">{{industry.industry}}</option>
+								</select>
+							</td>
+					 	</tr>
+					 </tbody>
+			 	
+			 	</table>
+			</span>
+    	</div>
+    	
+    	<div class="panel-body as-panel-customer">
+		    <div class="col-md-6 as-col-md-6">
+		        
+			</div>
+		</div>
+		
+		<div class="col-md-12">
+        	<a href="#" class="btn btn-block btn-lg btn-success" ng-click="saveModification(); closeModal();"><span class="fa-floppy-o"></span> Save</a>
+    	</div>
+	</div>
+
+<div class="panel-body list-group">
+    <a href="#" class="list-group-item btn btn-lg" ng-click="closeModal()"><span></span> (close)</a>
+</div>
+</div>

@@ -39,7 +39,8 @@ angular.module('atpexpApp')
 
 
 })
-.controller('riskCtrl', function ($scope, $http, Auth, Team , $translate, Risk, $rootScope) {
+
+.controller('riskCtrl', function ($scope, $http, Auth, Team , $translate, Risk, $rootScope, $modal) {
 
 	$http.get('/api/team/me').success(function (team) {     
 		$rootScope.team = team;       
@@ -102,13 +103,98 @@ angular.module('atpexpApp')
 		refresh();
 	};
 	
+	 $scope.showRiskStrategy = function(cust) {
+	      $scope.selected = cust;
+	    };
+	
+	$scope.open = function () {
+	      // open modal and load tpl
+	      var modalInstance = $modal.open({
+	        animation: $scope.animationsEnabled,
+	        templateUrl: 'app/risk/modifyRiskStrategy/modal-modify-risk-strategy.html',
+	        controller: 'RiskModalInstanceCtrl',
+	        resolve: {
+	          selectedRiskStrategy: function () {
+	            return $scope.selected;
+	          }
+	        }
+	      });
+	      // add selected risk strategy to $scope.selected
+	      modalInstance.result.then(function (selectedRiskStrategy) {
+	        $scope.selected = selectedRiskStrategy;
+	      });
+	    };
+	
+	    $scope.showRiskStrategy = function(strategy) {
+	        $scope.selected = strategy;
+	        console.log('risk a??? ' + JSON.stringify($scope.selected));
+	      };
+	    
 	function refresh(){
         $http.get('/api/team/me').success( function (team){
-        $rootScope.team = team;
-        $scope.strategies = $rootScope.team.riskStrategy; 
+	        $rootScope.team = team;
+	        $scope.strategies = $rootScope.team.riskStrategy; 
         });
+        console.log('refresshing....');
     }
 
-});
+})
+
+.controller('RiskModalInstanceCtrl', function ($http, $scope, $modalInstance, selectedRiskStrategy, Auth, toastr, Offer, $rootScope, Risk){
+	$scope.selected = selectedRiskStrategy;
+	
+	//get industry
+	$http.get('/api/ratingBands').success(function (ratingBands) {
+
+		console.log(ratingBands);
+		$scope.ratingBands = ratingBands;
+	});
+	
+	$http.get('/api/country').success(function (countries) {
+
+		console.log(countries);
+		$scope.cou = countries;
+	});
+	
+	//get industry
+	$http.get('/api/industry').success(function (industries) {
+
+		console.log(industries);
+		$scope.ind = industries;
+	});
+	
+	$scope.closeModal = function () {
+		$scope.selected = selectedRiskStrategy;
+	    $modalInstance.dismiss('close');
+	    refresh();
+	};
+	
+	function refresh(){
+        $http.get('/api/team/me').success( function (team){
+	        $rootScope.team = team;
+	        $scope.strategies = $rootScope.team.riskStrategy; 
+        });
+        console.log('refresshing....');
+    }
+	
+	$scope.saveModification = function() {
+		console.log('ya ya will modify.......---->>>> ' + JSON.stringify($scope.selected));
+		var riskStrategy = {
+				toBeDeletedId: $scope.selected._id,
+			    round: $scope.selected.round,
+			    strategyName: $scope.selected.strategyName,
+			    buyerCountry: $scope.selected.buyerCountry,
+			    buyerIndustry: $scope.selected.buyerIndustry,
+			    strategyRatingBand1: $scope.selected.strategyRatingBand1,
+			    strategyRatingBand2: $scope.selected.strategyRatingBand1,
+			    strategyRatingBand3: $scope.selected.strategyRatingBand3,
+			    strategyRatingBand4: $scope.selected.strategyRatingBand4,
+			    strategyRatingBand5: $scope.selected.strategyRatingBand5
+			  };
+		Risk.modifyRisk(riskStrategy);
+		refresh();
+		toastr.success($scope.selected.strategyName + ' has been saved successfully', 'Strategy Saved! ');
+	};
+})
 
 

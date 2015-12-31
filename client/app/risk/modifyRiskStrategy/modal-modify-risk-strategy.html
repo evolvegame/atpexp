@@ -31,7 +31,7 @@
 					        	</thead>
 					        	<tbody>
 					        			<tr ng-repeat="ratingBand in ratingBands | orderBy : 'sno'">
-					        				<td style="text-align: center;border: 1px solid;">{{ratingBand.sno}} {{ratingBand.ratingFrom}} - {{ratingBand.ratingTo}}</td>
+					        				<td style="text-align: center;border: 1px solid;">{{ratingBand.ratingFrom}} - {{ratingBand.ratingTo}}</td>
 					        				<td style="text-align: center;border: 1px solid;">
 						        				<input name="ratingBand{{$index+1}}" type="number"
 													ng-model="selected.ratingBand[$index+1]"
@@ -87,7 +87,7 @@
 		</div>
 		
 		<div class="col-md-12">
-        	<a href="#" class="btn btn-block btn-lg btn-success" ng-click="saveModification(); closeModal();"><span class="fa-floppy-o"></span> Save</a>
+        	<a href="#" class="btn btn-block btn-lg btn-success" ng-click="saveModification();"><span class="fa-floppy-o"></span> Save</a>
     	</div>
     	</form>
 	</div>

@@ -18,7 +18,7 @@
 		<div class="col-sm-8">
 			<!-- Trigger the modal with a button -->
 			<button type="button" class="btn btn-info btn-sm pull-right"
-				data-toggle="modal" data-target="#myModal" ng-click="reset()">{{
+				data-toggle="modal" ng-click="showCreateNewRiskStrategy(); openCreateNewRiskStrategy();">{{
 				'Add_New_Strategy' | translate }}</button>
 		</div>
 	</div>
@@ -68,7 +68,7 @@
 					<td class="text-center">{{strategy.strategyRatingBand5}}%</td>
 					<td class="text-center">
 						<button type="button" class="btn btn-info btn-sm"
-							data-toggle="modal" ng-click="showRiskStrategy(strategy); open();">{{ 'Modify' |
+							data-toggle="modal" ng-click="showModifyRiskStrategy(strategy); openModifyRiskStrategy();">{{ 'Modify' |
 							translate }}</button>
 					</td>
 					<td class="text-center"><button type="button"

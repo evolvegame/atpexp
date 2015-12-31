@@ -11,6 +11,17 @@ exports.index = function (req, res) {
   });
 };
 
+
+// Get current round
+exports.currentRound = function (req, res, next) {
+  console.log('current round called');
+  Round.findOne({"currentRoundFlag":true},function (err, round) {
+  if (err) return next(err);
+    if (!round) return res.json(401);
+    return res.json(round);
+  });
+};
+
 // Creates a new round
 exports.newRound = function (req, res) {
   Round.create(req.body, function(err, round) {

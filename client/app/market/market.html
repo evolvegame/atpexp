@@ -35,21 +35,20 @@
     </div>
 </div>
 </tab>      
-<tab heading="Global">
-<div class="tab-container">
-    <br>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default" style="background-color:#f9f9f9">
+<tab heading="Global"> 
+<div class="row">
+    <div class="col-md-12">    
+        <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Default</h3>
                     <ul class="panel-controls">
-                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
-                        <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                        <li><a href="#" ng-click="isCollapsedCustomer = !isCollapsedCustomer" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                       <li><a href="#" ng-click="refreshCustomer()" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
                     </ul>
                 </div>
-                <div class="panel-body">
-                    <div class="table-responsive">
+            
+                <div class="panel-body" collapse="isCollapsedCustomer">
+                <div class="table-responsive">
                         <table datatable="ng" class="table datatable hover">
                             <thead>
                                 <tr>
@@ -60,7 +59,7 @@
                                     <th>Buyer segment 1</th>
                                     <th>Buyer segment 2</th>
                                     <th>Buyer segment 3</th>
-                                    <th>Offer</th>
+                                    <th>Offer</th>                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,16 +71,21 @@
                                     <td>{{ cust.buyerPortfolio[0].country }} - {{ cust.buyerPortfolio[0].industry }}</td>
                                     <td>{{ cust.buyerPortfolio[1].country }} - {{ cust.buyerPortfolio[1].industry }}</td>
                                     <td>{{ cust.buyerPortfolio[2].country }} - {{ cust.buyerPortfolio[2].industry }}</td>
-                                    <td><button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust); open()">Make Offer</button></td>
+                                    <td><button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust); open()">Make Offer</button></td>                                 
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div>    
+
+                <div class="panel-footer" collapse="isCollapsedCustomer"> </div>
             </div>
-        </div>
-    </div>
-</div>
+        </div> 
+
+</div> 
+
+</div>            
+
 </tab>
 <tab heading="Offers">
 <div class="tab-container">
@@ -105,9 +109,9 @@
                                     <th>Average Acceptance Rate</th>
                                     <th>Price</th>
                                     <th>Service Score</th>
-                                    <th>Improve Offer</th>
+                                    <!-- <th>Improve Offer</th>
                                     <th>Delete Offer</th>
-                                    <th>object</th>
+                                    <th>object</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -116,9 +120,9 @@
                                     <td>{{ offer.avgAr }}</td>
                                     <td>{{ offer.price }}</td>
                                     <td>{{ offer.serviceScore }}</td>
-                                    <td><button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showOffer(offer); improveOffer()">Improve Offer</button></td>
+                               <!--      <td><button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showOffer(offer); improveOffer()">Improve Offer</button></td>
                                     <td><button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showOffer(offer); deleteOffer(offer)">Delete Offer</button></td>
-                                    <td>{{offer._id}}</td>
+                                    <td>{{offer._id}}</td> -->
                                 </tr>
                             </tbody>
                         </table>

@@ -27,18 +27,12 @@ var TeamSchema = mongoose.Schema({
   facilities: Number,
   totalExpense: Number,
   rankingPosition: Number,
-  rounds: [{
-	  roundNumber: Number,
-	  premiumIncome: Number,
-	  claimsPaid: Number,
-	  operatingExpenses: Number,
-	  grossIncome: Number,
-	  profit: Number
-  }],
   roundLevelInformation: {
+    roundNumber: Number,
     capital: Number,
     premium: Number,
     claims: Number,
+    grossIncome: Number,
     claimsRatio: Number,
     profit: Number,
     investment: Number,
@@ -121,7 +115,7 @@ TeamSchema
 //	console.log("Password is : " + password);
    this._password = password;
 	var i;
-	console.log("Members are :" + this);
+	//console.log("Members are :" + this);
 	for ( i=0; i < this.members.length; i++) {
 		this.members[i].salt = this.makeSalt();
 		//console.log("Salt is " + this.members[i].salt);
@@ -129,7 +123,7 @@ TeamSchema
 	}
 	this.members.push();
 	this.save();
-	console.log(" This is " + this);
+	//console.log(" This is " + this);
   })
   .get(function() {
     return this._password;

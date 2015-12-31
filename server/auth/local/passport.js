@@ -16,7 +16,7 @@ exports.setup = function (Team, config) {
         if (!user.authenticate(password)) {
           return done(null, false, { message: 'This password is not correct.' });
         }
-        console.log('passport.js : '+user);
+        //console.log('passport.js : '+user);
         return done(null, user);
       });
     }

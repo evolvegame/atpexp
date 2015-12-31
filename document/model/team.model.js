@@ -24,6 +24,7 @@ var TeamSchema = new Schema({
   totalExpense: Number,
   rankingPosition: Number,
   roundLevelInformation: {
+    round:Number,
     capital: Number,
     premium: Number,
     claims: Number,

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('atpexpApp')
-  .controller('MarketCtrl', function ($scope, $modal, $http, Market,Auth,$rootScope) {
+  .controller('MarketCtrl', function ($scope, $modal, $http, Customer, $rootScope, toastr) {
         // load selected customer in modal
     $scope.showCustomer = function(cust) {
       $scope.selected = cust;
@@ -28,22 +28,21 @@ angular.module('atpexpApp')
       });
     };
 
-    Market.customers.query().$promise.then(function (customers) {
+    Customer.customers.query().$promise.then(function (customers) {
       $scope.customers = customers;
     });
 
-    /*Market.offers.query().$promise.then(function (offers) {
-      $scope.offers = offers;
-    });*/
-
-    //$scope.team = Auth.getCurrentTeam;
-
-  
+    $scope.refreshCustomer = function (){
+    Customer.customers.query().$promise.then(function (customers) {
+      $scope.customers = customers;
+    });
+    toastr.info('Customer info refreshed');
+}  
 
 
   })
 
-.controller('ModalInstanceCtrl', function ($scope, $modalInstance, selectedCustomer, Auth, toastr, Offer, $rootScope){
+.controller('ModalInstanceCtrl', function ($scope, $modalInstance, selectedCustomer, toastr, Offer, $rootScope){
     // re-add selectedCustomer to $scope.selected
     $scope.selected = selectedCustomer;
 
@@ -93,10 +92,10 @@ angular.module('atpexpApp')
 
     //code added to get risk acceptance rate from team risk strtagy
     $scope.getRiskAcceptanceRate = function (country,insdustry,rating){
-    var strategies = Auth.getCurrentTeam().riskStrategy;
+    var strategies = $rootScope.team.riskStrategy;     
     for (var i = strategies.length - 1; i >= 0; i--) {
      // console.log('rating '+rating);
-      if (strategies[i].buyerCountry===country && strategies[i].buyerIndustry === insdustry ){
+      if (strategies[i].buyerCountry===country && strategies[i].buyerIndustry.indexOf(insdustry)>-1 ){
         if (rating.between(1,30)){
           $scope.riskAcceptance =strategies[i].strategyRatingBand1;
           //console.log('match:1to30'+i);
@@ -113,8 +112,60 @@ angular.module('atpexpApp')
         console.log('riskAcceptance >'+country+ '-'+insdustry +' '+$scope.riskAcceptance);
         return $scope.riskAcceptance;
       }
-    };
-    
+    };    
+  }
+
+  //code added to get weather icon based on buyer rating
+    $scope.getRatingWeatherIcon=function(buyerRating){
+      $scope.ratingWeatherIcon ='';
+      $scope.ratingText='no data';
+    if ( buyerRating!=null && typeof buyerRating != "undefined" ){
+      if (buyerRating.between(1,30)){
+          $scope.ratingWeatherIcon ='wi wi-storm-showers';
+          $scope.ratingText ='Very Bad';
+          //console.log('match:1to30'+i);
+        } else if (buyerRating.between(31,40)){
+          $scope.ratingWeatherIcon ='wi wi-cloudy';
+          $scope.ratingText ='Bad';
+        } else if (buyerRating.between(41,50)){
+          $scope.ratingWeatherIcon ='wi wi-cloud';
+          $scope.ratingText ='Moderate';
+        } else if (buyerRating.between(51,60)){
+          $scope.ratingWeatherIcon ='wi wi-day-cloudy';
+          $scope.ratingText ='Good';
+        } else {
+          $scope.ratingWeatherIcon ='wi wi-day-sunny';
+          $scope.ratingText ='Excellent';
+        }  
+
+        return $scope.ratingWeatherIcon; 
+    }
+  }
+    //code added to get weather icon based on customer risk
+    $scope.getRiskWeatherIcon=function(customerRisk){
+      $scope.riskWeatherIcon ='';
+      $scope.riskText='no data';
+    if ( customerRisk!=null && typeof customerRisk != "undefined" ){
+      if (customerRisk.between(1,30)){
+          $scope.riskWeatherIcon ='wi wi-storm-showers';
+          $scope.riskText ='Very Bad';
+          //console.log('match:1to30'+i);
+        } else if (customerRisk.between(31,40)){
+          $scope.riskWeatherIcon ='wi wi-cloudy';
+          $scope.riskText ='Bad';
+        } else if (customerRisk.between(41,50)){
+          $scope.riskWeatherIcon ='wi wi-cloud';
+          $scope.riskText ='Moderate';
+        } else if (customerRisk.between(51,60)){
+          $scope.riskWeatherIcon ='wi wi-day-cloudy';
+          $scope.riskText ='Good';
+        } else {
+          $scope.riskWeatherIcon ='wi wi-day-sunny';
+          $scope.riskText ='Excellent';
+        }  
+
+        return $scope.riskWeatherIcon; 
+    }
   }
 
   })

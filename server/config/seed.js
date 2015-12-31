@@ -66,28 +66,6 @@ Team.find({}).remove(function() {
           teamCountry: "NL",
           capital: 400,
           experienceScore: 75,
-          rounds: [{
-        	  roundNumber: 1,
-        	  premiumIncome: 235256,
-        	  claimsPaid: 12341,
-        	  operatingExpenses: 57373,
-        	  grossIncome: 46262,
-        	  profit: 57438
-          },{
-        	  roundNumber: 2,
-        	  premiumIncome: 2356256,
-        	  claimsPaid: 12347671,
-        	  operatingExpenses: 1257373,
-        	  grossIncome: 87646262,
-        	  profit: 457438
-          },{
-        	  roundNumber: 3,
-        	  premiumIncome: 2356,
-        	  claimsPaid: 123416,
-        	  operatingExpenses: 5733473,
-        	  grossIncome: 462262,
-        	  profit: 572438
-          }],
           members :[
                     {name :'Rajasekaran',email: 'raj@atradius.com' },
                     {name :'Ranagarajan',email: 'ranga@atradius.com' },
@@ -411,8 +389,12 @@ User.find({}).remove(function() {
 
 Round.find({}).remove(function() {
   Round.create( {
-    currentRound: 0,
-    calculated: false
+    round: 1,
+    roundName:'FirstRound',
+    roundStart: '15-Dec-2015',
+    roundEnd: '30-Dec-2015',
+    currentRoundFlag:true,
+    calculationFlag:false
   }, function() {
     console.log('** Beginning with round zero...');
   }
@@ -427,6 +409,7 @@ Customer.find({}).remove(function() {
     region:"West-Europe",
     regionCode:"we",
     country:"The Netherlands",
+    businessRisk: 40,
     countryCode:"nl",
     industry:"Services",
     industryCode:"ser",

@@ -16,7 +16,7 @@ var Country = require('../api/country/country.model');
 var France = require('../api/france/france.model');
 var Projects = require('../api/projects/projects.model');
 var Departments = require('../api/departments/departments.model');
-
+var RatingBands = require('../api/ratingBands/ratingBand.model');
 
 Team.find({}).remove(function() {
   try { 
@@ -261,6 +261,31 @@ Projects.find({}).remove(function(){
   } 
   );
 });
+
+RatingBands.find({}).remove(function(){
+	  RatingBands.create({
+	    sno: 1,
+	    ratingFrom: 1,
+	    ratingTo: 30
+	  },{
+		  sno: 2,
+		   ratingFrom: 31,
+		   ratingTo: 40
+	  },{
+		  sno: 3,
+		  ratingFrom: 41,
+		  ratingTo: 50
+	  },{
+		  sno: 4,
+		  ratingFrom: 51,
+		  ratingTo: 60
+	  },{
+		  sno: 5,
+		  ratingFrom: 60,
+		  ratingTo: 100
+	  }
+	  );
+	});
 
 
 

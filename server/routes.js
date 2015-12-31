@@ -22,6 +22,7 @@ module.exports = function(app) {
   app.use('/api/departments', require('./api/departments'));
   app.use('/api/industry', require('./api/industry'));
   app.use('/api/country', require('./api/country'));
+  app.use('/api/ratingBands', require('./api/ratingBands'));
   app.use('/api/locale-fr', require('./api/france'));
   app.use('/auth', require('./auth'));
 

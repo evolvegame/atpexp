@@ -74,7 +74,13 @@ angular.module('atpexpApp')
 	          params: {
 	        	  controller:'risk'
 	          }
-	        },
+	 },
+	   modifyRisk: {
+		   method: 'PUT',
+		   params: {
+		        	 controller:'modifyRisk'
+		          }
+		        },
 	});
 });
 

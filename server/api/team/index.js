@@ -18,5 +18,6 @@ router.put('/:id/department', auth.isAuthenticated(), controller.teamDepartment)
 router.put('/:round/:strategyName/:buyerCountry/:buyerIndustry/:strategyRatingBand1/:strategyRatingBand2/:strategyRatingBand3/:strategyRatingBand4/:strategyRatingBand5/risk', auth.isAuthenticated(), controller.addRisk);
 router.get('/:id', auth.isAuthenticated(), controller.show);
 router.put('/:id/deleteRisk', auth.isAuthenticated(), controller.deleteRisk);
+router.put('/:id/:round/:strategyName/:buyerCountry/:buyerIndustry/:strategyRatingBand1/:strategyRatingBand2/:strategyRatingBand3/:strategyRatingBand4/:strategyRatingBand5/modifyRisk', auth.isAuthenticated(), controller.modifyRisk);
 router.post('/', controller.create);
 module.exports = router;

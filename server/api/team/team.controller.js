@@ -180,8 +180,8 @@ exports.addRisk = function(req, res, next) {
 	var teamId = req.user._id;
 	var strategyName = req.params.strategyName;
 	var round = req.params.round;
-	var buyerCountry = req.params.buyerCountry;
-	var buyerIndustry = req.params.buyerIndustry;
+	var buyerCountry = req.params.buyerCountry.split(",");
+	var buyerIndustry = req.params.buyerIndustry.split(",");
 	var strategyRatingBand1 = req.params.strategyRatingBand1;
 	var strategyRatingBand2 = req.params.strategyRatingBand2;
 	var strategyRatingBand3 = req.params.strategyRatingBand3;
@@ -232,6 +232,53 @@ exports.deleteRisk = function(req, res, next) {
 	});
 	
 	
+};
+
+exports.modifyRisk = function(req, res, next) {
+	var teamId = req.user._id;
+	var strategyId = req.params.id;
+	var strategyName = req.params.strategyName;
+	var round = req.params.round;
+	var buyerCountry = req.params.buyerCountry.split(",");
+	var buyerIndustry = req.params.buyerIndustry.split(",");
+	var strategyRatingBand1 = req.params.strategyRatingBand1;
+	var strategyRatingBand2 = req.params.strategyRatingBand2;
+	var strategyRatingBand3 = req.params.strategyRatingBand3;
+	var strategyRatingBand4 = req.params.strategyRatingBand4;
+	var strategyRatingBand5 = req.params.strategyRatingBand5;
+	console.log('Reached team controller!!! - strategyName ' + strategyName);
+	console.log('Reached team controller!!! - round ' + round);
+	console.log('Reached team controller!!! - buyerCountry ' + buyerCountry);
+	console.log('Reached team controller!!! - buyerIndustry ' + buyerIndustry);
+	console.log('Reached team controller!!! - strategyRatingBand1 ' + strategyRatingBand1);
+	console.log('Reached team controller!!! - strategyRatingBand2 ' + strategyRatingBand2);
+	console.log('Reached team controller!!! - strategyRatingBand3 ' + strategyRatingBand3);
+	console.log('Reached team controller!!! - strategyRatingBand4 ' + strategyRatingBand4);
+	console.log('Reached team controller!!! - strategyRatingBand5 ' + strategyRatingBand5);
+	console.log('Reached team controller!!! - teamId ' + strategyId);
+	
+	Team.findById(teamId, function (err, team) {
+	    var strategies = team.riskStrategy;
+	    for (var i=0; i < team.riskStrategy.length; i++) {
+	    	if (team.riskStrategy[i]._id == strategyId) {
+	    		team.riskStrategy[i].strategyName = strategyName;
+	    		team.riskStrategy[i].buyerCountry = buyerCountry;
+	    		team.riskStrategy[i].buyerIndustry = buyerIndustry
+	    		team.riskStrategy[i].strategyRatingBand1 = strategyRatingBand1;
+	    		team.riskStrategy[i].strategyRatingBand2 = strategyRatingBand2;
+	    		team.riskStrategy[i].strategyRatingBand3 = strategyRatingBand3;
+	    		team.riskStrategy[i].strategyRatingBand4 = strategyRatingBand4;
+	    		team.riskStrategy[i].strategyRatingBand5 = strategyRatingBand5;
+	    		break;
+	    	}
+	    }
+	    
+	    team.save(function(err){
+			  if (err) return validationError(res, err);
+		      res.send(200);
+		});
+	    
+	  });	
 };
 
 /**

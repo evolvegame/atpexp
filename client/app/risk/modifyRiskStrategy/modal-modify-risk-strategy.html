@@ -5,13 +5,19 @@
         </div>
     </div>
     <div class="panel-body as-panel-customer">
+    <form name="modificationForm" novalidate="novalidate">
         <div class="col-md-12">
             <span href="#" class="tile tile-default">
 	            <div style="float:left;margin: auto;height:20px; padding:5px;">
 	                <label style="text-align:center;">Strategy Name</label>
 	            </div>
 				<div class="col-md-4">
-					<input type="text" class="form-control" ng-model="selected.strategyName"/>
+					<input name="strategyName" style="width:300px;" type="text" class="form-control" ng-model="selected.strategyName" required="required"/>
+						<span style="color: red" ng-show="modificationForm.strategyName.$dirty && modificationForm.strategyName.$invalid">
+							<span ng-show="modificationForm.strategyName.$error.required">
+								Strategy Name is required.
+							</span>
+						</span>
 				</div> <br> <br> <br> <br>
 				<span href="#" class="tile tile-default">
 					<div style="font-size:12px;"><h6>Rating band Settings</h6>
@@ -25,11 +31,16 @@
 					        	</thead>
 					        	<tbody>
 					        			<tr ng-repeat="ratingBand in ratingBands | orderBy : 'sno'">
-					        				<td style="text-align: center;border: 1px solid;">{{ratingBand.ratingFrom}} - {{ratingBand.ratingTo}}</td>
+					        				<td style="text-align: center;border: 1px solid;">{{ratingBand.sno}} {{ratingBand.ratingFrom}} - {{ratingBand.ratingTo}}</td>
 					        				<td style="text-align: center;border: 1px solid;">
-						        				<input type="number"
-													ng-model="selected.strategyRatingBand2"
-													required />
+						        				<input name="ratingBand{{$index+1}}" type="number"
+													ng-model="selected.ratingBand[$index+1]"
+													required/>
+												<span style="color: red" ng-show="modificationForm.ratingBand{{$index+1}}.$dirty && modificationForm.ratingBand{{$index+1}}.$invalid">
+													<span ng-show="modificationForm.ratingBand{{$index+1}}.$error.required">
+														Rating Band {{$index+1}} is required.
+													</span>
+												</span>
 											</td>
 					        			</tr>			        	
 					        	</tbody>
@@ -78,6 +89,7 @@
 		<div class="col-md-12">
         	<a href="#" class="btn btn-block btn-lg btn-success" ng-click="saveModification(); closeModal();"><span class="fa-floppy-o"></span> Save</a>
     	</div>
+    	</form>
 	</div>
 
 <div class="panel-body list-group">

@@ -143,6 +143,15 @@ angular.module('atpexpApp')
 .controller('RiskModalInstanceCtrl', function ($http, $scope, $modalInstance, selectedRiskStrategy, Auth, toastr, Offer, $rootScope, Risk){
 	$scope.selected = selectedRiskStrategy;
 	
+	$scope.selected.ratingBand = {
+			1: selectedRiskStrategy.strategyRatingBand1,
+			2: selectedRiskStrategy.strategyRatingBand2,
+			3: selectedRiskStrategy.strategyRatingBand3,
+			4: selectedRiskStrategy.strategyRatingBand4,
+			5: selectedRiskStrategy.strategyRatingBand5
+				
+	};
+	console.log('Ssshhh... ' + JSON.stringify($scope.selected));
 	//get industry
 	$http.get('/api/ratingBands').success(function (ratingBands) {
 
@@ -177,19 +186,25 @@ angular.module('atpexpApp')
         console.log('refresshing....');
     }
 	
+	
 	$scope.saveModification = function() {
 		console.log('ya ya will modify.......---->>>> ' + JSON.stringify($scope.selected));
+		$scope.selected.strategyRatingBand1 = $scope.selected.ratingBand[1];
+		$scope.selected.strategyRatingBand2 = $scope.selected.ratingBand[2];
+		$scope.selected.strategyRatingBand3 = $scope.selected.ratingBand[3];
+		$scope.selected.strategyRatingBand4 = $scope.selected.ratingBand[4];
+		$scope.selected.strategyRatingBand5 = $scope.selected.ratingBand[5];
 		var riskStrategy = {
 				toBeDeletedId: $scope.selected._id,
 			    round: $scope.selected.round,
 			    strategyName: $scope.selected.strategyName,
 			    buyerCountry: $scope.selected.buyerCountry,
 			    buyerIndustry: $scope.selected.buyerIndustry,
-			    strategyRatingBand1: $scope.selected.strategyRatingBand1,
-			    strategyRatingBand2: $scope.selected.strategyRatingBand1,
-			    strategyRatingBand3: $scope.selected.strategyRatingBand3,
-			    strategyRatingBand4: $scope.selected.strategyRatingBand4,
-			    strategyRatingBand5: $scope.selected.strategyRatingBand5
+			    strategyRatingBand1: $scope.selected.ratingBand[1],
+			    strategyRatingBand2: $scope.selected.ratingBand[2],
+			    strategyRatingBand3: $scope.selected.ratingBand[3],
+			    strategyRatingBand4: $scope.selected.ratingBand[4],
+			    strategyRatingBand5: $scope.selected.ratingBand[5],
 			  };
 		Risk.modifyRisk(riskStrategy);
 		refresh();

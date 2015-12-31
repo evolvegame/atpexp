@@ -33,44 +33,44 @@
                         <div class="col-dashboard col-md-10" ng-controller="MiniDashCtrl">
                         <div class="col-md-2 col-sm-12 col-align">
                             <div class="tile tile-transparent">
-                                78
+                                €{{team.rankingPosition}}
                                 <p>Ranking</p>
-                                <div class="informer informer-warning dir-tr"><span class="fa fa-arrow-circle-right"></span></div>
+                                <div class="informer informer-warning dir-tr"><span class="{{rankingIcon}}"></span></div>
                             </div>
                         </div>
                         <div class="col-md-2 col-sm-12 col-align">
                             <div class="tile tile-transparent">
-                                32
+                                {{team.experienceScore}} 
                                 <p>Experience score</p>
-                                <div class="informer informer-success dir-tr"><span class="fa fa-arrow-circle-up"></span></div>
+                                <div class="informer informer-success dir-tr"><span class="{{experienceScoreIcon}}"></span></div>
                             </div>
                         </div>
                         <div class="col-md-2 col-sm-12 col-align">
                             <div class="tile tile-transparent">
-                                65
+                               {{team.customers}} TBD
                                 <p>Customers</p>
-                                <div class="informer informer-success dir-tr"><span class="fa fa-arrow-circle-up"></span></div>
+                                <div class="informer informer-success dir-tr"><span class="{{customersIcon}}"></span></div>
                             </div>
                         </div>
                         <div class="col-md-2 col-sm-12 col-align">
                             <div class="tile tile-transparent">
-                                87%
+                                {{team.acceptanceRate}} TBD
                                 <p>Acceptance Rate</p>
-                                <div class="informer informer-danger dir-tr"><span class="fa fa-arrow-circle-down"></span></div>
+                                <div class="informer informer-danger dir-tr"><span class="{{acceptanceRateIcon}}"></span></div>
                             </div>
                         </div>
                         <div class="col-md-2 col-sm-12 col-align">
                             <div class="tile tile-transparent">
-                                €104,599.49
+                                €{{team.claims}}
                                 <p>Claims</p>
-                                <div class="informer informer-danger dir-tr"><span class="fa fa-arrow-circle-up"></span></div>
+                                <div class="informer informer-danger dir-tr"><span class="{{claimsIcon}}"></span></div>
                             </div>
                         </div>
                         <div class="col-md-2 col-sm-12 col-align">
                             <div class="tile tile-transparent">
                                 €{{team.capital}}
                                 <p>Capital</p>
-                                <div class="informer informer-success dir-tr"><span class="fa fa-arrow-circle-up"></span></div>
+                                <div class="informer informer-success dir-tr"><span class="{{capitalIcon}}"></span></div>
                             </div>
                         </div>
                     </div>

@@ -13,15 +13,15 @@
                 <p style="margin-top:2px;line-height:14px;">{{selected.country}}<small style="color:#bbb"><br>({{ selected.industry }} Sector)</small></p>
             </div>
             <div class="col-md-3">
-                <span class="label label-warning label-form"><span class="fa fa-cogs"></span> 80+</span>
-            <p style="line-height:14px;margin-top:10px;">Service Need<small style="color:#bbb"><br>Your score is 82</small></p>
+                <span class="label label-warning label-form"><span class="fa fa-cogs"></span> {{selected.experienceScoreNeeded}}</span>
+            <p style="line-height:14px;margin-top:10px;">Service Need<small style="color:#bbb"><br>Your score is {{team.experienceScore}}</small></p>
         </div>
         <div class="col-md-3">
-            <span class="wi wi-day-cloudy" style="font-size: 28px;line-height: 36px;"></span>
-            <p style="line-height:14px;margin-top:2px;">Good Risk<small style="color:#bbb"><br>Overall Risk Level</small></p>
+            <span class="{{getRiskWeatherIcon(selected.businessRisk)}}" style="font-size: 28px;line-height: 36px;"></span>
+            <p style="line-height:14px;margin-top:2px;">{{riskText}} Risk<small style="color:#bbb"><br>Overall Risk Level</small></p>
         </div>
         <div class="col-md-3">
-            <span style="font-size:28px;line-height:36px;">{{(selected.buyerTpe1 + selected.buyerTpe2 + selected.buyerTpe3)/1000000}}</span>
+            <span style="font-size:28px;line-height:36px;">{{(selected.buyerPortfolio[0].tpe + selected.buyerPortfolio[1].tpe + selected.buyerPortfolio[2].tpe)/1000000}}</span>
             <p style="margin-top:2px;line-height:14px;">Turnover<small style="color:#bbb"><br>In million Euro</small></p>
         </div>
         </span>
@@ -36,8 +36,8 @@
             <p style="font-size:12px;"><img ng-src="assets/img/flags/{{buyer.countryCode }}.png" width="12" height="12" style="margin-bottom:4px">
             {{buyer.country}}</p>
             <p style="font-size:12px"><span class="fa fa-globe" style="font-size: 12px;line-height: 18px;"></span> {{ buyer.industry }}</p>
-        <p><span class="wi wi-day-sunny" style="font-size: 32px;line-height: 54px;"></span></p>
-        <p>Excellent</p>
+        <p><span class="{{getRatingWeatherIcon(buyer.rating)}}" style="font-size: 32px;line-height: 54px;"></span></p>
+        <p>{{ratingText}}</p>
        
             <p style="font-size:20px;">{{ getRiskAcceptanceRate(buyer.country,buyer.industry,buyer.rating)}}%</p>
              <p>
@@ -107,7 +107,7 @@
 <div class="col-md-6 as-col-md-6" style="padding-right:15px">
     <span href="#" class="tile tile-default" style="height:130px;">
 <div style="font-size:12px;"><h6>Service</h6></div>
-<span class="label label-warning label-form"><span class="fa fa-cogs"></span> 82</span> / <span class="label label-danger label-form"><span class="fa fa-flash"></span> 100</span>
+<span class="label label-warning label-form"><span class="fa fa-cogs"></span> {{team.experienceScore}} </span> / <span class="label label-danger label-form"><span class="fa fa-flash"></span> 100</span>
     <p style="line-height:14px;margin-top:10px;padding-right:40px;padding-left:40px;">Experience Score<small style="color:#bbb"><br>You have enough Experience Score to insure {{ selected.name }}.</small></p>
     </span>
 </div>

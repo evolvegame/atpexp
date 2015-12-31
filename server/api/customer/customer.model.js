@@ -2,33 +2,18 @@
 
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
-
-/*var CustomerSchema = new Schema({
-  name: String,
-  country: String,
-  countryCode: String,
-  region: String,
-  regionCode: String,
-  industry: String,
-  buyerCountry1: String,
-  buyerIndustry1: String,
-  buyerTpe1: Number,
-  buyerCountry2: String,
-  buyerIndustry2: String,
-  buyerTpe2: Number,
-  buyerCountry3: String,
-  buyerIndustry3: String,
-  buyerTpe3: Number
-});*/
-
 var CustomerSchema = new Schema({
   name:String,
+  revenue:Number,
   region:String,
   regionCode:String,
   country:String,
   countryCode:String,
+  businessRisk :Number,
   industry:String,
   industryCode:String,
+  businessRisk:Number,
+  experienceScoreNeeded:Number,
   buyerPortfolio:[
   {region:String,
     regionCode:String,
@@ -37,12 +22,11 @@ var CustomerSchema = new Schema({
     industry:String,
     industryCode:String,
     tpe:Number,
-    rating:Number}                
-    ],
-    inGame:Boolean,
-    hasPolicy:Boolean,
-    policyHolder:[]
-
+    rating:Number,
+    cla:Number
+  }                
+    ]
+   
   });
 
 

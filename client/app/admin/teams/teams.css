@@ -1,1 +1,6 @@
 .trash { color:rgb(209, 91, 71); }
+input[type=checkbox] {
+	-webkit-appearance: none;
+    width: 1em;
+    height: 1em;
+}

@@ -21,7 +21,7 @@
             <p style="line-height:14px;margin-top:2px;">{{riskText}} Risk<small style="color:#bbb"><br>Overall Risk Level</small></p>
         </div>
         <div class="col-md-3">
-            <span style="font-size:28px;line-height:36px;">{{(selected.buyerPortfolio[0].tpe + selected.buyerPortfolio[1].tpe + selected.buyerPortfolio[2].tpe)/1000000}}</span>
+            <span style="font-size:28px;line-height:36px;">{{(selected.turnover)/1000000}}</span>
             <p style="margin-top:2px;line-height:14px;">Turnover<small style="color:#bbb"><br>In million Euro</small></p>
         </div>
         </span>
@@ -99,7 +99,8 @@
 <div style="font-size:12px;"><h6>Price</h6></div>
 <div class="input-group" style="margin-top:15px;padding-right:40px;padding-left:40px;">
     <span class="input-group-addon"><span class="fa fa-eur"></span></span>
-        <input type="text" class="form-control" ng-model="price">
+        <input type="text" class="form-control" ng-model="price" ng-required="price>5"/>
+       
     </div>
     <span class="help-block" style="padding-right:40px;padding-left:40px;">The average price is 0.2 of the turnover.</span>
     </span>

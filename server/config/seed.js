@@ -431,6 +431,8 @@ Offer.find({}).remove(function() {});
 Customer.find({}).remove(function() {
   Customer.create({
     name:"Ajo",
+    revenue:100000,
+    turnover:5000000,
     region:"West-Europe",
     regionCode:"we",
     country:"The Netherlands",
@@ -448,6 +450,8 @@ Customer.find({}).remove(function() {
                     policyHolder:[{teamId:"123",inRound:0}]
   },{
     name:"Bope",
+    revenue:200000,
+    turnover:9000000,
     region:"West-Europe",
     regionCode:"we",
     country:"Germany",
@@ -464,6 +468,8 @@ Customer.find({}).remove(function() {
                     policyHolder:[]
   },{
     name:"Calcent",
+    revenue:700000,
+    turnover:15000000,
     region:"West-Europe",
     regionCode:"we",
     country:"United Kingdom",
@@ -480,6 +486,8 @@ Customer.find({}).remove(function() {
                     policyHolder:[]
   },{
     name:"Dolent",
+    revenue:300000,
+    turnover:25000000,
     region:"West-Europe",
     regionCode:"we",
     country:"Spain",
@@ -496,6 +504,8 @@ Customer.find({}).remove(function() {
                     policyHolder:[]
   },{
     name:"Enible",
+    revenue:100000,
+    turnover:5000000,
     region:"South-America",
     regionCode:"sa",
     country:"Argentina",
@@ -512,6 +522,8 @@ Customer.find({}).remove(function() {
                     policyHolder:[]
   },{
     name:"Exil",
+    revenue:100000,
+    turnover:5000000,
     region:"South-America",
     regionCode:"sa",
     country:"Brazil",
@@ -528,6 +540,8 @@ Customer.find({}).remove(function() {
                     policyHolder:[]
   },{
     name:"Forosis",
+    revenue:100000,
+    turnover:5000000,
     region:"South-America",
     regionCode:"sa",
     country:"Chille",
@@ -544,6 +558,8 @@ Customer.find({}).remove(function() {
                     policyHolder:[]
   },{
     name:"Capiz",
+    revenue:100000,
+    turnover:5000000,
     region:"South-America",
     regionCode:"sa",
     country:"Colombia",

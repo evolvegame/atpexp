@@ -91,14 +91,19 @@ angular.module('atpexpApp')
     }
 
     //code added to get risk acceptance rate from team risk strtagy
-    $scope.getRiskAcceptanceRate = function (country,insdustry,rating){
+    $scope.getRiskAcceptanceRate = function (country,industry,rating){
     var strategies = $rootScope.team.riskStrategy;     
     for (var i = strategies.length - 1; i >= 0; i--) {
-     // console.log('rating '+rating);
-      if (strategies[i].buyerCountry===country && strategies[i].buyerIndustry.indexOf(insdustry)>-1 ){
+     console.log('rating: '+rating+ ' industry: '+industry+' country: '+country);
+     console.log('buyerCountry: '+strategies[i].buyerCountry);
+     console.log('buyerIndustry: '+strategies[i].buyerIndustry);
+     console.log('Condition1 :'+strategies[i].buyerCountry===country);
+     console.log('Condition2 :'+strategies[i].buyerIndustry.indexOf(industry)>-1);
+
+      if (strategies[i].buyerCountry.indexOf(country)>-1 && strategies[i].buyerIndustry.indexOf(industry)>-1 ){
         if (rating.between(1,30)){
           $scope.riskAcceptance =strategies[i].strategyRatingBand1;
-          //console.log('match:1to30'+i);
+          console.log('match:1to30'+i);
         } else if (rating.between(31,40)){
           $scope.riskAcceptance =strategies[i].strategyRatingBand2;
           console.log('match:31to40'+i);
@@ -109,7 +114,7 @@ angular.module('atpexpApp')
         } else {
           $scope.riskAcceptance =strategies[i].strategyRatingBand5;
         }        
-        console.log('riskAcceptance >'+country+ '-'+insdustry +' '+$scope.riskAcceptance);
+        console.log('riskAcceptance >'+country+ '-'+industry +' '+$scope.riskAcceptance);
         return $scope.riskAcceptance;
       }
     };    

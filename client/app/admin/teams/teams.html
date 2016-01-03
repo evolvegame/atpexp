@@ -1,12 +1,12 @@
 <!-- START BREADCRUMB -->
 <div class="mini-dashboard col-md-12">
-   <div class="col-breadcrumb col-md-2">
-    <ul class="breadcrumb">
-        <li><a href="/">Link</a></li>
-        <li class="active">Admin</li>
-    </ul>
+ <div class="col-breadcrumb col-md-2">
+  <ul class="breadcrumb">
+    <li><a href="/">Link</a></li>
+    <li class="active">Admin</li>
+  </ul>
 </div>
- <div ng-include="'components/minidash/minidash.html'"></div>
+<div ng-include="'components/minidash/minidash.html'"></div>
 </div>
 <!-- END BREADCRUMB -->            
 
@@ -15,37 +15,40 @@
 
 </div>
 <tabset>
-  <tab heading="Teams">
-    <div class="tab-container">
-      <p>The delete team and user index api routes are restricted to team with the 'admin' role.</p>
-      
-      <div class="panel-heading">
-        <h3 class="panel-title">Total Teams : {{teams.length}}</h3>
-      </div>
-      <div class="table-responsive">
-        <table class="table table-bordered table-striped table-actions">
+  <tab heading="Teams({{teams.length}})">
+        <div class="tab-container">
+            <br>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Teams</h3>
+              </div>
+                    <div class="panel-body">
+                       <div class="table-responsive" >                    
+                            <table class="table table-striped">
+                             <tbody ng-repeat="team in teams">
+                              <tr>
+                                <th colspan="3">
+                                  <input type=checkbox ng-model=show ng-class="show ? 'glyphicon glyphicon-minus':'glyphicon glyphicon-plus'" >
+                                  {{team.name}} 
+                                </input>
+                              </th>            
 
-          <tbody ng-repeat="team in teams">
-            <tr>
-              <th colspan="2"> {{team.name}} 
-
-                <!-- <a  class="btn btn-danger btn-rounded btn-condensed btn-sm pull-right" onclick="delete('team');"><span class="fa fa-times"></span></a>  --> </th>
-              </tr>
-              <tr>                               
-                <td>Name</td>       
-                <td>Email</td>
-
-              </tr>
-              <tr ng-repeat="member in team.members">
-                <td>{{ member.name }}</td>
-                <td>{{ member.email }}</td>
-              </tr>
-            </tbody>
-          </table>
+                            </tr>
+                            <tr ng-show=show>                               
+                              <th></th> 
+                              <th>Member name</th>       
+                              <th>Member email</th>
+                            </tr>
+                            <tr ng-repeat="member in team.members" ng-show=show>
+                              <td> </td>
+                              <td>{{ member.name }}</td>
+                              <td>{{ member.email }}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
         </div>
-
-      </div>
-    </tab>
-
-  
-  </tabset>
+    </div>
+</tab>
+</tabset>

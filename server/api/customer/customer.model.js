@@ -5,6 +5,7 @@ var mongoose = require('mongoose'),
 var CustomerSchema = new Schema({
   name:String,
   revenue:Number,
+  turnover:Number,
   region:String,
   regionCode:String,
   country:String,

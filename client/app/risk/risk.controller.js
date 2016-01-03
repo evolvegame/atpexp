@@ -44,7 +44,7 @@ angular.module('atpexpApp')
 
 	$http.get('/api/team/me').success(function (team) {     
 		$rootScope.team = team;       
-		$scope.strategies = $rootScope.team.riskStrategy; 
+		$rootScope.strategies = $rootScope.team.riskStrategy; 
 	});
 
 	//delete strategy
@@ -103,11 +103,8 @@ angular.module('atpexpApp')
 		refresh();
 	};
 	
-	 $scope.showRiskStrategy = function(cust) {
-	      $scope.selected = cust;
-	    };
 	
-	$scope.open = function () {
+	$scope.openModifyRiskStrategy = function () {
 	      // open modal and load tpl
 	      var modalInstance = $modal.open({
 	        animation: $scope.animationsEnabled,
@@ -123,19 +120,50 @@ angular.module('atpexpApp')
 	      modalInstance.result.then(function (selectedRiskStrategy) {
 	        $scope.selected = selectedRiskStrategy;
 	      });
-	    };
+	};
 	
-	    $scope.showRiskStrategy = function(strategy) {
-	        $scope.selected = strategy;
-	        console.log('risk a??? ' + JSON.stringify($scope.selected));
-	      };
+	$scope.openCreateNewRiskStrategy = function () {
+	      // open modal and load tpl
+	      var modalInstance = $modal.open({
+	        animation: $scope.animationsEnabled,
+	        templateUrl: 'app/risk/modifyRiskStrategy/modal-create-new-risk-strategy.html',
+	        controller: 'CreateNewRiskModalInstanceCtrl',
+	        resolve: {
+	          newRiskStrategy: function () {
+	            return $scope.newRiskStrategy;
+	          }
+	        }
+	      });
+	      // add selected risk strategy to $scope.selected
+	      modalInstance.result.then(function (selectedRiskStrategy) {
+	        $scope.selected = selectedRiskStrategy;
+	      });
+	};
+	
+	$scope.showModifyRiskStrategy = function(strategy) {
+		$scope.selected = strategy;
+	};
+	
+	$scope.showCreateNewRiskStrategy = function() {
+		$scope.newRiskStrategy = {
+				strategyName: "Enter New Strategy Name",
+				ratingBand: {
+					1: 0,
+					2: 0,
+					3: 0,
+					4: 0,
+					5: 0
+				}
+		};
+		
+		console.log('Showing create new strategy --> ' + JSON.stringify($scope.newRiskStrategy));
+	};
 	    
 	function refresh(){
         $http.get('/api/team/me').success( function (team){
 	        $rootScope.team = team;
 	        $scope.strategies = $rootScope.team.riskStrategy; 
         });
-        console.log('refresshing....');
     }
 
 })
@@ -172,23 +200,24 @@ angular.module('atpexpApp')
 		$scope.ind = industries;
 	});
 	
-	$scope.closeModal = function () {
+	function closeModal () {
 		$scope.selected = selectedRiskStrategy;
 	    $modalInstance.dismiss('close');
 	    refresh();
-	};
+	}
 	
 	function refresh(){
         $http.get('/api/team/me').success( function (team){
 	        $rootScope.team = team;
-	        $scope.strategies = $rootScope.team.riskStrategy; 
+	        $rootScope.strategies = $rootScope.team.riskStrategy; 
         });
         console.log('refresshing....');
     }
 	
 	
 	$scope.saveModification = function() {
-		console.log('ya ya will modify.......---->>>> ' + JSON.stringify($scope.selected));
+//		console.log('ya ya will modify.......---->>>> ' + JSON.stringify($scope.selected));
+		
 		$scope.selected.strategyRatingBand1 = $scope.selected.ratingBand[1];
 		$scope.selected.strategyRatingBand2 = $scope.selected.ratingBand[2];
 		$scope.selected.strategyRatingBand3 = $scope.selected.ratingBand[3];
@@ -206,10 +235,162 @@ angular.module('atpexpApp')
 			    strategyRatingBand4: $scope.selected.ratingBand[4],
 			    strategyRatingBand5: $scope.selected.ratingBand[5],
 			  };
-		Risk.modifyRisk(riskStrategy);
-		refresh();
-		toastr.success($scope.selected.strategyName + ' has been saved successfully', 'Strategy Saved! ');
+		
+		var duplicateBuyerCountryIndustryExists = false;
+		var duplicateCountry;
+		var duplicateBuyerIndustry;
+		$http.get('/api/team/me').success( function (teamFromDB){
+			console.log('strategy loop --->>>> ' + JSON.stringify(teamFromDB.riskStrategy));
+			console.log('strategy Buyer country from form --->>>> ' + JSON.stringify($scope.selected.buyerCountry));		
+			console.log('strategy Buyer Industry from form --->>>> ' + JSON.stringify($scope.selected.buyerIndustry));		
+	     	for (var i=0 ; i<$scope.selected.buyerCountry.length ; i++) {
+				var country = $scope.selected.buyerCountry[i];
+				console.log('Entering loop i -- ' + i);
+				
+				if (!duplicateBuyerCountryIndustryExists) {
+									
+					for (var j=0; j<teamFromDB.riskStrategy.length ; j++) {
+						var strategy = teamFromDB.riskStrategy[j];
+						console.log('Entering loop j -- ' + j);
+						if (!duplicateBuyerCountryIndustryExists && strategy._id != $scope.selected._id && strategy.buyerCountry.indexOf(country) > -1) {
+							for (var k=0; k<$scope.selected.buyerIndustry.length; k++) {
+								console.log('Entering loop k -- ' + k);
+								var industry =$scope.selected.buyerIndustry[k];
+								console.log(' Industry from database --> ' + strategy.buyerIndustry);
+								console.log(' Industry from form--> ' + industry);
+								if (strategy.buyerIndustry.indexOf(industry) > -1) {
+									duplicateBuyerCountryIndustryExists = true;
+									duplicateCountry = country;
+									duplicateBuyerIndustry = industry;
+									console.log('Breaking free -- > ' + duplicateCountry + ' & ' + duplicateBuyerIndustry);
+									break;
+								}
+							}
+						} else if (duplicateBuyerCountryIndustryExists) {
+							break;
+						}
+					}
+				
+				} else {
+					break;
+				}
+			}	
+	     	
+	     	console.log('duplicateBuyerCountryIndustryExists value -- ' + duplicateBuyerCountryIndustryExists);
+			
+			if (duplicateBuyerCountryIndustryExists) {
+				toastr.error('There already exists a combination of ' + duplicateCountry + ' and ' +  duplicateBuyerIndustry + '!', 'Duplicate Error');
+				duplicateBuyerCountryIndustryExists = false;
+				refresh();
+			} else {
+				Risk.modifyRisk(riskStrategy);
+				refresh();
+				toastr.success($scope.selected.strategyName + ' has been saved successfully', 'Strategy Saved! ');
+				closeModal();
+			}
+		})
+		
+		
 	};
+})
+
+.controller('CreateNewRiskModalInstanceCtrl', function ($http, $scope, newRiskStrategy, $modalInstance, Auth, toastr, Offer, $rootScope, Risk){
+	
+	$scope.newRiskStrategy = newRiskStrategy;
+	
+	$http.get('/api/ratingBands').success(function (ratingBands) {
+
+		console.log(ratingBands);
+		$scope.ratingBands = ratingBands;
+	});
+	
+	$http.get('/api/country').success(function (countries) {
+
+		console.log(countries);
+		$scope.cou = countries;
+	});
+	
+	//get industry
+	$http.get('/api/industry').success(function (industries) {
+
+		console.log(industries);
+		$scope.ind = industries;
+	});
+	
+	function closeModal () {
+		$modalInstance.dismiss('close');
+	    refresh();
+	}
+	
+	function refresh(){
+        $http.get('/api/team/me').success( function (team){
+	        $rootScope.team = team;
+	        $scope.strategies = $rootScope.team.riskStrategy; 
+        });
+        console.log('refresshing....');
+    }
+	
+	
+	$scope.save = function() {
+		console.log('ya ya will modify.......---->>>> ' + JSON.stringify($scope.newRiskStrategy));
+		$scope.newRiskStrategy.strategyRatingBand1 = $scope.newRiskStrategy.ratingBand[1];
+		$scope.newRiskStrategy.strategyRatingBand2 = $scope.newRiskStrategy.ratingBand[2];
+		$scope.newRiskStrategy.strategyRatingBand3 = $scope.newRiskStrategy.ratingBand[3];
+		$scope.newRiskStrategy.strategyRatingBand4 = $scope.newRiskStrategy.ratingBand[4];
+		$scope.newRiskStrategy.strategyRatingBand5 = $scope.newRiskStrategy.ratingBand[5];
+		
+		var riskStrategy = {
+			    round: 1,
+			    strategyName: $scope.newRiskStrategy.strategyName,
+			    buyerCountry: $scope.newRiskStrategy.buyerCountry,
+			    buyerIndustry: $scope.newRiskStrategy.buyerIndustry,
+			    strategyRatingBand1: $scope.newRiskStrategy.strategyRatingBand1,
+			    strategyRatingBand2: $scope.newRiskStrategy.strategyRatingBand2,
+			    strategyRatingBand3: $scope.newRiskStrategy.strategyRatingBand3,
+			    strategyRatingBand4: $scope.newRiskStrategy.strategyRatingBand4,
+			    strategyRatingBand5: $scope.newRiskStrategy.strategyRatingBand5
+			  };	
+		
+		var duplicateBuyerCountryIndustryExists = false;
+		var duplicateCountry;
+		var duplicateBuyerIndustry;
+		for (var i=0 ; i<$scope.newRiskStrategy.buyerCountry.length ; i++) {
+			var country = $scope.newRiskStrategy.buyerCountry[i];
+			for (var j=0; j<$rootScope.strategies.length ; j++) {
+				var strategy = $rootScope.strategies[j];
+				if (strategy.buyerCountry.indexOf(country) > -1) {
+					for (var k=0; k<$scope.newRiskStrategy.buyerIndustry.length; k++) {
+						var industry = $scope.newRiskStrategy.buyerIndustry[k];
+						if (strategy.buyerIndustry.indexOf(industry) > -1) {
+							duplicateBuyerCountryIndustryExists = true;
+							duplicateCountry = country;
+							duplicateBuyerIndustry = industry;
+							break;
+						}
+					}
+				}
+			}
+		}
+		
+		if (duplicateBuyerCountryIndustryExists) {
+			toastr.error('There already exists a combination of ' + duplicateCountry + ' and ' +  duplicateBuyerIndustry + '!', 'Duplicate Error');
+			duplicateBuyerCountryIndustryExists = false;
+		} else {
+			Risk.addRisk(riskStrategy);
+			refresh();
+			toastr.success($scope.newRiskStrategy.strategyName + ' has been saved successfully', 'Strategy Saved! ');
+			closeModal();
+		}		
+	};
+	
+//	function arrayEquality
+	
+	function refresh(){
+        $http.get('/api/team/me').success( function (team){
+	        $rootScope.team = team;
+	        $rootScope.strategies = $rootScope.team.riskStrategy; 
+        });
+    }
 })
 
 

@@ -61,7 +61,6 @@ angular.module('atpexpApp')
 		strategyRatingBand3: '@strategyRatingBand3',
 		strategyRatingBand4: '@strategyRatingBand4',
 		strategyRatingBand5: '@strategyRatingBand5'
-		
 	},{
 		deleteRisk: {
 	          method: 'PUT',

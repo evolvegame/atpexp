@@ -66,7 +66,8 @@ angular.module('atpexpApp')
 	          method: 'PUT',
 	          params: {
 	        	  controller:'deleteRisk'
-	          }
+	          },
+	          isArray: true
 	 },
 		addRisk: {
 	          method: 'PUT',

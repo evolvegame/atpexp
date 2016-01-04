@@ -49,9 +49,9 @@
 			</thead>
 			<tbody>
 
-				<tr ng-repeat="strategy in strategies">
+				<tr ng-repeat="strategy in strategies | orderBy: 'strategyId'">
 
-					<td class="text-center">{{strategy.round}}</td>
+					<td class="text-center">{{strategy.strategyId}}</td>
 					<td class="text-center">{{strategy.strategyName}}</td>
 					<td class="text-center"><label style="font-weight: 400;" ng-repeat="country in strategy.buyerCountry">
 							{{country}}{{$last ? '' : ',&nbsp'}}

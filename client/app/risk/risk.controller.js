@@ -51,8 +51,11 @@ angular.module('atpexpApp')
 	$scope.delete = function (strategy) {
 		console.log('strategy--> ' + JSON.stringify(strategy));
 		var toBedeletedRiskStrategy = {toBeDeletedId:strategy._id};
-		Risk.deleteRisk(toBedeletedRiskStrategy);
-		refresh();		
+		var strategies;
+		Risk.deleteRisk(toBedeletedRiskStrategy).$promise.then(function(strategies){
+			console.log('Strategies back from server -- ' + JSON.stringify(strategies));
+			$rootScope.strategies = strategies;
+		});
 	};
 
 	//get industry
@@ -99,8 +102,10 @@ angular.module('atpexpApp')
 			    strategyRatingBand4: 67,
 			    strategyRatingBand5: 45
 			  };
-		Risk.addRisk(riskStrategy);
-		refresh();
+		Risk.addRisk(riskStrategy).$promise.then(function(strategies){
+			$rootScope.strategies = strategies;
+		});
+//		refresh();
 	};
 	
 	
@@ -283,8 +288,10 @@ angular.module('atpexpApp')
 				duplicateBuyerCountryIndustryExists = false;
 				refresh();
 			} else {
-				Risk.modifyRisk(riskStrategy);
-				refresh();
+				Risk.modifyRisk(riskStrategy).$promise.then(function(strategies){
+					$rootScope.strategies = strategies;
+				});
+//				refresh();
 				toastr.success($scope.selected.strategyName + ' has been saved successfully', 'Strategy Saved! ');
 				closeModal();
 			}

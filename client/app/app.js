@@ -23,7 +23,10 @@ angular.module('atpexpApp', [
   .constant('LOCALES',{
      'locales':{
        'es_ES':'Spanish',
-       'en_US':'English'
+       'en_US':'English',
+       'de_DE':'Deutsh',
+       'it_IT':'Italian'
+      
      },
      'preferredLocale':'en_US'
   })
@@ -36,7 +39,7 @@ angular.module('atpexpApp', [
   // Angular Translate
   .config(function ($translateProvider,DEBUG_MODE,LOCALES) {
     if(DEBUG_MODE){
-      $translateProvider.useMissingTranslationHandlerLog();// warns about missing translates
+//      $translateProvider.useMissingTranslationHandlerLog();// warns about missing translates
     }
 
     $translateProvider.useStaticFilesLoader({

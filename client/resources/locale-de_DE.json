@@ -1,0 +1,49 @@
+{
+
+	"settings.settingsHeader":"Einstellungen",
+	"settings.TeamHeader":"Mannschaft",
+	"settings.msg":"Ihr Team durch Ausfüllen der Formulare unten eingestellt ( Vergessen Sie nicht, den Button 'Speichern' klicken).",
+	"settings.slogan":"Slogan",
+	"settings.sloganmsg":"Geben Sie einen Slogan Phrase, die Ihr Team stellt",
+	"settings.team-members":"Teammitgliedern",
+	"settings.team-members.Name": "Name",
+	"settings.team-members.Email":"Email",
+	"settings.team-members.Save":"sparen",
+	"settings.change-password":"Kennwort ändern",
+	"settings.change-password.msg":"Wenn Sie Ihr Passwort ändern möchten, können Sie das folgende Formular tun.",
+	"settings.change-password.currentPassword":"Aktuelles Passwort",
+	"settings.change-password.currentPassword.msg":"Geben Sie Ihr aktuelles Passwort",
+	"settings.change-password.newPassword":"Neues Kennwort",
+	"settings.change-password.newPassword.msg":"Geben Sie Ihr neues Passwort",
+	"settings.change-password.Save":"sparen",
+	"settings.change-password.success":"das Passwort wurde erfolgreich geändert",
+	"settings.change-password.pas-length":"Das Passwort muss mindestens 3 Zeichen lang sein",
+	
+	
+
+	"sidebar.TeamProfilePic":"Team Profile Picture",
+	"SIDEBAR.Navigation":"Navigation",
+
+	"sidebar.SignUp":"Sign Up",
+	"sidebar.Login":"Login",
+	"Modify":"Modify",
+	"SIDEBAR.Dashboard":"Armaturenbrett",
+	"SIDEBAR.Market":"Markt",
+	"SIDEBAR.Risk":"Risiko",
+	"SIDEBAR.Company":"Gesellschaft",
+	"SIDEBAR.Customer-Portfolio":"Kunden Portfolio",
+	"sidebar.Admin":"Admin",
+	"sidebar.Simulation":"Simulation",
+	"sidebar.CustomerPool":"Kunden Pool",
+	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG.",
+	
+	"NAVBAR.FLAG.GB":"Englisch",
+	"NAVBAR.FLAG.ES":"Spanisch",
+	"NAVBAR.FLAG.DE":"Deutsch",
+	"NAVBAR.FLAG.IT":"Italienisch",
+	"NAVBAR.FLAG.FR":"Französisch",
+	"logOutMsg":"Sind Sie sicher, dass Sie sich abmelden wollen?",
+	"btnYes":"Ja",
+	"btnNo":"Nein"
+
+}

@@ -74,6 +74,7 @@ Team.find({}).remove(function() {
                 ],                        
                     riskStrategy :[
                                    { round: 1,
+                                	 strategyId: 1,
                                      strategyName: 'Strategy 1',
                                      buyerCountry: 'Belgium',
                                      buyerIndustry: ['Food','Aviation'],
@@ -84,7 +85,8 @@ Team.find({}).remove(function() {
                                      strategyRatingBand5: 40
                                      },
                                      { 
-                                       round: 1,                                     
+                                       round: 1,
+                                       strategyId: 2,
                                        strategyName: 'Strategy 2',
                                        buyerCountry: 'Germany',
                                        buyerIndustry: ['Finance','Electronics'],
@@ -95,7 +97,8 @@ Team.find({}).remove(function() {
                                        strategyRatingBand5: 40
                                      },
                                      { 
-                                       round: 1,                                     
+                                       round: 1,    
+                                       strategyId: 3,
                                        strategyName: 'Strategy 3',
                                        buyerCountry: 'Argentina',
                                        buyerIndustry: ['Finance','Insurance'],
@@ -105,7 +108,8 @@ Team.find({}).remove(function() {
                                        strategyRatingBand4: 75,
                                        strategyRatingBand5: 40
                                      },{ 
-                                       round: 1,                                     
+                                       round: 1,     
+                                       strategyId: 4,
                                        strategyName: 'Strategy 4',
                                        buyerCountry: 'The Netherlands',
                                        buyerIndustry: ['Paper','Telecom'],
@@ -115,7 +119,8 @@ Team.find({}).remove(function() {
                                        strategyRatingBand4: 56,
                                        strategyRatingBand5: 80
                                      },{ 
-                                       round: 1,                                     
+                                       round: 1,    
+                                       strategyId: 5,
                                        strategyName: 'Strategy 5',
                                        buyerCountry: 'France',
                                        buyerIndustry: ['Electronics','Food'],

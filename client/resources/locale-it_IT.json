@@ -1,0 +1,51 @@
+{
+	"settings.settingsHeader":"Settings",
+	"settings.TeamHeader":"Team",
+	"settings.msg":"Set up  your team by filling in the forms below (Don't forget to click the 'Save' button).",
+	"settings.slogan":"Slogan",
+	"settings.sloganmsg":"Enter a slogan phrase that represents your team",
+	"settings.team-members":"Team members",
+	"settings.team-members.Name": "Name",
+	"settings.team-members.Email":"Email",
+	"settings.team-members.Save":"Save",
+	"settings.change-password":"Change Password",
+	"settings.change-password.msg":"If you want to change your password, you can do so in the form below.",
+	"settings.change-password.currentPassword":"Current Password",
+	"settings.change-password.currentPassword.msg":"Type in your current password",
+	"settings.change-password.newPassword":"New Password",
+	"settings.change-password.newPassword.msg":"Type in your new password",
+	"settings.change-password.Save":"Save",
+	"settings.change-password.success":"Password changed successfully",
+	"settings.change-password.pas-length":"Password must be at least 3 characters",
+	
+	
+	
+	
+	"sidebar.TeamProfilePic":"Team Profile Picture",
+	"SIDEBAR.Navigation":"Navigation",
+	
+	"sidebar.SignUp":"Sign Up",
+	"sidebar.Login":"Login",
+	"Modify":"Modify",
+	"SIDEBAR.Dashboard":"Dashboard",
+	"SIDEBAR.Market":"Market",
+	"SIDEBAR.Risk":"Risk",
+	"SIDEBAR.Company":"Company",
+	"SIDEBAR.Customer-Portfolio":"Customer Portfolio",
+	"sidebar.Admin":"Admin",
+	"sidebar.Simulation":"Simulation",
+	"sidebar.CustomerPool":"Customer Pool",
+	
+	
+	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG.",
+	
+	"NAVBAR.FLAG.GB":"Inglese",
+	"NAVBAR.FLAG.ES":"spagnolo",
+	"NAVBAR.FLAG.DE":"tedesco",
+	"NAVBAR.FLAG.IT":"italiano",
+	"NAVBAR.FLAG.FR":"francese",
+	"logOutMsg":"Sei sicuro di voler uscire?",
+	//"btnYes":"sì",
+	"btnNo":"No"
+
+}

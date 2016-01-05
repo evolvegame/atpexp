@@ -1,12 +1,52 @@
 {
-  "sidebar.TeamProfilePic":"Team Profile Picture_Spans",
-  "sidebar.Navigation":"Navigation_Spans",
-  "sidebar.Admin":"Admin_Spans",
-  "sidebar.Simulation":"Simulation_Spans",
-  "sidebar.CustomerPool":"Customer Pool_Spans",
-  "sidebar.SignUp":"Sign Up_Spans",
-  "sidebar.Login":"Login_Spans",
-  "Modify":"Modify_Spans",
-  "Dashboard":"ડેશબોર્ડ",
-  "Error1":"Error Spanish: The selected file is not a valid image. Please select an image file like JPG or PNG."
+	
+	
+	
+	"settings.settingsHeader":"Ajustes",
+	"settings.TeamHeader":"Equipo",
+	"settings.msg":"Configure su equipo mediante la cumplimentación de los formularios de abajo ( No te olvides de hacer clic en el botón 'Guardar ' ) .",
+	"settings.slogan":"Eslogan",
+	"settings.sloganmsg":"Introduzca una frase eslogan que representa a su equipo",
+	"settings.team-members":"Miembros del equipo",
+	"settings.team-members.Name": "Nombre",
+	"settings.team-members.Email":"correo electrónico",
+	"settings.team-members.Save":"Ahorrar",
+	"settings.change-password":"Cambiar la contraseña",
+	"settings.change-password.msg":"Si desea cambiar su contraseña, puedes hacerlo en el siguiente formulario .",
+	"settings.change-password.currentPassword":"contraseña actual",
+	"settings.change-password.currentPassword.msg":"Escriba su contraseña actual",
+	"settings.change-password.newPassword":"nueva contraseña",
+	"settings.change-password.newPassword.msg":"Escriba su nueva contraseña",
+	"settings.change-password.Save":"Ahorrar",
+	"settings.change-password.success":"Contraseña cambiada con éxito",
+	"settings.change-password.pas-length":"La contraseña debe tener al menos 3 caracteres",
+	
+	
+	"sidebar.TeamProfilePic":"Team Profile Picture_Spans",
+	"SIDEBAR.Navigation":"Navegación",
+	
+	"sidebar.SignUp":"Sign Up_Spans",
+	"sidebar.Login":"Login_Spans",
+	"Modify":"Modify_Spans",
+	"SIDEBAR.Dashboard":"Tablero de instrumentos",
+	"SIDEBAR.Market":"Mercado",
+	"SIDEBAR.Risk":"Riesgo",
+	"SIDEBAR.Company":"Compañía",
+	"SIDEBAR.Customer-Portfolio":"Portafolio cliente",
+	"sidebar.Admin":"Administración",
+	"sidebar.Simulation":"Simulación",
+	"sidebar.CustomerPool":"piscina al Cliente",
+	
+	"Error1":"Error Spanish: The selected file is not a valid image. Please select an image file like JPG or PNG.",
+	
+	"NAVBAR.FLAG.GB":"Inglés",
+	"NAVBAR.FLAG.ES":"Español",
+	"NAVBAR.FLAG.DE":"alemán",
+	"NAVBAR.FLAG.IT":"italiano",
+	"NAVBAR.FLAG.FR":"francés",
+	
+	"logOutMsg":"¿Seguro que quieres salir ?",
+	"btnYes":"Sí",
+	"btnNo":"No"
+
 }

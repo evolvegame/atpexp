@@ -56,6 +56,7 @@ var TeamSchema = mongoose.Schema({
   },
   riskStrategy:[ {
     round: Number,
+    strategyId: Number,
     strategyName: String,
     buyerCountry: [String],
     buyerIndustry: [String],

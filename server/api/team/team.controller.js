@@ -199,8 +199,31 @@ exports.addRisk = function(req, res, next) {
 	console.log('Reached team controller!!! - teamId ' + teamId);
 	
 	Team.findById(teamId, function (err, team) {
+		var strategyId;
+		var foundStrategyName = false;
+		for (var i = 0; i < team.riskStrategy.length; i++) {
+			var existingRiskStrategy = team.riskStrategy[i];
+			if (existingRiskStrategy.strategyName == strategyName) {
+				strategyId = existingRiskStrategy.strategyId;
+				console.log('Found an existing strategy Id -- ' + strategyId);
+				foundStrategyName = true;
+				break;
+			}
+		}
+		
+		if (!foundStrategyName) {
+			team.riskStrategy.sort(compare);
+			if(team.riskStrategy.length > 0){
+				strategyId = team.riskStrategy[team.riskStrategy.length - 1].strategyId + 1;	
+			} else {
+				strategyId = 1;
+			}			
+			console.log('Assigning new strategy Id -- ' + strategyId);
+		}
+		
 		team.riskStrategy.push({
 			round: round,
+			strategyId: strategyId,
 		    strategyName: strategyName,
 		    buyerCountry: buyerCountry,
 		    buyerIndustry: buyerIndustry,
@@ -212,12 +235,21 @@ exports.addRisk = function(req, res, next) {
 		});
 		team.save(function(err){
 			  if (err) return validationError(res, err);
-		      res.send(200);
+		      return res.send(200, team.riskStrategy);
 		});  
 	});
 	
 };
 
+function compare(a, b) {
+	if (a.strategyId > b.strategyId) {
+		return 1;
+	} else if (a.strategyId < b.strategyId) {
+		return -1;
+	} else {
+		return 0;
+	}
+}
 
 exports.deleteRisk = function(req, res, next) {
 	var riskStrategyId = req.params.id;
@@ -227,7 +259,7 @@ exports.deleteRisk = function(req, res, next) {
 		riskStrategies.pull(riskStrategyId);
 		team.save(function(err){
 			  if (err) return validationError(res, err);
-		      res.send(200);
+			  return res.json(200, riskStrategies);
 		});
 	});
 	
@@ -236,7 +268,7 @@ exports.deleteRisk = function(req, res, next) {
 
 exports.modifyRisk = function(req, res, next) {
 	var teamId = req.user._id;
-	var strategyId = req.params.id;
+	var strategy_Id = req.params.id;
 	var strategyName = req.params.strategyName;
 	var round = req.params.round;
 	var buyerCountry = req.params.buyerCountry.split(",");
@@ -246,21 +278,37 @@ exports.modifyRisk = function(req, res, next) {
 	var strategyRatingBand3 = req.params.strategyRatingBand3;
 	var strategyRatingBand4 = req.params.strategyRatingBand4;
 	var strategyRatingBand5 = req.params.strategyRatingBand5;
-	console.log('Reached team controller!!! - strategyName ' + strategyName);
-	console.log('Reached team controller!!! - round ' + round);
-	console.log('Reached team controller!!! - buyerCountry ' + buyerCountry);
-	console.log('Reached team controller!!! - buyerIndustry ' + buyerIndustry);
-	console.log('Reached team controller!!! - strategyRatingBand1 ' + strategyRatingBand1);
-	console.log('Reached team controller!!! - strategyRatingBand2 ' + strategyRatingBand2);
-	console.log('Reached team controller!!! - strategyRatingBand3 ' + strategyRatingBand3);
-	console.log('Reached team controller!!! - strategyRatingBand4 ' + strategyRatingBand4);
-	console.log('Reached team controller!!! - strategyRatingBand5 ' + strategyRatingBand5);
-	console.log('Reached team controller!!! - teamId ' + strategyId);
+
+	
+	
 	
 	Team.findById(teamId, function (err, team) {
 	    var strategies = team.riskStrategy;
+	    var strategyId;
+	    var foundStrategyName = false;
+		for (var i = 0; i < team.riskStrategy.length; i++) {
+			var existingRiskStrategy = team.riskStrategy[i];
+			if (existingRiskStrategy.strategyName == strategyName) {
+				strategyId = existingRiskStrategy.strategyId;
+				console.log('Found an existing strategy Id -- ' + strategyId);
+				foundStrategyName = true;
+				break;
+			}
+		}
+		
+		if (!foundStrategyName) {
+			team.riskStrategy.sort(compare);
+			if(team.riskStrategy.length > 0){
+				strategyId = team.riskStrategy[team.riskStrategy.length - 1].strategyId + 1;	
+			} else {
+				strategyId = 1;
+			}			
+			console.log('Assigning new strategy Id -- ' + strategyId);
+		}
+	    
 	    for (var i=0; i < team.riskStrategy.length; i++) {
-	    	if (team.riskStrategy[i]._id == strategyId) {
+	    	if (team.riskStrategy[i]._id == strategy_Id) {
+	    		team.riskStrategy[i].strategyId = strategyId;
 	    		team.riskStrategy[i].strategyName = strategyName;
 	    		team.riskStrategy[i].buyerCountry = buyerCountry;
 	    		team.riskStrategy[i].buyerIndustry = buyerIndustry
@@ -275,7 +323,7 @@ exports.modifyRisk = function(req, res, next) {
 	    
 	    team.save(function(err){
 			  if (err) return validationError(res, err);
-		      res.send(200);
+		      return res.send(200, strategies);
 		});
 	    
 	  });	

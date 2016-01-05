@@ -5,25 +5,29 @@ angular.module('atpexpApp')
 
     $rootScope.$on('$translateChangeSuccess', function () {
       $scope.errWrongFile = $translate.instant('Error1');
-      $scope.dashboardName=$translate.instant('Dashboard');
+      $scope.dashboardName=$translate.instant('SIDEBAR.Dashboard');
+      $scope.market=$translate.instant('SIDEBAR.Market');
+      $scope.risk=$translate.instant('SIDEBAR.Risk');
+      $scope.company=$translate.instant('SIDEBAR.Company');
+      $scope.customerportfolio=$translate.instant('SIDEBAR.Customer-Portfolio');
       $scope.menu = [{
         'title': $scope.dashboardName,
         'link': '/',
         'icon': 'dashboard'
       },{
-        'title': 'Market',
+        'title':  $scope.market,
         'link': '/market',
         'icon': 'globe'
       },{
-        'title': 'Risk',
+        'title':  $scope.risk,
         'link': '/risk',
         'icon': 'umbrella'
       },{
-        'title': 'Company',
+        'title':  $scope.company,
         'link': '/company',
         'icon': 'building-o'
       },{
-        'title': 'Customer Portfolio',
+        'title':   $scope.customerportfolio,
         'link': '/customer-portfolio',
         'icon': 'search-plus'
       }];

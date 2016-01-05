@@ -1,12 +1,32 @@
 {
-  "sidebar.TeamProfilePic":"Team Profile Picture_Spans",
-  "sidebar.Navigation":"Navigation_Spans",
-  "sidebar.Admin":"Admin_Spans",
-  "sidebar.Simulation":"Simulation_Spans",
-  "sidebar.CustomerPool":"Customer Pool_Spans",
-  "sidebar.SignUp":"Sign Up_Spans",
-  "sidebar.Login":"Login_Spans",
-  "Modify":"Modify_Spans",
-  "Dashboard":"ડેશબોર્ડ",
-  "Error1":"Error Spanish: The selected file is not a valid image. Please select an image file like JPG or PNG."
+	"settings.settingsHeader":"Ajustes",
+	"settings.Name": "Nombre",
+	"settings.Email":"Email",
+	"sidebar.TeamProfilePic":"Team Profile Picture_Spans",
+	"SIDEBAR.Navigation":"Navegación",
+	"settings.change-password.success":"Contraseña cambiada con éxito",
+	"sidebar.SignUp":"Sign Up_Spans",
+	"sidebar.Login":"Login_Spans",
+	"Modify":"Modify_Spans",
+	"SIDEBAR.Dashboard":"Tablero de instrumentos",
+	"SIDEBAR.Market":"Mercado",
+	"SIDEBAR.Risk":"Riesgo",
+	"SIDEBAR.Company":"Compañía",
+	"SIDEBAR.Customer-Portfolio":"Portafolio cliente",
+	"sidebar.Admin":"Administración",
+	"sidebar.Simulation":"Simulación",
+	"sidebar.CustomerPool":"piscina al Cliente",
+	
+	"Error1":"Error Spanish: The selected file is not a valid image. Please select an image file like JPG or PNG.",
+	
+	"NAVBAR.FLAG.GB":"Inglés",
+	"NAVBAR.FLAG.ES":"Español",
+	"NAVBAR.FLAG.DE":"alemán",
+	"NAVBAR.FLAG.IT":"italiano",
+	"NAVBAR.FLAG.FR":"francés",
+	
+	"logOutMsg":"¿Seguro que quieres salir ?",
+	"btnYes":"Sí",
+	"btnNo":"No"
+
 }

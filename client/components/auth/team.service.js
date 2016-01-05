@@ -73,13 +73,15 @@ angular.module('atpexpApp')
 	          method: 'PUT',
 	          params: {
 	        	  controller:'risk'
-	          }
+	          },
+	          isArray: true
 	 },
 	   modifyRisk: {
 		   method: 'PUT',
 		   params: {
 		        	 controller:'modifyRisk'
-		          }
+		          },
+		          isArray: true
 		        },
 	});
 });

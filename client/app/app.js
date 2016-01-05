@@ -23,7 +23,10 @@ angular.module('atpexpApp', [
   .constant('LOCALES',{
      'locales':{
        'es_ES':'Spanish',
-       'en_US':'English'
+       'en_US':'English',
+       'de_DE':'Deutsh',
+       'it_IT':'Italian',
+       'fr_FRE':'French',
      },
      'preferredLocale':'en_US'
   })

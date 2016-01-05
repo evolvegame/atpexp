@@ -1,7 +1,12 @@
 'use strict';
 
 angular.module('atpexpApp')
-  .controller('SettingsCtrl', function ($scope, Team, Auth, toastr,$http,$window,$rootScope) {
+  .controller('SettingsCtrl', function ($scope, Team, Auth, toastr,$http,$window,$rootScope,$translate) {
+	  $scope.successMsg = $translate.instant('settings.change-password.success');
+	  $rootScope.$on('$translateChangeSuccess', function () {
+	      $scope.successMsg = $translate.instant('settings.change-password.success');
+	    
+	  });
     $scope.errors = {};
 
     $scope.changePassword = function(form) {
@@ -10,7 +15,7 @@ angular.module('atpexpApp')
         Auth.changePassword( $scope.user.oldPassword, $scope.user.newPassword )
         .then( function() {
           $scope.message = 'Password successfully changed.';
-          toastr.success ('Password successfully changed');          
+          toastr.success ($scope.successMsg);          
         })
         .catch( function() {
           form.password.$setValidity('mongoose', false);

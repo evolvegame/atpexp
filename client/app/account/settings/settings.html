@@ -11,7 +11,7 @@
 <!-- END BREADCRUMB -->                  
 
 <div class="page-title">
-    <h2>Settings</h2>
+    <h2>{{'settings.settingsHeader'|translate}}</h2>
 </div>
 
 <!-- PAGE CONTENT WRAPPER -->
@@ -23,35 +23,35 @@
             <form class="form-horizontal" name="form" ng-submit="saveTeam(form)">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><strong>Team:</strong> {{team.name}}</h3>
+                    <h3 class="panel-title"><strong>{{'settings.TeamHeader'|translate}}:</strong> {{team.name}}</h3>
                     <ul class="panel-controls">
                         <li><a href="#" ng-click="isCollapsedTeam = !isCollapsedTeam" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
                     </ul>
                 </div>
                 <div class="panel-body" collapse="isCollapsedTeam">
-                    <p>Setting up  your team by filling in the forms below (Don't forget to click the 'Save' button).</p>
+                    <p>{{'settings.msg'|translate}}</p>
                 </div>
                 <div class="panel-body" collapse="isCollapsedTeam">
 
                     <div class="form-group">
-                        <label class="col-md-3 col-xs-12 control-label">Slogan</label>
+                        <label class="col-md-3 col-xs-12 control-label">{{'settings.slogan'|translate}}</label>
                         <div class="col-md-6 col-xs-12">
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
                                 <input type="text" class="form-control" ng-model="team.slogan"/>
                             </div>
-                            <span class="help-block">Enter a slogan phrase that represents your team</span>
+                            <span class="help-block">{{'settings.sloganmsg'|translate}}</span>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-3 col-xs-12 control-label">Team members</label>
+                        <label class="col-md-3 col-xs-12 control-label">{{'settings.team-members'|translate}}</label>
                         <div class="col-md-6 col-xs-12">
                         <table class="table table-bordered">
                             <thead>
                               <tr>                               
-                                <th>Name</th>       
-                                <th>Email</th>
+                                <th>{{'settings.team-members.Name'|translate}}</th>       
+                                <th>{{'settings.team-members.Email'|translate}}</th>
 
                               </tr>
                             </thead>
@@ -69,7 +69,7 @@
 
                 </div>
                 <div class="panel-footer" collapse="isCollapsedTeam">
-                    <button class="btn btn-primary pull-right" type="submit">Save</button>
+                    <button class="btn btn-primary pull-right" type="submit">{{'settings.team-members.Save'|translate}}</button>
                 </div>
             </div>
             </form>
@@ -82,42 +82,42 @@
             <form class="form-horizontal" name="form" ng-submit="changePassword(form)" novalidate>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Change Password</h3>
+                    <h3 class="panel-title">{{'settings.change-password'|translate}}</h3>
                     <ul class="panel-controls">
                         <li><a href="#" ng-click="isCollapsedPassword = !isCollapsedPassword;toggleArrow()" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
                     </ul>
                 </div>
                 <div class="panel-body" collapse="isCollapsedPassword">
-                    <p>If you want to change your password, you can do so in the form below.</p>
+                    <p>{{'settings.change-password.msg'|translate}}</p>
                 </div>
                 <div class="panel-body" collapse="isCollapsedPassword">
                     <div class="form-group">
-                        <label class="col-md-3 col-xs-12 control-label">Current Password</label>
+                        <label class="col-md-3 col-xs-12 control-label">{{'settings.change-password.currentPassword'|translate}}</label>
                         <div class="col-md-6 col-xs-12">
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
                                 <input type="password" name="password" class="form-control" ng-model="user.oldPassword" mongoose-error/>
                             </div>
                             <span class="help-block" ng-show="form.password.$error.mongoose">{{ errors.other }}</span>
-                            <span class="help-block">Type in your current password</span>
+                            <span class="help-block">{{'settings.change-password.currentPassword.msg'|translate}}</span>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-3 col-xs-12 control-label">New Password</label>
+                        <label class="col-md-3 col-xs-12 control-label">{{'settings.change-password.newPassword'|translate}}</label>
                         <div class="col-md-6 col-xs-12">
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
                                 <input type="password" name="newPassword" class="form-control" ng-model="user.newPassword" ng-minlength="3" required/>
                             </div>
-                            <span class="help-block" ng-show="(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty || submitted)">Password must be at least 3 characters.</span>
-                            <span class="help-block">Type in your new password</span>
+                            <span class="help-block" ng-show="(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty || submitted)">{{'settings.change-password.pas-length'|translate}}.</span>
+                            <span class="help-block">{{'settings.change-password.newPassword.msg'|translate}}</span>
                         </div>
                     </div>
 
                 </div>
                 <div class="panel-footer" collapse="isCollapsedPassword">
-                    <button class="btn btn-primary pull-right" type="submit">Save</button>
+                    <button class="btn btn-primary pull-right" type="submit">{{'settings.change-password.Save'|translate}}</button>
                 </div>
             </div>
             </form>

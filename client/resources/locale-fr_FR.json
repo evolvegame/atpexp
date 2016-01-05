@@ -15,8 +15,8 @@
 	"settings.change-password.newPassword":"New Password",
 	"settings.change-password.newPassword.msg":"Type in your new password",
 	"settings.change-password.Save":"Save",
-	"settings.change-password.success":"Password changed successfully",
-	"settings.change-password.pas-length":"Password must be at least 3 characters",
+	"settings.change-password.success":"Le mot de passe a été changé avec succès",
+	"settings.change-password.pas-length":"Mot de passe doit être d'au moins 3 caractères",
 	
 	
 	
@@ -39,13 +39,13 @@
 	
 	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG.",
 	
-	"NAVBAR.FLAG.GB":"English",
-	"NAVBAR.FLAG.ES":"Spanish",
-	"NAVBAR.FLAG.DE":"Deutsh",
-	"NAVBAR.FLAG.IT":"Italian",
-	"NAVBAR.FLAG.FR":"French",
-	"logOutMsg":"Are you sure you want to log out?",
-	"btnYes":"Yes",
-	"btnNo":"No"
+	"NAVBAR.FLAG.GB":"Anglais",
+	"NAVBAR.FLAG.ES":"Espanol",
+	"NAVBAR.FLAG.DE":"allemand",
+	"NAVBAR.FLAG.IT":"italien",
+	"NAVBAR.FLAG.FR":"français",
+	"logOutMsg":"Êtes-vous sûr de vouloir vous déconnecter?",
+	"btnYes":"Oui",
+	"btnNo":"Non"
 
 }

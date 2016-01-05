@@ -1,8 +1,29 @@
 {
+
 	"settings.settingsHeader":"Einstellungen",
+	"settings.TeamHeader":"Mannschaft",
+	"settings.msg":"Ihr Team durch Ausfüllen der Formulare unten eingestellt ( Vergessen Sie nicht, den Button 'Speichern' klicken).",
+	"settings.slogan":"Slogan",
+	"settings.sloganmsg":"Geben Sie einen Slogan Phrase, die Ihr Team stellt",
+	"settings.team-members":"Teammitgliedern",
+	"settings.team-members.Name": "Name",
+	"settings.team-members.Email":"Email",
+	"settings.team-members.Save":"sparen",
+	"settings.change-password":"Kennwort ändern",
+	"settings.change-password.msg":"Wenn Sie Ihr Passwort ändern möchten, können Sie das folgende Formular tun.",
+	"settings.change-password.currentPassword":"Aktuelles Passwort",
+	"settings.change-password.currentPassword.msg":"Geben Sie Ihr aktuelles Passwort",
+	"settings.change-password.newPassword":"Neues Kennwort",
+	"settings.change-password.newPassword.msg":"Geben Sie Ihr neues Passwort",
+	"settings.change-password.Save":"sparen",
+	"settings.change-password.success":"das Passwort wurde erfolgreich geändert",
+	"settings.change-password.pas-length":"Das Passwort muss mindestens 3 Zeichen lang sein",
+	
+	
+
 	"sidebar.TeamProfilePic":"Team Profile Picture",
 	"SIDEBAR.Navigation":"Navigation",
-	"settings.change-password.success":"das Passwort wurde erfolgreich geändert",
+
 	"sidebar.SignUp":"Sign Up",
 	"sidebar.Login":"Login",
 	"Modify":"Modify",

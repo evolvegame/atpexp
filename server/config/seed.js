@@ -62,7 +62,7 @@ Team.find({}).remove(function() {
           role:'admin',
           teamCountry: "NL",
           capital: 400,
-          experienceScore: 75,
+          experienceScore: 75,          
           members :[
                     {name :'Rajasekaran',email: 'raj@atradius.com' },
                     {name :'Ranagarajan',email: 'ranga@atradius.com' },

@@ -2,12 +2,29 @@
 	
 	
 	
-	
+	"settings.settingsHeader":"Ajustes",
+	"settings.TeamHeader":"Equipo",
+	"settings.msg":"Configure su equipo mediante la cumplimentación de los formularios de abajo ( No te olvides de hacer clic en el botón 'Guardar ' ) .",
+	"settings.slogan":"Eslogan",
+	"settings.sloganmsg":"Introduzca una frase eslogan que representa a su equipo",
+	"settings.team-members":"Miembros del equipo",
+	"settings.team-members.Name": "Nombre",
+	"settings.team-members.Email":"correo electrónico",
+	"settings.team-members.Save":"Ahorrar",
+	"settings.change-password":"Cambiar la contraseña",
+	"settings.change-password.msg":"Si desea cambiar su contraseña, puedes hacerlo en el siguiente formulario .",
+	"settings.change-password.currentPassword":"contraseña actual",
+	"settings.change-password.currentPassword.msg":"Escriba su contraseña actual",
+	"settings.change-password.newPassword":"nueva contraseña",
+	"settings.change-password.newPassword.msg":"Escriba su nueva contraseña",
+	"settings.change-password.Save":"Ahorrar",
+	"settings.change-password.success":"Contraseña cambiada con éxito",
+	"settings.change-password.pas-length":"La contraseña debe tener al menos 3 caracteres",
 	
 	
 	"sidebar.TeamProfilePic":"Team Profile Picture_Spans",
 	"SIDEBAR.Navigation":"Navegación",
-	"settings.change-password.success":"Contraseña cambiada con éxito",
+	
 	"sidebar.SignUp":"Sign Up_Spans",
 	"sidebar.Login":"Login_Spans",
 	"Modify":"Modify_Spans",

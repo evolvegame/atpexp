@@ -44,7 +44,7 @@ angular.module('atpexpApp')
 	var variable = $cookieStore.get('lan');
 	$translate.use(variable);
 
-	$scope.logOutMsg = "Are you sure you want to log out? test";
+	$scope.logOutMsg = "Are you sure you want to log out?";
 	$scope.btnYes = "Yes";
 	$scope.btnNo = "No";
 

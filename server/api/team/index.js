@@ -19,5 +19,6 @@ router.put('/:round/:strategyName/:buyerCountry/:buyerIndustry/:strategyRatingBa
 router.get('/:id', auth.isAuthenticated(), controller.show);
 router.put('/:id/deleteRisk', auth.isAuthenticated(), controller.deleteRisk);
 router.put('/:id/:round/:strategyName/:buyerCountry/:buyerIndustry/:strategyRatingBand1/:strategyRatingBand2/:strategyRatingBand3/:strategyRatingBand4/:strategyRatingBand5/modifyRisk', auth.isAuthenticated(), controller.modifyRisk);
+router.put('/:round/:marketBusinessName/:price/offer', auth.isAuthenticated(), controller.addOffer);
 router.post('/', controller.create);
 module.exports = router;

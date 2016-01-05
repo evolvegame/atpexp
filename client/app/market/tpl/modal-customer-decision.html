@@ -1,10 +1,11 @@
+
 <div class="panel panel-default as-panel-customer">
     <div class="panel-body profile bg-info" style="margin-bottom:15px">
         <div class="profile-data">
             <div class="profile-data-name">{{ selected.name }}</div>
         </div>
     </div>
-    <div class="panel-body as-panel-customer">
+    <div class="panel-body as-panel-customer">        
         <div class="col-md-12">
             <span href="#" class="tile tile-default">
             <div style="font-size:12px;"><h6>Customer</h6></div>
@@ -49,61 +50,22 @@
             </div>
         </p>
         </span>
-    </div>
-    <!-- <div class="col-md-4 as-col-md-4">
-        <span class="tile tile-default">
-        <div style="font-size:12px;"><h6>Buyer 2</h6></div>
-        <p style="font-size:12px;">
-        €{{selected.buyerTpe2}}</p>
-        <p style="font-size:12px;"><img src="assets/img/flags/gb.png" width="12" height="12" style="margin-bottom:4px">
-        {{selected.buyerCountry2}}</p>
-        <p style="font-size:12px"><span class="fa fa-globe" style="font-size: 12px;line-height: 18px;"></span> {{ selected.buyerIndustry2 }}</p>
-        <p><span class="wi wi-day-cloudy" style="font-size: 32px;line-height: 54px;"></span></p>
-        <p>Good</p>
-        <p>
-            <div ng-controller="SpinnerCtrl as spinner" style="margin-top:10px;">
-                <input jq-spinner type="text" class="form-control spinner_default" ng-model="spinner.val" />
-                <div class="progress progress-small">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{ spinner.val }}%;"></div>
-                </div>
-                <p style="font-size:12px">Acceptance Rate: {{ spinner.val }}%</p>
-            </div>
-        </p>
-        </span>
-    </div> -->
-    <!-- <div class="col-md-4 as-col-md-4" style="padding-right:15px;">
-        <span class="tile tile-default">
-    <div style="font-size:12px;"><h6>Buyer 3</h6></div>
-    <p style="font-size:12px;">
-    €{{selected.buyerTpe3}}</p>
-    <p style="font-size:12px;"><img src="assets/img/flags/nl.png" width="12" height="12" style="margin-bottom:4px">
-    {{selected.buyerCountry3}}</p>
-    <p style="font-size:12px"><span class="fa fa-globe" style="font-size: 12px;line-height: 18px;"></span> {{ selected.buyerIndustry3 }}</p>
-        <p><span class="wi wi-storm-showers" style="font-size: 32px;line-height: 54px;"></span></p>
-        <p>Fair</p>
-        <p>
-            <div ng-controller="SpinnerCtrl as spinner" style="margin-top:10px;">
-                <input jq-spinner type="text" class="form-control spinner_default" ng-model="spinner.val" />
-                <div class="progress progress-small">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{ spinner.val }}%;"></div>
-                </div>
-                <p style="font-size:12px">Acceptance Rate: {{ spinner.val }}%</p>
-            </div>
-        </p>
-        </span>
-    </div> -->
+    </div>    
 </div>
 <div class="panel-body as-panel-customer">
+  <form name="offerForm" novalidate >  
     <div class="col-md-6 as-col-md-6">
         <span href="#" class="tile tile-default" style="height:130px;">
 <div style="font-size:12px;"><h6>Price</h6></div>
 <div class="input-group" style="margin-top:15px;padding-right:40px;padding-left:40px;">
     <span class="input-group-addon"><span class="fa fa-eur"></span></span>
-        <input type="text" class="form-control" ng-model="price" ng-required="price>5"/>
-       
+        <input type="number" min="0" name="priceInput" class="form-control" ng-model="price" required="required" />       
     </div>
-    <span class="help-block" style="padding-right:40px;padding-left:40px;">The average price is 0.2 of the turnover.</span>
-    </span>
+    <span style="color: red" ng-show="showPriceValidation">{{errorTextPriceValiation}}</span>             
+    <span class="help-block" 
+    ng-style="showAvgPriceValidation ? {'padding-right':'40px','padding-left':'40px','color':'red'} :{'padding-right':'40px','padding-left':'40px'}">
+    The average price is 0.2 of the turnover.({{selected.turnover*0.2}})
+    </span>    
 </div>
 <div class="col-md-6 as-col-md-6" style="padding-right:15px">
     <span href="#" class="tile tile-default" style="height:130px;">
@@ -115,10 +77,11 @@
 </div>
 <div class="panel-body as-panel-customer" style="margin-bottom:15px;">
     <div class="col-md-12">
-        <a href="#" class="btn btn-block btn-lg btn-success" ng-click="submitOffer()"><span class="fa fa-comments-o"></span> Make an offer!</a>
+        <a href="#" class="btn btn-block btn-lg btn-success" ng-click="submitOffer(price)"><span class="fa fa-comments-o"></span> Make an offer!</a>         
     </div>
 </div>
 <div class="panel-body list-group">
     <a href="#" class="list-group-item btn btn-lg" ng-click="closeModal()"><span></span> (close)</a>
 </div>
+</form>
 </div>

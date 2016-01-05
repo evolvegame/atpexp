@@ -52,10 +52,7 @@ Team.find({}).remove(function() {
                     {name :'User11',email: 'user11@atradius.com'}
                     ],
           offer:[
-                { round: 1,marketBusinessName: 'Ajo',premium: 0,premiumPercentage: 0},
-                { round: 1,marketBusinessName: 'Dolent',premium: 0,premiumPercentage: 0},
-                { round: 1,marketBusinessName: 'Calcent',premium: 0,premiumPercentage: 0}
-                ]          
+                  ]          
         },{
           provider: 'local',
           password: 'admin' ,   
@@ -73,10 +70,7 @@ Team.find({}).remove(function() {
                     {name :'Emanuel',email: 'emanuel@atradius.com'},
                     {name :'Prajakta',email: 'prajakta@atradius.com'}
                     ],
-          offer:[
-                { round: 1,marketBusinessName: 'Ajo',premium: 0,premiumPercentage: 0},
-                { round: 1,marketBusinessName: 'Dolent',premium: 0,premiumPercentage: 0},
-                { round: 1,marketBusinessName: 'Calcent',premium: 0,premiumPercentage: 0}
+          offer:[              
                 ],                        
                     riskStrategy :[
                                    { round: 1,

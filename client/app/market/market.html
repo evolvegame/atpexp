@@ -71,7 +71,12 @@
                                     <td>{{ cust.buyerPortfolio[0].country }} - {{ cust.buyerPortfolio[0].industry }}</td>
                                     <td>{{ cust.buyerPortfolio[1].country }} - {{ cust.buyerPortfolio[1].industry }}</td>
                                     <td>{{ cust.buyerPortfolio[2].country }} - {{ cust.buyerPortfolio[2].industry }}</td>
-                                    <td><button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust); open()">Make Offer</button></td>                                 
+                                    <td ng-if="!cust.offerFound"><button type="button" 
+                                        class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust); open()">
+                                        Make Offer</button></td>
+                                    <td ng-if="cust.offerFound"><button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showOffer(offer); improveOffer()">Improve Offer</button>
+                                    <button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showOffer(offer); deleteOffer(offer)">Delete Offer</button></td>                                    
+
                                 </tr>
                             </tbody>
                         </table>

@@ -29,11 +29,36 @@ angular.module('atpexpApp')
     };
 
     Customer.customers.query().$promise.then(function (customers) {
+      for (var i = 0; i < customers.length ; i++) {
+              var obj = customers[i];                        
+                for (var j = 0; j < $rootScope.team.offer.length; j++) {
+                    var offer = $rootScope.team.offer[j];                    
+                    if (offer.marketBusinessName == obj.name) {
+                      obj.offerFound = true;
+                      console.log('offer found:'+obj.name );
+                      break;                
+                    }
+                }                                  
+              
+            }
+  
       $scope.customers = customers;
     });
 
     $scope.refreshCustomer = function (){
     Customer.customers.query().$promise.then(function (customers) {
+      for (var i = 0; i < customers.length ; i++) {
+              var obj = customers[i];                        
+                for (var j = 0; j < $rootScope.team.offer.length; j++) {
+                    var offer = $rootScope.team.offer[j];                    
+                    if (offer.marketBusinessName == obj.name) {
+                      obj.offerFound = true;
+                      console.log('offer found:'+obj.name );
+                      break;                
+                    }
+                }                                  
+              
+            }
       $scope.customers = customers;
     });
     toastr.info('Customer info refreshed');
@@ -43,16 +68,9 @@ angular.module('atpexpApp')
   })
 
 .controller('ModalInstanceCtrl', function ($scope, $modalInstance, selectedCustomer, toastr, Offer, $rootScope){
+    
     // re-add selectedCustomer to $scope.selected
     $scope.selected = selectedCustomer;
-
-    //$scope.team = Auth.getCurrentTeam;
-
-    // $scope.ok = function () {
-    //   $modalInstance.close($scope.selected.item);
-    // };
-
-    $scope.price = 0;
 
     $scope.closeModal = function () {
       $modalInstance.dismiss('close');
@@ -60,30 +78,13 @@ angular.module('atpexpApp')
 
     $rootScope.$on('spinnerChange', function (event, getSpinner) {
       $scope.spinner = getSpinner.value;
-    });
+    });    
 
-    $scope.submitOffer = function() {
-      // create new offer
-      console.log('scope spinner value: ', $scope.spinner);
-      var avgAr = $scope.selected.buyerTpe1 + $scope.selected.buyerTpe2 + $scope.selected.buyerTpe1;
-      var offerObj = {
-        customerId: selectedCustomer._id,
-        round: 0,
-        ar1: $scope.selected.buyerTpe1,
-        ar2: $scope.selected.buyerTpe2,
-        ar3: $scope.selected.buyerTpe3,
-        avgAr: avgAr,
-        price: $scope.price,
-        serviceScore: 110
-      };
-      var newOffer = new Offer(offerObj);
-      newOffer.$save(function (newOfferObj) {
-        console.log(newOfferObj);
-      });
-
-      // update customer with new offerId
-      toastr.success('Your offer has been submitted to ' + selectedCustomer.name + '.', 'Offer sent!');
-    };
+    
+    //Function to check empty object
+    function isEmpty(obj) {
+    return Object.keys(obj).length === 0;
+    }
 
     //function to check a number between two numbers
     Number.prototype.between = function(first,last){
@@ -92,21 +93,25 @@ angular.module('atpexpApp')
 
     //code added to get risk acceptance rate from team risk strtagy
     $scope.getRiskAcceptanceRate = function (country,industry,rating){
-    var strategies = $rootScope.team.riskStrategy;     
-    for (var i = strategies.length - 1; i >= 0; i--) {
-     console.log('rating: '+rating+ ' industry: '+industry+' country: '+country);
+    var strategies = $rootScope.team.riskStrategy;
+    $scope.riskAcceptance ='';  
+    
+      
+    for (var i =0; i<strategies.length; i++) {
+
+     /*console.log('rating: '+rating+ ' industry: '+industry+' country: '+country);
      console.log('buyerCountry: '+strategies[i].buyerCountry);
      console.log('buyerIndustry: '+strategies[i].buyerIndustry);
      console.log('Condition1 :'+strategies[i].buyerCountry===country);
-     console.log('Condition2 :'+strategies[i].buyerIndustry.indexOf(industry)>-1);
+     console.log('Condition2 :'+strategies[i].buyerIndustry.indexOf(industry)>-1);*/
 
       if (strategies[i].buyerCountry.indexOf(country)>-1 && strategies[i].buyerIndustry.indexOf(industry)>-1 ){
         if (rating.between(1,30)){
           $scope.riskAcceptance =strategies[i].strategyRatingBand1;
-          console.log('match:1to30'+i);
+          //console.log('match:1to30'+i);
         } else if (rating.between(31,40)){
           $scope.riskAcceptance =strategies[i].strategyRatingBand2;
-          console.log('match:31to40'+i);
+          //console.log('match:31to40'+i);
         } else if (rating.between(41,50)){
           $scope.riskAcceptance =strategies[i].strategyRatingBand3;
         } else if (rating.between(51,60)){
@@ -115,9 +120,11 @@ angular.module('atpexpApp')
           $scope.riskAcceptance =strategies[i].strategyRatingBand5;
         }        
         console.log('riskAcceptance >'+country+ '-'+industry +' '+$scope.riskAcceptance);
-        return $scope.riskAcceptance;
-      }
-    };    
+        
+      }    
+  } 
+    
+    return $scope.riskAcceptance; 
   }
 
   //code added to get weather icon based on buyer rating
@@ -172,6 +179,90 @@ angular.module('atpexpApp')
         return $scope.riskWeatherIcon; 
     }
   }
+
+  //function to validate risk acceptance
+  function isValidRiskAcceptance(country,industry,rating){
+    var riskAcceptance = $scope.getRiskAcceptanceRate(country,industry,rating);
+    if (riskAcceptance) {
+      return true;
+    }  else{
+      return false;
+    }
+    
+  } 
+
+  
+  $scope.submitOffer = function(price) {    
+      
+      var riskAcceptanceValidForBuyerSegment1=false;
+      var riskAcceptanceValidForBuyerSegment2=false;
+      var riskAcceptanceValidForBuyerSegment3=false;
+      var buyerCountry, buyerIndustry,buyerRating;
+      $scope.showPriceValidation=false;
+      $scope.showAvgPriceValidation=false;
+      $scope.errorTextPriceValiation={};     
+
+      //Price validation
+      if (typeof(price)==='undefined'){
+        $scope.showPriceValidation=true;
+        $scope.errorTextPriceValiation='Price is required';
+      }else if(price <selectedCustomer.turnover*0.2){
+         $scope.showAvgPriceValidation=true;        
+      }      
+      
+      //Risk acceptance validation for Buyer Segment 1
+      buyerCountry=selectedCustomer.buyerPortfolio[0].country;
+      buyerIndustry=selectedCustomer.buyerPortfolio[0].industry;
+      buyerRating =selectedCustomer.buyerPortfolio[0].rating;      
+      riskAcceptanceValidForBuyerSegment1=isValidRiskAcceptance(buyerCountry,buyerIndustry,buyerRating);
+      if (!riskAcceptanceValidForBuyerSegment1){
+        toastr.error('Risk Strategy is not defined 1 ');
+      }
+
+      //Risk acceptance validation for Buyer Segment 2
+      buyerCountry=selectedCustomer.buyerPortfolio[1].country;
+      buyerIndustry=selectedCustomer.buyerPortfolio[1].industry;
+      buyerRating =selectedCustomer.buyerPortfolio[1].rating;      
+      riskAcceptanceValidForBuyerSegment2=isValidRiskAcceptance(buyerCountry,buyerIndustry,buyerRating);
+      if (!riskAcceptanceValidForBuyerSegment2){
+        toastr.error('Risk Strategy is not defined 2');
+      }
+
+      //Risk acceptance validation for Buyer Segment 3
+      buyerCountry=selectedCustomer.buyerPortfolio[2].country;
+      buyerIndustry=selectedCustomer.buyerPortfolio[2].industry;
+      buyerRating =selectedCustomer.buyerPortfolio[2].rating;      
+      riskAcceptanceValidForBuyerSegment3=isValidRiskAcceptance(buyerCountry,buyerIndustry,buyerRating);
+     
+    if (!riskAcceptanceValidForBuyerSegment3){
+        toastr.error('Risk Strategy is not defined 3');
+      }
+      
+    if ( !$scope.showPriceValidation && 
+         !$scope.showAvgPriceValidation &&
+         riskAcceptanceValidForBuyerSegment1 &&
+         riskAcceptanceValidForBuyerSegment2 &&
+         riskAcceptanceValidForBuyerSegment3 ){
+
+      // create new offer
+        console.log("MarketBusinessName --> " + selectedCustomer.name);
+        console.log("Price --> " + price);
+        var offerObj = {
+              round: 1,
+              marketBusinessName: selectedCustomer.name,
+              price: price        
+            };
+        Offer.addOffer(offerObj);
+        //refresh();
+     
+
+
+    $modalInstance.dismiss('close');
+    toastr.success('Your offer has been submitted to ' + selectedCustomer.name + '.', ' Offer sent!');
+    }    
+      
+      
+    };
 
   })
 

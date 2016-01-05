@@ -19,7 +19,7 @@ angular.module('atpexpApp', [
   'tmh.dynamicLocale',//angular-dynamic-locale
   'ngFileUpload'
 ])
-  .constant('DEBUG_MODE', /*DEBUG_MODE*/true/*DEBUG_MODE*/)
+  .constant('DEBUG_MODE', /*DEBUG_MODE*/false/*DEBUG_MODE*/)
   .constant('LOCALES',{
      'locales':{
        'es_ES':'Spanish',

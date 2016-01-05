@@ -81,6 +81,36 @@ angular.module('atpexpApp')
 		          }
 		        },
 	});
+})
+
+//Offer Page related Restful services factory
+.factory('Offer', function($resource){
+	return $resource('/api/team/:toBeDeletedId/:round/:marketBusinessName/:price/:controller',{
+		toBeDeletedId:'@toBeDeletedId',
+		marketBusinessName:'@marketBusinessName',
+		round: '@round',
+		price: '@price'
+	},{
+		deleteRisk: {
+	          method: 'PUT',
+	          params: {
+	        	  controller:'deleteOffer'
+	          }
+	 },
+		addOffer: {
+	          method: 'PUT',
+	          params: {
+	        	  controller:'offer'
+	          }
+	 },
+	   modifyRisk: {
+		   method: 'PUT',
+		   params: {
+		        	 controller:'modifyOffer'
+		          }
+		        },
+	});
 });
+
 
 

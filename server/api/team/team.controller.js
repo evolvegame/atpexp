@@ -324,6 +324,31 @@ exports.me = function(req, res, next) {
   });
 };
 
+exports.addOffer = function(req, res, next) {
+	var teamId = req.user._id;
+	var marketBusinessName = req.params.marketBusinessName;
+	var round = req.params.round;
+	var price = req.params.price;
+	console.log('Reached team controller addOffer !!! - marketBusinessName ' + marketBusinessName);
+	console.log('Reached team controller addOffer !!! - round ' + round);
+	console.log('Reached team controller addOffer !!! - price ' + price);
+	console.log('Reached team controller addOffer !!! - teamId ' + teamId);
+	
+	Team.findById(teamId, function (err, team) {
+		team.offer.push({
+			round: round,
+		    marketBusinessName: marketBusinessName,
+		    price: price		    
+		});
+		team.save(function(err){
+			  if (err) return validationError(res, err);
+		      res.send(200);
+		});  
+	});
+	
+};
+
+
 
 /**
  * Authentication callback

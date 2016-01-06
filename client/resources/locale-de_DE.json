@@ -30,8 +30,13 @@
 	"ranking.tab.xpScore":"Exp Score",
 	"ranking.tab2.countryRanking":"Länderrangfolge",
 	
-	
 
+	"mimidash.ranking":"Rang",
+	"mimidash.xpScore":"Erleben Punktzahl",
+	"mimidash.customers":"Kunden",
+	"mimidash.acceptance-rate":"Akzeptanzrate",
+	"mimidash.claims":"mimidash.claims",
+	"mimidash.capital":"Hauptstadt",
 	"sidebar.TeamProfilePic":"Team Profile Picture",
 	"SIDEBAR.Navigation":"Navigation",
 

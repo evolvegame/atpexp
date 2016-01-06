@@ -21,6 +21,18 @@
 	"settings.change-password.success":"Contraseña cambiada con éxito",
 	"settings.change-password.pas-length":"La contraseña debe tener al menos 3 caracteres",
 	
+	"ranking.title":"Categoría",
+	"ranking.tab1.heading":"Posición general",
+	"ranking.tab1.title":"Clasificación de Capital",
+	"ranking.tab.rank":"Rango",
+	"ranking.tab.team-name":"Nombre de equipo",
+	"ranking.tab.country":"País",
+	"ranking.tab.capital":"Capitales ( Euros Millones )",
+	"ranking.tab.xpScoreRanking":"Clasificación Puntaje Experiencia",
+	"ranking.tab.xpScore":"Exp Puntuación",
+	"ranking.tab2.countryRanking":"País Clasificación",
+	
+	
 	
 	"sidebar.TeamProfilePic":"Team Profile Picture_Spans",
 	"SIDEBAR.Navigation":"Navegación",

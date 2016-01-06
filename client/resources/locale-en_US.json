@@ -19,6 +19,18 @@
 	"settings.change-password.pas-length":"Password must be at least 3 characters",
 	
 	
+	"ranking.title":"Ranking",
+	"ranking.tab1.heading":"Overall Ranking",
+	"ranking.tab1.title":"Capital Ranking",
+	"ranking.tab.rank":"Rank",
+	"ranking.tab.team-name":"Team Name",
+	"ranking.tab.country":"Country",
+	"ranking.tab.capital":"Capital(Euros Million)",
+	"ranking.tab.xpScoreRanking":"Experience Score Ranking",
+	"ranking.tab.xpScore":"Exp Score",
+	"ranking.tab2.countryRanking":"Country Ranking",
+	
+	
 	
 	
 	"sidebar.TeamProfilePic":"Team Profile Picture",

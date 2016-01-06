@@ -25,7 +25,8 @@ angular.module('atpexpApp', [
        'es_ES':'Spanish',
        'en_US':'English',
        'de_DE':'Deutsh',
-       'it_IT':'Italian'
+       'it_IT':'Italian',
+       'fr_FR':'French'
       
      },
      'preferredLocale':'en_US'

@@ -19,6 +19,17 @@
 	"settings.change-password.success":"das Passwort wurde erfolgreich geändert",
 	"settings.change-password.pas-length":"Das Passwort muss mindestens 3 Zeichen lang sein",
 	
+	"ranking.title":"Rang",
+	"ranking.tab1.heading":"Gesamtplatzierung",
+	"ranking.tab1.title":"Hauptstadt -Ranking",
+	"ranking.tab.rank":"Rang",
+	"ranking.tab.team-name":"Teamname",
+	"ranking.tab.country":"Land",
+	"ranking.tab.capital":"Kapital (Euro Mio.)",
+	"ranking.tab.xpScoreRanking":"Erleben Core-Ranking",
+	"ranking.tab.xpScore":"Exp Score",
+	"ranking.tab2.countryRanking":"Länderrangfolge",
+	
 	
 
 	"sidebar.TeamProfilePic":"Team Profile Picture",

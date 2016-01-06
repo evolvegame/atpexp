@@ -30,12 +30,25 @@
 	"ranking.tab.xpScore":"Exp Score",
 	"ranking.tab2.countryRanking":"Country Ranking",
 	
+	
 	"mimidash.ranking":"Ranking",
 	"mimidash.xpScore":"Experience score",
 	"mimidash.customers":"Customers",
 	"mimidash.acceptance-rate":"Acceptance Rate",
 	"mimidash.claims":"Claims",
 	"mimidash.capital":"Capital",
+	
+	
+
+	"navbar.flag.GB":"English",
+	"navbar.flag.ES":"Spanish",
+	"navbar.flag.DE":"Deutsh",
+	"navbar.flag.IT":"Italian",
+	"navbar.flag.FR":"French",
+	"navbar.logOutMsg":"Are you sure you want to log out?",
+	"navbar.btnYes":"Yes",
+	"navbar.btnNo":"No",
+
 	
 	
 	"sidebar.TeamProfilePic":"Team Profile Picture",
@@ -54,15 +67,6 @@
 	"sidebar.CustomerPool":"Customer Pool",
 	
 	
-	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG.",
+	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG."
 	
-	"NAVBAR.FLAG.GB":"English",
-	"NAVBAR.FLAG.ES":"Spanish",
-	"NAVBAR.FLAG.DE":"Deutsh",
-	"NAVBAR.FLAG.IT":"Italian",
-	"NAVBAR.FLAG.FR":"French",
-	"logOutMsg":"Are you sure you want to log out?",
-	"btnYes":"Yes",
-	"btnNo":"No"
-
 }

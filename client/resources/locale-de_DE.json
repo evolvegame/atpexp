@@ -37,6 +37,16 @@
 	"mimidash.acceptance-rate":"Akzeptanzrate",
 	"mimidash.claims":"mimidash.claims",
 	"mimidash.capital":"Hauptstadt",
+	
+	"navbar.flag.GB":"Englisch",
+	"navbar.flag.ES":"Spanisch",
+	"navbar.flag.DE":"Deutsch",
+	"navbar.flag.IT":"Italienisch",
+	"navbar.flag.FR":"Französisch",
+	"navbar.logOutMsg":"Sind Sie sicher, dass Sie sich abmelden wollen?",
+	"navbar.btnYes":"Ja",
+	"navbar.btnNo":"Nein",
+	
 	"sidebar.TeamProfilePic":"Team Profile Picture",
 	"SIDEBAR.Navigation":"Navigation",
 
@@ -51,15 +61,8 @@
 	"sidebar.Admin":"Admin",
 	"sidebar.Simulation":"Simulation",
 	"sidebar.CustomerPool":"Kunden Pool",
-	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG.",
+	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG."
 	
-	"NAVBAR.FLAG.GB":"Englisch",
-	"NAVBAR.FLAG.ES":"Spanisch",
-	"NAVBAR.FLAG.DE":"Deutsch",
-	"NAVBAR.FLAG.IT":"Italienisch",
-	"NAVBAR.FLAG.FR":"Französisch",
-	"logOutMsg":"Sind Sie sicher, dass Sie sich abmelden wollen?",
-	"btnYes":"Ja",
-	"btnNo":"Nein"
+	
 
 }

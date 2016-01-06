@@ -40,7 +40,14 @@
 	"mimidash.claims":"Reclamaciones",
 	"mimidash.capital":"Capital",
 	
-	
+	"navbar.flag.GB":"Inglés",
+	"navbar.flag.ES":"Español",
+	"navbar.flag.DE":"alemán",
+	"navbar.flag.IT":"italiano",
+	"navbar.flag.FR":"francés",	
+	"navbar.logOutMsg":"¿Seguro que quieres salir ?",
+	"navbar.btnYes":"Sí",
+	"navbar.btnNo":"No",
 	
 	"sidebar.TeamProfilePic":"Team Profile Picture_Spans",
 	"SIDEBAR.Navigation":"Navegación",
@@ -57,16 +64,8 @@
 	"sidebar.Simulation":"Simulación",
 	"sidebar.CustomerPool":"piscina al Cliente",
 	
-	"Error1":"Error Spanish: The selected file is not a valid image. Please select an image file like JPG or PNG.",
+	"Error1":"Error Spanish: The selected file is not a valid image. Please select an image file like JPG or PNG."
 	
-	"NAVBAR.FLAG.GB":"Inglés",
-	"NAVBAR.FLAG.ES":"Español",
-	"NAVBAR.FLAG.DE":"alemán",
-	"NAVBAR.FLAG.IT":"italiano",
-	"NAVBAR.FLAG.FR":"francés",
 	
-	"logOutMsg":"¿Seguro que quieres salir ?",
-	"btnYes":"Sí",
-	"btnNo":"No"
 
 }

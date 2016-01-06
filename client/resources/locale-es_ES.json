@@ -50,20 +50,19 @@
 	"navbar.btnNo":"No",
 	
 	"sidebar.TeamProfilePic":"Team Profile Picture_Spans",
-	"SIDEBAR.Navigation":"Navegación",
-	
+	"sidebar.Navigation":"Navegación",	
 	"sidebar.SignUp":"Sign Up_Spans",
-	"sidebar.Login":"Login_Spans",
-	"Modify":"Modify_Spans",
-	"SIDEBAR.Dashboard":"Tablero de instrumentos",
-	"SIDEBAR.Market":"Mercado",
-	"SIDEBAR.Risk":"Riesgo",
-	"SIDEBAR.Company":"Compañía",
-	"SIDEBAR.Customer-Portfolio":"Portafolio cliente",
+	"sidebar.Login":"Login_Spans",	
+	"sidebar.Dashboard":"Tablero de instrumentos",
+	"sidebar.Market":"Mercado",
+	"sidebar.Risk":"Riesgo",
+	"sidebar.Company":"Compañía",
+	"sidebar.Customer-Portfolio":"Portafolio cliente",
 	"sidebar.Admin":"Administración",
 	"sidebar.Simulation":"Simulación",
 	"sidebar.CustomerPool":"piscina al Cliente",
 	
+	"Modify":"Modify_Spans",
 	"Error1":"Error Spanish: The selected file is not a valid image. Please select an image file like JPG or PNG."
 	
 	

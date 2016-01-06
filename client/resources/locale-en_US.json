@@ -52,21 +52,19 @@
 	
 	
 	"sidebar.TeamProfilePic":"Team Profile Picture",
-	"SIDEBAR.Navigation":"Navigation",
-	
+	"sidebar.Navigation":"Navigation",	
 	"sidebar.SignUp":"Sign Up",
 	"sidebar.Login":"Login",
-	"Modify":"Modify",
-	"SIDEBAR.Dashboard":"Dashboard",
-	"SIDEBAR.Market":"Market",
-	"SIDEBAR.Risk":"Risk",
-	"SIDEBAR.Company":"Company",
-	"SIDEBAR.Customer-Portfolio":"Customer Portfolio",
+	"sidebar.Dashboard":"Dashboard",
+	"sidebar.Market":"Market",
+	"sidebar.Risk":"Risk",
+	"sidebar.Company":"Company",
+	"sidebar.Customer-Portfolio":"Customer Portfolio",
 	"sidebar.Admin":"Admin",
 	"sidebar.Simulation":"Simulation",
 	"sidebar.CustomerPool":"Customer Pool",
 	
-	
+	"Modify":"Modify",
 	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG."
 	
 }

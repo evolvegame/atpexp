@@ -1,0 +1,70 @@
+﻿{
+	"settings.settingsHeader":"Paramètres",
+	"settings.TeamHeader":"Équipe",
+	"settings.msg":"Configurez votre équipe en remplissant les formulaires ci-dessous (Ne pas oublier de cliquer sur le bouton 'Enregistrer').",
+	"settings.slogan":"Slogan",
+	"settings.sloganmsg":"Entrez une phrase de slogan qui représente votre équipe",
+	"settings.team-members":"Membres de l'équipe",
+	"settings.team-members.Name": "prénom",
+	"settings.team-members.Email":"Email",
+	"settings.team-members.Save":"Conserver",
+	"settings.change-password":"Changer le mot de passe",
+	"settings.change-password.msg":"Si vous voulez changer votre mot de passe, vous pouvez le faire dans le formulaire ci-dessous.",
+	"settings.change-password.currentPassword":"Mot de passe actuel",
+	"settings.change-password.currentPassword.msg":"Tapez votre mot de passe actuel",
+	"settings.change-password.newPassword":"nouveau mot de passe",
+	"settings.change-password.newPassword.msg":"Tapez votre nouveau mot de passe",
+	"settings.change-password.Save":"Conserver",
+	"settings.change-password.success":"Le mot de passe a été changé avec succès",
+	"settings.change-password.pas-length":"Mot de passe doit être d'au moins 3 caractères",
+	
+	
+	"ranking.title":"Classement",
+	"ranking.tab1.heading":"Classement général",
+	"ranking.tab1.title":"Capital Classement",
+	"ranking.tab.rank":"Rang",
+	"ranking.tab.team-name":"Nom de l'équipe",
+	"ranking.tab.country":"Pays",
+	"ranking.tab.capital":"Capital (Euros millions d'euros)",
+	"ranking.tab.xpScoreRanking":"Expérience Score Classement",
+	"ranking.tab.xpScore":"Exp Score",
+	"ranking.tab2.countryRanking":"pays classement",
+	
+	
+	"mimidash.ranking":"Classement",
+	"mimidash.xpScore":"Le score de l'expérience",
+	"mimidash.customers":"Les clients",
+	"mimidash.acceptance-rate":"Taux d'acceptation",
+	"mimidash.claims":"Réclamations",
+	"mimidash.capital":"Capital",
+	
+	
+
+	"navbar.flag.GB":"Anglais",
+	"navbar.flag.ES":"Espanol",
+	"navbar.flag.DE":"allemand",
+	"navbar.flag.IT":"italien",
+	"navbar.flag.FR":"français",
+	"navbar.logOutMsg":"Êtes-vous sûr de vouloir vous déconnecter?",
+	"navbar.btnYes":"Oui",
+	"navbar.btnNo":"Non",
+
+	
+	
+	"sidebar.TeamProfilePic":"Profil de l'équipe Image",
+	"sidebar.Navigation":"Navigation",	
+	"sidebar.SignUp":"S'inscrire",
+	"sidebar.Login":"S'identifier",	
+	"sidebar.Dashboard":"Tableau de bord",
+	"sidebar.Market":"Marché",
+	"sidebar.Risk":"Risque",
+	"sidebar.Company":"entreprise",
+	"sidebar.Customer-Portfolio":"Portefeuille de clients",
+	"sidebar.Admin":"Administrateur",
+	"sidebar.Simulation":"Simulation",
+	"sidebar.CustomerPool":"Piscine client",
+	
+	"Modify":"Modify",
+	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG."
+	
+}

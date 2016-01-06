@@ -3,13 +3,16 @@
 angular.module('atpexpApp')
   .controller('SidebarCtrl', function ($scope,$rootScope, $location, Team,Auth, settings, Upload,toastr,$window,$http,$translate) {
 
+	
+      
+      //on language change 
     $rootScope.$on('$translateChangeSuccess', function () {
       $scope.errWrongFile = $translate.instant('Error1');
-      $scope.dashboardName=$translate.instant('SIDEBAR.Dashboard');
-      $scope.market=$translate.instant('SIDEBAR.Market');
-      $scope.risk=$translate.instant('SIDEBAR.Risk');
-      $scope.company=$translate.instant('SIDEBAR.Company');
-      $scope.customerportfolio=$translate.instant('SIDEBAR.Customer-Portfolio');
+      $scope.dashboardName=$translate.instant('sidebar.Dashboard');
+      $scope.market=$translate.instant('sidebar.Market');
+      $scope.risk=$translate.instant('sidebar.Risk');
+      $scope.company=$translate.instant('sidebar.Company');
+      $scope.customerportfolio=$translate.instant('sidebar.Customer-Portfolio');
       $scope.menu = [{
         'title': $scope.dashboardName,
         'link': '/',
@@ -36,24 +39,53 @@ angular.module('atpexpApp')
     });
     $scope.dash=$scope.dashboardName;
 
+//on load change language as per flag    
+    $scope.errWrongFile = $translate.instant('Error1');
+    $scope.dashboardName=$translate.instant('sidebar.Dashboard');
+    $scope.market=$translate.instant('sidebar.Market');
+    $scope.risk=$translate.instant('sidebar.Risk');
+    $scope.company=$translate.instant('sidebar.Company');
+    $scope.customerportfolio=$translate.instant('sidebar.Customer-Portfolio');
+    
     $scope.menu = [{
-      'title': 'Dashboard',
+        'title': $scope.dashboardName,
+        'link': '/',
+        'icon': 'dashboard'
+      },{
+        'title':  $scope.market,
+        'link': '/market',
+        'icon': 'globe'
+      },{
+        'title':  $scope.risk,
+        'link': '/risk',
+        'icon': 'umbrella'
+      },{
+        'title':  $scope.company,
+        'link': '/company',
+        'icon': 'building-o'
+      },{
+        'title':   $scope.customerportfolio,
+        'link': '/customer-portfolio',
+        'icon': 'search-plus'
+      }];
+    $scope.menu = [{
+      'title':  $scope.dashboardName,
       'link': '/',
       'icon': 'dashboard'
     },{
-      'title': 'Market',
+      'title':  $scope.market,
       'link': '/market',
       'icon': 'globe'
     },{
-      'title': 'Risk',
+      'title': $scope.risk,
       'link': '/risk',
       'icon': 'umbrella'
     },{
-      'title': 'Company',
+      'title': $scope.company,
       'link': '/company',
       'icon': 'building-o'
     },{
-      'title': 'Customer Portfolio',
+      'title': $scope.customerportfolio,
       'link': '/customer-portfolio',
       'icon': 'search-plus'
     }];

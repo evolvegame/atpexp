@@ -11,11 +11,11 @@
 <!-- END BREADCRUMB -->
 
 <div class="page-title">
-    <h2>Ranking</h2>
+    <h2>{{'ranking.title'|translate}}</h2>
 </div>
 <!-- PAGE CONTENT TABBED -->
 <tabset>
-<tab heading="Overall Ranking">
+<tab heading={{'ranking.tab1.heading'|translate}}>
 <div class="tab-container" >
     <br>
     <div class="row">
@@ -24,14 +24,14 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="table-responsive" ng-controller="RankingCtrl">
-                        <b>Capital Ranking</b><br><br>
+                        <b>{{'ranking.tab1.title'|translate}}</b><br><br>
                         <table class="table table-bordered table-striped table-actions">
                             <thead>
                                 <tr>
-                                    <th style="width:25%;">Rank</th>
-                                    <th style="width:25%;">Team Name</th>
-                                    <th style="width:25%;">Country</th>
-                                    <th style="width:25%;">Capital(Euros Million)</th>
+                                    <th style="width:25%;">{{'ranking.tab.rank'|translate}}</th>
+                                    <th style="width:25%;">{{'ranking.tab.team-name'|translate}}</th>
+                                    <th style="width:25%;">{{'ranking.tab.country'|translate}}</th>
+                                    <th style="width:25%;">{{'ranking.tab.capital'|translate}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,14 +57,14 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="table-responsive" ng-controller="RankingCtrl">
-                        <b>Experience Score Ranking</b> <br><br>
+                        <b>{{'ranking.tab.xpScoreRanking'|translate}}</b> <br><br>
                         <table class="table table-bordered table-striped table-actions">
                             <thead>
                                 <tr>
-                                    <th style="width:25%;">Rank</th>
-                                    <th style="width:25%;">Team Name</th>
-                                    <th style="width:25%;">Country</th>
-                                    <th style="width:25%;">Exp Score</th>
+                                    <th style="width:25%;">{{'ranking.tab.rank'|translate}}</th>
+                                    <th style="width:25%;">{{'ranking.tab.team-name'|translate}}</th>
+                                    <th style="width:25%;">{{'ranking.tab.country'|translate}}</th>
+                                    <th style="width:25%;">{{'ranking.tab.xpScore'|translate}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -86,7 +86,7 @@
 </div>
 
 </tab>
-<tab heading="{{loggedInTeam}} Country Ranking">
+<tab heading="{{loggedInTeam}} {{'ranking.tab2.countryRanking'|translate}}">
 <div class="tab-container" >
     <br>
     <div class="row">
@@ -95,13 +95,13 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="table-responsive" ng-controller="RankingCtrl">
-                        <b>Capital Ranking</b> <br><br>
+                        <b>{{'ranking.tab1.title'|translate}}</b> <br><br>
                         <table class="table table-bordered table-striped table-actions">
                             <thead>
                                 <tr>
-                                    <th style="width: 33%;">Rank</th>
-                                    <th style="width: 33%;">Team Name</th>
-                                    <th style="width: 33%;">Capital(Euros Million)</th>
+                                    <th style="width: 33%;">{{'ranking.tab.rank'|translate}}</th>
+                                    <th style="width: 33%;">{{'ranking.tab.team-name'|translate}}</th>
+                                    <th style="width: 33%;">{{'ranking.tab.capital'|translate}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -126,13 +126,13 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="table-responsive" ng-controller="RankingCtrl">
-                        <b>Experience Score Ranking</b> <br><br>
+                        <b>{{'ranking.tab.xpScoreRanking'|translate}}</b> <br><br>
                         <table class="table table-bordered table-striped table-actions" >
                             <thead>
                                 <tr>
-                                    <th style="width: 33%;">Rank</th>
-                                    <th style="width: 33%;">Team Name</th>
-                                    <th style="width: 33%;">Exp Score</th>
+                                    <th style="width: 33%;">{{'ranking.tab.rank'|translate}}</th>
+                                    <th style="width: 33%;">{{'ranking.tab.team-name'|translate}}</th>
+                                    <th style="width: 33%;">{{'ranking.tab.xpScore'|translate}}</th>
                                 </tr>
                             </thead>
                             <tbody>

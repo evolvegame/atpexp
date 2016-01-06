@@ -21,32 +21,50 @@
 	"settings.change-password.success":"Contraseña cambiada con éxito",
 	"settings.change-password.pas-length":"La contraseña debe tener al menos 3 caracteres",
 	
+	"ranking.title":"Categoría",
+	"ranking.tab1.heading":"Posición general",
+	"ranking.tab1.title":"Clasificación de Capital",
+	"ranking.tab.rank":"Rango",
+	"ranking.tab.team-name":"Nombre de equipo",
+	"ranking.tab.country":"País",
+	"ranking.tab.capital":"Capitales ( Euros Millones )",
+	"ranking.tab.xpScoreRanking":"Clasificación Puntaje Experiencia",
+	"ranking.tab.xpScore":"Exp Puntuación",
+	"ranking.tab2.countryRanking":"País Clasificación",
+	
+	
+	"mimidash.ranking":"Categoría",
+	"mimidash.xpScore":"Experiencia puntuación",
+	"mimidash.customers":"Clientes",
+	"mimidash.acceptance-rate":"Nivel de aceptación",
+	"mimidash.claims":"Reclamaciones",
+	"mimidash.capital":"Capital",
+	
+	"navbar.flag.GB":"Inglés",
+	"navbar.flag.ES":"Español",
+	"navbar.flag.DE":"alemán",
+	"navbar.flag.IT":"italiano",
+	"navbar.flag.FR":"francés",	
+	"navbar.logOutMsg":"¿Seguro que quieres salir ?",
+	"navbar.btnYes":"Sí",
+	"navbar.btnNo":"No",
 	
 	"sidebar.TeamProfilePic":"Team Profile Picture_Spans",
-	"SIDEBAR.Navigation":"Navegación",
-	
+	"sidebar.Navigation":"Navegación",	
 	"sidebar.SignUp":"Sign Up_Spans",
-	"sidebar.Login":"Login_Spans",
-	"Modify":"Modify_Spans",
-	"SIDEBAR.Dashboard":"Tablero de instrumentos",
-	"SIDEBAR.Market":"Mercado",
-	"SIDEBAR.Risk":"Riesgo",
-	"SIDEBAR.Company":"Compañía",
-	"SIDEBAR.Customer-Portfolio":"Portafolio cliente",
+	"sidebar.Login":"Login_Spans",	
+	"sidebar.Dashboard":"Tablero de instrumentos",
+	"sidebar.Market":"Mercado",
+	"sidebar.Risk":"Riesgo",
+	"sidebar.Company":"Compañía",
+	"sidebar.Customer-Portfolio":"Portafolio cliente",
 	"sidebar.Admin":"Administración",
 	"sidebar.Simulation":"Simulación",
 	"sidebar.CustomerPool":"piscina al Cliente",
 	
-	"Error1":"Error Spanish: The selected file is not a valid image. Please select an image file like JPG or PNG.",
+	"Modify":"Modify_Spans",
+	"Error1":"Error Spanish: The selected file is not a valid image. Please select an image file like JPG or PNG."
 	
-	"NAVBAR.FLAG.GB":"Inglés",
-	"NAVBAR.FLAG.ES":"Español",
-	"NAVBAR.FLAG.DE":"alemán",
-	"NAVBAR.FLAG.IT":"italiano",
-	"NAVBAR.FLAG.FR":"francés",
 	
-	"logOutMsg":"¿Seguro que quieres salir ?",
-	"btnYes":"Sí",
-	"btnNo":"No"
 
 }

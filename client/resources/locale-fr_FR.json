@@ -1,4 +1,4 @@
-﻿{
+﻿﻿{
 	"settings.settingsHeader":"Paramètres",
 	"settings.TeamHeader":"Équipe",
 	"settings.msg":"Configurez votre équipe en remplissant les formulaires ci-dessous (Ne pas oublier de cliquer sur le bouton 'Enregistrer').",
@@ -63,6 +63,29 @@
 	"sidebar.Admin":"Administrateur",
 	"sidebar.Simulation":"Simulation",
 	"sidebar.CustomerPool":"Piscine client",
+	
+	"company.title":"entreprise",
+	"company.tab1.title":"Des projets",
+	"company.tab1.compliance":"Conformité",
+	"company.tab1.it":"IT",
+	"company.tab1.marketing":"Commercialisation",
+	"company.tab1.strategy":"Stratégie",
+	"company.tab2.title":"Départements",
+	"company.tab3.title":"Financials",
+	"company.tab3.profit&loss":"Perte de profit",
+	"company.tab3.round1":"Round 1",
+	"company.tab3.round2":"Round 2",
+	"company.tab3.round3":"Round 3",
+	"company.tab3.round4":"Round 4",
+	"company.tab3.round5":"Round 5",
+	"company.tab3.round6":"Round 6",
+	"company.tab3.round7":"Round 7",
+	"company.tab3.round8":"Round 8",
+	"company.tab3.premiumIncome":"Premium Income",
+	"company.tab3.claimsPaid":"Sinistres versés",
+	"company.tab3.operatingExpenses":"Frais d'exploitation",
+	"company.tab3.grossIncome":"revenu brut",
+	"company.tab3.profit":"Le profit",
 	
 	"Modify":"Modify",
 	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG."

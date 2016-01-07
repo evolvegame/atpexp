@@ -11,11 +11,11 @@
 <!-- END BREADCRUMB -->            
 
 <div class="page-title">
-    <h2>Company</h2>
+    <h2>{{'company.title'|translate}}</h2>
 </div>
 <!-- PAGE CONTENT TABBED -->
 <tabset>
-<tab heading="Projects">
+<tab heading={{'company.tab1.title'|translate}}>
 <div class="tab-container" style="background: #FAFAFA;">
     <br>
 					<div style="color:black;" ng-controller="CompanyCtrl">
@@ -23,7 +23,7 @@
                         	<table>
 	                            <thead>
 	                                <tr>
-	                                    <th style="height: 100px; text-decoration: underline; text-align: center;">Compliance</th>
+	                                    <th style="height: 100px; text-decoration: underline; text-align: center;">{{'company.tab1.compliance' |translate}}</th>
 	                                </tr>
 	                            </thead>
 	                            <tbody>
@@ -41,7 +41,7 @@
 	                        <table>
 	                            <thead >
 	                                <tr>
-	                                    <th style="height: 100px;text-decoration: underline; text-align: center;">IT</th>
+	                                    <th style="height: 100px;text-decoration: underline; text-align: center;">{{'company.tab1.it'|translate}}</th>
 	                                </tr>
 	                            </thead>
 	                            <tbody>
@@ -58,7 +58,7 @@
 	                        <table>
 	                            <thead >
 	                                <tr>
-	                                    <th style="height: 100px;text-decoration: underline; text-align: center;">Marketing</th>
+	                                    <th style="height: 100px;text-decoration: underline; text-align: center;">{{'company.tab1.marketing'|translate}}</th>
 	                                </tr>
 	                            </thead>
 	                            <tbody>
@@ -75,7 +75,7 @@
 	                        <table>
 	                            <thead >
 	                                <tr>
-	                                    <th style="height: 100px;text-decoration: underline;text-align: center;">Strategy</th>
+	                                    <th style="height: 100px;text-decoration: underline;text-align: center;">{{'company.tab1.strategy'|translate}}</th>
 	                                </tr>
 	                            </thead>
 	                            <tbody>
@@ -96,7 +96,7 @@
 
 
 
-<tab heading="Departments">
+<tab heading={{'company.tab2.title'|translate}}>
 <div class="tab-container" style="background: #FAFAFA;">
     <br>
 
@@ -122,31 +122,31 @@
 
 
 
-<tab heading="Financials">
+<tab heading={{'company.tab3.title'|translate}}>
 <div class="tab-container" style="background: #FAFAFA;">
  <br>
 
                     <div style="color:black;" ng-controller="CompanyCtrl">
                         <b></b>
-                        <b>Profit & Loss</b>
+                        <b>{{'company.tab3.profit&loss'|translate}}</b>
                         <table>
 	                            <thead >
 	                                <tr>
 	                                    <th style="height: 100px; width: 150px;text-align: left;"></th>
-	                                    <th style="height: 100px; width: 110px;text-align: left;">Round 1</th>
-	                                    <th style="height: 100px; width: 110px;text-align: left;">Round 2</th>
-	                                    <th style="height: 100px; width: 110px;text-align: left;">Round 3</th>
-	                                    <th style="height: 100px; width: 110px;text-align: left;">Round 4</th>
-	                                    <th style="height: 100px; width: 110px;text-align: left;">Round 5</th>
-	                                    <th style="height: 100px; width: 110px;text-align: left;">Round 6</th>
-	                                    <th style="height: 100px; width: 110px;text-align: left;">Round 7</th>
-	                                    <th style="height: 100px; width: 110px;text-align: left;">Round 8</th>
+	                                    <th style="height: 100px; width: 110px;text-align: left;">{{'company.tab3.round1'|translate}}</th>
+	                                    <th style="height: 100px; width: 110px;text-align: left;">{{'company.tab3.round2'|translate}}</th>
+	                                    <th style="height: 100px; width: 110px;text-align: left;">{{'company.tab3.round3'|translate}}</th>
+	                                    <th style="height: 100px; width: 110px;text-align: left;">{{'company.tab3.round4'|translate}}</th>
+	                                    <th style="height: 100px; width: 110px;text-align: left;">{{'company.tab3.round5'|translate}}</th>
+	                                    <th style="height: 100px; width: 110px;text-align: left;">{{'company.tab3.round6'|translate}}</th>
+	                                    <th style="height: 100px; width: 110px;text-align: left;">{{'company.tab3.round7'|translate}}</th>
+	                                    <th style="height: 100px; width: 110px;text-align: left;">{{'company.tab3.round8'|translate}}</th>
 	                                </tr>
 	                            </thead>
 	                            <tbody>
 	                                 <tr style="height:25px;">
 												<td align="left">
-													<font> Premium Income </font>
+													<font> {{'company.tab3.premiumIncome'|translate}} </font>
 												</td>							
 												<td ng-repeat="round in getCurrentTeam().rounds">
 													{{round.premiumIncome}}
@@ -154,7 +154,7 @@
 	                                </tr> 
 	                                <tr style="height:25px;">
 												<td align="left">
-													<font> Claims Paid </font>
+													<font> {{'company.tab3.claimsPaid'|translate}} </font>
 												</td>							
 												<td ng-repeat="round in getCurrentTeam().rounds">
 													{{round.claimsPaid}}
@@ -162,7 +162,7 @@
 	                                </tr> 
 	                                <tr style="height:25px;">
 												<td align="left">
-													<font> Operating Expenses </font>
+													<font>{{'company.tab3.operatingExpenses'|translate}}</font>
 												</td>							
 												<td ng-repeat="round in getCurrentTeam().rounds">
 													{{round.operatingExpenses}}
@@ -170,7 +170,7 @@
 	                                </tr> 
 	                                <tr style="height:25px;">
 												<td align="left">
-													<font> Gross Income </font>
+													<font> {{'company.tab3.grossIncome'|translate}} </font>
 												</td>							
 												<td ng-repeat="round in getCurrentTeam().rounds">
 													{{round.grossIncome}}
@@ -178,7 +178,7 @@
 	                                </tr> 
 	                                <tr style="height:25px;">
 												<td align="left">
-													<font> Profit </font>
+													<font> {{'company.tab3.profit'|translate}} </font>
 												</td>							
 												<td ng-repeat="round in getCurrentTeam().rounds">
 													{{round.profit}}

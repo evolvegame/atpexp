@@ -60,6 +60,30 @@
 	"sidebar.Simulation":"Simulation",
 	"sidebar.CustomerPool":"Kunden Pool",
 	
+	"company.title":"Gesellschaft",
+	"company.tab1.title":"Projekte",
+	"company.tab1.compliance":"Compliance",
+	"company.tab1.it":"IT",
+	"company.tab1.marketing":"Marketing",
+	"company.tab1.strategy":"Strategie",
+	"company.tab2.title":"Abteilungen",
+	"company.tab3.title":"Financials",
+	"company.tab3.profit&loss":"Profiteinbuße",
+	"company.tab3.round1":"Runde 1",
+	"company.tab3.round2":"Runde 2",
+	"company.tab3.round3":"Runde 3",
+	"company.tab3.round4":"Runde 4",
+	"company.tab3.round5":"Runde 5",
+	"company.tab3.round6":"Runde 6",
+	"company.tab3.round7":"Runde 7",
+	"company.tab3.round8":"Runde 8",
+	"company.tab3.premiumIncome":"Prämieneinnahmen",
+	"company.tab3.claimsPaid":"Forderungen bezahlt",
+	"company.tab3.operatingExpenses":"Betriebsaufwand",
+	"company.tab3.grossIncome":"Bruttoeinkommen",
+	"company.tab3.profit":"Profitieren",
+	
+	
 	"Modify":"Modify",
 	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG."
 	

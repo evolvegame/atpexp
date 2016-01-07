@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿{
+﻿﻿﻿﻿﻿﻿﻿﻿﻿{
 	"settings.settingsHeader":"impostazioni",
 	"settings.TeamHeader":"Squadra",
 	"settings.msg":"Impostare la tua squadra compilando il modulo qui sotto (Non dimenticare di fare clic sul pulsante 'Salva').",
@@ -99,6 +99,32 @@
 	"customer-pool.tab1.table.buyerSegment1":"segmento acquirente 1",
 	"customer-pool.tab1.table.buyerSegment2":"segmento acquirente 2",
 	"customer-pool.tab1.table.buyerSegment3":"segmento acquirente 3",
+	
+	
+	"market.title":"Market",
+	"market.tab1.title":"Local",
+	"market.tab1.default":"Default",
+	"market.tab2.title":"Global",
+	"market.tab2.default":"Default",
+	"market.tab2.name":"Name",
+	"market.tab2.country":"Country",
+	"market.tab2.region":"Region",
+	"market.tab2.industry":"Industry",
+	"market.tab2.buyerSegment1":"Buyer segment 1",
+	"market.tab2.buyerSegment2":"Buyer segment 2",
+	"market.tab2.buyerSegment3":"Buyer segment 3",
+	"market.tab2.offer":"Offer",
+	"market.tab2.makeOffer":"Make Offer",
+	"market.tab2.improveOffer":"Improve Offer",
+	"market.tab2.deleteOffer":"Delete Offer",
+	"market.tab3.title":"Offers",
+	"market.tab3.customer":"Customer",
+	"market.tab3.avgAcceptanceRate":"Average Acceptance Rate",
+	"market.tab3.price":"Price",
+	"market.tab3.serviceScore":"Service Score",
+	"market.msg":"Customer info refreshed",
+	
+	
 	
 	"Modify":"Modify",
 	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG."

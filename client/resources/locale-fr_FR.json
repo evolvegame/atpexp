@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿{
+﻿﻿﻿﻿﻿﻿﻿﻿﻿{
 	"settings.settingsHeader":"Paramètres",
 	"settings.TeamHeader":"Équipe",
 	"settings.msg":"Configurez votre équipe en remplissant les formulaires ci-dessous (Ne pas oublier de cliquer sur le bouton 'Enregistrer').",
@@ -99,6 +99,31 @@
 	"customer-pool.tab1.table.buyerSegment1":"Acheteur segment 1",
 	"customer-pool.tab1.table.buyerSegment2":"Acheteur segment 2",
 	"customer-pool.tab1.table.buyerSegment3":"Acheteur segment 3",
+	
+	"market.title":"Marché",
+	"market.tab1.title":"locale",
+	"market.tab1.default":"Défaut",
+	"market.tab2.title":"Mondial",
+	"market.tab2.default":"Défaut",
+	"market.tab2.name":"prénom",
+	"market.tab2.country":"Pays",
+	"market.tab2.region":"Région",
+	"market.tab2.industry":"Industrie",
+	"market.tab2.buyerSegment1":"Segment Acheteur 1",
+	"market.tab2.buyerSegment2":"Segment Acheteur 2",
+	"market.tab2.buyerSegment3":"Segment Acheteur 3",
+	"market.tab2.offer":"Offre",
+	"market.tab2.makeOffer":"Faire une offre",
+	"market.tab2.improveOffer":"améliorer l'offre",
+	"market.tab2.deleteOffer":"supprimer offre",
+	"market.tab3.title":"Des offres",
+	"market.tab3.customer":"Client",
+	"market.tab3.avgAcceptanceRate":"Taux moyen Acceptation",
+	"market.tab3.price":"Prix",
+	"market.tab3.serviceScore":"Score service",
+	"market.msg":"Client info rafraîchi",
+	
+	
 	
 	"Modify":"Modify",
 	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG."

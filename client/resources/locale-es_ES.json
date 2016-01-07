@@ -98,6 +98,32 @@
 	"customer-pool.tab1.table.buyerSegment2":"segmento comprador 2",
 	"customer-pool.tab1.table.buyerSegment3":"segmento comprador 3",
 	
+	
+	"market.title":"Mercado",
+	"market.tab1.title":"Local",
+	"market.tab1.default":"Defecto",
+	"market.tab2.title":"Global",
+	"market.tab2.default":"Defecto",
+	"market.tab2.name":"Nombre",
+	"market.tab2.country":"País",
+	"market.tab2.region":"Región",
+	"market.tab2.industry":"Industria",
+	"market.tab2.buyerSegment1":"segmento comprador 1",
+	"market.tab2.buyerSegment2":"segmento comprador 2",
+	"market.tab2.buyerSegment3":"segmento comprador 3",
+	"market.tab2.offer":"Oferta",
+	"market.tab2.makeOffer":"Hacer oferta",
+	"market.tab2.improveOffer":"mejorar Oferta",
+	"market.tab2.deleteOffer":"eliminar Oferta",
+	"market.tab3.title":"ofertas",
+	"market.tab3.customer":"Cliente",
+	"market.tab3.avgAcceptanceRate":"Promedio Aceptación Rate",
+	"market.tab3.price":"Precio",
+	"market.tab3.serviceScore":"Puntuación Servicio",
+	"market.msg":"Información al cliente actualiza",
+	
+	
+	
 	"Modify":"Modify_Spans",
 	"Error1":"Error Spanish: The selected file is not a valid image. Please select an image file like JPG or PNG."
 	

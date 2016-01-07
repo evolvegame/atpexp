@@ -2,9 +2,17 @@
 
 angular.module('atpexpApp')
   .controller('SettingsCtrl', function ($scope, Team, Auth, toastr,$http,$window,$rootScope,$translate) {
-	  $scope.successMsg = $translate.instant('settings.change-password.success');
+	  
+	  
+	  $scope.successMsgPswd = $translate.instant('settings.change-password.success.pwd');
+	  $scope.successMsgpart1 = $translate.instant('settings.change-password.success.part1');
+	  $scope.successMsgpart2 = $translate.instant('settings.change-password.success.part2');
+	  
+	  
 	  $rootScope.$on('$translateChangeSuccess', function () {
-	      $scope.successMsg = $translate.instant('settings.change-password.success');
+	      $scope.successMsgPswd = $translate.instant('settings.change-password.success.pwd');
+	      $scope.successMsgpart1 = $translate.instant('settings.change-password.success.part1');
+		  $scope.successMsgpart2 = $translate.instant('settings.change-password.success.part2');
 	    
 	  });
     $scope.errors = {};
@@ -15,7 +23,7 @@ angular.module('atpexpApp')
         Auth.changePassword( $scope.user.oldPassword, $scope.user.newPassword )
         .then( function() {
           $scope.message = 'Password successfully changed.';
-          toastr.success ($scope.successMsg);          
+          toastr.success ($scope.successMsgPswd);          
         })
         .catch( function() {
           form.password.$setValidity('mongoose', false);
@@ -36,7 +44,7 @@ angular.module('atpexpApp')
       console.log ($scope.team.slogan);
       Auth.teamSettings($scope.team.slogan)
       .then(function() {
-        toastr.success('Save team settings to the database.', 'Saved!');
+        toastr.success( $scope.successMsgpart1, $scope.successMsgpart2);
         refresh();
       })
       .catch(function() {

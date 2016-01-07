@@ -15,7 +15,9 @@
 	"settings.change-password.newPassword":"New Password",
 	"settings.change-password.newPassword.msg":"Type in your new password",
 	"settings.change-password.Save":"Save",
-	"settings.change-password.success":"Password changed successfully",
+	"settings.change-password.success.pwd":"Password changed successfully",
+	"settings.change-password.success.part1":"Save team settings to the database.",
+	"settings.change-password.success.part2":"Saved!",
 	"settings.change-password.pas-length":"Password must be at least 3 characters",
 	
 	

@@ -16,7 +16,9 @@
 	"settings.change-password.newPassword":"Neues Kennwort",
 	"settings.change-password.newPassword.msg":"Geben Sie Ihr neues Passwort",
 	"settings.change-password.Save":"sparen",
-	"settings.change-password.success":"das Passwort wurde erfolgreich geändert",
+	"settings.change-password.success.pwd":"das Passwort wurde erfolgreich geändert",
+	"settings.change-password.success.part1":"Sparen Team -Einstellungen in die Datenbank.",
+	"settings.change-password.success.part2":"Gerettet!",
 	"settings.change-password.pas-length":"Das Passwort muss mindestens 3 Zeichen lang sein",
 	
 	"ranking.title":"Rang",

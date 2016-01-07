@@ -1,4 +1,4 @@
-﻿﻿﻿{
+﻿﻿﻿﻿﻿﻿{
 	"settings.settingsHeader":"impostazioni",
 	"settings.TeamHeader":"Squadra",
 	"settings.msg":"Impostare la tua squadra compilando il modulo qui sotto (Non dimenticare di fare clic sul pulsante 'Salva').",
@@ -15,7 +15,9 @@
 	"settings.change-password.newPassword":"nuova password",
 	"settings.change-password.newPassword.msg":"Digitare la nuova password",
 	"settings.change-password.Save":"Salvare",
-	"settings.change-password.success":"password cambiata con successo",
+	"settings.change-password.success.pwd":"Password cambiata con successo",
+	"settings.change-password.success.part1":"Salvare le impostazioni di squadra alla base di dati.",
+	"settings.change-password.success.part2":"Risparmiato!",
 	"settings.change-password.pas-length":"La password deve essere di almeno 3 caratteri",
 	
 	

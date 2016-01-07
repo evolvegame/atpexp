@@ -1,4 +1,4 @@
-﻿﻿﻿{
+﻿﻿﻿﻿﻿﻿{
 	"settings.settingsHeader":"Paramètres",
 	"settings.TeamHeader":"Équipe",
 	"settings.msg":"Configurez votre équipe en remplissant les formulaires ci-dessous (Ne pas oublier de cliquer sur le bouton 'Enregistrer').",
@@ -15,7 +15,9 @@
 	"settings.change-password.newPassword":"nouveau mot de passe",
 	"settings.change-password.newPassword.msg":"Tapez votre nouveau mot de passe",
 	"settings.change-password.Save":"Conserver",
-	"settings.change-password.success":"Le mot de passe a été changé avec succès",
+	"settings.change-password.success.pwd":"Le mot de passe a été changé avec succès",
+	"settings.change-password.success.part1":"Enregistrer les paramètres de l'équipe à la base de données.",
+	"settings.change-password.success.part2":"Enregistré!",
 	"settings.change-password.pas-length":"Mot de passe doit être d'au moins 3 caractères",
 	
 	

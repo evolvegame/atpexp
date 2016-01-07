@@ -18,7 +18,9 @@
 	"settings.change-password.newPassword":"nueva contraseña",
 	"settings.change-password.newPassword.msg":"Escriba su nueva contraseña",
 	"settings.change-password.Save":"Ahorrar",
-	"settings.change-password.success":"Contraseña cambiada con éxito",
+	"settings.change-password.success.pwd":"Contraseña cambiada con éxito",
+	"settings.change-password.success.part1":"Guardar la configuración del equipo para la base de datos.",
+	"settings.change-password.success.part2":"Salvado!",
 	"settings.change-password.pas-length":"La contraseña debe tener al menos 3 caracteres",
 	
 	"ranking.title":"Categoría",

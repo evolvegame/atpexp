@@ -148,7 +148,7 @@
 												<td align="left">
 													<font> {{'company.tab3.premiumIncome'|translate}} </font>
 												</td>							
-												<td ng-repeat="round in getCurrentTeam().rounds">
+												<td ng-repeat="round in roundLevelInformation">
 													{{round.premiumIncome}}
 												</td>					                     	
 	                                </tr> 
@@ -156,7 +156,7 @@
 												<td align="left">
 													<font> {{'company.tab3.claimsPaid'|translate}} </font>
 												</td>							
-												<td ng-repeat="round in getCurrentTeam().rounds">
+												<td ng-repeat="round in roundLevelInformation">
 													{{round.claimsPaid}}
 												</td>					                     	
 	                                </tr> 
@@ -164,7 +164,7 @@
 												<td align="left">
 													<font>{{'company.tab3.operatingExpenses'|translate}}</font>
 												</td>							
-												<td ng-repeat="round in getCurrentTeam().rounds">
+												<td ng-repeat="round in roundLevelInformation">
 													{{round.operatingExpenses}}
 												</td>					                     	
 	                                </tr> 
@@ -172,7 +172,7 @@
 												<td align="left">
 													<font> {{'company.tab3.grossIncome'|translate}} </font>
 												</td>							
-												<td ng-repeat="round in getCurrentTeam().rounds">
+												<td ng-repeat="round in roundLevelInformation">
 													{{round.grossIncome}}
 												</td>					                     	
 	                                </tr> 
@@ -180,7 +180,7 @@
 												<td align="left">
 													<font> {{'company.tab3.profit'|translate}} </font>
 												</td>							
-												<td ng-repeat="round in getCurrentTeam().rounds">
+												<td ng-repeat="round in roundLevelInformation">
 													{{round.profit}}
 												</td>					                     	
 	                                </tr> 

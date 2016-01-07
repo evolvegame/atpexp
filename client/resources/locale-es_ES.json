@@ -85,6 +85,17 @@
 	"company.tab3.grossIncome":"Ingresos brutos",
 	"company.tab3.profit":"Beneficio",
 	
+	"customer-pool.title":"piscina al Cliente",
+	"customer-pool.tab1.title":"Clientes",
+	"customer-pool.tab1.panel-title":"Defecto",
+	"customer-pool.tab1.table.name":"Nombre",
+	"customer-pool.tab1.table.country":"País",
+	"customer-pool.tab1.table.region":"Región",
+	"customer-pool.tab1.table.industry":"Industria",
+	"customer-pool.tab1.table.buyerSegment1":"segmento comprador 1",
+	"customer-pool.tab1.table.buyerSegment2":"segmento comprador 2",
+	"customer-pool.tab1.table.buyerSegment3":"segmento comprador 3",
+	
 	"Modify":"Modify_Spans",
 	"Error1":"Error Spanish: The selected file is not a valid image. Please select an image file like JPG or PNG."
 	

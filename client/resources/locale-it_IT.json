@@ -1,4 +1,4 @@
-﻿﻿{
+﻿﻿﻿{
 	"settings.settingsHeader":"impostazioni",
 	"settings.TeamHeader":"Squadra",
 	"settings.msg":"Impostare la tua squadra compilando il modulo qui sotto (Non dimenticare di fare clic sul pulsante 'Salva').",
@@ -86,6 +86,17 @@
 	"company.tab3.operatingExpenses":"Spese operative",
 	"company.tab3.grossIncome":"Reddito lordo",
 	"company.tab3.profit":"profitto",
+	
+	"customer-pool.title":"Pool cliente",
+	"customer-pool.tab1.title":"Clienti",
+	"customer-pool.tab1.panel-title":"Predefinito",
+	"customer-pool.tab1.table.name":"Nome",
+	"customer-pool.tab1.table.country":"Nazione",
+	"customer-pool.tab1.table.region":"Regione",
+	"customer-pool.tab1.table.industry":"Industria",
+	"customer-pool.tab1.table.buyerSegment1":"segmento acquirente 1",
+	"customer-pool.tab1.table.buyerSegment2":"segmento acquirente 2",
+	"customer-pool.tab1.table.buyerSegment3":"segmento acquirente 3",
 	
 	"Modify":"Modify",
 	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG."

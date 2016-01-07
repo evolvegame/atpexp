@@ -84,6 +84,20 @@
 	"company.tab3.profit":"Profitieren",
 	
 	
+	
+	"customer-pool.title":"Kunden Pool",
+	"customer-pool.tab1.title":"Kunden",
+	"customer-pool.tab1.panel-title":"Standard",
+	"customer-pool.tab1.table.name":"Name",
+	"customer-pool.tab1.table.country":"Land",
+	"customer-pool.tab1.table.region":"Region",
+	"customer-pool.tab1.table.industry":"Industrie",
+	"customer-pool.tab1.table.buyerSegment1":"Käufer Segment 1",
+	"customer-pool.tab1.table.buyerSegment2":"Käufer Segment 2",
+	"customer-pool.tab1.table.buyerSegment3":"Käufer Segment 3",
+	
+	
+	
 	"Modify":"Modify",
 	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG."
 	

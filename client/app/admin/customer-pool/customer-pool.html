@@ -11,17 +11,17 @@
 <!-- END BREADCRUMB -->      
 
 <div class="page-title">
-    <h2>Customer Pool</h2>
+    <h2>{{'customer-pool.title'|translate}}</h2>
 </div>
 
 <!-- PAGE CONTENT TABBED -->
 <tabset>
-<tab heading="Customers"> 
+<tab heading={{'customer-pool.tab1.title'|translate}}> 
 <div class="row">
     <div class="col-md-12">    
         <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Default</h3>
+                    <h3 class="panel-title">{{'customer-pool.tab1.panel-title'|translate}}</h3>
                     <ul class="panel-controls">
                         <li><a href="#" ng-click="isCollapsedCustomer = !isCollapsedCustomer" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
                        <li><a href="#" ng-click="refreshCustomer()" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
@@ -33,13 +33,13 @@
                         <table datatable="ng" class="table datatable hover">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Country</th>
-                                    <th>Region</th>
-                                    <th>Industry</th>
-                                    <th>Buyer segment 1</th>
-                                    <th>Buyer segment 2</th>
-                                    <th>Buyer segment 3</th>
+                                    <th>{{'customer-pool.tab1.table.name'|translate}}</th>
+                                    <th>{{'customer-pool.tab1.table.country'|translate}}</th>
+                                    <th>{{'customer-pool.tab1.table.region'|translate}}</th>
+                                    <th>{{'customer-pool.tab1.table.industry'|translate}}</th>
+                                    <th>{{'customer-pool.tab1.table.buyerSegment1'|translate}}</th>
+                                    <th>{{'customer-pool.tab1.table.buyerSegment2'|translate}}</th>
+                                    <th>{{'customer-pool.tab1.table.buyerSegment3'|translate}}</th>
                                     
                                 </tr>
                             </thead>

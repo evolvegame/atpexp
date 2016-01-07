@@ -86,6 +86,24 @@
 	"company.tab3.operatingExpenses":"Operating Expenses",
 	"company.tab3.grossIncome":"Gross Income",
 	"company.tab3.profit":"Profit",
+
+	"customer-pool.title":"Customer Pool",
+	"customer-pool.tab1.title":"Customers",
+	"customer-pool.tab1.panel-title":"Default",
+	"customer-pool.tab1.table.name":"Name",
+	"customer-pool.tab1.table.country":"Country",
+	"customer-pool.tab1.table.region":"Region",
+	"customer-pool.tab1.table.industry":"Industry",
+	"customer-pool.tab1.table.buyerSegment1":"Buyer segment 1",
+	"customer-pool.tab1.table.buyerSegment2":"Buyer segment 2",
+	"customer-pool.tab1.table.buyerSegment3":"Buyer segment 3",
+	
+	
+	
+	
+	
+	
+	
 	
 	"Modify":"Modify",
 	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG."

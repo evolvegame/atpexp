@@ -1,4 +1,4 @@
-﻿﻿{
+﻿﻿﻿{
 	"settings.settingsHeader":"Paramètres",
 	"settings.TeamHeader":"Équipe",
 	"settings.msg":"Configurez votre équipe en remplissant les formulaires ci-dessous (Ne pas oublier de cliquer sur le bouton 'Enregistrer').",
@@ -86,6 +86,17 @@
 	"company.tab3.operatingExpenses":"Frais d'exploitation",
 	"company.tab3.grossIncome":"revenu brut",
 	"company.tab3.profit":"Le profit",
+	
+	"customer-pool.title":"Piscine client",
+	"customer-pool.tab1.title":"Les clients",
+	"customer-pool.tab1.panel-title":"Défaut",
+	"customer-pool.tab1.table.name":"prénom",
+	"customer-pool.tab1.table.country":"Pays",
+	"customer-pool.tab1.table.region":"Région",
+	"customer-pool.tab1.table.industry":"Industrie",
+	"customer-pool.tab1.table.buyerSegment1":"Acheteur segment 1",
+	"customer-pool.tab1.table.buyerSegment2":"Acheteur segment 2",
+	"customer-pool.tab1.table.buyerSegment3":"Acheteur segment 3",
 	
 	"Modify":"Modify",
 	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG."

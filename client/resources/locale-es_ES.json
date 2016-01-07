@@ -122,6 +122,22 @@
 	"market.tab3.serviceScore":"Puntuación Servicio",
 	"market.msg":"Información al cliente actualiza",
 	
+	"market.tpl.customer":"Cliente",
+	"market.tpl.sector":"Sector",
+	"market.tpl.serviceNeed":"Necesidad Servicio",
+	"market.tpl.yourScore":"Tu puntuación es",
+	"market.tpl.risk":"Riesgo",
+	"market.tpl.overalRiskLevel":"Nivel de riesgo global",
+	"market.tpl.turnover":"Volumen de negocios",
+	"market.tpl.millionEuro":"En millones de euros",
+	"market.tpl.buyerSegment":"Segmento Comprador",
+	"market.tpl.price":"Precio",
+	"market.tpl.avgPriceMsg":"El precio medio es de 0.2 de la facturación .",
+	"market.tpl.service":"Servicio",
+	"market.tpl.xpScore":"Experiencia Puntuación",
+	"market.tpl.xpScore.msg":"Usted tiene suficiente experiencia para asegurar Puntuación",
+	"market.tpl.makeOffer":"Hacer una oferta",
+	"market.tpl.close":"(cerca)",
 	
 	
 	"Modify":"Modify_Spans",

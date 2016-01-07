@@ -8,22 +8,22 @@
     <div class="panel-body as-panel-customer">        
         <div class="col-md-12">
             <span href="#" class="tile tile-default">
-            <div style="font-size:12px;"><h6>Customer</h6></div>
+            <div style="font-size:12px;"><h6>{{'market.tpl.customer'|translate}}</h6></div>
             <div class="col-md-3">
                 <img ng-src="assets/img/flags/{{selected.countryCode}}.png" width="32" height="32" style="margin-bottom:4px">
-                <p style="margin-top:2px;line-height:14px;">{{selected.country}}<small style="color:#bbb"><br>({{ selected.industry }} Sector)</small></p>
+                <p style="margin-top:2px;line-height:14px;">{{selected.country}}<small style="color:#bbb"><br>({{ selected.industry }} {{'market.tpl.sector'|translate}})</small></p>
             </div>
             <div class="col-md-3">
                 <span class="label label-warning label-form"><span class="fa fa-cogs"></span> {{selected.experienceScoreNeeded}}</span>
-            <p style="line-height:14px;margin-top:10px;">Service Need<small style="color:#bbb"><br>Your score is {{team.experienceScore}}</small></p>
+            <p style="line-height:14px;margin-top:10px;">{{'market.tpl.serviceNeed'|translate}}<small style="color:#bbb"><br>{{'market.tpl.yourScore'|translate}} {{team.experienceScore}}</small></p>
         </div>
         <div class="col-md-3">
             <span class="{{getRiskWeatherIcon(selected.businessRisk)}}" style="font-size: 28px;line-height: 36px;"></span>
-            <p style="line-height:14px;margin-top:2px;">{{riskText}} Risk<small style="color:#bbb"><br>Overall Risk Level</small></p>
+            <p style="line-height:14px;margin-top:2px;">{{riskText}} {{'market.tpl.risk'|translate}}<small style="color:#bbb"><br>{{'market.tpl.overalRiskLevel'|translate}}</small></p>
         </div>
         <div class="col-md-3">
             <span style="font-size:28px;line-height:36px;">{{(selected.turnover)/1000000}}</span>
-            <p style="margin-top:2px;line-height:14px;">Turnover<small style="color:#bbb"><br>In million Euro</small></p>
+            <p style="margin-top:2px;line-height:14px;">{{'market.tpl.turnover'|translate}}<small style="color:#bbb"><br>{{'market.tpl.millionEuro'|translate}}</small></p>
         </div>
         </span>
     </div>
@@ -31,7 +31,7 @@
 <div class="panel-body as-panel-customer">
     <div class="col-md-4 as-col-md-4" ng-repeat="buyer in selected.buyerPortfolio">
         <span class="tile tile-default">
-            <div style="font-size:12px;"><h6>Buyer Segment {{$index+1}}</h6></div>
+            <div style="font-size:12px;"><h6>{{'market.tpl.buyerSegment'|translate}}{{$index+1}}</h6></div>
             <p style="font-size:12px;">
             {{buyer.tpe | currency:"&euro;"}}</p>
             <p style="font-size:12px;"><img ng-src="assets/img/flags/{{buyer.countryCode }}.png" width="12" height="12" style="margin-bottom:4px">
@@ -56,7 +56,7 @@
   <form name="offerForm" novalidate >  
     <div class="col-md-6 as-col-md-6">
         <span href="#" class="tile tile-default" style="height:130px;">
-<div style="font-size:12px;"><h6>Price</h6></div>
+<div style="font-size:12px;"><h6>{{'market.tpl.price'|translate}}</h6></div>
 <div class="input-group" style="margin-top:15px;padding-right:40px;padding-left:40px;">
     <span class="input-group-addon"><span class="fa fa-eur"></span></span>
         <input type="number" min="0" name="priceInput" class="form-control" ng-model="price" required="required" />       
@@ -64,24 +64,24 @@
     <span style="color: red" ng-show="showPriceValidation">{{errorTextPriceValiation}}</span>             
     <span class="help-block" 
     ng-style="showAvgPriceValidation ? {'padding-right':'40px','padding-left':'40px','color':'red'} :{'padding-right':'40px','padding-left':'40px'}">
-    The average price is 0.2 of the turnover.({{selected.turnover*0.2}})
+    {{'market.tpl.avgPriceMsg'|translate}} ({{selected.turnover*0.2}})
     </span>    
 </div>
 <div class="col-md-6 as-col-md-6" style="padding-right:15px">
     <span href="#" class="tile tile-default" style="height:130px;">
-<div style="font-size:12px;"><h6>Service</h6></div>
+<div style="font-size:12px;"><h6>{{'market.tpl.service'|translate}}</h6></div>
 <span class="label label-warning label-form"><span class="fa fa-cogs"></span> {{team.experienceScore}} </span> / <span class="label label-danger label-form"><span class="fa fa-flash"></span> 100</span>
-    <p style="line-height:14px;margin-top:10px;padding-right:40px;padding-left:40px;">Experience Score<small style="color:#bbb"><br>You have enough Experience Score to insure {{ selected.name }}.</small></p>
+    <p style="line-height:14px;margin-top:10px;padding-right:40px;padding-left:40px;">{{'market.tpl.xpScore'|translate}}<small style="color:#bbb"><br>{{'market.tpl.xpScore.msg'|translate}} {{ selected.name }}.</small></p>
     </span>
 </div>
 </div>
 <div class="panel-body as-panel-customer" style="margin-bottom:15px;">
     <div class="col-md-12">
-        <a href="#" class="btn btn-block btn-lg btn-success" ng-click="submitOffer(price)"><span class="fa fa-comments-o"></span> Make an offer!</a>         
+        <a href="#" class="btn btn-block btn-lg btn-success" ng-click="submitOffer(price)"><span class="fa fa-comments-o"></span>{{'market.tpl.makeOffer'|translate}}!</a>         
     </div>
 </div>
 <div class="panel-body list-group">
-    <a href="#" class="list-group-item btn btn-lg" ng-click="closeModal()"><span></span> (close)</a>
+    <a href="#" class="list-group-item btn btn-lg" ng-click="closeModal()"><span></span> {{'market.tpl.close'|translate}}</a>
 </div>
 </form>
 </div>

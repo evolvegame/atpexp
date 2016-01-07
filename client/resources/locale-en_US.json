@@ -126,6 +126,25 @@
 	"market.msg":"Customer info refreshed",
 	
 	
+	"market.tpl.customer":"Customer",
+	"market.tpl.sector":"Sector",
+	"market.tpl.serviceNeed":"Service Need",
+	"market.tpl.yourScore":"Your score is",
+	"market.tpl.risk":"Risk",
+	"market.tpl.overalRiskLevel":"Overall Risk Level",
+	"market.tpl.turnover":"Turnover",
+	"market.tpl.millionEuro":"In million Euro",
+	"market.tpl.buyerSegment":"Buyer Segment",
+	"market.tpl.price":"Price",
+	"market.tpl.avgPriceMsg":"The average price is 0.2 of the turnover.",
+	"market.tpl.service":"Service",
+	"market.tpl.xpScore":"Experience Score",
+	"market.tpl.xpScore.msg":"You have enough Experience Score to insure",
+	"market.tpl.makeOffer":"Make an offer",
+	"market.tpl.close":"(close)",
+	
+	
+	
 	"Modify":"Modify",
 	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG."
 	

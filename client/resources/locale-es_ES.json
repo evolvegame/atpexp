@@ -140,6 +140,18 @@
 	"market.tpl.close":"(cerca)",
 	
 	
+	"market.tpl.priceValidation":"Se requiere Precio",
+	"market.tpl.veryBad":"Muy mal",
+	"market.tpl.bad":"Malo",
+	"market.tpl.moderate":"Moderar",
+	"market.tpl.good":"Bien",
+	"market.tpl.excellent":"Excelente",
+	"market.tpl.risk1":"Estrategia de riesgos no se define 1 ",
+	"market.tpl.risk2":"Estrategia de riesgos no se define 2 ",
+	"market.tpl.risk3":"Estrategia de riesgos no se define 3 ",
+	"market.tpl.offer.success1":"Su oferta se ha presentado a ",
+	"market.tpl.offer.success2":"Oferta enviado!",
+	
 	"Modify":"Modify_Spans",
 	"Error1":"Error Spanish: The selected file is not a valid image. Please select an image file like JPG or PNG."
 	

@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
 	"settings.settingsHeader":"Paramètres",
 	"settings.TeamHeader":"Équipe",
 	"settings.msg":"Configurez votre équipe en remplissant les formulaires ci-dessous (Ne pas oublier de cliquer sur le bouton 'Enregistrer').",
@@ -139,6 +139,18 @@
 	"market.tpl.xpScore.msg":"Vous avez suffisamment d'expérience pour assurer Score",
 	"market.tpl.makeOffer":"Faire une offre",
 	"market.tpl.close":"(Près)",
+	
+	"market.tpl.priceValidation":"Prix ​​est requis",
+	"market.tpl.veryBad":"Très mal",
+	"market.tpl.bad":"Mal",
+	"market.tpl.moderate":"Modérer",
+	"market.tpl.good":"Bien",
+	"market.tpl.excellent":"Excellent",
+	"market.tpl.risk1":"Stratégie des risques est pas défini 1 ",
+	"market.tpl.risk2":"Stratégie des risques est pas défini 2 ",
+	"market.tpl.risk3":"Stratégie des risques est pas défini 3 ",
+	"market.tpl.offer.success1":"Votre offre a été soumis à ",
+	"market.tpl.offer.success2":"Offre envoyé!",
 	
 	"Modify":"Modify",
 	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG."

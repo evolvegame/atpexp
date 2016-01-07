@@ -143,7 +143,17 @@
 	"market.tpl.makeOffer":"Make an offer",
 	"market.tpl.close":"(close)",
 	
-	
+	"market.tpl.priceValidation":"Price is required",
+	"market.tpl.veryBad":"Very Bad",
+	"market.tpl.bad":"Bad",
+	"market.tpl.moderate":"Moderate",
+	"market.tpl.good":"Good",
+	"market.tpl.excellent":"Excellent",
+	"market.tpl.risk1":"Risk Strategy is not defined 1 ",
+	"market.tpl.risk2":"Risk Strategy is not defined 2 ",
+	"market.tpl.risk3":"Risk Strategy is not defined 3 ",
+	"market.tpl.offer.success1":"Your offer has been submitted to",
+	"market.tpl.offer.success2":"Offer sent!",
 	
 	"Modify":"Modify",
 	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG."

@@ -79,7 +79,7 @@ angular.module('atpexpApp')
 
   })
 
-.controller('ModalInstanceCtrl', function ($scope, $modalInstance, selectedCustomer, toastr, Offer, $rootScope){
+.controller('ModalInstanceCtrl', function ($scope, $modalInstance, selectedCustomer, toastr, Offer, $rootScope,$translate){
     
     // re-add selectedCustomer to $scope.selected
     $scope.selected = selectedCustomer;
@@ -139,6 +139,36 @@ angular.module('atpexpApp')
     return $scope.riskAcceptance; 
   }
 
+    
+    //on load 
+    $scope.priceValidationmsg = $translate.instant('market.tpl.priceValidation');
+    $scope.veryBad = $translate.instant('market.tpl.veryBad');
+    $scope.bad = $translate.instant('market.tpl.bad');
+    $scope.moderate = $translate.instant('market.tpl.moderate');
+    $scope.good = $translate.instant('market.tpl.good');
+    $scope.excellent = $translate.instant('market.tpl.excellent');
+    $scope.riskError1 = $translate.instant('market.tpl.risk1');
+    $scope.riskError2 = $translate.instant('market.tpl.risk2');
+    $scope.riskError3 = $translate.instant('market.tpl.risk3');
+    $scope.successMsg1=$translate.instant('market.tpl.offer.success1');
+    $scope.successMsg2=$translate.instant('market.tpl.offer.success2');
+    
+    //on language change
+    $rootScope.$on('$translateChangeSuccess', function () {
+	  
+    	 $scope.priceValidationmsg= $translate.instant('market.tpl.priceValidation');
+    	 $scope.veryBad = $translate.instant('market.tpl.veryBad');
+    	    $scope.bad = $translate.instant('market.tpl.bad');
+    	    $scope.moderate = $translate.instant('market.tpl.moderate');
+    	    $scope.good = $translate.instant('market.tpl.good');
+    	    $scope.excellent = $translate.instant('market.tpl.excellent');
+    	    $scope.riskError1 = $translate.instant('market.tpl.risk1');
+    	    $scope.riskError2 = $translate.instant('market.tpl.risk2');
+    	    $scope.riskError3 = $translate.instant('market.tpl.risk3');
+    	    $scope.successMsg1=$translate.instant('market.tpl.offer.success1');
+    	    $scope.successMsg2=$translate.instant('market.tpl.offer.success2');
+	  });
+    
   //code added to get weather icon based on buyer rating
     $scope.getRatingWeatherIcon=function(buyerRating){
       $scope.ratingWeatherIcon ='';
@@ -146,20 +176,20 @@ angular.module('atpexpApp')
     if ( buyerRating!=null && typeof buyerRating != "undefined" ){
       if (buyerRating.between(1,30)){
           $scope.ratingWeatherIcon ='wi wi-storm-showers';
-          $scope.ratingText ='Very Bad';
+          $scope.ratingText = $scope.veryBad;
           //console.log('match:1to30'+i);
         } else if (buyerRating.between(31,40)){
           $scope.ratingWeatherIcon ='wi wi-cloudy';
-          $scope.ratingText ='Bad';
+          $scope.ratingText =$scope.bad;
         } else if (buyerRating.between(41,50)){
           $scope.ratingWeatherIcon ='wi wi-cloud';
-          $scope.ratingText ='Moderate';
+          $scope.ratingText = $scope.moderate;
         } else if (buyerRating.between(51,60)){
           $scope.ratingWeatherIcon ='wi wi-day-cloudy';
-          $scope.ratingText ='Good';
+          $scope.ratingText = $scope.good;
         } else {
           $scope.ratingWeatherIcon ='wi wi-day-sunny';
-          $scope.ratingText ='Excellent';
+          $scope.ratingText = $scope.excellent;
         }  
 
         return $scope.ratingWeatherIcon; 
@@ -172,20 +202,20 @@ angular.module('atpexpApp')
     if ( customerRisk!=null && typeof customerRisk != "undefined" ){
       if (customerRisk.between(1,30)){
           $scope.riskWeatherIcon ='wi wi-storm-showers';
-          $scope.riskText ='Very Bad';
+          $scope.riskText = $scope.veryBad;
           //console.log('match:1to30'+i);
         } else if (customerRisk.between(31,40)){
           $scope.riskWeatherIcon ='wi wi-cloudy';
-          $scope.riskText ='Bad';
+          $scope.riskText = $scope.bad;
         } else if (customerRisk.between(41,50)){
           $scope.riskWeatherIcon ='wi wi-cloud';
-          $scope.riskText ='Moderate';
+          $scope.riskText = $scope.moderate;
         } else if (customerRisk.between(51,60)){
           $scope.riskWeatherIcon ='wi wi-day-cloudy';
-          $scope.riskText ='Good';
+          $scope.riskText = $scope.good;
         } else {
           $scope.riskWeatherIcon ='wi wi-day-sunny';
-          $scope.riskText ='Excellent';
+          $scope.riskText = $scope.excellent;
         }  
 
         return $scope.riskWeatherIcon; 
@@ -217,7 +247,8 @@ angular.module('atpexpApp')
       //Price validation
       if (typeof(price)==='undefined'){
         $scope.showPriceValidation=true;
-        $scope.errorTextPriceValiation='Price is required';
+        $scope.errorTextPriceValiation=$scope.priceValidationmsg;
+        
       }else if(price <selectedCustomer.turnover*0.2){
          $scope.showAvgPriceValidation=true;        
       }      
@@ -228,7 +259,7 @@ angular.module('atpexpApp')
       buyerRating =selectedCustomer.buyerPortfolio[0].rating;      
       riskAcceptanceValidForBuyerSegment1=isValidRiskAcceptance(buyerCountry,buyerIndustry,buyerRating);
       if (!riskAcceptanceValidForBuyerSegment1){
-        toastr.error('Risk Strategy is not defined 1 ');
+        toastr.error($scope.riskError1);
       }
 
       //Risk acceptance validation for Buyer Segment 2
@@ -237,7 +268,7 @@ angular.module('atpexpApp')
       buyerRating =selectedCustomer.buyerPortfolio[1].rating;      
       riskAcceptanceValidForBuyerSegment2=isValidRiskAcceptance(buyerCountry,buyerIndustry,buyerRating);
       if (!riskAcceptanceValidForBuyerSegment2){
-        toastr.error('Risk Strategy is not defined 2');
+        toastr.error($scope.riskError2);
       }
 
       //Risk acceptance validation for Buyer Segment 3
@@ -247,7 +278,7 @@ angular.module('atpexpApp')
       riskAcceptanceValidForBuyerSegment3=isValidRiskAcceptance(buyerCountry,buyerIndustry,buyerRating);
      
     if (!riskAcceptanceValidForBuyerSegment3){
-        toastr.error('Risk Strategy is not defined 3');
+        toastr.error($scope.riskError3);
       }
       
     if ( !$scope.showPriceValidation && 
@@ -270,7 +301,7 @@ angular.module('atpexpApp')
 
 
     $modalInstance.dismiss('close');
-    toastr.success('Your offer has been submitted to ' + selectedCustomer.name + '.', ' Offer sent!');
+    toastr.success($scope.successMsg1 + selectedCustomer.name + '.', $scope.successMsg2);
     }    
       
       

@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
 	"settings.settingsHeader":"impostazioni",
 	"settings.TeamHeader":"Squadra",
 	"settings.msg":"Impostare la tua squadra compilando il modulo qui sotto (Non dimenticare di fare clic sul pulsante 'Salva').",
@@ -140,6 +140,18 @@
 	"market.tpl.xpScore.msg":"Avete abbastanza esperienza per assicurare Score",
 	"market.tpl.makeOffer":"Fare un'offerta",
 	"market.tpl.close":"(chiudere)",
+	
+	"market.tpl.priceValidation":"È richiesto Prezzo",
+	"market.tpl.veryBad":"Molto brutto",
+	"market.tpl.bad":"Cattivo",
+	"market.tpl.moderate":"Moderare",
+	"market.tpl.good":"Buona",
+	"market.tpl.excellent":"Eccellente",
+	"market.tpl.risk1":"Strategia rischio non è definita 1 ",
+	"market.tpl.risk2":"Strategia rischio non è definita 2 ",
+	"market.tpl.risk3":"Strategia rischio non è definita 3 ",
+	"market.tpl.offer.success1":"La tua offerta è stata presentata ",
+	"market.tpl.offer.success2":"offerta inviato!",
 	
 	"Modify":"Modify",
 	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG."

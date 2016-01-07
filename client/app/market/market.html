@@ -11,19 +11,19 @@
 <!-- END BREADCRUMB -->      
 
 <div class="page-title">
-    <h2>Market</h2>
+    <h2>{{'market.title'|translate}}</h2>
 </div>
 
 <!-- PAGE CONTENT TABBED -->
 <tabset>
-<tab heading="Local">
+<tab heading={{'market.tab1.title'|translate}}>
 <div class="tab-container">
     <br>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default" style="background-color:#f9f9f9">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Default</h3>
+                    <h3 class="panel-title">{{'market.tab1.default'|translate}}</h3>
                     <ul class="panel-controls">
                         <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
                         <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
@@ -35,12 +35,12 @@
     </div>
 </div>
 </tab>      
-<tab heading="Global"> 
+<tab heading={{'market.tab2.title'|translate}}> 
 <div class="row">
     <div class="col-md-12">    
         <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Default</h3>
+                    <h3 class="panel-title">{{'market.tab2.default'|translate}}</h3>
                     <ul class="panel-controls">
                         <li><a href="#" ng-click="isCollapsedCustomer = !isCollapsedCustomer" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
                        <li><a href="#" ng-click="refreshCustomer()" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
@@ -52,14 +52,14 @@
                         <table datatable="ng" class="table datatable hover">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Country</th>
-                                    <th>Region</th>
-                                    <th>Industry</th>
-                                    <th>Buyer segment 1</th>
-                                    <th>Buyer segment 2</th>
-                                    <th>Buyer segment 3</th>
-                                    <th>Offer</th>                                    
+                                    <th>{{'market.tab2.name'|translate}}</th>
+                                    <th>{{'market.tab2.country'|translate}}</th>
+                                    <th>{{'market.tab2.region'|translate}}</th>
+                                    <th>{{'market.tab2.industry'|translate}}</th>
+                                    <th>{{'market.tab2.buyerSegment1'|translate}}</th>
+                                    <th>{{'market.tab2.buyerSegment2'|translate}}</th>
+                                    <th>{{'market.tab2.buyerSegment3'|translate}}</th>
+                                    <th>{{'market.tab2.offer'|translate}}</th>                                    
                                 </tr>
                             </thead>
                             <tbody>
@@ -73,9 +73,9 @@
                                     <td>{{ cust.buyerPortfolio[2].country }} - {{ cust.buyerPortfolio[2].industry }}</td>
                                     <td ng-if="!cust.offerFound"><button type="button" 
                                         class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust); open()">
-                                        Make Offer</button></td>
-                                    <td ng-if="cust.offerFound"><button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showOffer(offer); improveOffer()">Improve Offer</button>
-                                    <button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showOffer(offer); deleteOffer(offer)">Delete Offer</button></td>                                    
+                                       {{'market.tab2.makeOffer'|translate}}</button></td>
+                                    <td ng-if="cust.offerFound"><button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showOffer(offer); improveOffer()">{{'market.tab2.improveOffer'|translate}}</button>
+                                    <button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showOffer(offer); deleteOffer(offer)">{{'market.tab2.deleteOffer'|translate}}</button></td>                                    
 
                                 </tr>
                             </tbody>
@@ -92,7 +92,7 @@
 </div>            
 
 </tab>
-<tab heading="Offers">
+<tab heading={{'market.tab3.title'|translate}}>
 <div class="tab-container">
     <br>
     <div class="row">
@@ -110,10 +110,10 @@
                         <table datatable="ng" class="table datatable hover">
                             <thead>
                                 <tr>
-                                    <th>Customer</th>
-                                    <th>Average Acceptance Rate</th>
-                                    <th>Price</th>
-                                    <th>Service Score</th>
+                                    <th>{{'market.tab3.customer'|translate}}</th>
+                                    <th>{{'market.tab3.avgAcceptanceRate'|translate}}</th>
+                                    <th>{{'market.tab3.price'|translate}}</th>
+                                    <th>{{'market.tab3.serviceScore'|translate}}</th>
                                     <!-- <th>Improve Offer</th>
                                     <th>Delete Offer</th>
                                     <th>object</th> -->

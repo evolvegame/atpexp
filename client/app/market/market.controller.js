@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('atpexpApp')
-  .controller('MarketCtrl', function ($scope, $modal, $http, Customer, $rootScope, toastr) {
+  .controller('MarketCtrl', function ($scope, $modal, $http, Customer, $rootScope, toastr,$translate) {
         // load selected customer in modal
     $scope.showCustomer = function(cust) {
       $scope.selected = cust;
@@ -45,6 +45,16 @@ angular.module('atpexpApp')
       $scope.customers = customers;
     });
 
+    //on load 
+    $scope.msg = $translate.instant('market.msg');
+    //on language change
+    $rootScope.$on('$translateChangeSuccess', function () {
+	  
+		  $scope.msg = $translate.instant('market.msg');
+	    
+	  });
+    
+    
     $scope.refreshCustomer = function (){
     Customer.customers.query().$promise.then(function (customers) {
       for (var i = 0; i < customers.length ; i++) {
@@ -61,7 +71,9 @@ angular.module('atpexpApp')
             }
       $scope.customers = customers;
     });
-    toastr.info('Customer info refreshed');
+    
+    
+    toastr.info( $scope.msg);
 }  
 
 

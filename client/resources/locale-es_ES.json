@@ -50,6 +50,13 @@
 	"navbar.logOutMsg":"¿Seguro que quieres salir ?",
 	"navbar.btnYes":"Sí",
 	"navbar.btnNo":"No",
+	"navbar.roundTask":"1 tareas Ronda",
+	"navbar.active":"3 activa",
+	"navbar.makeOffer":"Hacer una oferta",
+	"navbar.manageRisk":"Manejo de Riesgo",
+	"navbar.investInCompany":"Invertir en la empresa",
+	"navbar.fulfilChallenge":"Cumplir desafío",
+	"navbar.showAllTasks":"Mostrar todas las tareas",
 	
 	"sidebar.TeamProfilePic":"Team Profile Picture_Spans",
 	"sidebar.Navigation":"Navegación",	

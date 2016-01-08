@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
 	"settings.settingsHeader":"Paramètres",
 	"settings.TeamHeader":"Équipe",
 	"settings.msg":"Configurez votre équipe en remplissant les formulaires ci-dessous (Ne pas oublier de cliquer sur le bouton 'Enregistrer').",
@@ -50,6 +50,13 @@
 	"navbar.logOutMsg":"Êtes-vous sûr de vouloir vous déconnecter?",
 	"navbar.btnYes":"Oui",
 	"navbar.btnNo":"Non",
+	"navbar.roundTask":"Round 1 tâches",
+	"navbar.active":"3 actif",
+	"navbar.makeOffer":"Faire une offre",
+	"navbar.manageRisk":"gérer les risques",
+	"navbar.investInCompany":"Investir dans la société",
+	"navbar.fulfilChallenge":"Satisfaire défi",
+	"navbar.showAllTasks":"Montrer toutes les tâches",
 
 	
 	

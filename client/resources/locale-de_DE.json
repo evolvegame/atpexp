@@ -48,6 +48,14 @@
 	"navbar.logOutMsg":"Sind Sie sicher, dass Sie sich abmelden wollen?",
 	"navbar.btnYes":"Ja",
 	"navbar.btnNo":"Nein",
+	"navbar.roundTask":"Runde 1 Aufgaben",
+	"navbar.active":"3 aktive",
+	"navbar.makeOffer":"Machen Sie ein Angebot",
+	"navbar.manageRisk":"Risiko verwalten",
+	"navbar.investInCompany":"Investieren in Unternehmen",
+	"navbar.fulfilChallenge":"Erfüllen Herausforderung",
+	"navbar.showAllTasks":"Alle Aufgaben anzeigen",
+	
 	
 	"sidebar.TeamProfilePic":"Team Profile Picture",
 	"sidebar.Navigation":"Navigation",

@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
 	"settings.settingsHeader":"impostazioni",
 	"settings.TeamHeader":"Squadra",
 	"settings.msg":"Impostare la tua squadra compilando il modulo qui sotto (Non dimenticare di fare clic sul pulsante 'Salva').",
@@ -50,6 +50,13 @@
 	"navbar.logOutMsg":"Sei sicuro di voler uscire?",
 	"navbar.btnYes":"sì",
 	"navbar.btnNo":"No",
+	"navbar.roundTask":"Turno 1 compiti",
+	"navbar.active":"3 attiva",
+	"navbar.makeOffer":"Fare un'offerta",
+	"navbar.manageRisk":"gestire il rischio",
+	"navbar.investInCompany":"Investire in società",
+	"navbar.fulfilChallenge":"Adempiere sfida",
+	"navbar.showAllTasks":"Mostra tutti i compiti",
 
 	
 	

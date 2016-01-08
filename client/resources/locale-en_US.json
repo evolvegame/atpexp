@@ -85,14 +85,8 @@
 	"company.tab2.title":"Departments",
 	"company.tab3.title":"Financials",
 	"company.tab3.profit&loss":"Profit & Loss",
-	"company.tab3.round1":"Round 1",
-	"company.tab3.round2":"Round 2",
-	"company.tab3.round3":"Round 3",
-	"company.tab3.round4":"Round 4",
-	"company.tab3.round5":"Round 5",
-	"company.tab3.round6":"Round 6",
-	"company.tab3.round7":"Round 7",
-	"company.tab3.round8":"Round 8",
+	"company.tab3.round":"Round",
+	
 	"company.tab3.premiumIncome":"Premium Income",
 	"company.tab3.claimsPaid":"Claims Paid",
 	"company.tab3.operatingExpenses":"Operating Expenses",
@@ -106,10 +100,7 @@
 	"customer-pool.tab1.table.country":"Country",
 	"customer-pool.tab1.table.region":"Region",
 	"customer-pool.tab1.table.industry":"Industry",
-	"customer-pool.tab1.table.buyerSegment1":"Buyer segment 1",
-	"customer-pool.tab1.table.buyerSegment2":"Buyer segment 2",
-	"customer-pool.tab1.table.buyerSegment3":"Buyer segment 3",
-	
+	"customer-pool.tab1.table.buyerSegment":"Buyer segment",
 	
 	
 	"market.title":"Market",
@@ -121,9 +112,8 @@
 	"market.tab2.country":"Country",
 	"market.tab2.region":"Region",
 	"market.tab2.industry":"Industry",
-	"market.tab2.buyerSegment1":"Buyer segment 1",
-	"market.tab2.buyerSegment2":"Buyer segment 2",
-	"market.tab2.buyerSegment3":"Buyer segment 3",
+	"market.tab2.buyerSegment":"Buyer segment",
+	
 	"market.tab2.offer":"Offer",
 	"market.tab2.makeOffer":"Make Offer",
 	"market.tab2.improveOffer":"Improve Offer",

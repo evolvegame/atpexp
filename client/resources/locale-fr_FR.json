@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
 	"settings.settingsHeader":"Paramètres",
 	"settings.TeamHeader":"Équipe",
 	"settings.msg":"Configurez votre équipe en remplissant les formulaires ci-dessous (Ne pas oublier de cliquer sur le bouton 'Enregistrer').",
@@ -163,7 +163,30 @@
 	"market.tpl.offer.success1":"Votre offre a été soumis à ",
 	"market.tpl.offer.success2":"Offre envoyé!",
 	
-	"Modify":"Modify"
 	
+	"risk.bc.riskStrategy":"Stratégie des Risques",
+	"risk.title":"Stratégies de souscription",
+	"risk.strategyName":"Nom Stratégie",
+	"risk.country": "Pays",
+	"risk.industry": "Industrie",
+	"risk.riskAcceptance" :"RiskAcceptance",
+	"risk.modify":"Modifier",
+	"risk.delete": "Effacer",	
+	"risk.addNewStrategy":"Ajouter une nouvelle stratégie",	
+	"risk.addNewStrategy.title":"Paramètres de souscription",
+	"risk.addNewStrategy.name":"Nom Stratégie",
+	"risk.addNewStrategy.name.validationMsg":"Nom stratégie est nécessaire.",
+	"risk.addNewStrategy.ratingBandSettings":"Réglages Note Band",
+	"risk.addNewStrategy.buyerRatings":"Avis des acheteurs",
+	"risk.addNewStrategy.acceptancePercentage":"Pourcentage d'acceptation",
+	"risk.addNewStrategy.requiredMsg1":"Note Band",
+	"risk.addNewStrategy.requiredMsg2":"est requis",	
+	"risk.addNewStrategy.country":"Pays",
+	"risk.addNewStrategy.industry":"les industries",
+	"risk.addNewStrategy.Save":"Conserver",
+	"risk.addNewStrategy.close":"(Près)",
+	
+	"bc.link":"Lien"
+		
 	
 }

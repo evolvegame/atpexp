@@ -164,9 +164,31 @@
 	"market.tpl.offer.success1":"Su oferta se ha presentado a ",
 	"market.tpl.offer.success2":"Oferta enviado!",
 	
-	"Modify":"Modify_Spans"
 	
+	"risk.bc.riskStrategy":"Estrategia de Riesgos",
+	"risk.title":"Estrategia de Suscripción",
+	"risk.strategyName":"Nombre Estrategia",
+	"risk.country": "País",
+	"risk.industry": "Industria",
+	"risk.riskAcceptance" :"RiskAcceptance(IER)",
+	"risk.modify":"Modificar",
+	"risk.delete": "Borrar",	
+	"risk.addNewStrategy":"Añadir nueva estrategia",	
+	"risk.addNewStrategy.title":"Configuración de suscripción",
+	"risk.addNewStrategy.name":"Nombre Estrategia",
+	"risk.addNewStrategy.name.validationMsg":"El nombre es necesario Estrategia.",
+	"risk.addNewStrategy.ratingBandSettings":"Ajustes Band Clasificación",
+	"risk.addNewStrategy.buyerRatings":"Calificaciones comprador",
+	"risk.addNewStrategy.acceptancePercentage":"porcentaje de aceptación",
+	"risk.addNewStrategy.requiredMsg1":"banda Clasificación",
+	"risk.addNewStrategy.requiredMsg2":"es requerido",	
+	"risk.addNewStrategy.country":"País",
+	"risk.addNewStrategy.industry":"Industrias",
+	"risk.addNewStrategy.Save":"Ahorrar",
+	"risk.addNewStrategy.close":"(cerca)",
+		
 	
+	"bc.link":"enlazar"
 	
 
 }

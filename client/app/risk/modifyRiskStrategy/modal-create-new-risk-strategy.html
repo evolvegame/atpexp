@@ -1,7 +1,7 @@
 <div class="panel panel-default as-panel-customer">
     <div class="panel-body profile bg-info" style="margin-bottom:15px">
         <div class="profile-data">
-            <div class="profile-data-name">UW Settings</div>
+            <div class="profile-data-name">{{'risk.addNewStrategy.title'|translate}}</div>
         </div>
     </div>
     <div class="panel-body as-panel-customer">
@@ -9,24 +9,24 @@
         <div class="col-md-12">
             <span href="#" class="tile tile-default">
 	            <div style="float:left;margin: auto;height:20px; padding:5px;">
-	                <label style="text-align:center;">Strategy Name</label>
+	                <label style="text-align:center;">{{'risk.addNewStrategy.name'|translate}}</label>
 	            </div>
 				<div class="col-md-4">
 					<input name="strategyName" style="width:300px;" type="text" class="form-control" ng-model="newRiskStrategy.strategyName" required="required"/>
 						<span style="color: red" ng-show="newForm.strategyName.$dirty && newForm.strategyName.$invalid">
 							<span ng-show="newForm.strategyName.$error.required">
-								Strategy Name is required!
+								{{'risk.addNewStrategy.name.validationMsg'|translate}}
 							</span>
 						</span>
 				</div> <br> <br> <br> <br>
 				<span href="#" class="tile tile-default">
-					<div style="font-size:12px;"><h6>Rating band Settings</h6>
+					<div style="font-size:12px;"><h6>{{'risk.addNewStrategy.ratingBandSettings'|translate}}</h6>
 						
 					        <table style="border: 1px solid;width:50%;" class="table datatable" align="center">
 					        	<thead class="table datatable">
 					        		<tr>
-					        			<th style="text-align: center;border: 1px solid;">Buyer Ratings</th>
-					        			<th style="text-align: center;border: 1px solid;">Acceptance percentage</th>
+					        			<th style="text-align: center;border: 1px solid;">{{'risk.addNewStrategy.buyerRatings'|translate}}</th>
+					        			<th style="text-align: center;border: 1px solid;">{{'risk.addNewStrategy.acceptancePercentage'|translate}}</th>
 					        		</tr>
 					        	</thead>
 					        	<tbody>
@@ -38,7 +38,7 @@
 													required/>
 												<span style="color: red" ng-show="newForm.ratingBand{{$index+1}}.$dirty && newForm.ratingBand{{$index+1}}.$invalid">
 													<span ng-show="newForm.ratingBand{{$index+1}}.$error.required">
-														Rating Band {{$index+1}} is required.
+														{{'risk.addNewStrategy.requiredMsg1'|translate}} {{$index+1}} {{'risk.addNewStrategy.requiredMsg2'|translate}}.
 													</span>
 												</span>
 											</td>
@@ -55,8 +55,8 @@
 			 	<table style="border: 1px solid;width:50%;" class="table datatable" align="center">
 			 		<thead class="table datatable">
 						<tr>
-					    	<th style="text-align: center;border: 1px solid;">Country</th>
-					        <th style="text-align: center;border: 1px solid;">Industries</th>
+					    	<th style="text-align: center;border: 1px solid;">{{'risk.addNewStrategy.country'|translate}}</th>
+					        <th style="text-align: center;border: 1px solid;">{{'risk.addNewStrategy.industry'|translate}}</th>
 					    </tr>
 					 </thead>
 					 <tbody>
@@ -87,12 +87,12 @@
 		</div>
 		
 		<div class="col-md-12">
-        	<a href="#" class="btn btn-block btn-lg btn-success" ng-click="save();"><span class="fa-floppy-o"></span> Save</a>
+        	<a href="#" class="btn btn-block btn-lg btn-success" ng-click="save();"><span class="fa-floppy-o"></span> {{'risk.addNewStrategy.Save'|translate}}</a>
     	</div>
     	</form>
 	</div>
 
 <div class="panel-body list-group">
-    <a href="#" class="list-group-item btn btn-lg" ng-click="closeModal()"><span></span> (close)</a>
+    <a href="#" class="list-group-item btn btn-lg" ng-click="closeModal()"><span></span> {{'risk.addNewStrategy.close'|translate}}</a>
 </div>
 </div>

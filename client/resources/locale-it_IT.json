@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
 	"settings.settingsHeader":"impostazioni",
 	"settings.TeamHeader":"Squadra",
 	"settings.msg":"Impostare la tua squadra compilando il modulo qui sotto (Non dimenticare di fare clic sul pulsante 'Salva').",
@@ -164,5 +164,29 @@
 	"market.tpl.offer.success1":"La tua offerta è stata presentata ",
 	"market.tpl.offer.success2":"offerta inviato!",
 	
-	"Modify":"Modify"
+	
+	"risk.bc.riskStrategy":"strategia rischio",
+	"risk.title":"Strategie underwriting",
+	"risk.strategyName":"Nome strategia",
+	"risk.country": "Nazione",
+	"risk.industry": "Industria",
+	"risk.riskAcceptance" :"RiskAcceptance (IER)",
+	"risk.modify":"Modificare",
+	"risk.delete": "cancellare",	
+	"risk.addNewStrategy":"Aggiungi nuova strategia",	
+	"risk.addNewStrategy.title":"Impostazioni di sottoscrizione",
+	"risk.addNewStrategy.name":"Nome strategia",
+	"risk.addNewStrategy.name.validationMsg":"È richiesto il nome della strategia.",
+	"risk.addNewStrategy.ratingBandSettings":"Impostazioni Valutazione banda",
+	"risk.addNewStrategy.buyerRatings":"Valutazioni Compratore",
+	"risk.addNewStrategy.acceptancePercentage":"percentuale di accettazione",
+	"risk.addNewStrategy.requiredMsg1":"Valutazione Banda",
+	"risk.addNewStrategy.requiredMsg2":"è obbligatorio",	
+	"risk.addNewStrategy.country":"Nazione",
+	"risk.addNewStrategy.industry":"Settori",
+	"risk.addNewStrategy.Save":"Salvare",
+	"risk.addNewStrategy.close":"(chiudere)",
+	
+	"bc.link":"collegamento"
+		
 }

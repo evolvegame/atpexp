@@ -2,8 +2,8 @@
 <div class="mini-dashboard col-md-12">
    <div class="col-breadcrumb col-md-2">
     <ul class="breadcrumb">
-        <li><a href="/">Link</a></li>
-        <li class="active">Risk Strategy</li>
+        <li><a href="/">{{'bc.link'|translate}}</a></li>
+        <li class="active">{{'risk.bc.riskStrategy'|translate}}</li>
     </ul>
 </div>
  <div ng-include="'components/minidash/minidash.html'"></div>
@@ -14,12 +14,12 @@
 
 <div class="panel panel-default" ng-controller="riskCtrl">
 	<div class="panel-heading">
-		<div class="col-sm-4">UW STRATEGIES</div>
+		<div class="col-sm-4">{{'risk.title'|translate}}</div>
 		<div class="col-sm-8">
 			<!-- Trigger the modal with a button -->
 			<button type="button" class="btn btn-info btn-sm pull-right"
 				data-toggle="modal" ng-click="showCreateNewRiskStrategy(); openCreateNewRiskStrategy();">{{
-				'Add_New_Strategy' | translate }}</button>
+				'risk.addNewStrategy' | translate }}</button>
 		</div>
 	</div>
 	<div class="panel-body">
@@ -27,16 +27,16 @@
 			<thead>
 				<tr>
 					<th rowspan="2" class="text-center">#</th>
-					<th rowspan="2" class="text-center">{{ 'Strategy_Name' |
+					<th rowspan="2" class="text-center">{{ 'risk.strategyName' |
 						translate }}</th>
-					<th rowspan="2" class="text-center">{{ 'Country' | translate
+					<th rowspan="2" class="text-center">{{ 'risk.country' | translate
 						}}</th>
-					<th rowspan="2" class="text-center">{{ 'Industry' | translate
+					<th rowspan="2" class="text-center">{{ 'risk.industry' | translate
 						}}</th>
-					<th colspan="5" class="text-center">{{ 'RiskAcceptance' |
+					<th colspan="5" class="text-center">{{ 'risk.riskAcceptance' |
 						translate }}</th>
-					<th rowspan="2" class="text-center">{{ 'Modify' | translate }}</th>
-					<th rowspan="2" class="text-center">{{ 'Delete' | translate }}</th>
+					<th rowspan="2" class="text-center">{{ 'risk.modify' | translate }}</th>
+					<th rowspan="2" class="text-center">{{ 'risk.delete' | translate }}</th>
 				</tr>
 				<tr>
 					<th class="text-center">1-30</th>
@@ -68,12 +68,12 @@
 					<td class="text-center">{{strategy.strategyRatingBand5}}%</td>
 					<td class="text-center">
 						<button type="button" class="btn btn-info btn-sm"
-							data-toggle="modal" ng-click="showModifyRiskStrategy(strategy); openModifyRiskStrategy();">{{ 'Modify' |
+							data-toggle="modal" ng-click="showModifyRiskStrategy(strategy); openModifyRiskStrategy();">{{ 'risk.modify' |
 							translate }}</button>
 					</td>
 					<td class="text-center"><button type="button"
 							class="btn btn-info btn-sm" ng-click="delete(strategy)">{{
-							'Delete' | translate }}</button></td>
+							'risk.delete' | translate }}</button></td>
 
 				</tr>
 		</table>
@@ -94,24 +94,23 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Add new UW Strategy</h4>
+						<h4 class="modal-title">{{'risk.addNewStrategy.title'|translate}}</h4>
 					</div>
 					<div class="modal-body">
 
 						<form name="myForm" novalidate>
 
 							<p>
-								Strategy Name <input type="text" name="strategyName"
+								{{'risk.addNewStrategy.name'|translate}} <input type="text" name="strategyName"
 									ng-model="strategy.strategyName" required> <span
 									style="color: red"
 									ng-show="myForm.strategyName.$dirty && myForm.strategyName.$invalid">
-									<span ng-show="myForm.strategyName.$error.required">Strategy
-										Name is required.</span>
+									<span ng-show="myForm.strategyName.$error.required">{{'risk.addNewStrategy.name.validationMsg'|translate}}</span>
 								</span>
 							</p>
 
 							<table>
-								<th colspan="2">Rating Band Settings</th>
+								<th colspan="2">{{'risk.addNewStrategy.ratingBandSettings'|translate}}</th>
 								<br>
 								<tr>
 									<td>1-30</td>
@@ -120,10 +119,9 @@
 										required />
 										<div role="alert">
 											<span style="color: red" class="error"
-												ng-show="myForm.band1.$error.required"> Required! </span> <span
+												ng-show="myForm.band1.$error.required"> {{'risk.addNewStrategy.required'|translate}}! </span> <span
 												style="color: red" class="error"
-												ng-show="myForm.band1.$error.number"> Not valid
-												number!</span>
+												ng-show="myForm.band1.$error.number"> {{'risk.addNewStrategy.invalidNbr'|translate}}!</span>
 										</div></td>
 								</tr>
 								<tr>
@@ -133,10 +131,9 @@
 										required />
 										<div role="alert">
 											<span style="color: red" class="error"
-												ng-show="myForm.band2.$error.required"> Required! </span> <span
+												ng-show="myForm.band2.$error.required"> {{'risk.addNewStrategy.required'|translate}}!</span> <span
 												style="color: red" class="error"
-												ng-show="myForm.band2.$error.number"> Not valid
-												number!</span>
+												ng-show="myForm.band2.$error.number"> {{'risk.addNewStrategy.invalidNbr'|translate}}!</span>
 										</div></td>
 								</tr>
 								<tr>
@@ -146,10 +143,9 @@
 										required />
 										<div role="alert">
 											<span style="color: red" class="error"
-												ng-show="myForm.band3.$error.required"> Required! </span> <span
+												ng-show="myForm.band3.$error.required"> {{'risk.addNewStrategy.required'|translate}}! </span> <span
 												style="color: red" class="error"
-												ng-show="myForm.band3.$error.number"> Not valid
-												number!</span>
+												ng-show="myForm.band3.$error.number"> {{'risk.addNewStrategy.invalidNbr'|translate}}!</span>
 										</div></td>
 								</tr>
 								<tr>
@@ -159,10 +155,9 @@
 										required />
 										<div role="alert">
 											<span style="color: red" class="error"
-												ng-show="myForm.band4.$error.required"> Required! </span> <span
+												ng-show="myForm.band4.$error.required"> {{'risk.addNewStrategy.required'|translate}}! </span> <span
 												style="color: red" class="error"
-												ng-show="myForm.band4.$error.number"> Not valid
-												number!</span>
+												ng-show="myForm.band4.$error.number"> {{'risk.addNewStrategy.invalidNbr'|translate}}!</span>
 										</div></td>
 								</tr>
 								<tr>
@@ -172,10 +167,9 @@
 										required />
 										<div role="alert">
 											<span style="color: red" class="error"
-												ng-show="myForm.band5.$error.required"> Required! </span> <span
+												ng-show="myForm.band5.$error.required"> {{'risk.addNewStrategy.required'|translate}}! </span> <span
 												style="color: red" class="error"
-												ng-show="myForm.band5.$error.number"> Not valid
-												number!</span>
+												ng-show="myForm.band5.$error.number"> {{'risk.addNewStrategy.invalidNbr'|translate}}!</span>
 										</div></td>
 								</tr>
 							</table>
@@ -183,8 +177,8 @@
 
 							<table>
 								<tr>
-									<th>Country</th>
-									<th>Industry</th>
+									<th>{{'risk.addNewStrategy.country'|translate}}</th>
+									<th>{{'risk.addNewStrategy.industry'|translate}}</th>
 								</tr>
 								<tr>
 									<td><div>
@@ -206,7 +200,7 @@
 							</table>
 
 							<div class="modal-footer">
-								<div class="pull-left">Save?</div>
+								<div class="pull-left">{{'risk.addNewStrategy.Save'|translate}}?</div>
 								<input type="submit" value="OK"
 									ng-disabled="myForm.strategyName.$dirty && myForm.strategyName.$invalid ||
   myForm.band1.$dirty && myForm.band1.$invalid

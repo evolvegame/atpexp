@@ -164,7 +164,31 @@
 	"market.tpl.offer.success2":"Angebot geschickt!",
 	
 	
-	"Modify":"Modify"
+	
+	"risk.bc.riskStrategy":"Risikostrategie",
+	"risk.title":"Underwriting- Strategien",
+	"risk.strategyName":"Strategie -Name",
+	"risk.country": "Land",
+	"risk.industry": "Industrie",
+	"risk.riskAcceptance" :"RiskAcceptance",
+	"risk.modify":"Ändern",
+	"risk.delete": "Löschen",	
+	"risk.addNewStrategy":"Fügen Sie neue Strategie",	
+	"risk.addNewStrategy.title":"Underwriting- Einstellungen",
+	"risk.addNewStrategy.name":"Strategie -Name",
+	"risk.addNewStrategy.name.validationMsg":"Strategie -Name ist erforderlich.",
+	"risk.addNewStrategy.ratingBandSettings":"Rating Band Einstellungen",
+	"risk.addNewStrategy.buyerRatings":"Kundenbewertungen",
+	"risk.addNewStrategy.acceptancePercentage":"Annahmesatz",
+	"risk.addNewStrategy.requiredMsg1":"Rating Band",
+	"risk.addNewStrategy.requiredMsg2":"Wird benötigt",	
+	"risk.addNewStrategy.country":"Land",
+	"risk.addNewStrategy.industry":"Branchen",
+	"risk.addNewStrategy.Save":"sparen",
+	"risk.addNewStrategy.close":"(nah dran)",
+	
+	"bc.link":"Link"
+		
 
 	
 

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('atpexpApp')
-  .controller('MarketCtrl', function ($scope, $modal, $http, Customer, $rootScope, toastr,$translate) {
+  .controller('MarketCtrl', function ($scope, $modal, $http, Customer, $rootScope, toastr,$translate, Round) {
         // load selected customer in modal
     $scope.showCustomer = function(cust) {
       $scope.selected = cust;
@@ -28,12 +28,24 @@ angular.module('atpexpApp')
       });
     };
 
+    //code to get Current Round
+    Round.currentRound(function (currentRound) {
+      var currentRoundRecord = currentRound;
+    if(currentRoundRecord!=null && currentRoundRecord.round>0){
+        $scope.currentRoundNumber =currentRoundRecord.round;
+       }else{
+        console.log("Error loading current round ");
+        toastr.error("Error: Currently no details are available for current round. Request to initiate.");
+      }
+    });
+
+
     Customer.customers.query().$promise.then(function (customers) {
       for (var i = 0; i < customers.length ; i++) {
               var obj = customers[i];                        
                 for (var j = 0; j < $rootScope.team.offer.length; j++) {
                     var offer = $rootScope.team.offer[j];                    
-                    if (offer.marketBusinessName == obj.name) {
+                    if (offer.marketBusinessName == obj.name && offer.round===$scope.currentRoundNumber) {
                       obj.offerFound = true;
                       console.log('offer found:'+obj.name );
                       break;                
@@ -57,7 +69,7 @@ angular.module('atpexpApp')
    
   })
 
-.controller('ModalInstanceCtrl', function ($scope, $modalInstance, selectedCustomer, toastr, Offer, $rootScope,$translate,Customer){
+.controller('ModalInstanceCtrl', function ($scope, $modalInstance, selectedCustomer, toastr, Offer, $rootScope,$translate,Customer, Round){
    
     // re-add selectedCustomer to $scope.selected
     $scope.selected = selectedCustomer;
@@ -211,6 +223,17 @@ angular.module('atpexpApp')
     
   } 
 
+  //code to get Current Round
+    Round.currentRound(function (currentRound) {
+      var currentRoundRecord = currentRound;
+    if(currentRoundRecord!=null && currentRoundRecord.round>0){
+        $scope.currentRoundNumber =currentRoundRecord.round;
+       }else{
+        console.log("Error loading current round ");
+        toastr.error("Error: Currently no details are available for current round. Request to initiate.");
+      }
+    });
+
   
   $scope.submitOffer = function(price) {    
       
@@ -269,7 +292,7 @@ angular.module('atpexpApp')
         console.log("MarketBusinessName --> " + selectedCustomer.name);
         console.log("Price --> " + price);
         var offerObj = {
-              round: 1,
+              round: $scope.currentRoundNumber,
               marketBusinessName: selectedCustomer.name,
               price: price        
             };
@@ -280,7 +303,7 @@ angular.module('atpexpApp')
               var obj = customers[i];                        
               for (var j = 0; j < $rootScope.team.offer.length; j++) {
                 var offer = $rootScope.team.offer[j];                    
-                if (offer.marketBusinessName == obj.name) {
+                if (offer.marketBusinessName == obj.name && offer.round===$scope.currentRoundNumber) {
                   obj.offerFound = true;
                   console.log('offer found:'+obj.name );
                   break;                

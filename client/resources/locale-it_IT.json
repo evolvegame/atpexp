@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
 	"settings.settingsHeader":"impostazioni",
 	"settings.TeamHeader":"Squadra",
 	"settings.msg":"Impostare la tua squadra compilando il modulo qui sotto (Non dimenticare di fare clic sul pulsante 'Salva').",
@@ -19,6 +19,7 @@
 	"settings.change-password.success.part1":"Salvare le impostazioni di squadra alla base di dati.",
 	"settings.change-password.success.part2":"Risparmiato!",
 	"settings.change-password.pas-length":"La password deve essere di almeno 3 caratteri",
+	"settings.change-password.incorrectPassword":"password errata",
 	
 	
 	"ranking.title":"Ranking",
@@ -92,6 +93,14 @@
 	"company.tab3.operatingExpenses":"Spese operative",
 	"company.tab3.grossIncome":"Reddito lordo",
 	"company.tab3.profit":"profitto",
+	
+	
+	"admin.title":"Admin",
+	"admin.round":"Tondo",
+	"admin.currentRound":"Turno attuale",
+	"admin.calculateRound":"Calcolare rotonda",
+	"admin.goToNextRound":"Vai a turno successivo",
+		
 	
 	"customer-pool.title":"Pool cliente",
 	"customer-pool.tab1.title":"Clienti",

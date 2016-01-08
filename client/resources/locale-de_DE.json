@@ -20,6 +20,7 @@
 	"settings.change-password.success.part1":"Sparen Team -Einstellungen in die Datenbank.",
 	"settings.change-password.success.part2":"Gerettet!",
 	"settings.change-password.pas-length":"Das Passwort muss mindestens 3 Zeichen lang sein",
+	"settings.change-password.incorrectPassword":"falsches Passwort",
 	
 	"ranking.title":"Rang",
 	"ranking.tab1.heading":"Gesamtplatzierung",
@@ -90,7 +91,11 @@
 	"company.tab3.grossIncome":"Bruttoeinkommen",
 	"company.tab3.profit":"Profitieren",
 	
-	
+		"admin.title":"Admin",
+	"admin.round":"Runden",
+	"admin.currentRound":"Aktuelle Runde",
+	"admin.calculateRound":"Berechnen Runde",
+	"admin.goToNextRound":"Zum nächsten Runde",
 	
 	"customer-pool.title":"Kunden Pool",
 	"customer-pool.tab1.title":"Kunden",

@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
 	"settings.settingsHeader":"Paramètres",
 	"settings.TeamHeader":"Équipe",
 	"settings.msg":"Configurez votre équipe en remplissant les formulaires ci-dessous (Ne pas oublier de cliquer sur le bouton 'Enregistrer').",
@@ -19,6 +19,7 @@
 	"settings.change-password.success.part1":"Enregistrer les paramètres de l'équipe à la base de données.",
 	"settings.change-password.success.part2":"Enregistré!",
 	"settings.change-password.pas-length":"Mot de passe doit être d'au moins 3 caractères",
+	"settings.change-password.incorrectPassword":"Mot de passe incorrect",
 	
 	
 	"ranking.title":"Classement",
@@ -93,6 +94,12 @@
 	"company.tab3.grossIncome":"revenu brut",
 	"company.tab3.profit":"Le profit",
 	
+	"admin.title":"Administrateur",
+	"admin.round":"Rond",
+	"admin.currentRound":"Cycle actuel",
+	"admin.calculateRound":"calculer ronde",
+	"admin.goToNextRound":"Aller à la prochaine ronde",
+		
 	"customer-pool.title":"Piscine client",
 	"customer-pool.tab1.title":"Les clients",
 	"customer-pool.tab1.panel-title":"Défaut",

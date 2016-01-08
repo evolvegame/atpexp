@@ -19,7 +19,7 @@
 	"settings.change-password.success.part1":"Save team settings to the database.",
 	"settings.change-password.success.part2":"Saved!",
 	"settings.change-password.pas-length":"Password must be at least 3 characters",
-	
+	"settings.change-password.incorrectPassword":"Incorrect password",
 	
 	"ranking.title":"Ranking",
 	"ranking.tab1.heading":"Overall Ranking",
@@ -93,6 +93,13 @@
 	"company.tab3.grossIncome":"Gross Income",
 	"company.tab3.profit":"Profit",
 
+	"admin.title":"Admin",
+	"admin.round":"Round",
+	"admin.currentRound":"Current Round",
+	"admin.calculateRound":"Calculate Round",
+	"admin.goToNextRound":"Go to next round",
+	
+	
 	"customer-pool.title":"Customer Pool",
 	"customer-pool.tab1.title":"Customers",
 	"customer-pool.tab1.panel-title":"Default",

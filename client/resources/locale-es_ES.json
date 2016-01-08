@@ -22,6 +22,7 @@
 	"settings.change-password.success.part1":"Guardar la configuración del equipo para la base de datos.",
 	"settings.change-password.success.part2":"Salvado!",
 	"settings.change-password.pas-length":"La contraseña debe tener al menos 3 caracteres",
+	"settings.change-password.incorrectPassword":"contraseña incorrecta",
 	
 	"ranking.title":"Categoría",
 	"ranking.tab1.heading":"Posición general",
@@ -92,6 +93,12 @@
 	"company.tab3.grossIncome":"Ingresos brutos",
 	"company.tab3.profit":"Beneficio",
 	
+	"admin.title":"Administración",
+	"admin.round":"Ronda",
+	"admin.currentRound":"Ronda actual",
+	"admin.calculateRound":"Calcula Ronda",
+	"admin.goToNextRound":"Ir a la siguiente ronda",
+		
 	"customer-pool.title":"piscina al Cliente",
 	"customer-pool.tab1.title":"Clientes",
 	"customer-pool.tab1.panel-title":"Defecto",

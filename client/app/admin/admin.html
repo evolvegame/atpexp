@@ -1,29 +1,29 @@
 <!-- START BREADCRUMB -->
 <ul class="breadcrumb">
-    <li class="active">Admin</li>
+    <li class="active">{{'admin.title'|translate}}</li>
 </ul>
 <!-- END BREADCRUMB -->
 <div class="page-title">
-    <h2>Admin</h2>
+    <h2>{{'admin.title'|translate}}</h2>
 </div>
 <div class="page-content-wrap">
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Round</h3>
+                    <h3 class="panel-title">{{'admin.round'|translate}}</h3>
                 </div>
                 <div class="panel-body">
                     <div class="col-md-2">
                         <a href="#" class="tile tile-{{colorCalculated}}">
                             {{ currRound.round }}
-                            <p>Current Round</p>
+                            <p>{{'admin.currentRound'|translate}}</p>
                         </a>
                     </div>
                 </div>
                 <div class="panel-footer">
-                    <button class="btn btn-danger pull-right" ng-click="calculateRound(engine._id)" ng-disabled="disableCalculation()">Calculate Round {{ currRound.round }}</button>
-                    <button class="btn btn-success pull-right" ng-click="nextRound(currRound)" style="margin-right: 10px;" ng-disabled="disableNextRound()">Go to next round</button>
+                    <button class="btn btn-danger pull-right" ng-click="calculateRound(engine._id)" ng-disabled="disableCalculation()">{{'admin.calculateRound'|translate}}{{ currRound.round }}</button>
+                    <button class="btn btn-success pull-right" ng-click="nextRound(currRound)" style="margin-right: 10px;" ng-disabled="disableNextRound()">{{'admin.goToNextRound'|translate}}</button>
                 </div>
             </div>
         </div>

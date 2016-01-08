@@ -7,13 +7,14 @@ angular.module('atpexpApp')
 	  $scope.successMsgPswd = $translate.instant('settings.change-password.success.pwd');
 	  $scope.successMsgpart1 = $translate.instant('settings.change-password.success.part1');
 	  $scope.successMsgpart2 = $translate.instant('settings.change-password.success.part2');
-	  
+	  $scope.incorrectPassword = $translate.instant('settings.change-password.incorrectPassword');
+	
 	  
 	  $rootScope.$on('$translateChangeSuccess', function () {
 	      $scope.successMsgPswd = $translate.instant('settings.change-password.success.pwd');
 	      $scope.successMsgpart1 = $translate.instant('settings.change-password.success.part1');
 		  $scope.successMsgpart2 = $translate.instant('settings.change-password.success.part2');
-	    
+		  $scope.incorrectPassword = $translate.instant('settings.change-password.incorrectPassword');
 	  });
     $scope.errors = {};
 
@@ -27,7 +28,7 @@ angular.module('atpexpApp')
         })
         .catch( function() {
           form.password.$setValidity('mongoose', false);
-          $scope.errors.other = 'Incorrect password';
+          $scope.errors.other = $scope.incorrectPassword;
           $scope.message = '';
         });
       }
@@ -44,7 +45,7 @@ angular.module('atpexpApp')
       console.log ($scope.team.slogan);
       Auth.teamSettings($scope.team.slogan)
       .then(function() {
-        toastr.success( $scope.successMsgpart1, $scope.successMsgpart2);
+        toastr.success($scope.successMsgpart1,$scope.successMsgpart2);
         refresh();
       })
       .catch(function() {

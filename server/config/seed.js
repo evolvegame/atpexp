@@ -6,7 +6,6 @@
 'use strict';
 
 var Economy = require('../api/economy/economy.model');
-var User = require('../api/user/user.model');
 var Round = require('../api/round/round.model');
 var Offer = require('../api/offer/offer.model');
 var Customer = require('../api/customer/customer.model');
@@ -394,57 +393,14 @@ Economy.find({}).remove(function() {
   );
 });
 
-User.find({}).remove(function() {
-  try { 
-    User.create(
-        {
-          provider: 'local',
-          password: 'Tester1' ,   
-          name:'Team1',
-          slogan:'Team1 Slogan awesome',
-          members :[
-                    {email: 'user1@atradius.com' },
-                    {email: 'user2@atradius.com' },
-                    {email: 'user3@atradius.com'}
-                    ]
-        },{
-          provider: 'local',
-          password: 'admin' ,   
-          name:'Team Admin',
-          slogan:'Admin Slogan live',
-          role:'admin',
-          members :[
-                    {email: 'raj@atradius.com' },
-                    {email: 'jonathan@atradius.com'},
-                    {email: 'dav@atradius.com'}
-                    ]
-        }, function() {
-          console.log('** Finished populating Users.');
-        }
-    );
-  }
-  catch(e){
-    console.log(e);
-  }
-
-});
-
 Round.find({}).remove(function() {
   Round.create( {
     round: 1,
     roundName:'FirstRound',
     roundStart: '15-Dec-2015',
     roundEnd: '30-Dec-2015',
-    currentRoundFlag:false,
-    calculationFlag:true
-  },
-  {
-    round: 2,
-    roundName:'FirstRound',
-    roundStart: '15-Dec-2015',
-    roundEnd: '30-Dec-2015',
     currentRoundFlag:true,
-    calculationFlag:false
+    calculationFlag:true
   }, function() {
     console.log('** Beginning with round zero...');
   }

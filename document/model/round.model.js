@@ -8,6 +8,7 @@ var RoundSchema = new Schema({
   roundName: String,
   roundStartDate: Date,
   roundEndDate: Date,
-  currentFlag: Boolean
+  currentFlag: Boolean,
+  calculationFlag:Boolean
 });
 module.exports = mongoose.model('Round', RoundSchema);

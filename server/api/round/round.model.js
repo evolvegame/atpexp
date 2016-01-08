@@ -6,8 +6,8 @@ var mongoose = require('mongoose'),
 var RoundSchema = new Schema({
 round: Number,
 roundName:String,
-roundStart: Date,
-roundEnd: Date,
+roundStartDate: Date,
+roundEndDate: Date,
 currentRoundFlag:Boolean,
 calculationFlag:Boolean
 });

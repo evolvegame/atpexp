@@ -39,12 +39,20 @@ angular.module('atpexpApp')
 	};
 
 	var flag = $cookieStore.get('flag');
-	$scope.language=flag;
-
 	var variable = $cookieStore.get('lan');
-	$translate.use(variable);
+	if(flag===undefined || variable ===undefined){
+		flag='flag flag-gb';
+		variable='English';
+		$cookieStore.put('lan',variable);
+		$cookieStore.put('flag',flag);
+
+	}
+	$scope.language=flag;
+	localeservice.setLocaleByDisplayName(variable);
 
 
+	console.log("Language is "+variable);
+	console.log("flag is "+flag);
 
 
 
@@ -58,6 +66,8 @@ angular.module('atpexpApp')
 
 
 	$scope.changeLang = function(value,lan) {
+		  console.log(value);
+			console.log(lan);
 			$scope.language = value;
 			localeservice.setLocaleByDisplayName(lan);
 			$cookieStore.put('flag',value);

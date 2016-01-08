@@ -7,31 +7,55 @@ var Round = require('./round.model');
 exports.index = function (req, res) {
   Round.find(function (err, rounds) {
     if(err) { return handleError(res, err); }
-    return res.json(200, rounds); 
+    return res.json(200, rounds);
   });
 };
 
+exports.addRound=function(req,res,next){
+  var newRound = new Round(req.body);
+  newRound.save(function(err, round) {
+    if (err) return validationError(res, err);
+    return res.json(201, round);
+  });
+};
 
 // Get current round
 exports.currentRound = function (req, res, next) {
-  console.log('current round called');
+  console.log('Getting current road');
   Round.findOne({"currentRoundFlag":true},function (err, round) {
   if (err) return next(err);
     if (!round) return res.json(401);
+    console.log("New round is -- "+round.currentRoundFlag);
     return res.json(round);
   });
 };
 
-// Creates a new round
-exports.newRound = function (req, res) {
-  Round.create(req.body, function(err, round) {
-    if(err) { return handleError(res, err); }
-
-    // run your function upon newRound creation
-    handleNextRound(round)
-
-    return res.json(201, round); // leave this at the end of the line for the frontend callback
+//update currentRoundFlag and End Date for Curr Round
+exports.endCurrRound = function (req,res,next){
+  console.log("Ending the Current Round before creating new one");
+  var currRoundId = req.params.entryId;
+  // Find the current round and merge with the new values
+  Round.findOne({"round":currRoundId}, function (err, round) {
+    if (err) {
+      console.error("Cannot find the current round to end"+err);
+      return handleError(res, err);
+    }
+    if(!round) {
+      console.error("Current round is not valid to end");
+      return res.send(404);
+    }
+    var updated = _.merge(round, req.body);
+    updated.save(function (err) {
+      if (err) {
+        console.error(
+          "Current round cannot be ended due to technical issues"+err);
+        return handleError(res, err);
+      }
+      return res.json(200, round);
+    });
   });
+
+  console.log("Ended Current Round successfully");
 };
 
 // Update current round document to set 'calculated' to 'true'
@@ -43,7 +67,6 @@ exports.calculateRound = function(req, res) {
     var updated = _.merge(round, req.body);
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
-
       // run your function upon 'calculated' update
       calculateCurrentRound(res, round); // todo: setup callback function
 
@@ -67,7 +90,7 @@ function handleNextRound (round) {
 
 function calculateCurrentRound (res, round) {
   // initialize calculations on current round
-  
+
   // your algorithms go here
 
   // go to next round

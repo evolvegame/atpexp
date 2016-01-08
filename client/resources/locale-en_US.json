@@ -58,7 +58,11 @@
 	"navbar.fulfilChallenge":"Fulfil challenge",
 	"navbar.showAllTasks":"Show all tasks",
 
-	
+	"sidebar.imageUpload.errWrongFile":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG.",
+	"sidebar.imageUpload.errHeavyImage":"Error : Your image is too heavy. Please make sure the image size is below 500kb. Perhaps you can make your image smaller.",
+	"sidebar.imageUpload.errBigImage":"Error : Your image is to big. Please make your image smaller so that we can upload the file to your profile.",
+	"sidebar.imageUpload.successMsg":"You successfully uploaded your team avatar!",
+	"sidebar.imageUpload.successMsg-error":"Error:",
 	"sidebar.TeamProfilePic":"Team Profile Picture",
 	"sidebar.Navigation":"Navigation",	
 	"sidebar.SignUp":"Sign Up",
@@ -161,7 +165,7 @@
 	"market.tpl.offer.success1":"Your offer has been submitted to",
 	"market.tpl.offer.success2":"Offer sent!",
 	
-	"Modify":"Modify",
-	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG."
+	"Modify":"Modify"
+	
 	
 }

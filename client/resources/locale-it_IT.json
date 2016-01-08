@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
 	"settings.settingsHeader":"impostazioni",
 	"settings.TeamHeader":"Squadra",
 	"settings.msg":"Impostare la tua squadra compilando il modulo qui sotto (Non dimenticare di fare clic sul pulsante 'Salva').",
@@ -59,7 +59,11 @@
 	"navbar.showAllTasks":"Mostra tutti i compiti",
 
 	
-	
+	"sidebar.imageUpload.errWrongFile":"Errore : Il file selezionato non è un'immagine valida . Seleziona un file immagine come JPG o PNG.",
+	"sidebar.imageUpload.errHeavyImage":"Errore: L'immagine è troppo pesante . Si prega di assicurarsi che la dimensione dell'immagine è inferiore a 500kb . Forse si può fare il vostro immagine più piccola .",
+	"sidebar.imageUpload.errBigImage":"Errore: L'immagine è troppo grande . Fate la vostra immagine più piccola in modo da poter caricare il file sul tuo profilo.",
+	"sidebar.imageUpload.successMsg":"Hai caricato con successo la tua squadra avatar !",
+	"sidebar.imageUpload.successMsg-error":"Errore:",
 	"sidebar.TeamProfilePic":"Squadra Profilo Foto",
 	"sidebar.Navigation":"Navigazione",	
 	"sidebar.SignUp":"Registrati",
@@ -160,7 +164,5 @@
 	"market.tpl.offer.success1":"La tua offerta è stata presentata ",
 	"market.tpl.offer.success2":"offerta inviato!",
 	
-	"Modify":"Modify",
-	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG."
-	
+	"Modify":"Modify"
 }

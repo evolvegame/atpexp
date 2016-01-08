@@ -56,7 +56,11 @@
 	"navbar.fulfilChallenge":"Erfüllen Herausforderung",
 	"navbar.showAllTasks":"Alle Aufgaben anzeigen",
 	
-	
+	"sidebar.imageUpload.errWrongFile":"Fehler: Die ausgewählte Datei ist kein gültiges Bild . Bitte wählen Sie eine Bilddatei wie JPG oder PNG .",
+	"sidebar.imageUpload.errHeavyImage":"Fehler: Ihr Bild ist zu schwer. Bitte stellen Sie sicher die Bildgröße unterhalb 500kb . Vielleicht können Sie Ihre Bild kleiner .",
+	"sidebar.imageUpload.errBigImage":"Fehler: Ihr Bild ist zu groß . Bitte stellen Sie Ihr Bild kleiner , so dass wir die Datei auf Ihrem Profil hochladen .",
+	"sidebar.imageUpload.successMsg":"Sie erfolgreich hochgeladen Ihr Team Avatar!",
+	"sidebar.imageUpload.successMsg-error":"Fehler:",
 	"sidebar.TeamProfilePic":"Team Profile Picture",
 	"sidebar.Navigation":"Navigation",
 	"sidebar.SignUp":"Sign Up",
@@ -160,9 +164,8 @@
 	"market.tpl.offer.success2":"Angebot geschickt!",
 	
 	
-	"Modify":"Modify",
-	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG."
-	
+	"Modify":"Modify"
+
 	
 
 }

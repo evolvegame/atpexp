@@ -58,6 +58,11 @@
 	"navbar.fulfilChallenge":"Cumplir desafío",
 	"navbar.showAllTasks":"Mostrar todas las tareas",
 	
+	"sidebar.imageUpload.errWrongFile":"Error: El archivo seleccionado no es una imagen válida . Por favor, seleccione un archivo de imagen como JPG o PNG.",
+	"sidebar.imageUpload.errHeavyImage":"Error : Su imagen es demasiado pesado . Por favor, asegúrese de que el tamaño de la imagen es inferior a 500kb . Tal vez usted puede hacer su imagen más pequeña.",
+	"sidebar.imageUpload.errBigImage":"Error : Su imagen es demasiado grande . Por favor haga su imagen más pequeña para que podamos cargar el archivo a tu perfil.",
+	"sidebar.imageUpload.successMsg":"Usted subido con éxito su avatar equipo!",
+	"sidebar.imageUpload.successMsg-error":"Error:",
 	"sidebar.TeamProfilePic":"Team Profile Picture_Spans",
 	"sidebar.Navigation":"Navegación",	
 	"sidebar.SignUp":"Sign Up_Spans",
@@ -159,8 +164,8 @@
 	"market.tpl.offer.success1":"Su oferta se ha presentado a ",
 	"market.tpl.offer.success2":"Oferta enviado!",
 	
-	"Modify":"Modify_Spans",
-	"Error1":"Error Spanish: The selected file is not a valid image. Please select an image file like JPG or PNG."
+	"Modify":"Modify_Spans"
+	
 	
 	
 

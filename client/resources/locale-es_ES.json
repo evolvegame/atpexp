@@ -98,6 +98,9 @@
 	"admin.currentRound":"Ronda actual",
 	"admin.calculateRound":"Calcula Ronda",
 	"admin.goToNextRound":"Ir a la siguiente ronda",
+	"admin.teams":"Equipos",
+	"admin.teams.memberName":"Nombre del miembro",
+	"admin.teams.memberEmail":"email miembro",
 		
 	"customer-pool.title":"piscina al Cliente",
 	"customer-pool.tab1.title":"Clientes",

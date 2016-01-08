@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
 	"settings.settingsHeader":"impostazioni",
 	"settings.TeamHeader":"Squadra",
 	"settings.msg":"Impostare la tua squadra compilando il modulo qui sotto (Non dimenticare di fare clic sul pulsante 'Salva').",
@@ -101,6 +101,10 @@
 	"admin.calculateRound":"Calcolare rotonda",
 	"admin.goToNextRound":"Vai a turno successivo",
 		
+
+	"admin.teams":"squadre",
+	"admin.teams.memberName":"Nome del membro",
+	"admin.teams.memberEmail":"gli e-mail",
 	
 	"customer-pool.title":"Pool cliente",
 	"customer-pool.tab1.title":"Clienti",

@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
 	"settings.settingsHeader":"Paramètres",
 	"settings.TeamHeader":"Équipe",
 	"settings.msg":"Configurez votre équipe en remplissant les formulaires ci-dessous (Ne pas oublier de cliquer sur le bouton 'Enregistrer').",
@@ -99,6 +99,10 @@
 	"admin.currentRound":"Cycle actuel",
 	"admin.calculateRound":"calculer ronde",
 	"admin.goToNextRound":"Aller à la prochaine ronde",
+
+	"admin.teams":"équipes",
+	"admin.teams.memberName":"Nom de membre",
+	"admin.teams.memberEmail":"Email de membres",
 		
 	"customer-pool.title":"Piscine client",
 	"customer-pool.tab1.title":"Les clients",

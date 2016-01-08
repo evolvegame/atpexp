@@ -95,7 +95,10 @@
 	"admin.round":"Runden",
 	"admin.currentRound":"Aktuelle Runde",
 	"admin.calculateRound":"Berechnen Runde",
-	"admin.goToNextRound":"Zum nächsten Runde",
+	"admin.goToNextRound":"Zum nächsten Runde",	
+	"admin.teams":"Teams",
+	"admin.teams.memberName":"Mitgliedsname",
+	"admin.teams.memberEmail":"Mitglied E-Mail",
 	
 	"customer-pool.title":"Kunden Pool",
 	"customer-pool.tab1.title":"Kunden",

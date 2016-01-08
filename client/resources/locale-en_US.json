@@ -99,6 +99,11 @@
 	"admin.calculateRound":"Calculate Round",
 	"admin.goToNextRound":"Go to next round",
 	
+	"admin.teams":"Teams",
+	"admin.teams.memberName":"Member name",
+	"admin.teams.memberEmail":"Member email",
+	
+	
 	
 	"customer-pool.title":"Customer Pool",
 	"customer-pool.tab1.title":"Customers",

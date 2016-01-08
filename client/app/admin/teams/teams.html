@@ -2,8 +2,8 @@
 <div class="mini-dashboard col-md-12">
  <div class="col-breadcrumb col-md-2">
   <ul class="breadcrumb">
-    <li><a href="/">Link</a></li>
-    <li class="active">Admin</li>
+    <li><a href="/">{{'bc.link'|translate}}</a></li>
+    <li class="active">{{'admin.title'|translate}}</li>
   </ul>
 </div>
 <div ng-include="'components/minidash/minidash.html'"></div>
@@ -11,16 +11,16 @@
 <!-- END BREADCRUMB -->            
 
 <div class="page-title">
-  <h2>Admin</h2>
+  <h2>{{'admin.title'|translate}}</h2>
 
 </div>
 <tabset>
-  <tab heading="Teams">
+  <tab heading={{'admin.teams'|translate}}>
         <div class="tab-container">
             <br>
             <div class="panel panel-default">
               <div class="panel-heading">
-                <h3 class="panel-title">Teams({{teams.length}})</h3>
+                <h3 class="panel-title">{{'admin.teams'|translate}}({{teams.length}})</h3>
               </div>
                     <div class="panel-body">
                        <div class="table-responsive" >                    
@@ -38,8 +38,8 @@
                             </tr>
                             <tr ng-show=show>                               
                               <th></th> 
-                              <th>Member name</th>       
-                              <th>Member email</th>
+                              <th>{{'admin.teams.memberName'|translate}}</th>       
+                              <th>{{'admin.teams.memberEmail'|translate}}</th>
                             </tr>
                             <tr ng-repeat="member in team.members" ng-show=show>
                               <td> </td>

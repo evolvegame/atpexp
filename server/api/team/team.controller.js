@@ -3,6 +3,7 @@
 var Team = require('./team.model');
 var Projects = require('../projects/projects.model');
 var Departments = require('../departments/departments.model');
+var Round = require('../round/round.model.js');
 var passport = require('passport');
 var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
@@ -123,34 +124,40 @@ exports.teamCompany = function(req, res, next) {
 	  console.log("Logged project id - " + projectId);
 	  console.log("Company screen - " + state);
 //	  console.log("params -- " + req.params);
-	  Team.findById(teamId, function (err, team) {
-		  Projects.findById(projectId, function(err, project){
-			  console.log("team projects length --x " + team.roundLevelInformation.project.length);
-			  console.log("Project in server api - > " + project);
-			  var projectArray = team.roundLevelInformation.project;
-			  if (state == 'true') {
-				  console.log('About to push the project from team');
-				  projectArray.push(projectId);
-			  } else {
-				  console.log('About to pull the project from team');
-				  projectArray.pull(projectId);
-			  }
-			  team.roundLevelInformation.project = projectArray;
-			  var teamCapital = team.capital;
-			  if(state == 'true'){
-				  team.roundLevelInformation.capital = teamCapital - project.amount;
-			  } else {
-				  team.roundLevelInformation.capital = teamCapital + project.amount;
-			  }
-			  
-			  team.capital = team.roundLevelInformation.capital;
-			  team.save(function(err){
-				  if (err) return validationError(res, err);
-			      res.send(200);
-			  });  
-		  });
+	  Round.findOne({"currentRoundFlag":true}, function (err, round){
+		  var currentRoundNumber = round.round;
+		  var currentRoundLevelInformationIndex = currentRoundNumber - 1;
+		  console.log('currentRoundLevelInformationIndex --- ' + round);
+			  Team.findById(teamId, function (err, team) {
+				  Projects.findById(projectId, function(err, project){
+					  console.log("team projects length --x " + team.roundLevelInformation[currentRoundLevelInformationIndex].project.length);
+					  console.log("Project in server api - > " + project);
+					  var projectArray = team.roundLevelInformation[currentRoundLevelInformationIndex].project;
+					  if (state == 'true') {
+						  console.log('About to push the project from team');
+						  projectArray.push(projectId);
+					  } else {
+						  console.log('About to pull the project from team');
+						  projectArray.pull(projectId);
+					  }
+					  team.roundLevelInformation[currentRoundLevelInformationIndex].project = projectArray;
+					  var teamCapital = team.capital;
+					  if(state == 'true'){
+						  team.roundLevelInformation[currentRoundLevelInformationIndex].capital = teamCapital - project.amount;
+					  } else {
+						  team.roundLevelInformation[currentRoundLevelInformationIndex].capital = teamCapital + project.amount;
+					  }
+					  
+					  team.capital = team.roundLevelInformation[currentRoundLevelInformationIndex].capital;
+					  team.save(function(err){
+						  if (err) return validationError(res, err);
+					      res.json(team);
+					  });  
+				  });
 		  
 		  
+			  });
+	  
 	  });
 	};
 	
@@ -159,20 +166,32 @@ exports.teamDepartment = function(req, res, next){
 	var departmentId = req.params.id;
 	console.log('logged in team ya - ' + teamId);
 	console.log('Department size -- ya - ' + departmentId);
-	Team.findById(teamId, function (err, team) {
-		Departments.findOne({'size._id' : departmentId}, {'size.$' : 1}, function(err, sizeUnit){
-			Departments.findById(sizeUnit._id, function(err, depart){
-				console.log("depart -- " + depart.name);
-				console.log("sizeUnit -- " + sizeUnit.size[0].unit);
-				console.log("sizeCost -- " + sizeUnit.size[0].cost);
-				team.roundLevelInformation.department.push({name: depart.name, sizeUnit: sizeUnit.size[0].unit, cost: sizeUnit.size[0].cost});
-				team.save(function(err){
-					  if (err) return validationError(res, err);
-				      res.send(200);
-				  });  
-			});		
-		
-		 }); 		
+	Round.findOne({"currentRoundFlag":true}, function (err, round){
+		 var currentRoundNumber = round.round;
+		 var currentRoundLevelInformationIndex = currentRoundNumber - 1;
+		Team.findById(teamId, function (err, team) {
+			Departments.findOne({'size._id' : departmentId}, {'size.$' : 1}, function(err, sizeUnit){
+				Departments.findById(sizeUnit._id, function(err, depart){
+					console.log("depart -- " + depart.name);
+					console.log("sizeUnit -- " + sizeUnit.size[0].unit);
+					console.log("sizeCost -- " + sizeUnit.size[0].cost);
+					var departments = team.roundLevelInformation[currentRoundLevelInformationIndex].department;
+					for(var i=0; i<departments.length ; i++){
+						var department = departments[i];
+						if (department.name == depart.name){
+							departments.pull(department);
+							break;
+						}
+					}
+					team.roundLevelInformation[currentRoundLevelInformationIndex].department.push({name: depart.name, sizeUnit: sizeUnit.size[0].unit, cost: sizeUnit.size[0].cost});
+					team.save(function(err){
+						  if (err) return validationError(res, err);
+					      res.json(team);
+					  });  
+				});		
+			
+			 }); 	
+		});
 	});	
 }
 

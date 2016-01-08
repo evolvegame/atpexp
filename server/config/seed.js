@@ -71,8 +71,26 @@ Team.find({}).remove(function() {
                     {name :'Prajakta',email: 'prajakta@atradius.com'}
                     ],
           offer:[              
-                ],                        
-                    riskStrategy :[
+                ], 
+          roundLevelInformation: [{
+        	    roundNumber: 1,
+        	    capital: 0,
+        	    premium: 0,
+        	    claims: 0,
+        	    grossIncome: 0,
+        	    claimsRatio: 0,
+        	    profit: 0,
+        	    investment: 0,
+        	    experienceScore: 0,
+        	    salesforceSize: 0,
+        	    underwriterDepartmentSize: 0,
+        	    iTMaintenance: 0,
+        	    marketingBudget: 0,
+        	    facilities: 0,
+        	    totalExpense: 0,
+        	    rankingPosition: 0
+        	  }],
+          riskStrategy :[
                                    { round: 1,
                                 	 strategyId: 1,
                                      strategyName: 'Strategy 1',

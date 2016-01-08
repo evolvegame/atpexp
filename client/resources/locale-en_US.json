@@ -187,6 +187,13 @@
 	"risk.addNewStrategy.industry":"Industries",
 	"risk.addNewStrategy.Save":"Save",
 	"risk.addNewStrategy.close":"(close)",
+	"risk.addNewStrategy.strategyNameMsg":"Enter New Strategy Name",
+	"risk.addNewStrategy.succMsg1":" has been saved successfully",
+	"risk.addNewStrategy.succMsg2":"Strategy Saved!",
+	"risk.addNewStrategy.errMsg1":"There already exists a combination of",
+	"risk.addNewStrategy.errMsg2":"and",
+	"risk.addNewStrategy.errMsg3":"Duplicate Error",
+	
 	
 	"bc.link":"Link"
 		

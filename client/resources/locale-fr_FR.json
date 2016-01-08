@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
 	"settings.settingsHeader":"Paramètres",
 	"settings.TeamHeader":"Équipe",
 	"settings.msg":"Configurez votre équipe en remplissant les formulaires ci-dessous (Ne pas oublier de cliquer sur le bouton 'Enregistrer').",
@@ -185,6 +185,13 @@
 	"risk.addNewStrategy.industry":"les industries",
 	"risk.addNewStrategy.Save":"Conserver",
 	"risk.addNewStrategy.close":"(Près)",
+	
+	"risk.addNewStrategy.strategyNameMsg":"Entrez le nom Nouvelle stratégie",
+	"risk.addNewStrategy.succMsg1":" a été enregistré avec succès",
+	"risk.addNewStrategy.succMsg2":"Stratégie Saved!",
+	"risk.addNewStrategy.errMsg1":"Il existe déjà une combinaison de",
+	"risk.addNewStrategy.errMsg2":"et",
+	"risk.addNewStrategy.errMsg3":"erreur Duplicate", 
 	
 	"bc.link":"Lien"
 		

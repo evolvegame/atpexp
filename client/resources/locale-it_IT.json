@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
 	"settings.settingsHeader":"impostazioni",
 	"settings.TeamHeader":"Squadra",
 	"settings.msg":"Impostare la tua squadra compilando il modulo qui sotto (Non dimenticare di fare clic sul pulsante 'Salva').",
@@ -186,6 +186,13 @@
 	"risk.addNewStrategy.industry":"Settori",
 	"risk.addNewStrategy.Save":"Salvare",
 	"risk.addNewStrategy.close":"(chiudere)",
+	
+	"risk.addNewStrategy.strategyNameMsg":"Inserire nome nuova strategia",
+	"risk.addNewStrategy.succMsg1":" è stato salvato con successo",
+	"risk.addNewStrategy.succMsg2":"Strategia Saved!",
+	"risk.addNewStrategy.errMsg1":"Esiste già una combinazione di",
+	"risk.addNewStrategy.errMsg2":"e",
+	"risk.addNewStrategy.errMsg3":"Errore duplicati",
 	
 	"bc.link":"collegamento"
 		

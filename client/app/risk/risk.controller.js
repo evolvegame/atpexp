@@ -54,66 +54,78 @@ angular.module('atpexpApp')
 		console.log("Industries name ???--> " + industries);
 //		alert(test);
 		var riskStrategy = {
-			    round: 1,
-			    strategyName: strategyName,
-			    buyerCountry: country,
-			    buyerIndustry: industries,
-			    strategyRatingBand1: 23,
-			    strategyRatingBand2: 33,
-			    strategyRatingBand3: 45,
-			    strategyRatingBand4: 67,
-			    strategyRatingBand5: 45
-			  };
+				round: 1,
+				strategyName: strategyName,
+				buyerCountry: country,
+				buyerIndustry: industries,
+				strategyRatingBand1: 23,
+				strategyRatingBand2: 33,
+				strategyRatingBand3: 45,
+				strategyRatingBand4: 67,
+				strategyRatingBand5: 45
+		};
 		Risk.addRisk(riskStrategy).$promise.then(function(strategies){
 			$rootScope.strategies = strategies;
 		});
 //		refresh();
 	};
-	
-	
+
+
 	$scope.openModifyRiskStrategy = function () {
-	      // open modal and load tpl
-	      var modalInstance = $modal.open({
-	        animation: $scope.animationsEnabled,
-	        templateUrl: 'app/risk/modifyRiskStrategy/modal-modify-risk-strategy.html',
-	        controller: 'RiskModalInstanceCtrl',
-	        resolve: {
-	          selectedRiskStrategy: function () {
-	            return $scope.selected;
-	          }
-	        }
-	      });
-	      // add selected risk strategy to $scope.selected
-	      modalInstance.result.then(function (selectedRiskStrategy) {
-	        $scope.selected = selectedRiskStrategy;
-	      });
+		// open modal and load tpl
+		var modalInstance = $modal.open({
+			animation: $scope.animationsEnabled,
+			templateUrl: 'app/risk/modifyRiskStrategy/modal-modify-risk-strategy.html',
+			controller: 'RiskModalInstanceCtrl',
+			resolve: {
+				selectedRiskStrategy: function () {
+					return $scope.selected;
+				}
+			}
+		});
+		// add selected risk strategy to $scope.selected
+		modalInstance.result.then(function (selectedRiskStrategy) {
+			$scope.selected = selectedRiskStrategy;
+		});
 	};
-	
+
 	$scope.openCreateNewRiskStrategy = function () {
-	      // open modal and load tpl
-	      var modalInstance = $modal.open({
-	        animation: $scope.animationsEnabled,
-	        templateUrl: 'app/risk/modifyRiskStrategy/modal-create-new-risk-strategy.html',
-	        controller: 'CreateNewRiskModalInstanceCtrl',
-	        resolve: {
-	          newRiskStrategy: function () {
-	            return $scope.newRiskStrategy;
-	          }
-	        }
-	      });
-	      // add selected risk strategy to $scope.selected
-	      modalInstance.result.then(function (selectedRiskStrategy) {
-	        $scope.selected = selectedRiskStrategy;
-	      });
+		// open modal and load tpl
+		var modalInstance = $modal.open({
+			animation: $scope.animationsEnabled,
+			templateUrl: 'app/risk/modifyRiskStrategy/modal-create-new-risk-strategy.html',
+			controller: 'CreateNewRiskModalInstanceCtrl',
+			resolve: {
+				newRiskStrategy: function () {
+					return $scope.newRiskStrategy;
+				}
+			}
+		});
+		// add selected risk strategy to $scope.selected
+		modalInstance.result.then(function (selectedRiskStrategy) {
+			$scope.selected = selectedRiskStrategy;
+		});
 	};
-	
+
 	$scope.showModifyRiskStrategy = function(strategy) {
 		$scope.selected = strategy;
 	};
+
+
+	//translation on load 
+	$scope.strategyNameMsg = $translate.instant('risk.addNewStrategy.strategyNameMsg');
+
+	//translation on language change
+	$rootScope.$on('$translateChangeSuccess', function () {
+
+		$scope.strategyNameMsg = $translate.instant('risk.addNewStrategy.strategyNameMsg');
+		
+
+	});
 	
 	$scope.showCreateNewRiskStrategy = function() {
 		$scope.newRiskStrategy = {
-				strategyName: "Enter New Strategy Name",
+				strategyName: $scope.strategyNameMsg ,
 				ratingBand: {
 					1: 0,
 					2: 0,
@@ -122,29 +134,29 @@ angular.module('atpexpApp')
 					5: 0
 				}
 		};
-		
+
 		console.log('Showing create new strategy --> ' + JSON.stringify($scope.newRiskStrategy));
 	};
-	    
+
 	function refresh(){
-        $http.get('/api/team/me').success( function (team){
-	        $rootScope.team = team;
-	        $scope.strategies = $rootScope.team.riskStrategy; 
-        });
-    }
+		$http.get('/api/team/me').success( function (team){
+			$rootScope.team = team;
+			$scope.strategies = $rootScope.team.riskStrategy; 
+		});
+	}
 
 })
 
-.controller('RiskModalInstanceCtrl', function ($http, $scope, $modalInstance, selectedRiskStrategy, Auth, toastr, Offer, $rootScope, Risk){
+.controller('RiskModalInstanceCtrl', function ($http, $scope, $modalInstance, selectedRiskStrategy, Auth, toastr, Offer, $rootScope, Risk,$translate){
 	$scope.selected = selectedRiskStrategy;
-	
+
 	$scope.selected.ratingBand = {
 			1: selectedRiskStrategy.strategyRatingBand1,
 			2: selectedRiskStrategy.strategyRatingBand2,
 			3: selectedRiskStrategy.strategyRatingBand3,
 			4: selectedRiskStrategy.strategyRatingBand4,
 			5: selectedRiskStrategy.strategyRatingBand5
-				
+
 	};
 	console.log('Ssshhh... ' + JSON.stringify($scope.selected));
 	//get industry
@@ -153,38 +165,38 @@ angular.module('atpexpApp')
 		console.log(ratingBands);
 		$scope.ratingBands = ratingBands;
 	});
-	
+
 	$http.get('/api/country').success(function (countries) {
 
 		console.log(countries);
 		$scope.cou = countries;
 	});
-	
+
 	//get industry
 	$http.get('/api/industry').success(function (industries) {
 
 		console.log(industries);
 		$scope.ind = industries;
 	});
-	
+
 	function closeModal () {
 		$scope.selected = selectedRiskStrategy;
-	    $modalInstance.dismiss('close');
-	    refresh();
+		$modalInstance.dismiss('close');
+		refresh();
 	}
-	
+
 	function refresh(){
-        $http.get('/api/team/me').success( function (team){
-	        $rootScope.team = team;
-	        $rootScope.strategies = $rootScope.team.riskStrategy; 
-        });
-        console.log('refresshing....');
-    }
-	
-	
+		$http.get('/api/team/me').success( function (team){
+			$rootScope.team = team;
+			$rootScope.strategies = $rootScope.team.riskStrategy; 
+		});
+		console.log('refresshing....');
+	}
+
+
 	$scope.saveModification = function() {
 //		console.log('ya ya will modify.......---->>>> ' + JSON.stringify($scope.selected));
-		
+
 		$scope.selected.strategyRatingBand1 = $scope.selected.ratingBand[1];
 		$scope.selected.strategyRatingBand2 = $scope.selected.ratingBand[2];
 		$scope.selected.strategyRatingBand3 = $scope.selected.ratingBand[3];
@@ -192,17 +204,17 @@ angular.module('atpexpApp')
 		$scope.selected.strategyRatingBand5 = $scope.selected.ratingBand[5];
 		var riskStrategy = {
 				toBeDeletedId: $scope.selected._id,
-			    round: $scope.selected.round,
-			    strategyName: $scope.selected.strategyName,
-			    buyerCountry: $scope.selected.buyerCountry,
-			    buyerIndustry: $scope.selected.buyerIndustry,
-			    strategyRatingBand1: $scope.selected.ratingBand[1],
-			    strategyRatingBand2: $scope.selected.ratingBand[2],
-			    strategyRatingBand3: $scope.selected.ratingBand[3],
-			    strategyRatingBand4: $scope.selected.ratingBand[4],
-			    strategyRatingBand5: $scope.selected.ratingBand[5],
-			  };
-		
+				round: $scope.selected.round,
+				strategyName: $scope.selected.strategyName,
+				buyerCountry: $scope.selected.buyerCountry,
+				buyerIndustry: $scope.selected.buyerIndustry,
+				strategyRatingBand1: $scope.selected.ratingBand[1],
+				strategyRatingBand2: $scope.selected.ratingBand[2],
+				strategyRatingBand3: $scope.selected.ratingBand[3],
+				strategyRatingBand4: $scope.selected.ratingBand[4],
+				strategyRatingBand5: $scope.selected.ratingBand[5],
+		};
+
 		var duplicateBuyerCountryIndustryExists = false;
 		var duplicateCountry;
 		var duplicateBuyerIndustry;
@@ -210,12 +222,12 @@ angular.module('atpexpApp')
 			console.log('strategy loop --->>>> ' + JSON.stringify(teamFromDB.riskStrategy));
 			console.log('strategy Buyer country from form --->>>> ' + JSON.stringify($scope.selected.buyerCountry));		
 			console.log('strategy Buyer Industry from form --->>>> ' + JSON.stringify($scope.selected.buyerIndustry));		
-	     	for (var i=0 ; i<$scope.selected.buyerCountry.length ; i++) {
+			for (var i=0 ; i<$scope.selected.buyerCountry.length ; i++) {
 				var country = $scope.selected.buyerCountry[i];
 				console.log('Entering loop i -- ' + i);
-				
+
 				if (!duplicateBuyerCountryIndustryExists) {
-									
+
 					for (var j=0; j<teamFromDB.riskStrategy.length ; j++) {
 						var strategy = teamFromDB.riskStrategy[j];
 						console.log('Entering loop j -- ' + j);
@@ -237,16 +249,33 @@ angular.module('atpexpApp')
 							break;
 						}
 					}
-				
+
 				} else {
 					break;
 				}
 			}	
-	     	
-	     	console.log('duplicateBuyerCountryIndustryExists value -- ' + duplicateBuyerCountryIndustryExists);
-			
+
+			console.log('duplicateBuyerCountryIndustryExists value -- ' + duplicateBuyerCountryIndustryExists);
+
+			//translation on load 
+			$scope.createSuccMsg1 = $translate.instant('risk.addNewStrategy.succMsg1');
+			$scope.createSuccMsg2 = $translate.instant('risk.addNewStrategy.succMsg2');
+			$scope.createErrMsg1 = $translate.instant('risk.addNewStrategy.errMsg1');
+			$scope.createErrMsg2 = $translate.instant('risk.addNewStrategy.errMsg2');
+			$scope.createErrMsg3 = $translate.instant('risk.addNewStrategy.errMsg3');
+			//translation on language change
+			$rootScope.$on('$translateChangeSuccess', function () {
+
+				$scope.createSuccMsg1 = $translate.instant('risk.addNewStrategy.succMsg1');
+				$scope.createSuccMsg2 = $translate.instant('risk.addNewStrategy.succMsg2');
+				$scope.createErrMsg1 = $translate.instant('risk.addNewStrategy.errMsg1');
+				$scope.createErrMsg2 = $translate.instant('risk.addNewStrategy.errMsg2');
+				$scope.createErrMsg3 = $translate.instant('risk.addNewStrategy.errMsg3');
+
+			});
+
 			if (duplicateBuyerCountryIndustryExists) {
-				toastr.error('There already exists a combination of ' + duplicateCountry + ' and ' +  duplicateBuyerIndustry + '!', 'Duplicate Error');
+				toastr.error( $scope.createErrMsg1  + duplicateCountry +  $scope.createErrMsg2 +  duplicateBuyerIndustry + '!',  $scope.createErrMsg3);
 				duplicateBuyerCountryIndustryExists = false;
 				refresh();
 			} else {
@@ -254,52 +283,52 @@ angular.module('atpexpApp')
 					$rootScope.strategies = strategies;
 				});
 //				refresh();
-				toastr.success($scope.selected.strategyName + ' has been saved successfully', 'Strategy Saved! ');
+				toastr.success($scope.selected.strategyName +  $scope.createSuccMsg1,  $scope.createSuccMsg2);
 				closeModal();
 			}
 		})
-		
-		
+
+
 	};
 })
 
-.controller('CreateNewRiskModalInstanceCtrl', function ($http, $scope, newRiskStrategy, $modalInstance, Auth, toastr, Offer, $rootScope, Risk){
-	
+.controller('CreateNewRiskModalInstanceCtrl', function ($http, $scope, newRiskStrategy, $modalInstance, Auth, toastr, Offer, $rootScope, Risk, $translate){
+
 	$scope.newRiskStrategy = newRiskStrategy;
-	
+
 	$http.get('/api/ratingBands').success(function (ratingBands) {
 
 		console.log(ratingBands);
 		$scope.ratingBands = ratingBands;
 	});
-	
+
 	$http.get('/api/country').success(function (countries) {
 
 		console.log(countries);
 		$scope.cou = countries;
 	});
-	
+
 	//get industry
 	$http.get('/api/industry').success(function (industries) {
 
 		console.log(industries);
 		$scope.ind = industries;
 	});
-	
+
 	function closeModal () {
 		$modalInstance.dismiss('close');
-	    refresh();
+		refresh();
 	}
-	
+
 	function refresh(){
-        $http.get('/api/team/me').success( function (team){
-	        $rootScope.team = team;
-	        $scope.strategies = $rootScope.team.riskStrategy; 
-        });
-        console.log('refresshing....');
-    }
-	
-	
+		$http.get('/api/team/me').success( function (team){
+			$rootScope.team = team;
+			$scope.strategies = $rootScope.team.riskStrategy; 
+		});
+		console.log('refresshing....');
+	}
+
+
 	$scope.save = function() {
 		console.log('ya ya will modify.......---->>>> ' + JSON.stringify($scope.newRiskStrategy));
 		$scope.newRiskStrategy.strategyRatingBand1 = $scope.newRiskStrategy.ratingBand[1];
@@ -307,19 +336,19 @@ angular.module('atpexpApp')
 		$scope.newRiskStrategy.strategyRatingBand3 = $scope.newRiskStrategy.ratingBand[3];
 		$scope.newRiskStrategy.strategyRatingBand4 = $scope.newRiskStrategy.ratingBand[4];
 		$scope.newRiskStrategy.strategyRatingBand5 = $scope.newRiskStrategy.ratingBand[5];
-		
+
 		var riskStrategy = {
-			    round: 1,
-			    strategyName: $scope.newRiskStrategy.strategyName,
-			    buyerCountry: $scope.newRiskStrategy.buyerCountry,
-			    buyerIndustry: $scope.newRiskStrategy.buyerIndustry,
-			    strategyRatingBand1: $scope.newRiskStrategy.strategyRatingBand1,
-			    strategyRatingBand2: $scope.newRiskStrategy.strategyRatingBand2,
-			    strategyRatingBand3: $scope.newRiskStrategy.strategyRatingBand3,
-			    strategyRatingBand4: $scope.newRiskStrategy.strategyRatingBand4,
-			    strategyRatingBand5: $scope.newRiskStrategy.strategyRatingBand5
-			  };	
-		
+				round: 1,
+				strategyName: $scope.newRiskStrategy.strategyName,
+				buyerCountry: $scope.newRiskStrategy.buyerCountry,
+				buyerIndustry: $scope.newRiskStrategy.buyerIndustry,
+				strategyRatingBand1: $scope.newRiskStrategy.strategyRatingBand1,
+				strategyRatingBand2: $scope.newRiskStrategy.strategyRatingBand2,
+				strategyRatingBand3: $scope.newRiskStrategy.strategyRatingBand3,
+				strategyRatingBand4: $scope.newRiskStrategy.strategyRatingBand4,
+				strategyRatingBand5: $scope.newRiskStrategy.strategyRatingBand5
+		};	
+
 		var duplicateBuyerCountryIndustryExists = false;
 		var duplicateCountry;
 		var duplicateBuyerIndustry;
@@ -340,26 +369,44 @@ angular.module('atpexpApp')
 				}
 			}
 		}
-		
+
+		//translation on load 
+		$scope.createSuccMsg1 = $translate.instant('risk.addNewStrategy.succMsg1');
+		$scope.createSuccMsg2 = $translate.instant('risk.addNewStrategy.succMsg2');
+		$scope.createErrMsg1 = $translate.instant('risk.addNewStrategy.errMsg1');
+		$scope.createErrMsg2 = $translate.instant('risk.addNewStrategy.errMsg2');
+		$scope.createErrMsg3 = $translate.instant('risk.addNewStrategy.errMsg3');
+		//translation on language change
+		$rootScope.$on('$translateChangeSuccess', function () {
+
+			$scope.createSuccMsg1 = $translate.instant('risk.addNewStrategy.succMsg1');
+			$scope.createSuccMsg2 = $translate.instant('risk.addNewStrategy.succMsg2');
+			$scope.createErrMsg1 = $translate.instant('risk.addNewStrategy.errMsg1');
+			$scope.createErrMsg2 = $translate.instant('risk.addNewStrategy.errMsg2');
+			$scope.createErrMsg3 = $translate.instant('risk.addNewStrategy.errMsg3');
+
+		});
+
+
 		if (duplicateBuyerCountryIndustryExists) {
-			toastr.error('There already exists a combination of ' + duplicateCountry + ' and ' +  duplicateBuyerIndustry + '!', 'Duplicate Error');
+			toastr.error( $scope.createErrMsg1 + duplicateCountry +  $scope.createErrMsg2 +  duplicateBuyerIndustry + '!',  $scope.createErrMsg3);
 			duplicateBuyerCountryIndustryExists = false;
 		} else {
 			Risk.addRisk(riskStrategy);
 			refresh();
-			toastr.success($scope.newRiskStrategy.strategyName + ' has been saved successfully', 'Strategy Saved! ');
+			toastr.success($scope.newRiskStrategy.strategyName +  $scope.createSuccMsg1,   $scope.createSuccMsg2 );
 			closeModal();
 		}		
 	};
-	
+
 //	function arrayEquality
-	
+
 	function refresh(){
-        $http.get('/api/team/me').success( function (team){
-	        $rootScope.team = team;
-	        $rootScope.strategies = $rootScope.team.riskStrategy; 
-        });
-    }
+		$http.get('/api/team/me').success( function (team){
+			$rootScope.team = team;
+			$rootScope.strategies = $rootScope.team.riskStrategy; 
+		});
+	}
 })
 
 

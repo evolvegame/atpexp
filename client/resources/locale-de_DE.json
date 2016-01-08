@@ -187,6 +187,13 @@
 	"risk.addNewStrategy.Save":"sparen",
 	"risk.addNewStrategy.close":"(nah dran)",
 	
+	"risk.addNewStrategy.strategyNameMsg":"Geben Sie neue Strategie Namen",
+	"risk.addNewStrategy.succMsg1":" wurde erfolgreich gespeichert",
+	"risk.addNewStrategy.succMsg2":"Strategie Gespeichert!",
+	"risk.addNewStrategy.errMsg1":"Es existiert bereits eine Kombination von",
+	"risk.addNewStrategy.errMsg2":"und",
+	"risk.addNewStrategy.errMsg3":"doppelte Fehler",
+	
 	"bc.link":"Link"
 		
 

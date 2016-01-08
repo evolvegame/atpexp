@@ -186,6 +186,13 @@
 	"risk.addNewStrategy.industry":"Industrias",
 	"risk.addNewStrategy.Save":"Ahorrar",
 	"risk.addNewStrategy.close":"(cerca)",
+	
+	"risk.addNewStrategy.strategyNameMsg":"Introducir nombre Nueva Estrategia",
+	"risk.addNewStrategy.succMsg1":" ha sido guardado con éxito",
+	"risk.addNewStrategy.succMsg2":"Estrategia Guardados!",
+	"risk.addNewStrategy.errMsg1":"Ya existe una combinación de",
+	"risk.addNewStrategy.errMsg2":"y",
+	"risk.addNewStrategy.errMsg3":"Error Duplicar",
 		
 	
 	"bc.link":"enlazar"

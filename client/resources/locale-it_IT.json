@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
 	"settings.settingsHeader":"impostazioni",
 	"settings.TeamHeader":"Squadra",
 	"settings.msg":"Impostare la tua squadra compilando il modulo qui sotto (Non dimenticare di fare clic sul pulsante 'Salva').",
@@ -86,14 +86,7 @@
 	"company.tab2.title":"dipartimenti",
 	"company.tab3.title":"Financials",
 	"company.tab3.profit&loss":"Conto Economico",
-	"company.tab3.round1":"Tondo 1",
-	"company.tab3.round2":"Tondo 2",
-	"company.tab3.round3":"Tondo 3",
-	"company.tab3.round4":"Tondo 4",
-	"company.tab3.round5":"Tondo 5",
-	"company.tab3.round6":"Tondo 6",
-	"company.tab3.round7":"Tondo 7",
-	"company.tab3.round8":"Tondo 8",
+	"company.tab3.round":"Tondo",	
 	"company.tab3.premiumIncome":"Premium Income",
 	"company.tab3.claimsPaid":"sinistri pagati",
 	"company.tab3.operatingExpenses":"Spese operative",
@@ -107,9 +100,8 @@
 	"customer-pool.tab1.table.country":"Nazione",
 	"customer-pool.tab1.table.region":"Regione",
 	"customer-pool.tab1.table.industry":"Industria",
-	"customer-pool.tab1.table.buyerSegment1":"segmento acquirente 1",
-	"customer-pool.tab1.table.buyerSegment2":"segmento acquirente 2",
-	"customer-pool.tab1.table.buyerSegment3":"segmento acquirente 3",
+	"customer-pool.tab1.table.buyerSegment":"segmento acquirente",
+	
 	
 	
 	"market.title":"Mercato",
@@ -121,9 +113,7 @@
 	"market.tab2.country":"Nazione",
 	"market.tab2.region":"Regione",
 	"market.tab2.industry":"Industria",
-	"market.tab2.buyerSegment1":"segmento acquirente 1",
-	"market.tab2.buyerSegment2":"segmento acquirente 2",
-	"market.tab2.buyerSegment3":"segmento acquirente 3",
+	"market.tab2.buyerSegment":"segmento acquirente",	
 	"market.tab2.offer":"Offrire",
 	"market.tab2.makeOffer":"Fare un'offerta",
 	"market.tab2.improveOffer":"migliorare Offerta",

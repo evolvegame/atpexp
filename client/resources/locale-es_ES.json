@@ -50,7 +50,19 @@
 	"navbar.logOutMsg":"¿Seguro que quieres salir ?",
 	"navbar.btnYes":"Sí",
 	"navbar.btnNo":"No",
+	"navbar.roundTask":"1 tareas Ronda",
+	"navbar.active":"3 activa",
+	"navbar.makeOffer":"Hacer una oferta",
+	"navbar.manageRisk":"Manejo de Riesgo",
+	"navbar.investInCompany":"Invertir en la empresa",
+	"navbar.fulfilChallenge":"Cumplir desafío",
+	"navbar.showAllTasks":"Mostrar todas las tareas",
 	
+	"sidebar.imageUpload.errWrongFile":"Error: El archivo seleccionado no es una imagen válida . Por favor, seleccione un archivo de imagen como JPG o PNG.",
+	"sidebar.imageUpload.errHeavyImage":"Error : Su imagen es demasiado pesado . Por favor, asegúrese de que el tamaño de la imagen es inferior a 500kb . Tal vez usted puede hacer su imagen más pequeña.",
+	"sidebar.imageUpload.errBigImage":"Error : Su imagen es demasiado grande . Por favor haga su imagen más pequeña para que podamos cargar el archivo a tu perfil.",
+	"sidebar.imageUpload.successMsg":"Usted subido con éxito su avatar equipo!",
+	"sidebar.imageUpload.successMsg-error":"Error:",
 	"sidebar.TeamProfilePic":"Team Profile Picture_Spans",
 	"sidebar.Navigation":"Navegación",	
 	"sidebar.SignUp":"Sign Up_Spans",
@@ -140,9 +152,43 @@
 	"market.tpl.close":"(cerca)",
 	
 	
-	"Modify":"Modify_Spans",
-	"Error1":"Error Spanish: The selected file is not a valid image. Please select an image file like JPG or PNG."
+	"market.tpl.priceValidation":"Se requiere Precio",
+	"market.tpl.veryBad":"Muy mal",
+	"market.tpl.bad":"Malo",
+	"market.tpl.moderate":"Moderar",
+	"market.tpl.good":"Bien",
+	"market.tpl.excellent":"Excelente",
+	"market.tpl.risk1":"Estrategia de riesgos no se define 1 ",
+	"market.tpl.risk2":"Estrategia de riesgos no se define 2 ",
+	"market.tpl.risk3":"Estrategia de riesgos no se define 3 ",
+	"market.tpl.offer.success1":"Su oferta se ha presentado a ",
+	"market.tpl.offer.success2":"Oferta enviado!",
 	
+	
+	"risk.bc.riskStrategy":"Estrategia de Riesgos",
+	"risk.title":"Estrategia de Suscripción",
+	"risk.strategyName":"Nombre Estrategia",
+	"risk.country": "País",
+	"risk.industry": "Industria",
+	"risk.riskAcceptance" :"RiskAcceptance(IER)",
+	"risk.modify":"Modificar",
+	"risk.delete": "Borrar",	
+	"risk.addNewStrategy":"Añadir nueva estrategia",	
+	"risk.addNewStrategy.title":"Configuración de suscripción",
+	"risk.addNewStrategy.name":"Nombre Estrategia",
+	"risk.addNewStrategy.name.validationMsg":"El nombre es necesario Estrategia.",
+	"risk.addNewStrategy.ratingBandSettings":"Ajustes Band Clasificación",
+	"risk.addNewStrategy.buyerRatings":"Calificaciones comprador",
+	"risk.addNewStrategy.acceptancePercentage":"porcentaje de aceptación",
+	"risk.addNewStrategy.requiredMsg1":"banda Clasificación",
+	"risk.addNewStrategy.requiredMsg2":"es requerido",	
+	"risk.addNewStrategy.country":"País",
+	"risk.addNewStrategy.industry":"Industrias",
+	"risk.addNewStrategy.Save":"Ahorrar",
+	"risk.addNewStrategy.close":"(cerca)",
+		
+	
+	"bc.link":"enlazar"
 	
 
 }

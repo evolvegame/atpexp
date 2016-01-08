@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
 	"settings.settingsHeader":"impostazioni",
 	"settings.TeamHeader":"Squadra",
 	"settings.msg":"Impostare la tua squadra compilando il modulo qui sotto (Non dimenticare di fare clic sul pulsante 'Salva').",
@@ -50,9 +50,20 @@
 	"navbar.logOutMsg":"Sei sicuro di voler uscire?",
 	"navbar.btnYes":"sì",
 	"navbar.btnNo":"No",
+	"navbar.roundTask":"Turno 1 compiti",
+	"navbar.active":"3 attiva",
+	"navbar.makeOffer":"Fare un'offerta",
+	"navbar.manageRisk":"gestire il rischio",
+	"navbar.investInCompany":"Investire in società",
+	"navbar.fulfilChallenge":"Adempiere sfida",
+	"navbar.showAllTasks":"Mostra tutti i compiti",
 
 	
-	
+	"sidebar.imageUpload.errWrongFile":"Errore : Il file selezionato non è un'immagine valida . Seleziona un file immagine come JPG o PNG.",
+	"sidebar.imageUpload.errHeavyImage":"Errore: L'immagine è troppo pesante . Si prega di assicurarsi che la dimensione dell'immagine è inferiore a 500kb . Forse si può fare il vostro immagine più piccola .",
+	"sidebar.imageUpload.errBigImage":"Errore: L'immagine è troppo grande . Fate la vostra immagine più piccola in modo da poter caricare il file sul tuo profilo.",
+	"sidebar.imageUpload.successMsg":"Hai caricato con successo la tua squadra avatar !",
+	"sidebar.imageUpload.successMsg-error":"Errore:",
 	"sidebar.TeamProfilePic":"Squadra Profilo Foto",
 	"sidebar.Navigation":"Navigazione",	
 	"sidebar.SignUp":"Registrati",
@@ -141,7 +152,41 @@
 	"market.tpl.makeOffer":"Fare un'offerta",
 	"market.tpl.close":"(chiudere)",
 	
-	"Modify":"Modify",
-	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG."
+	"market.tpl.priceValidation":"È richiesto Prezzo",
+	"market.tpl.veryBad":"Molto brutto",
+	"market.tpl.bad":"Cattivo",
+	"market.tpl.moderate":"Moderare",
+	"market.tpl.good":"Buona",
+	"market.tpl.excellent":"Eccellente",
+	"market.tpl.risk1":"Strategia rischio non è definita 1 ",
+	"market.tpl.risk2":"Strategia rischio non è definita 2 ",
+	"market.tpl.risk3":"Strategia rischio non è definita 3 ",
+	"market.tpl.offer.success1":"La tua offerta è stata presentata ",
+	"market.tpl.offer.success2":"offerta inviato!",
 	
+	
+	"risk.bc.riskStrategy":"strategia rischio",
+	"risk.title":"Strategie underwriting",
+	"risk.strategyName":"Nome strategia",
+	"risk.country": "Nazione",
+	"risk.industry": "Industria",
+	"risk.riskAcceptance" :"RiskAcceptance (IER)",
+	"risk.modify":"Modificare",
+	"risk.delete": "cancellare",	
+	"risk.addNewStrategy":"Aggiungi nuova strategia",	
+	"risk.addNewStrategy.title":"Impostazioni di sottoscrizione",
+	"risk.addNewStrategy.name":"Nome strategia",
+	"risk.addNewStrategy.name.validationMsg":"È richiesto il nome della strategia.",
+	"risk.addNewStrategy.ratingBandSettings":"Impostazioni Valutazione banda",
+	"risk.addNewStrategy.buyerRatings":"Valutazioni Compratore",
+	"risk.addNewStrategy.acceptancePercentage":"percentuale di accettazione",
+	"risk.addNewStrategy.requiredMsg1":"Valutazione Banda",
+	"risk.addNewStrategy.requiredMsg2":"è obbligatorio",	
+	"risk.addNewStrategy.country":"Nazione",
+	"risk.addNewStrategy.industry":"Settori",
+	"risk.addNewStrategy.Save":"Salvare",
+	"risk.addNewStrategy.close":"(chiudere)",
+	
+	"bc.link":"collegamento"
+		
 }

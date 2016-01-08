@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿{
 	"settings.settingsHeader":"Paramètres",
 	"settings.TeamHeader":"Équipe",
 	"settings.msg":"Configurez votre équipe en remplissant les formulaires ci-dessous (Ne pas oublier de cliquer sur le bouton 'Enregistrer').",
@@ -50,9 +50,20 @@
 	"navbar.logOutMsg":"Êtes-vous sûr de vouloir vous déconnecter?",
 	"navbar.btnYes":"Oui",
 	"navbar.btnNo":"Non",
+	"navbar.roundTask":"Round 1 tâches",
+	"navbar.active":"3 actif",
+	"navbar.makeOffer":"Faire une offre",
+	"navbar.manageRisk":"gérer les risques",
+	"navbar.investInCompany":"Investir dans la société",
+	"navbar.fulfilChallenge":"Satisfaire défi",
+	"navbar.showAllTasks":"Montrer toutes les tâches",
 
 	
-	
+	"sidebar.imageUpload.errWrongFile":"Erreur: Le fichier sélectionné est pas une image valide . S'il vous plaît sélectionner un fichier d'image comme JPG ou PNG .",
+	"sidebar.imageUpload.errHeavyImage":"Erreur: Votre image est trop lourd . S'il vous plaît faire que le format de l'image est inférieure à 500kb . Peut-être que vous pouvez faire de votre image plus petite .",
+	"sidebar.imageUpload.errBigImage":"Erreur: Votre image est trop grande . S'il vous plaît faire votre petite image afin que nous puissions télécharger le fichier sur votre profil .",
+	"sidebar.imageUpload.successMsg":"Vous avez téléchargé avec succès votre avatar d'équipe!",
+	"sidebar.imageUpload.successMsg-error":"Erreur:",
 	"sidebar.TeamProfilePic":"Profil de l'équipe Image",
 	"sidebar.Navigation":"Navigation",	
 	"sidebar.SignUp":"S'inscrire",
@@ -140,7 +151,42 @@
 	"market.tpl.makeOffer":"Faire une offre",
 	"market.tpl.close":"(Près)",
 	
-	"Modify":"Modify",
-	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG."
+	"market.tpl.priceValidation":"Prix ​​est requis",
+	"market.tpl.veryBad":"Très mal",
+	"market.tpl.bad":"Mal",
+	"market.tpl.moderate":"Modérer",
+	"market.tpl.good":"Bien",
+	"market.tpl.excellent":"Excellent",
+	"market.tpl.risk1":"Stratégie des risques est pas défini 1 ",
+	"market.tpl.risk2":"Stratégie des risques est pas défini 2 ",
+	"market.tpl.risk3":"Stratégie des risques est pas défini 3 ",
+	"market.tpl.offer.success1":"Votre offre a été soumis à ",
+	"market.tpl.offer.success2":"Offre envoyé!",
+	
+	
+	"risk.bc.riskStrategy":"Stratégie des Risques",
+	"risk.title":"Stratégies de souscription",
+	"risk.strategyName":"Nom Stratégie",
+	"risk.country": "Pays",
+	"risk.industry": "Industrie",
+	"risk.riskAcceptance" :"RiskAcceptance",
+	"risk.modify":"Modifier",
+	"risk.delete": "Effacer",	
+	"risk.addNewStrategy":"Ajouter une nouvelle stratégie",	
+	"risk.addNewStrategy.title":"Paramètres de souscription",
+	"risk.addNewStrategy.name":"Nom Stratégie",
+	"risk.addNewStrategy.name.validationMsg":"Nom stratégie est nécessaire.",
+	"risk.addNewStrategy.ratingBandSettings":"Réglages Note Band",
+	"risk.addNewStrategy.buyerRatings":"Avis des acheteurs",
+	"risk.addNewStrategy.acceptancePercentage":"Pourcentage d'acceptation",
+	"risk.addNewStrategy.requiredMsg1":"Note Band",
+	"risk.addNewStrategy.requiredMsg2":"est requis",	
+	"risk.addNewStrategy.country":"Pays",
+	"risk.addNewStrategy.industry":"les industries",
+	"risk.addNewStrategy.Save":"Conserver",
+	"risk.addNewStrategy.close":"(Près)",
+	
+	"bc.link":"Lien"
+		
 	
 }

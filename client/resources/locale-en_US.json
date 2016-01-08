@@ -50,9 +50,19 @@
 	"navbar.logOutMsg":"Are you sure you want to log out?",
 	"navbar.btnYes":"Yes",
 	"navbar.btnNo":"No",
+	"navbar.roundTask":"Round 1 tasks",
+	"navbar.active":"3 active",
+	"navbar.makeOffer":"Make an offer",
+	"navbar.manageRisk":"Manage Risk",
+	"navbar.investInCompany":"Invest in company",
+	"navbar.fulfilChallenge":"Fulfil challenge",
+	"navbar.showAllTasks":"Show all tasks",
 
-	
-	
+	"sidebar.imageUpload.errWrongFile":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG.",
+	"sidebar.imageUpload.errHeavyImage":"Error : Your image is too heavy. Please make sure the image size is below 500kb. Perhaps you can make your image smaller.",
+	"sidebar.imageUpload.errBigImage":"Error : Your image is to big. Please make your image smaller so that we can upload the file to your profile.",
+	"sidebar.imageUpload.successMsg":"You successfully uploaded your team avatar!",
+	"sidebar.imageUpload.successMsg-error":"Error:",
 	"sidebar.TeamProfilePic":"Team Profile Picture",
 	"sidebar.Navigation":"Navigation",	
 	"sidebar.SignUp":"Sign Up",
@@ -143,9 +153,41 @@
 	"market.tpl.makeOffer":"Make an offer",
 	"market.tpl.close":"(close)",
 	
+	"market.tpl.priceValidation":"Price is required",
+	"market.tpl.veryBad":"Very Bad",
+	"market.tpl.bad":"Bad",
+	"market.tpl.moderate":"Moderate",
+	"market.tpl.good":"Good",
+	"market.tpl.excellent":"Excellent",
+	"market.tpl.risk1":"Risk Strategy is not defined 1 ",
+	"market.tpl.risk2":"Risk Strategy is not defined 2 ",
+	"market.tpl.risk3":"Risk Strategy is not defined 3 ",
+	"market.tpl.offer.success1":"Your offer has been submitted to",
+	"market.tpl.offer.success2":"Offer sent!",
+
 	
+	"risk.bc.riskStrategy":"Risk Strategy",
+	"risk.title":"UW STRATEGIES",
+	"risk.strategyName":"Strategy Name",
+	"risk.country": "Country",
+	"risk.industry": "Industry",
+	"risk.riskAcceptance" :"RiskAcceptance (IER)",
+	"risk.modify":"Modify",
+	"risk.delete": "Delete",	
+	"risk.addNewStrategy":"Add New Strategy",	
+	"risk.addNewStrategy.title":"UW Settings",
+	"risk.addNewStrategy.name":"Strategy Name",
+	"risk.addNewStrategy.name.validationMsg":"Strategy Name is required.",
+	"risk.addNewStrategy.ratingBandSettings":"Rating Band Settings",
+	"risk.addNewStrategy.buyerRatings":"Buyer Ratings",
+	"risk.addNewStrategy.acceptancePercentage":"Acceptance percentage",
+	"risk.addNewStrategy.requiredMsg1":"Rating Band",
+	"risk.addNewStrategy.requiredMsg2":"is required",	
+	"risk.addNewStrategy.country":"Country",
+	"risk.addNewStrategy.industry":"Industries",
+	"risk.addNewStrategy.Save":"Save",
+	"risk.addNewStrategy.close":"(close)",
 	
-	"Modify":"Modify",
-	"Error1":"Error : The selected file is not a valid image. Please select an image file like JPG or PNG."
-	
+	"bc.link":"Link"
+		
 }

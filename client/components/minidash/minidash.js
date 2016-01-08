@@ -37,6 +37,7 @@ angular.module('atpexpApp')
     
     $http.get('/api/rounds/currentRound').success(function(round){      
     $scope.round = round;
+    console.log ('CURRENT ROUND IS : '+ round.round);
     var iconArray =["fa fa-arrow-circle-right","fa fa-arrow-circle-up","fa fa-arrow-circle-down"];
     if (round.round===1){
     $scope.capitalIcon=iconArray[0];

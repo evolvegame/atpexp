@@ -435,6 +435,14 @@ Round.find({}).remove(function() {
     roundName:'FirstRound',
     roundStart: '15-Dec-2015',
     roundEnd: '30-Dec-2015',
+    currentRoundFlag:false,
+    calculationFlag:true
+  },
+  {
+    round: 2,
+    roundName:'FirstRound',
+    roundStart: '15-Dec-2015',
+    roundEnd: '30-Dec-2015',
     currentRoundFlag:true,
     calculationFlag:false
   }, function() {

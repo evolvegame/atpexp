@@ -409,7 +409,7 @@ exports.addOffer = function(req, res, next) {
 		});
 		team.save(function(err){
 			  if (err) return validationError(res, err);
-		      res.send(200);
+		      res.send(200,team);
 		});  
 	});
 	

@@ -42,7 +42,7 @@ angular.module('atpexpApp')
               
             }
   
-      $scope.customers = customers;
+      $rootScope.customers = customers;
     });
 
     //on load 
@@ -52,34 +52,12 @@ angular.module('atpexpApp')
 	  
 		  $scope.msg = $translate.instant('market.msg');
 	    
-	  });
+	  });    
     
-    
-    $scope.refreshCustomer = function (){
-    Customer.customers.query().$promise.then(function (customers) {
-      for (var i = 0; i < customers.length ; i++) {
-              var obj = customers[i];                        
-                for (var j = 0; j < $rootScope.team.offer.length; j++) {
-                    var offer = $rootScope.team.offer[j];                    
-                    if (offer.marketBusinessName == obj.name) {
-                      obj.offerFound = true;
-                      console.log('offer found:'+obj.name );
-                      break;                
-                    }
-                }                                  
-              
-            }
-      $scope.customers = customers;
-    });
-    
-    
-    toastr.info( $scope.msg);
-}  
-
-
+   
   })
 
-.controller('ModalInstanceCtrl', function ($scope, $modalInstance, selectedCustomer, toastr, Offer, $rootScope){
+.controller('ModalInstanceCtrl', function ($scope, $modalInstance, selectedCustomer, toastr, Offer, $rootScope,Customer){
     
     // re-add selectedCustomer to $scope.selected
     $scope.selected = selectedCustomer;
@@ -264,8 +242,27 @@ angular.module('atpexpApp')
               marketBusinessName: selectedCustomer.name,
               price: price        
             };
-        Offer.addOffer(offerObj);
-        //refresh();
+        Offer.addOffer(offerObj).$promise.then(function(team){
+          $rootScope.team=team;
+          Customer.customers.query().$promise.then(function (customers) {
+            for (var i = 0; i < customers.length ; i++) {
+              var obj = customers[i];                        
+              for (var j = 0; j < $rootScope.team.offer.length; j++) {
+                var offer = $rootScope.team.offer[j];                    
+                if (offer.marketBusinessName == obj.name) {
+                  obj.offerFound = true;
+                  console.log('offer found:'+obj.name );
+                  break;                
+                }
+              }                                  
+
+            }
+
+            $rootScope.customers = customers;
+          });
+
+            });
+        
      
 
 

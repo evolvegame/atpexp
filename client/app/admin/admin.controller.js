@@ -3,7 +3,7 @@
 angular.module('atpexpApp')
   .controller('AdminCtrl', function ($scope,Round,$http, toastr) {
 
-    Round.currRound(function (currRound) {
+    Round.currentRound(function (currRound) {
       var currRoundRecord = currRound;
       console.log(currRoundRecord.round);
       console.log(currRoundRecord.currentRoundFlag);

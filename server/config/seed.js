@@ -139,7 +139,7 @@ Team.find({}).remove(function() {
                                        round: 1,    
                                        strategyId: 5,
                                        strategyName: 'Strategy 5',
-                                       buyerCountry: 'France',
+                                       buyerCountry: ['France','Spain'],
                                        buyerIndustry: ['Electronics','Food'],
                                        strategyRatingBand1: 12,
                                        strategyRatingBand2: 15,
@@ -422,9 +422,9 @@ Customer.find({}).remove(function() {
     industry:"Services",
     industryCode:"ser",
     buyerPortfolio:[
-                    {region:"West-Europe",regionCode:"we",country:"Belgium",countryCode:"be",industry:"Food",industryCode:"foo",tpe:3579440,rating:30},
-                    {region:"West-Europe",regionCode:"we",country:"Germany",countryCode:"de",industry:"Finance",industryCode:"fin",tpe:1587862,rating:60},
-                    {region:"South-America",regionCode:"sa",country:"Argentina",countryCode:"ar",industry:"Finance",industryCode:"fin",tpe:3159834,rating:5}
+                    {region:"West-Europe",regionCode:"we",country:"Belgium",countryCode:"be",industry:"Food",industryCode:"foo",tpe:3579440,rating:30,cla:4},
+                    {region:"West-Europe",regionCode:"we",country:"Germany",countryCode:"de",industry:"Finance",industryCode:"fin",tpe:1587862,rating:60,cla:3},
+                    {region:"South-America",regionCode:"sa",country:"Argentina",countryCode:"ar",industry:"Finance",industryCode:"fin",tpe:3159834,rating:5,cla:2}
                     ],
                     inGame:true,
                     hasPolicy:true,
@@ -440,9 +440,9 @@ Customer.find({}).remove(function() {
     industry:"Machines",
     industryCode:"mac",
     buyerPortfolio:[
-                    {region:"West-Europe",regionCode:"we",country:"The Netherlands",countryCode:"nl",industry:"Paper",industryCode:"pap",tpe:2674760,rating:5},
-                    {region:"West-Europe",regionCode:"we",country:"Germany",countryCode:"de",industry:"Electronics",industryCode:"ele",tpe:2185842,rating:5},
-                    {region:"West-Europe",regionCode:"we",country:"Spain",countryCode:"es",industry:"Food",industryCode:"foo",tpe:2604121,rating:5}
+                    {region:"West-Europe",regionCode:"we",country:"The Netherlands",countryCode:"nl",industry:"Paper",industryCode:"pap",tpe:2674760,rating:5,cla:4},
+                    {region:"West-Europe",regionCode:"we",country:"Germany",countryCode:"de",industry:"Electronics",industryCode:"ele",tpe:2185842,rating:5,cla:4},
+                    {region:"West-Europe",regionCode:"we",country:"Spain",countryCode:"es",industry:"Food",industryCode:"foo",tpe:2604121,rating:5,cla:4}
                     ],
                     inGame:true,
                     hasPolicy:false,
@@ -458,9 +458,9 @@ Customer.find({}).remove(function() {
     industry:"Construction",
     industryCode:"con",
     buyerPortfolio:[
-                    {region:"West-Europe",regionCode:"we",country:"The Netherlands",countryCode:"nl",industry:"Paper",industryCode:"pap",tpe:2674760,rating:5},
-                    {region:"West-Europe",regionCode:"we",country:"United Kingdom",countryCode:"gb",industry:"Paper",industryCode:"pap",tpe:3085462,rating:5},
-                    {region:"West-Europe",regionCode:"we",country:"France",countryCode:"fr",industry:"Transport",industryCode:"tra",tpe:1109134,rating:5}
+                    {region:"West-Europe",regionCode:"we",country:"The Netherlands",countryCode:"nl",industry:"Paper",industryCode:"pap",tpe:2674760,rating:5,cla:4},
+                    {region:"West-Europe",regionCode:"we",country:"United Kingdom",countryCode:"gb",industry:"Paper",industryCode:"pap",tpe:3085462,rating:5,cla:4},
+                    {region:"West-Europe",regionCode:"we",country:"France",countryCode:"fr",industry:"Transport",industryCode:"tra",tpe:1109134,rating:5,cla:4}
                     ],
                     inGame:true,
                     hasPolicy:false,
@@ -476,9 +476,9 @@ Customer.find({}).remove(function() {
     industry:"Metals",
     industryCode:"met",
     buyerPortfolio:[
-                    {region:"West-Europe",regionCode:"we",country:"Spain",countryCode:"es",industry:"Agriculture",industryCode:"agr",tpe:1374770,rating:5},
-                    {region:"West-Europe",regionCode:"we",country:"Spain",countryCode:"es",industry:"Transport",industryCode:"tra",tpe:2385722,rating:5},
-                    {region:"West-Europe",regionCode:"we",country:"The Netherlands",countryCode:"nl",industry:"Services",industryCode:"ser",tpe:3129154,rating:5}
+                    {region:"West-Europe",regionCode:"we",country:"Spain",countryCode:"es",industry:"Agriculture",industryCode:"agr",tpe:1374770,rating:5,cla:4},
+                    {region:"West-Europe",regionCode:"we",country:"Spain",countryCode:"es",industry:"Transport",industryCode:"tra",tpe:2385722,rating:5,cla:4},
+                    {region:"West-Europe",regionCode:"we",country:"The Netherlands",countryCode:"nl",industry:"Services",industryCode:"ser",tpe:3129154,rating:5,cla:4}
                     ],
                     inGame:true,
                     hasPolicy:false,
@@ -494,9 +494,9 @@ Customer.find({}).remove(function() {
     industry:"Textiles",
     industryCode:"tex",
     buyerPortfolio:[
-                    {region:"South-America",regionCode:"sa",country:"Brazil",countryCode:"br",industry:"Consumer Durables",industryCode:"csr",tpe:6374462,rating:5},
-                    {region:"South-America",regionCode:"sa",country:"Colombia",countryCode:"co",industry:"Chemicals",industryCode:"che",tpe:5035472,rating:5},
-                    {region:"South-America",regionCode:"sa",country:"Chille",countryCode:"cl",industry:"Services",industryCode:"ser",tpe:4139164,rating:5}
+                    {region:"South-America",regionCode:"sa",country:"Brazil",countryCode:"br",industry:"Consumer Durables",industryCode:"csr",tpe:6374462,rating:5,cla:4},
+                    {region:"South-America",regionCode:"sa",country:"Colombia",countryCode:"co",industry:"Chemicals",industryCode:"che",tpe:5035472,rating:5,cla:4},
+                    {region:"South-America",regionCode:"sa",country:"Chille",countryCode:"cl",industry:"Services",industryCode:"ser",tpe:4139164,rating:5,cla:4}
                     ],
                     inGame:true,
                     hasPolicy:false,
@@ -512,9 +512,9 @@ Customer.find({}).remove(function() {
     industry:"Finance",
     industryCode:"fin",
     buyerPortfolio:[
-                    {region:"South-America",regionCode:"sa",country:"Chille",countryCode:"cl",industry:"Paper",industryCode:"pap",tpe:5344761,rating:5},
-                    {region:"South-America",regionCode:"sa",country:"Chille",countryCode:"cl",industry:"Machines",industryCode:"mac",tpe:6235721,rating:5},
-                    {region:"West-Europe",regionCode:"we",country:"United Kingdom",countryCode:"gb",industry:"Food",industryCode:"foo",tpe:3335162,rating:5}
+                    {region:"South-America",regionCode:"sa",country:"Chille",countryCode:"cl",industry:"Paper",industryCode:"pap",tpe:5344761,rating:5,cla:4},
+                    {region:"South-America",regionCode:"sa",country:"Chille",countryCode:"cl",industry:"Machines",industryCode:"mac",tpe:6235721,rating:5,cla:4},
+                    {region:"West-Europe",regionCode:"we",country:"United Kingdom",countryCode:"gb",industry:"Food",industryCode:"foo",tpe:3335162,rating:5,cla:4}
                     ],
                     inGame:true,
                     hasPolicy:false,
@@ -530,9 +530,9 @@ Customer.find({}).remove(function() {
     industry:"Electronics",
     industryCode:"ele",
     buyerPortfolio:[
-                    {region:"South-America",regionCode:"sa",country:"Colombia",countryCode:"co",industry:"Metals",industryCode:"met",tpe:7314465,rating:5},
-                    {region:"South-America",regionCode:"sa",country:"Brazil",countryCode:"br",industry:"Metals",industryCode:"met",tpe:5833729,rating:5},
-                    {region:"South-America",regionCode:"sa",country:"Chille",countryCode:"cl",industry:"Textiles",industryCode:"tex",tpe:5934721,rating:5}
+                    {region:"South-America",regionCode:"sa",country:"Colombia",countryCode:"co",industry:"Metals",industryCode:"met",tpe:7314465,rating:5,cla:4},
+                    {region:"South-America",regionCode:"sa",country:"Brazil",countryCode:"br",industry:"Metals",industryCode:"met",tpe:5833729,rating:5,cla:4},
+                    {region:"South-America",regionCode:"sa",country:"Chille",countryCode:"cl",industry:"Textiles",industryCode:"tex",tpe:5934721,rating:5,cla:4}
                     ],
                     inGame:true,
                     hasPolicy:false,
@@ -548,9 +548,9 @@ Customer.find({}).remove(function() {
     industry:"Transport",
     industryCode:"tra",
     buyerPortfolio:[
-                    {region:"South-America",regionCode:"sa",country:"Argentina",countryCode:"ar",industry:"Finance",industryCode:"fin",tpe:6114764,rating:5},
-                    {region:"South-America",regionCode:"sa",country:"Brazil",countryCode:"br",industry:"Metals",industryCode:"met",tpe:5833729,rating:5},
-                    {region:"South-America",regionCode:"sa",country:"Colombia",countryCode:"co",industry:"Paper",industryCode:"pap",tpe:6335761,rating:5}
+                    {region:"South-America",regionCode:"sa",country:"Argentina",countryCode:"ar",industry:"Finance",industryCode:"fin",tpe:6114764,rating:5,cla:4},
+                    {region:"South-America",regionCode:"sa",country:"Brazil",countryCode:"br",industry:"Metals",industryCode:"met",tpe:5833729,rating:5,cla:4},
+                    {region:"South-America",regionCode:"sa",country:"Colombia",countryCode:"co",industry:"Paper",industryCode:"pap",tpe:6335761,rating:5,cla:4}
                     ],
                     inGame:true,
                     hasPolicy:false,

@@ -88,13 +88,14 @@ angular.module('atpexpApp')
 
 //Offer Page related Restful services factory
 .factory('Offer', function($resource){
-	return $resource('/api/team/:toBeDeletedId/:round/:marketBusinessName/:price/:controller',{
-		toBeDeletedId:'@toBeDeletedId',
+	return $resource('/api/team/:offerId/:round/:marketBusinessName/:price/:cld/:controller',{
+		offerId:'@offerId',
 		marketBusinessName:'@marketBusinessName',
 		round: '@round',
-		price: '@price'
+		price: '@price',
+		cld:'@cld'
 	},{
-		deleteRisk: {
+		deleteOffer: {
 	          method: 'PUT',
 	          params: {
 	        	  controller:'deleteOffer'
@@ -106,7 +107,7 @@ angular.module('atpexpApp')
 	        	  controller:'offer'
 	          }
 	 },
-	   modifyRisk: {
+	   modifyOffer: {
 		   method: 'PUT',
 		   params: {
 		        	 controller:'modifyOffer'

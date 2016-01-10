@@ -128,7 +128,7 @@
 	
 	"market.tab2.offer":"Offer",
 	"market.tab2.makeOffer":"Make Offer",
-	"market.tab2.improveOffer":"Improve Offer",
+	"market.tab2.modifyOffer":"Modify Offer",
 	"market.tab2.deleteOffer":"Delete Offer",
 	"market.tab3.title":"Offers",
 	"market.tab3.customer":"Customer",
@@ -136,6 +136,7 @@
 	"market.tab3.price":"Price",
 	"market.tab3.serviceScore":"Service Score",
 	"market.msg":"Customer info refreshed",
+	"market.global.deleteOfferSuccessMsg1":"Offer has been deleted successfully.",
 	
 	
 	"market.tpl.customer":"Customer",
@@ -153,6 +154,7 @@
 	"market.tpl.xpScore":"Experience Score",
 	"market.tpl.xpScore.msg":"You have enough Experience Score to insure",
 	"market.tpl.makeOffer":"Make an offer",
+	"market.tpl.modifyOffer":"Modify offer",
 	"market.tpl.close":"(close)",
 	
 	"market.tpl.priceValidation":"Price is required",
@@ -161,11 +163,12 @@
 	"market.tpl.moderate":"Moderate",
 	"market.tpl.good":"Good",
 	"market.tpl.excellent":"Excellent",
-	"market.tpl.risk1":"Risk Strategy is not defined 1 ",
-	"market.tpl.risk2":"Risk Strategy is not defined 2 ",
-	"market.tpl.risk3":"Risk Strategy is not defined 3 ",
+	"market.tpl.risk1":"Risk Strategy is not defined Buyer Segment1 ",
+	"market.tpl.risk2":"Risk Strategy is not defined Buyer Segment2 ",
+	"market.tpl.risk3":"Risk Strategy is not defined Buyer Segment3 ",
 	"market.tpl.offer.success1":"Your offer has been submitted to",
 	"market.tpl.offer.success2":"Offer sent!",
+	"market.tpl.offer.success3":"Offer modified successfully!",
 
 	
 	"risk.bc.riskStrategy":"Risk Strategy",

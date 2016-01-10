@@ -74,8 +74,8 @@
                                     <td ng-if="!cust.offerFound"><button type="button" 
                                         class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust); open()">
                                        {{'market.tab2.makeOffer'|translate}}</button></td>
-                                    <td ng-if="cust.offerFound"><button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showOffer(offer); improveOffer()">{{'market.tab2.improveOffer'|translate}}</button>
-                                    <button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showOffer(offer); deleteOffer(offer)">{{'market.tab2.deleteOffer'|translate}}</button></td>                                    
+                                    <td ng-if="cust.offerFound"><button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust); modify()">{{'market.tab2.modifyOffer'|translate}}</button>
+                                    <button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="deleteOffer(cust.offerId)">{{'market.tab2.deleteOffer'|translate}}</button></td>                                    
 
                                 </tr>
                             </tbody>

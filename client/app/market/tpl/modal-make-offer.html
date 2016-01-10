@@ -59,7 +59,7 @@
 <div style="font-size:12px;"><h6>{{'market.tpl.price'|translate}}</h6></div>
 <div class="input-group" style="margin-top:15px;padding-right:40px;padding-left:40px;">
     <span class="input-group-addon"><span class="fa fa-eur"></span></span>
-        <input type="number" min="0" name="priceInput" class="form-control" ng-model="price" required="required" />       
+        <input type="number" min="0" name="priceInput" class="form-control" ng-model="selected.price" required="required" />       
     </div>
     <span style="color: red" ng-show="showPriceValidation">{{errorTextPriceValiation}}</span>             
     <span class="help-block" 
@@ -77,7 +77,7 @@
 </div>
 <div class="panel-body as-panel-customer" style="margin-bottom:15px;">
     <div class="col-md-12">
-        <a href="#" class="btn btn-block btn-lg btn-success" ng-click="submitOffer(price)"><span class="fa fa-comments-o"></span>{{'market.tpl.makeOffer'|translate}}!</a>         
+        <a href="#" class="btn btn-block btn-lg btn-success" ng-click="submitOffer()"><span class="fa fa-comments-o"></span>{{'market.tpl.makeOffer'|translate}}!</a>         
     </div>
 </div>
 <div class="panel-body list-group">

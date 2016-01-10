@@ -396,22 +396,73 @@ exports.addOffer = function(req, res, next) {
 	var marketBusinessName = req.params.marketBusinessName;
 	var round = req.params.round;
 	var price = req.params.price;
+	var cld = req.params.cld;
 	console.log('Reached team controller addOffer !!! - marketBusinessName ' + marketBusinessName);
 	console.log('Reached team controller addOffer !!! - round ' + round);
 	console.log('Reached team controller addOffer !!! - price ' + price);
+	console.log('Reached team controller addOffer !!! - cld ' + cld);
 	console.log('Reached team controller addOffer !!! - teamId ' + teamId);
 	
 	Team.findById(teamId, function (err, team) {
 		team.offer.push({
 			round: round,
 		    marketBusinessName: marketBusinessName,
-		    price: price		    
+		    price: price,
+		    cld:cld		    
 		});
 		team.save(function(err){
 			  if (err) return validationError(res, err);
 		      res.send(200,team);
 		});  
 	});
+	
+};
+
+exports.modifyOffer = function(req, res, next) {
+	var teamId = req.user._id;
+	var offerId =req.params.id;
+	var marketBusinessName = req.params.marketBusinessName;
+	var round = req.params.round;
+	var price = req.params.price;
+	var cld = req.params.cld;
+	console.log('Reached team controller modifyOffer !!! - marketBusinessName ' + marketBusinessName);
+	console.log('Reached team controller modifyOffer !!! - round ' + round);
+	console.log('Reached team controller modifyOffer !!! - price ' + price);
+	console.log('Reached team controller addOffer !!! - cld ' + cld);
+	console.log('Reached team controller modifyOffer !!! - offerId ' + offerId);
+	console.log('Reached team controller addOffer !!! - teamId ' + teamId);
+
+	Team.update(
+		{ _id: teamId, "offer._id": offerId },
+		{ $set: { "offer.$.price" : price,"offer.$.cld" : cld  } },function(err,result){
+			console.log('Inside modifyOffer :'+result);
+			if (err) return validationError(res, err);
+
+			Team.findById(teamId,function(err,team){ 
+				if (err) return validationError(res, err);
+				res.send(200,team);
+			}
+			);
+		}			
+		);
+
+};
+
+
+exports.deleteOffer = function(req, res, next) {
+	var offerId = req.params.id;
+	var teamId = req.user._id;
+	console.log('Reached team controller deleteOffer !!! - teamId ' + teamId);
+	console.log('Reached team controller deleteOffer !!! - offerId ' + offerId);
+
+	Team.findById(teamId, function (err, team) {
+		var offers = team.offer;
+		offers.pull(offerId);
+		team.save(function(err){
+			  if (err) return validationError(res, err);
+			  return res.json(200, team);
+		});
+	});	
 	
 };
 

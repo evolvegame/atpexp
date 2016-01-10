@@ -5,7 +5,8 @@ angular.module('atpexpApp')
       return $resource('/api/rounds/:roundId/:controller', {}, {
           save: { method: 'POST' },
           update: { method: 'PUT', params: {entryId: '@roundId'} },
-          currentRound: {method:'GET', params: {controller:'currentRound'}}
+          currentRound: {method:'GET', params: {controller:'currentRound'}},
+          calculateRound:{method:'POST',params: {roundId:'@roundId',controller:'calculateRound'}}
         }
       );
     });

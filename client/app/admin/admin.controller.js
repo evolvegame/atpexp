@@ -1,58 +1,71 @@
 'use strict';
 
 angular.module('atpexpApp')
-  .controller('AdminCtrl', function ($scope,Round,$http, toastr) {
+  .controller('AdminCtrl', function ($rootScope,$scope,Team,Round,$http, toastr) {
 
-    Round.currRound(function (currRound) {
-      var currRoundRecord = currRound;
-      console.log(currRoundRecord.round);
-      console.log(currRoundRecord.currentRoundFlag);
-      if(currRoundRecord!=null && currRoundRecord.round>0){
-        $scope.currRound =currRoundRecord;
-        if(currRoundRecord.calculationFlag){
-          $scope.colorCalculated = 'success';
-        }else{
-          $scope.colorCalculated = 'danger';
-        }
-      }else{
-        console.log("Error loading current round ");
-        toastr.error("Error: Currently no details are available for current round. Request to initiate.");
-      }
+
+  Round.currentRound(function (currRound) {
+              var currRoundRecord = currRound;
+              if(currRoundRecord!=null && currRoundRecord.round>0){
+                $scope.currRound =currRoundRecord;
+                if(currRoundRecord.calculationFlag){
+                  $scope.colorCalculated = 'success';
+                }else{
+                  $scope.colorCalculated = 'danger';
+                }
+              }else{
+                console.log("Error loading current round ");
+                toastr.error("Error: Currently no details are available for current round. Request to initiate.");
+              }
 
     });
 
-
+  Team.get(function(teamAdmin){
     $scope.disableCalculation = function(e){
-      var currRoundVal = $scope.currRound;
-      if(currRoundVal!=null){
-        if(!currRoundVal.round>0){
-          return true;
-        }else if (currRoundVal.calculationFlag) {
-          return true;
-        }else{
-          return false;
+        if(teamAdmin.role!='admin'){
+         return true;
         }
-      }else{
-        return true;
-      }
+        var currRoundVal = $scope.currRound;
+        if(currRoundVal!=null){
+          if(!currRoundVal.round>0){
+            return true;
+          }else if (currRoundVal.calculationFlag) {
+            return true;
+          }else{
+            return false;
+          }
+        }else{
+          return true;
+        }
     }
 
     $scope.disableNextRound = function(e){
+      if(teamAdmin.role!='admin'){
+         console.log("I am here");
+         return true;
+      }
       var currRoundVal = $scope.currRound;
-        if(currRoundVal!=null){
+      if(currRoundVal!=null){
         if(currRoundVal.round>0 && currRoundVal.calculationFlag){
+          console.log("I am here 1");
           return false;
         }else if (currRoundVal.round>0 && !currRoundVal.calculationFlag) {
+          console.log("I am here 2");
           return true;
         }else{
+          console.log("I am here 3");
           return false;
         }
       }else{
+        console.log("I am here 4");
           return false;
       }
     }
 
     $scope.nextRound = function (rounds) {
+      if(teamAdmin.role!='admin'){
+         return ('You are not authorized for this function. Please contact admin');;
+      }
       var existingRound = new Round($scope.currRound);
       existingRound.roundEndDate = new Date();
       if(existingRound.currentRoundFlag===true ){
@@ -89,21 +102,22 @@ angular.module('atpexpApp')
       $scope.disabled = true;
     }
 
-    $scope.calculateRound = function (roundId) {
-      Round.round.query().$promise.then(function (rounds) {
-        for (var round=0;round<rounds.length;round++) {
-          if (rounds[round]._id == roundId) {
-            var newRound = new Round;
-            newRound.$update({ roundId: roundId });
-            $scope.colorCalculated = 'success'
-            if (rounds[round].calculated === false) {
-              toastr.success('Another year has past...', 'Engine running!');
-            } else {
-              toastr.info('Round ' + rounds[round].currentRound + ' has been recalculated.', 'Updated!');
-            }
-          }
+    $scope.calculateRound = function (round) {
+      if(teamAdmin.role!='admin'){
+         return ('You are not authorized for this function. Please contact admin');;
+      }
+
+    Round.calculateRound({"roundId":round.round},teamAdmin,function(calculation){
+        console.log("Successfully calculated"+calculation);
+      },function(error){
+        if(error.status==403){
+          toastr.error('You are not authorized for this function. Please contact admin');
+        }
+        if(error.status==412){
+          toastr.error('This is not current round. Calculation can be initiated only for current round');
         }
       });
-      $scope.disabled = false;
     };
+
   });
+});

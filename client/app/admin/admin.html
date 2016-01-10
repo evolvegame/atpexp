@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="panel-footer">
-                    <button class="btn btn-danger pull-right" ng-click="calculateRound(engine._id)" ng-disabled="disableCalculation()">{{'admin.calculateRound'|translate}}{{ currRound.round }}</button>
+                    <button class="btn btn-danger pull-right" ng-click="calculateRound(currRound)" ng-disabled="disableCalculation()">{{'admin.calculateRound'|translate}}{{ currRound.round }}</button>
                     <button class="btn btn-success pull-right" ng-click="nextRound(currRound)" style="margin-right: 10px;" ng-disabled="disableNextRound()">{{'admin.goToNextRound'|translate}}</button>
                 </div>
             </div>

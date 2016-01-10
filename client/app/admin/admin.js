@@ -7,6 +7,6 @@ angular.module('atpexpApp')
         url: '/admin',
         templateUrl: 'app/admin/admin.html',
         controller: 'AdminCtrl',
-        authenticate: false // show be true!
+        authenticate: true // show be true!
       });
   });

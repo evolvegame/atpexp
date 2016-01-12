@@ -15,6 +15,7 @@ var CustomerSchema = new Schema({
   industryCode:String,
   businessRisk:Number,
   experienceScoreNeeded:Number,
+  minOfferScore:Number,
   buyerPortfolio:[
   {region:String,
     regionCode:String,
@@ -25,9 +26,9 @@ var CustomerSchema = new Schema({
     tpe:Number,
     rating:Number,
     cla:Number
-  }                
+  }
     ]
-   
+
   });
 
 

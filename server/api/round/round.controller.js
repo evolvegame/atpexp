@@ -4,9 +4,11 @@ var _this = this;
 var _ = require('lodash');
 var Round = require('./round.model');
 var Teams = require('../team/team.model');
+var Customers=require('../customer/customer.model');
 var async = require('async');
 var Promise=require('bluebird');
-var expScorePoint=1000;
+var _expScorePoint=1000;
+var _selfInsured = "_SelfInsured";
 
 // Get list of rounds
 exports.index = function (req, res) {
@@ -82,7 +84,10 @@ exports.calculateRound = function(req, res) {
   };
 
   var allTeams;
+  var allCustomers;
+  var customerAllocation={};
   async.series([
+   // validate first befor calculcation
    function(callback){
     validateRound(toBeCalculatedRound,function(err,round){
       if(err){
@@ -95,101 +100,282 @@ exports.calculateRound = function(req, res) {
       callback();
     });
     },
+   // get Independent data
    function(callback){
-    Teams.find({role: 'user',roundLevelInformation: {$elemMatch:{roundNumber:toBeCalculatedRound}}}).exec(function(err,teams){
-        if(err){
-          console.log("Calculation: Error in finding teams");
+        async.parallel([
+          // Get All Customers
+          function(callback){
+            Customers.find().exec(function(err,customers){
+              if(err){
+                //have to do something
+                console.log("In error"+err);
+                callback(err);
+              }
+              else {
+                callback(null,customers);
+              }
+
+            });
+          },
+          // Get all Teams
+          function(callback){
+            Teams.find({role: 'user',roundLevelInformation: {$elemMatch:{roundNumber:toBeCalculatedRound}}}).exec(function(err,teams){
+            if(err){
+                  console.log("Calculation: Error in finding teams");
+                  callback(err);
+            }else{
+                  callback(null,teams);
+            }
+          });
+        },
+
+        function(callback){
+          Teams.find({role: 'user',customer: {$elemMatch:{calculatedRound:toBeCalculatedRound}}}).exec(function(err,teams){
+            if(err){
+                  callback(err);
+            }else{
+                  if(teams!=null && !(teams===undefined) && teams.length>0){
+                    for(var i=0; i<teams.length; i++){
+                      var teamId = teams[i]._id;
+                      Teams.findById(teamId,function(err,team){
+                        if(err){
+                          callback(err);
+                        }
+                        var customers = team.customer;
+                        if(customers!=null && !(customers===undefined) && customers.length>0){
+                          for(var j=0; j<customers.length;j++){
+                            var customer = customers[j];
+                            var customerId = customer._id;
+                            if(customer.calculatedRound!=null &&
+                                  !(customer.calculatedRound===undefined) &&
+                                      customer.calculatedRound == toBeCalculatedRound){
+                                customers.pull(customerId);
+                                team.save(function(err){
+                                  if(err){
+                                    callback(err);
+                                  }else{
+                                    callback(null,"Success");
+                                  }
+                                });
+                            }
+                          }
+                        }
+                      });
+                    }
+                  }
+
+            }
+         });
         }
+      ],
+        function(err,results){
+          if(err){
+            console.log("Error in parrallel processing");
+          }else{
+               allCustomers = results[0];
+               for(var i=0;i<allCustomers.length;i++){
+                 var customer = allCustomers[i];
+                 var customerName = customer.name;
+                 console.log(customerName);
+                 var minOfferScore = customer.minOfferScore;
+                 var customerAllocDetails={};
 
-        allTeams = teams;
-        var expScores=[];
-        var teamCalcJSON={};
+                 customerAllocDetails['allocatedTo']=_selfInsured;
+                 customerAllocDetails['winningScore']= minOfferScore;
 
-        async.forEach(allTeams,function(team,callback){
-          var _1_teamName = team.name;
-          var expScoreAmtJSON={};
-          var roundInformation = team.roundLevelInformation;
-          if(roundInformation!=null && !(roundInformation===undefined)){
-            for(var k=0; k<roundInformation.length;k++){
-              var currRoundInfo= roundInformation[k];
-              if(currRoundInfo!=null &&
-                  !(currRoundInfo===undefined)&&
-                    currRoundInfo.roundNumber==toBeCalculatedRound){
-                      if(currRoundInfo.experienceScoreAmount!=null
-                              && !(currRoundInfo.experienceScoreAmount===undefined)){
-                                var points=currRoundInfo.experienceScoreAmount/expScorePoint;
-                                expScores.push(points);
-                                expScoreAmtJSON['Points']=points;
-                                break;
-                              }
-                      else{
-                        expScores.push(0);
-                        expScoreAmtJSON['Points']=0;
-                        break;
+                 var customerDetailsJSON={};
+                 customerDetailsJSON['businessRevenue']=customer.revenue;
+                 customerDetailsJSON['businessCountry']=customer.country;
+                 customerDetailsJSON['businessrisk']=customer.businessRisk;
+                 customerDetailsJSON['experiencescoreneeded']=customer.experienceScoreNeeded;
+                 //customerAllocDetail['totalPremium']=customer.revenue; // to be clarified and added
+                 //customerAllocDetail['totalClaims']=customer.revenue; // to be clarified and added
+                 customerDetailsJSON['buyerPortfolio']=customer.buyerPortfolio;
+
+                 customerAllocDetails['CustomerDetails']=customerDetailsJSON;
+                 customerAllocation[customerName]=customerAllocDetails;
+               }
+               allTeams =results[1];
+          }
+          callback();
+        });
+      },
+      function(callback){
+
+            var expScores=[];
+            var teamCalcJSON={};
+
+            async.forEach(allTeams,function(team,callback){
+              var _1_teamName = team.name;
+              var expScoreAmtJSON={};
+              var roundInformation = team.roundLevelInformation;
+              var roundInformation_Id;
+              var points = 0;
+              if(roundInformation!=null && !(roundInformation===undefined)){
+                for(var k=0; k<roundInformation.length;k++){
+                  var currRoundInfo= roundInformation[k];
+                  if(currRoundInfo!=null &&
+                      !(currRoundInfo===undefined)&&
+                        currRoundInfo.roundNumber==toBeCalculatedRound){
+                          roundInformation_Id = currRoundInfo._id;
+                          if(currRoundInfo.experienceScoreAmount!=null
+                                  && !(currRoundInfo.experienceScoreAmount===undefined)){
+                                    points=currRoundInfo.experienceScoreAmount/(_expScorePoint);
+                                    expScores.push(points);
+                                    expScoreAmtJSON['Points']=points;
+                                    break;
+                                  }
+                          else{
+                            points=0;
+                            expScores.push(points);
+                            expScoreAmtJSON['Points']=0;
+                            break;
+                          }
+                        }
+                }
+                Teams.update({"roundLevelInformation._id":roundInformation_Id},
+                    {$set: {"roundLevelInformation.$.experienceScore": points}},function(err){
+                      if(err){
+                        console.log("In error 2"+err);
+                      }
+                    });
+
+              }
+              teamCalcJSON[_1_teamName]=expScoreAmtJSON;
+            });
+
+            console.log(teamCalcJSON);
+
+            var rankJSON = expScoreRanking(expScores);
+            console.log(rankJSON);
+            var scorePoint = expScorePointCalculation(rankJSON);
+
+            var offerGroupJSON={};
+
+            async.forEach(allTeams,function(team,callback){
+                var _2_teamName = team.name;
+                var teamId = team._id;
+                var teamPoints = teamCalcJSON[_2_teamName].Points;
+                //console.log(teamPoints);
+                var expScorePoint = scorePoint[teamPoints];
+                console.log("expScorePoint for "+_2_teamName+" is ="+expScorePoint)
+                var offerArr = team.offer;
+                var roundInformation = team.roundLevelInformation;
+                var roundPremium=0;
+                var roundCld=0;
+                var businessName;
+                var intermediateJSON={};
+                if(offerArr!=null && !(offerArr===undefined)){
+                  for(var j=0;j<offerArr.length;j++){
+                    var currOffer = offerArr[j];
+                    var currOfferId=currOffer._id;
+                    //console.log('currentOfferId='+currOfferId);
+                    if(currOffer!=null &&
+                        !(currOffer===undefined) &&
+                          currOffer.round==toBeCalculatedRound){
+                      if(currOffer.premium!=null &&
+                            !(currOffer.premium===undefined)
+                              && currOffer.premium>0){
+                        roundPremium=currOffer.premium;
+                      }
+                      if(currOffer.cld!=null &&
+                            !(currOffer.cld===undefined)
+                              && currOffer.cld>0){
+                        roundCld=currOffer.cld;
+                      }
+                      if(currOffer.marketBusinessName!=null &&
+                            !(currOffer.marketBusinessName===undefined)){
+                        businessName=currOffer.marketBusinessName;
+                        console.log(businessName);
+                      }
+                      var offerScore=0;
+                      if(roundPremium>0){
+                        offerScore=(roundCld/roundPremium)*expScorePoint;
+                        console.log(_2_teamName+" -- "+businessName+" -- "+offerScore)
+                      }
+
+                      Teams.update({"offer._id":currOfferId},
+                          {$set: {"offer.$.offerScore": offerScore}},function(err){
+                            if(err){
+                              console.log("In error 2"+err);
+                            }
+                          });
+
+                      if(customerAllocation!=null && !(customerAllocation===undefined)){
+                         if(customerAllocation[businessName]!=null &&
+                           !(customerAllocation[businessName]===undefined)){
+                             if(customerAllocation[businessName].winningScore<offerScore){
+                               customerAllocation[businessName].allocatedTo=_2_teamName;
+                               customerAllocation[businessName].winningScore=offerScore;
+                             }
+                         }
                       }
                     }
-            }
-          }
-          teamCalcJSON[_1_teamName]=expScoreAmtJSON;
-        });
-
-        //console.log(teamCalcJSON);
-
-        var rankJSON = expScoreRanking(expScores);
-        //console.log(rankJSON);
-        var scorePoint = expScorePointCalculation(rankJSON);
-
-        async.forEach(allTeams,function(team,callback){
-            var _2_teamName = team.name;
-            var teamPoints = teamCalcJSON[_2_teamName].Points;
-            //console.log(teamPoints);
-            var expScorePoint = scorePoint[teamPoints];
-            console.log("expScorePoint for "+_2_teamName+" is ="+expScorePoint)
-            var offerArr = team.offer;
-            var roundInformation = team.roundLevelInformation;
-            var roundPremium=0;
-            var roundCld=0;
-            var intermediateJSON={};
-            if(offerArr!=null && !(offerArr===undefined)){
-              for(var j=0;j<offerArr.length;j++){
-                var currOffer = offerArr[j];
-                if(currOffer!=null &&
-                    !(currOffer===undefined)&&
-                      currOffer.round==toBeCalculatedRound){
-                  if(currOffer.premium!=null &&
-                        !(currOffer.premium===undefined)
-                          && currOffer.premium>0){
-                    roundPremium=currOffer.premium;
                   }
-                  if(currOffer.cld!=null &&
-                        !(currOffer.cld===undefined)
-                          && currOffer.cld>0){
-                    roundCld=currOffer.cld;
-                  }
-                  if(roundPremium>0){
-                    var offerScore=(roundCld/roundPremium)*expScorePoint;
-                  }
-
                 }
-              }
+             });
+
+            //  async.forEach(customerAllocation,function(customerToAlloc,callback){
+            //    console.log("I am here")
+            //    if(customerToAlloc!=null &&
+            //         !(customerToAlloc===undfined &&
+            //             !(customerToAlloc.allocatedTo==_selfInsured))){
+            //               console.log("values are"+customerToAlloc.allocatedTo);
+            //         }
+            //  });
+
+             callback();
+          },
+
+          function(callback){
+            for(var key in customerAllocation){
+              if (customerAllocation.hasOwnProperty(key)) {
+                 var _customerValues = customerAllocation[key];
+                 var teamName = _customerValues.allocatedTo;
+                 Teams.findOne({role: 'user',customer: {$elemMatch:{'businessName':key,'agreement.status':'Active'}}}).exec(function(err,team){
+                        if(err){
+                          console.log("error in update");
+                        }else {
+                          var customers = team.customer;
+                          var customerId;
+                          if(customers!=null && !(customers===undefined)){
+                            for(var i=0; i<customers.length;i++){
+                              if(customers.businessName == key &&
+                                            customers.agreement.status=='Active'){
+                                              customerId = customers._id;
+                                              break;
+                                            }
+                            }
+                            if(team.name == teamName){
+                              if(customerId!=null && !(customerId===undefined)){
+                                Teams.update({"customer._id":customerId},
+                                    {$set: {"customer.$.offerScore": offerScore}},function(err){
+                                      if(err){
+                                        console.log("In error 2"+err);
+                                      }
+                                    });
+                              }
+                            }
+                          }
+                        }
+                 });
+                  //  Teams.update({"offer._id":currOfferId},
+                  //      {$set: {"offer.$.offerScore": offerScore}},function(err){
+                  //        if(err){
+                  //          console.log("In error 2"+err);
+                  //        }
+                  //      });
+
+                 console.log(key+" ---"+_customerValues.CustomerDetails);
+               }
             }
 
-            intermediateJSON['Premium']=roundPremium;
-            intermediateJSON['CLD']=roundCld;
-
-
-            teamCalcJSON[_1_teamName]=intermediateJSON;
-            //console.log("Premium value for the round = "+teamCalcJSON);
-            //console.log("cld value for the round= "+roundCld)
-
-            //console.log("Intermediate Value = "+intermediateVal);
-
-         });
-
-        callback();
-    });
-  }
-]);
+            callback();
+          }
+      ],
+      function(err,results){
+        console.log("Calculation completed successfully");
+      });
   // if(req.body._id) { delete req.body._id; }
   // Round.findById(req.params.id, function (err, round) {
   //   if (err) { return handleError(res, err); }
@@ -274,7 +460,6 @@ function expScoreRanking(expScores) {
 
 function expScorePointCalculation(expScores){
     var returnJSON={};
-    console.log("expScores"+expScores)
     var arrVal=[];
     for(key in expScores){
       arrVal.push(expScores[key]);
@@ -327,10 +512,50 @@ function expScorePointCalculation(expScores){
       }
     }
     // debug purposes enable the code below
-    for(key in returnJSON){
-      console.log("Iamhere for "+key+" = "+returnJSON[key]);
-    }
+    // for(key in returnJSON){
+    //   console.log("Iamhere for "+key+" = "+returnJSON[key]);
+    // }
     // //console.log("Iamhere"+returnJSON);
 
     return returnJSON;
+}
+
+
+function deleteCurrRoundCustomers(toBeCalculatedRound){
+  //console.log("I am in deleteCurrRoundCustomers");
+  var result = Teams.find({role: 'user',customer: {$elemMatch:{calculatedRound:toBeCalculatedRound}}}).exec(function(err,teams){
+    if(err){
+          return 0;
+    }else{
+          if(teams!=null && !(teams===undefined) && teams.length>0){
+            for(var i=0; i<teams.length; i++){
+              var teamId = teams[i]._id;
+              Teams.findById(teamId,function(err,team){
+                var customers = team.customer;
+                if(customers!=null && !(customers===undefined) && customers.length>0){
+                  for(var j=0; j<customers.length;j++){
+                    var customer = customers[j];
+                    var customerId = customer._id;
+                    if(customer.calculatedRound!=null &&
+                          !(customer.calculatedRound===undefined) &&
+                              customer.calculatedRound == toBeCalculatedRound){
+                        customers.pull(customerId);
+                        team.save(function(err){
+                          if(err){
+                            return 0;
+                          }else{
+                            return 1;
+                          }
+                        });
+                    }
+                  }
+                }
+              });
+            }
+          }
+
+    }
+ });
+  //console.log("--Completed Delete Functionality--"+result);
+  return result;
 }

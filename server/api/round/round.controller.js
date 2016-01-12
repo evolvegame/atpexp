@@ -6,7 +6,7 @@ var Round = require('./round.model');
 var Teams = require('../team/team.model');
 var async = require('async');
 var Promise=require('bluebird');
-
+var expScorePoint=1000;
 
 // Get list of rounds
 exports.index = function (req, res) {
@@ -100,15 +100,92 @@ exports.calculateRound = function(req, res) {
         if(err){
           console.log("Calculation: Error in finding teams");
         }
+
         allTeams = teams;
-        // async.forEach(teams,function(team,callback){
-        //
-        // });
-        for(var i=0;i<teams.length;i++){
-          var team = teams[i];
-          console.log(team.name);
-          console.log(team.role);
-        }
+        var expScores=[];
+        var teamCalcJSON={};
+
+        async.forEach(allTeams,function(team,callback){
+          var _1_teamName = team.name;
+          var expScoreAmtJSON={};
+          var roundInformation = team.roundLevelInformation;
+          if(roundInformation!=null && !(roundInformation===undefined)){
+            for(var k=0; k<roundInformation.length;k++){
+              var currRoundInfo= roundInformation[k];
+              if(currRoundInfo!=null &&
+                  !(currRoundInfo===undefined)&&
+                    currRoundInfo.roundNumber==toBeCalculatedRound){
+                      if(currRoundInfo.experienceScoreAmount!=null
+                              && !(currRoundInfo.experienceScoreAmount===undefined)){
+                                var points=currRoundInfo.experienceScoreAmount/expScorePoint;
+                                expScores.push(points);
+                                expScoreAmtJSON['Points']=points;
+                                break;
+                              }
+                      else{
+                        expScores.push(0);
+                        expScoreAmtJSON['Points']=0;
+                        break;
+                      }
+                    }
+            }
+          }
+          teamCalcJSON[_1_teamName]=expScoreAmtJSON;
+        });
+
+        //console.log(teamCalcJSON);
+
+        var rankJSON = expScoreRanking(expScores);
+        //console.log(rankJSON);
+        var scorePoint = expScorePointCalculation(rankJSON);
+
+        async.forEach(allTeams,function(team,callback){
+            var _2_teamName = team.name;
+            var teamPoints = teamCalcJSON[_2_teamName].Points;
+            //console.log(teamPoints);
+            var expScorePoint = scorePoint[teamPoints];
+            console.log("expScorePoint for "+_2_teamName+" is ="+expScorePoint)
+            var offerArr = team.offer;
+            var roundInformation = team.roundLevelInformation;
+            var roundPremium=0;
+            var roundCld=0;
+            var intermediateJSON={};
+            if(offerArr!=null && !(offerArr===undefined)){
+              for(var j=0;j<offerArr.length;j++){
+                var currOffer = offerArr[j];
+                if(currOffer!=null &&
+                    !(currOffer===undefined)&&
+                      currOffer.round==toBeCalculatedRound){
+                  if(currOffer.premium!=null &&
+                        !(currOffer.premium===undefined)
+                          && currOffer.premium>0){
+                    roundPremium=currOffer.premium;
+                  }
+                  if(currOffer.cld!=null &&
+                        !(currOffer.cld===undefined)
+                          && currOffer.cld>0){
+                    roundCld=currOffer.cld;
+                  }
+                  if(roundPremium>0){
+                    var offerScore=(roundCld/roundPremium)*expScorePoint;
+                  }
+
+                }
+              }
+            }
+
+            intermediateJSON['Premium']=roundPremium;
+            intermediateJSON['CLD']=roundCld;
+
+
+            teamCalcJSON[_1_teamName]=intermediateJSON;
+            //console.log("Premium value for the round = "+teamCalcJSON);
+            //console.log("cld value for the round= "+roundCld)
+
+            //console.log("Intermediate Value = "+intermediateVal);
+
+         });
+
         callback();
     });
   }
@@ -177,4 +254,83 @@ function handleErrors(res, err,errorCode) {
     return res.send(412, err);
   }
 
+}
+
+
+function expScoreRanking(expScores) {
+  var rankJSON={};
+  var sorted = expScores.slice().sort(function(a,b){return b-a});
+  var ranks = expScores.slice().map(function(v){
+         var rankIndex = sorted.indexOf(v)+1;
+         if(rankJSON!=null && !(rankJSON===undefined)){
+           if(rankJSON.rankIndex == null || rankJSON.rankIndex===undefined){
+             rankJSON[rankIndex]=v;
+           }
+         }
+         return rankIndex;
+  });
+  return rankJSON;
+}
+
+function expScorePointCalculation(expScores){
+    var returnJSON={};
+    console.log("expScores"+expScores)
+    var arrVal=[];
+    for(key in expScores){
+      arrVal.push(expScores[key]);
+    }
+    var keys=Object.keys(expScores);
+    var len=keys.length;
+    arrVal.sort(function(a,b){return b-a});
+    if(len==1){
+      var key=arrVal[0];
+      returnJSON[key]=1;
+    }
+    else {
+      var medianPoint=5;
+
+      if(len<11){
+        medianPoint= Math.round(len / 2);
+      }
+
+      var score= (medianPoint * 0.01)+1.01;
+      var i=0;
+      for(i;i<=medianPoint;i++){
+        var keyVal=arrVal[i];
+        score = score - 0.01;
+        returnJSON[keyVal]=score;
+      }
+
+      var j = i;
+      if(medianPoint<5){
+        j=0;
+        for(j;j>=(len-medianPoint);j++){
+          var keyVal=arrVal[j];
+          score=1;
+          returnJSON[keyVal]=score;
+        }
+      }else{
+        for(j;j<(len-medianPoint);j++){
+          var keyVal=arrVal[j];
+          score=1;
+          returnJSON[keyVal]=score;
+        }
+      }
+      var k = j;
+      if(medianPoint<5){
+        k=j+i;
+      }
+      for(k;k<len;k++){
+        var keyVal=arrVal[k];
+        score = score - 0.01;
+        returnJSON[keyVal]=score;
+      }
+    }
+    // debug purposes enable the code below
+    for(key in returnJSON){
+      console.log("Iamhere for "+key+" = "+returnJSON[key]);
+    }
+    // //console.log("Iamhere"+returnJSON);
+
+    return returnJSON;
 }

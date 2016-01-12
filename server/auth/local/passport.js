@@ -11,10 +11,10 @@ exports.setup = function (Team, config) {
         if (err) return done(err);
 
         if (!user) {
-          return done(null, false, { message: 'This email is not registered.' });
+          return done(null, false, { message: 'The email and password you entered don\'t match.' });
         }
         if (!user.authenticate(password)) {
-          return done(null, false, { message: 'This password is not correct.' });
+          return done(null, false, { message: 'The email and password you entered don\'t match.' });
         }
         //console.log('passport.js : '+user);
         return done(null, user);

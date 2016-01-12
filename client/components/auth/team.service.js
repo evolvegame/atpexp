@@ -29,6 +29,18 @@ angular.module('atpexpApp')
         params: {
           id:'me'
         }
+      },
+      roundLevelInformation: {
+        method: 'GET',
+        params: {
+          controller:'roundLevelInformation'
+        }
+      },
+      miniDashboardInfo: {
+        method: 'GET',
+        params: {
+          controller:'miniDashboardInfo'
+        }
       }
 	  });
   })

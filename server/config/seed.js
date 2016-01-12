@@ -72,10 +72,10 @@ Team.find({}).remove(function() {
           offer:[              
                 ], 
           roundLevelInformation: [{
-        	    roundNumber: 1,
-        	    capital: 0,
+        	    round: 1,
+        	    capital: 4,
         	    premium: 0,
-        	    claims: 0,
+        	    claims: 3,
         	    grossIncome: 0,
         	    claimsRatio: 0,
         	    profit: 0,
@@ -87,8 +87,45 @@ Team.find({}).remove(function() {
         	    marketingBudget: 0,
         	    facilities: 0,
         	    totalExpense: 0,
-        	    rankingPosition: 0
-        	  }],
+        	    rankingPosition: 20,
+              customers:0
+        	  }/*,{
+              round: 2,
+              capital: 5,
+              premium: 0,
+              claims: 2,
+              grossIncome: 0,
+              claimsRatio: 0,
+              profit: 0,
+              investment: 0,
+              experienceScore: 0,
+              salesforceSize: 0,
+              underwriterDepartmentSize: 0,
+              iTMaintenance: 0,
+              marketingBudget: 0,
+              facilities: 0,
+              totalExpense: 0,
+              rankingPosition: 2,
+              customers:0
+            },{
+              round: 3,
+              capital: 0,
+              premium: 0,
+              claims: 1,
+              grossIncome: 0,
+              claimsRatio: 0,
+              profit: 0,
+              investment: 0,
+              experienceScore: 0,
+              salesforceSize: 0,
+              underwriterDepartmentSize: 0,
+              iTMaintenance: 0,
+              marketingBudget: 0,
+              facilities: 0,
+              totalExpense: 0,
+              rankingPosition: 15,
+              customers:0
+            }*/],
           riskStrategy :[
                                    { round: 1,
                                 	 strategyId: 1,
@@ -396,11 +433,11 @@ Economy.find({}).remove(function() {
 Round.find({}).remove(function() {
   Round.create( {
     round: 1,
-    roundName:'FirstRound',
+    roundName:'Round 1',
     roundStart: '15-Dec-2015',
     roundEnd: '30-Dec-2015',
     currentRoundFlag:true,
-    calculationFlag:true
+    calculationFlag:false
   }, function() {
     console.log('** Beginning with round zero...');
   }

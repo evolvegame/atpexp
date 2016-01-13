@@ -98,7 +98,7 @@
                                 <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
                                 <input type="password" name="password" class="form-control" ng-model="user.oldPassword" mongoose-error/>
                             </div>
-                            <span class="help-block" ng-show="form.password.$error.mongoose">{{ errors.other }}</span>
+                            <span class="help-block" style="color:red" ng-show="form.password.$error.mongoose">{{ errors.other }}</span>
                             <span class="help-block">{{'settings.change-password.currentPassword.msg'|translate}}</span>
                         </div>
                     </div>
@@ -108,9 +108,9 @@
                         <div class="col-md-6 col-xs-12">
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
-                                <input type="password" name="newPassword" class="form-control" ng-model="user.newPassword" ng-minlength="3" required/>
+                                <input type="password" name="newPassword" class="form-control" ng-model="user.newPassword" ng-minlength="4" required/>
                             </div>
-                            <span class="help-block" ng-show="(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty || submitted)">{{'settings.change-password.pas-length'|translate}}.</span>
+                            <span class="help-block" style="color:red" ng-show="(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty || submitted)">{{'settings.change-password.pas-length'|translate}}.</span>
                             <span class="help-block">{{'settings.change-password.newPassword.msg'|translate}}</span>
                         </div>
                     </div>

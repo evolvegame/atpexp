@@ -466,6 +466,269 @@ exports.deleteOffer = function(req, res, next) {
 	
 };
 
+exports.roundLevelInformation = function(req, res, next) {
+	var roundId = req.params.id;
+	var teamId = req.user._id;
+	console.log('Reached team controller roundLevelInformation !!! - teamId ' + teamId);
+	console.log('Reached team controller roundLevelInformation !!! - roundId ' + roundId);
+	Team.findOne({'_id' : teamId, 'roundLevelInformation.round' :  roundId },{'roundLevelInformation.$': 1}, function(err, result) {
+        if (err) return done(err); 
+        console.log('result:'+JSON.stringify(result));
+        return res.json(200, result);
+      });
+	
+	
+};
+
+
+/**
+ * Get MINIDASHBOARD INFO 
+ */
+ exports.miniDashboardInfo = function(req, res, next) {
+ 	var currentRoundNumber;
+ 	var capitalIcon;
+ 	var claimsIcon;
+ 	var acceptanceRateIcon; 
+ 	var customersIcon;
+ 	var experienceScoreIcon; 
+ 	var rankingIcon ;
+ 	var premiumIcon;
+ 	var capitalIconColor;
+ 	var claimsIconColor;
+ 	var acceptanceRateIconColor; 
+ 	var customersIconColor;
+ 	var experienceScoreIconColor; 
+ 	var rankingIconColor;
+ 	var premiumIconColor;
+ 	var miniDashBoardInfo;
+ 	var rankingPosition;
+ 	var experienceScore;
+ 	var	claims;
+ 	var capital;
+ 	var customers;
+ 	var premium;
+ 	var roundLevelInfo=[];
+ 	var iconArray =["fa-arrow-circle-right","fa-arrow-circle-up","fa-arrow-circle-down"];
+ 	var iconArrayColor =["informer-warning","informer-success","informer-danger"];
+ 	var teamId = req.user._id;
+ 	var roundNr;
+ 	console.log('Reached team controller miniDashboardInfo !!! - teamId ' + teamId);	
+ 	
+ 	Round.findOne({"currentRoundFlag":true},function (err, round){
+ 		if (err) {
+ 			return handleError(res, err);
+ 		}
+ 		if (!round) {
+ 			return res.json(401);
+ 		};
+
+ 		console.log ('CURRENT ROUND IS : '+ round.round);
+
+ 		if (round.round===1 || round.round===2 ){
+ 		roundNr=1;
+ 		
+ 		Team.findOne({'_id' : teamId, 'roundLevelInformation.round' :  roundNr },{'roundLevelInformation.$': 1}, function(err, info) {
+ 				if (err) return done(err);
+ 				if (!info) {
+ 				return res.json(401);
+ 				};
+ 				console.log('INFO '+ info);
+ 				roundLevelInfo = info.roundLevelInformation[0];
+ 				console.log ('CURRENT ROUND IS || : '+ round.round); 
+ 				console.log('roundLevelInfo'+roundLevelInfo.rankingPosition+ info.roundLevelInformation[0].rankingPosition) ;
+ 				//Icon Image
+ 				capitalIcon = iconArray[0];
+ 				claimsIcon = iconArray[0];
+ 				acceptanceRateIcon = iconArray[0];
+ 				customersIcon = iconArray[0];
+ 				experienceScoreIcon = iconArray[0]; 
+ 				rankingIcon =iconArray[0];
+ 				premiumIcon =iconArray[0];
+
+ 				//Icon color
+ 				capitalIconColor = iconArrayColor[0];
+ 				claimsIconColor = iconArrayColor[0];
+ 				acceptanceRateIconColor = iconArrayColor[0];
+ 				customersIconColor = iconArrayColor[0];
+ 				experienceScoreIconColor = iconArrayColor[0]; 
+ 				rankingIconColor =iconArrayColor[0];
+ 				premiumIconColor =iconArrayColor[0];
+
+ 				rankingPosition = roundLevelInfo.rankingPosition;
+ 				experienceScore = roundLevelInfo.experienceScore;
+ 				claims = roundLevelInfo.claims;
+ 				capital = roundLevelInfo.capital;
+ 				customers = roundLevelInfo.customers;
+ 				premium = roundLevelInfo.premium;
+
+ 				miniDashBoardInfo={
+ 					capitalIcon:capitalIcon,
+ 					claimsIcon:claimsIcon,
+ 					acceptanceRateIcon:acceptanceRateIcon,
+ 					customersIcon:customersIcon,
+ 					experienceScoreIcon:experienceScoreIcon,
+ 					rankingIcon:rankingIcon,
+ 					premiumIcon:premiumIcon,
+ 					capitalIconColor:capitalIconColor,
+ 					claimsIconColor:claimsIconColor,
+ 					acceptanceRateIconColor:acceptanceRateIconColor,
+ 					customersIconColor:customersIconColor,
+ 					experienceScoreIconColor:experienceScoreIconColor,
+ 					rankingIconColor:rankingIconColor,
+ 					premiumIconColor:premiumIconColor,
+ 					rankingPosition :rankingPosition,
+ 					experienceScore:experienceScore,
+ 					claims:claims,
+ 					capital:capital,
+ 					customers:customers,
+ 					premium:premium
+ 				};
+
+ 				return res.json(miniDashBoardInfo);
+ 			});
+
+
+	}else if (round.round>2){
+	Team.findOne({'_id' : teamId, 'roundLevelInformation.round' :  round.round-1 },{'roundLevelInformation.$': 1}, function(err, currentRoundLevelInfo) {
+		if (err) return done(err);
+		if (!currentRoundLevelInfo) {
+ 			return res.json(401);
+ 		};
+
+		Team.findOne({'_id' : teamId, 'roundLevelInformation.round' :  round.round-2 },{'roundLevelInformation.$': 1}, function(err, previousRoundLevelInfo) {
+			if (err) return done(err);
+			if (!previousRoundLevelInfo) {
+ 				return res.json(401);
+ 				};
+			currentRoundLevelInfo = currentRoundLevelInfo.roundLevelInformation[0];
+			previousRoundLevelInfo = previousRoundLevelInfo.roundLevelInformation[0];
+			
+			
+ 	 //logic capitalIcon
+ 	 if (currentRoundLevelInfo.capital> previousRoundLevelInfo.capital){
+ 	 	capitalIcon=iconArray[1];
+ 	 	capitalIconColor=iconArrayColor[1];
+ 	 }
+ 	 else if (currentRoundLevelInfo.capital< previousRoundLevelInfo.capital) {
+ 	 	capitalIcon=iconArray[2];
+ 	 	capitalIconColor=iconArrayColor[2];
+ 	 } else{
+ 	 	capitalIcon=iconArray[0];
+ 	 	capitalIconColor=iconArrayColor[0];
+ 	 }
+
+      //logic claimsIcon
+      if (currentRoundLevelInfo.claims> previousRoundLevelInfo.claims){
+      	claimsIcon=iconArray[1];
+      	claimsIconColor=iconArrayColor[1];
+      }
+      else if (currentRoundLevelInfo.claims< previousRoundLevelInfo.claims){
+      	claimsIcon=iconArray[2];
+      	claimsIconColor=iconArrayColor[2];
+      }
+      else{
+      	claimsIcon=iconArray[0];
+      	claimsIconColor=iconArrayColor[0];
+      }
+
+      //logic premiumIcon
+      if (currentRoundLevelInfo.premium> previousRoundLevelInfo.premium){
+      	premiumIcon=iconArray[1];
+      	premiumIconColor=iconArrayColor[1];      	
+      }
+      else if (currentRoundLevelInfo.premium< previousRoundLevelInfo.premium){
+      	premiumIcon=iconArray[2];
+      	premiumIconColor=iconArrayColor[2];    
+      }
+      else{
+      	premiumIcon=iconArray[0];
+      	premiumIconColor=iconArrayColor[0];    
+      }
+
+      //logic customersIcon
+      if (currentRoundLevelInfo.customers> previousRoundLevelInfo.customers){
+      	customersIcon=iconArray[1];
+      	customersIconColor=iconArrayColor[1];
+      }
+      else if (currentRoundLevelInfo.customers< previousRoundLevelInfo.customers){
+      	customersIcon=iconArray[2];
+      	customersIconColor=iconArrayColor[2];
+      }
+      else{
+      	customersIcon=iconArray[0];
+      	customersIconColor=iconArrayColor[0];
+      }
+
+       //logic experienceScoreIcon
+       if (currentRoundLevelInfo.experienceScore> previousRoundLevelInfo.experienceScore){
+       	experienceScoreIcon=iconArray[1];
+       	experienceScoreIconColor=iconArrayColor[1];
+       }
+       else  if (currentRoundLevelInfo.experienceScore< previousRoundLevelInfo.experienceScore){
+       	experienceScoreIcon=iconArray[2];
+       	experienceScoreIconColor=iconArrayColor[2];
+       }
+       else{
+       	experienceScoreIcon=iconArray[0];
+       	experienceScoreIconColor=iconArrayColor[0];
+       }
+
+      //logic rankingPosition
+      if (currentRoundLevelInfo.rankingPosition> previousRoundLevelInfo.rankingPosition){
+      	rankingIcon=iconArray[2];
+      	rankingIconColor=iconArrayColor[2];
+      }
+      else  if (currentRoundLevelInfo.rankingPosition< previousRoundLevelInfo.rankingPosition){
+      	rankingIcon=iconArray[1];
+      	rankingIconColor=iconArrayColor[1];
+      }
+      else{
+      	rankingIcon=iconArray[0];
+      	rankingIconColor=iconArrayColor[0];
+      }	
+
+      rankingPosition = currentRoundLevelInfo.rankingPosition;
+      experienceScore = currentRoundLevelInfo.experienceScore;
+      claims = currentRoundLevelInfo.claims;
+      capital = currentRoundLevelInfo.capital;
+      customers = currentRoundLevelInfo.customers;
+      premium = currentRoundLevelInfo.premium;
+
+      miniDashBoardInfo={
+      	capitalIcon:capitalIcon,
+      	claimsIcon:claimsIcon,
+      	acceptanceRateIcon:acceptanceRateIcon,
+      	customersIcon:customersIcon,
+      	experienceScoreIcon:experienceScoreIcon,
+      	rankingIcon:rankingIcon,
+      	premiumIcon:premiumIcon,
+      	capitalIconColor:capitalIconColor,
+      	claimsIconColor:claimsIconColor,
+      	acceptanceRateIconColor:acceptanceRateIconColor,
+      	customersIconColor:customersIconColor,
+      	experienceScoreIconColor:experienceScoreIconColor,
+      	rankingIconColor:rankingIconColor,
+      	premiumIconColor:premiumIconColor,
+      	rankingPosition :rankingPosition,
+      	experienceScore:experienceScore,
+      	claims:claims,
+      	capital:capital,
+      	customers:customers,
+      	premium:premium
+      };
+
+      return res.json(miniDashBoardInfo);		
+  });		
+
+});
+
+}
+
+});  
+
+
+};
+
 
 
 /**

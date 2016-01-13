@@ -33,44 +33,46 @@
                         <div class="col-dashboard col-md-10" ng-controller="MiniDashCtrl">
                         <div class="col-md-2 col-sm-12 col-align">
                             <div class="tile tile-transparent">
-                                &nbsp{{team.rankingPosition}}
+                                {{miniDashboardInfo.rankingPosition}}
                                 <p>{{'mimidash.ranking'|translate}}</p>
-                                <div class="informer informer-warning dir-tr"><span class="{{rankingIcon}}"></span></div>
+                                <div class="informer {{miniDashboardInfo.rankingIconColor}} dir-tr"><span class="fa {{miniDashboardInfo.rankingIcon}}"></span></div>
                             </div>
                         </div>
                         <div class="col-md-2 col-sm-12 col-align">
                             <div class="tile tile-transparent">
-                                {{team.experienceScore}} 
+                                {{miniDashboardInfo.experienceScore}} 
                                 <p>{{'mimidash.xpScore'|translate}}</p>
-                                <div class="informer informer-success dir-tr"><span class="{{experienceScoreIcon}}"></span></div>
+                                <div class="informer {{miniDashboardInfo.experienceScoreIconColor}} dir-tr"><span class="fa {{miniDashboardInfo.experienceScoreIcon}}"></span></div>
                             </div>
                         </div>
                         <div class="col-md-2 col-sm-12 col-align">
                             <div class="tile tile-transparent">
-                               {{team.customers}} TBD
+                               {{miniDashboardInfo.customers}}
                                 <p>{{'mimidash.customers'|translate}}</p>
-                                <div class="informer informer-success dir-tr"><span class="{{customersIcon}}"></span></div>
+                            <div class="informer {{miniDashboardInfo.customersIconColor}} dir-tr"><span class="fa {{
+                                    miniDashboardInfo.customersIcon}}"></span></div>
                             </div>
                         </div>
                         <div class="col-md-2 col-sm-12 col-align">
                             <div class="tile tile-transparent">
-                                {{team.acceptanceRate}} TBD
-                                <p>{{'mimidash.acceptance-rate'|translate}}</p>
-                                <div class="informer informer-danger dir-tr"><span class="{{acceptanceRateIcon}}"></span></div>
+                                €{{miniDashboardInfo.premium}}
+                                <p>{{'mimidash.premium'|translate}}</p>
+                                <div class="informer {{miniDashboardInfo.premiumIconColor}} dir-tr"><span class="fa {{
+                                   miniDashboardInfo.premiumIcon}}"></span></div>
                             </div>
                         </div>
                         <div class="col-md-2 col-sm-12 col-align">
                             <div class="tile tile-transparent">
-                                €{{team.claims}}
+                                €{{miniDashboardInfo.claims}}
                                 <p>{{'mimidash.claims'|translate}}</p>
-                                <div class="informer informer-danger dir-tr"><span class="{{claimsIcon}}"></span></div>
+                                <div class="informer {{miniDashboardInfo.claimsIconColor}} dir-tr"><span class="fa {{miniDashboardInfo.claimsIcon}}"></span></div>
                             </div>
                         </div>
                         <div class="col-md-2 col-sm-12 col-align">
                             <div class="tile tile-transparent">
-                                €{{team.capital}}
+                                €{{miniDashboardInfo.capital}}
                                 <p>{{'mimidash.capital'|translate}}</p>
-                                <div class="informer informer-success dir-tr"><span class="{{capitalIcon}}"></span></div>
+                                <div class="informer {{miniDashboardInfo.capitalIconColor}} dir-tr"><span class="fa {{miniDashboardInfo.capitalIcon}}"></span></div>
                             </div>
                         </div>
                     </div>

@@ -46,6 +46,7 @@ var TeamSchema = mongoose.Schema({
     rankingPosition: Number,
     experienceScoreAmount: Number,
     experienceScoreRankingPosition: Number,
+    customers:Number,
     project: [{
     	type: Schema.ObjectId,
     	ref: 'Projects'
@@ -74,17 +75,24 @@ var TeamSchema = mongoose.Schema({
     price:Number,
     premium: Number,
     premiumPercentage: Number,
-    cld:Number
+    cld:Number,
+    offerScore:Number,
+    strategyId:Number
   }],
-  customer: {
-    businessName: Number,
+  customer: [{
+    businessName: String,
     businessRevenue: String,
-    businessCountry: Number,
+    businessCountry: String,
     businessrisk: Number,
     experiencescoreneeded: Number,
     totalPremium: Number,
     totalClaims: Number,
     buyerPortfolio: [{buyerCountry: String, buyerIndustry: String, buyerRating: Number, cla: Number}],
+    wonRound:Number,
+    wonFrom:String,
+    lostTo:String,
+    lostIn:Number,
+    calculatedRound:Number,
     agreement: {
       premium: Number,
       premiumPercentage: Number,
@@ -92,7 +100,7 @@ var TeamSchema = mongoose.Schema({
       status: String,
       claims: {claimNumber: Number, buyerPortfolio: Number, claimAmount: Number, round: String}
     }
-  },
+  }],
 
   activityCompletion: {
     round: String,

@@ -119,7 +119,7 @@ exports.calculateRound = function(req, res) {
           },
           // Get all Teams
           function(callback){
-            Teams.find({role: 'user',roundLevelInformation: {$elemMatch:{roundNumber:toBeCalculatedRound}}}).exec(function(err,teams){
+            Teams.find({role: 'user',roundLevelInformation: {$elemMatch:{round:toBeCalculatedRound}}}).exec(function(err,teams){
             if(err){
                   console.log("Calculation: Error in finding teams");
                   callback(err);
@@ -222,7 +222,7 @@ exports.calculateRound = function(req, res) {
                   var currRoundInfo= roundInformation[k];
                   if(currRoundInfo!=null &&
                       !(currRoundInfo===undefined)&&
-                        currRoundInfo.roundNumber==toBeCalculatedRound){
+                        currRoundInfo.round==toBeCalculatedRound){
                           roundInformation_Id = currRoundInfo._id;
                           if(currRoundInfo.experienceScoreAmount!=null
                                   && !(currRoundInfo.experienceScoreAmount===undefined)){

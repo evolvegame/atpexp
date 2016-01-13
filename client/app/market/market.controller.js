@@ -182,7 +182,7 @@ angular.module('atpexpApp')
     } 
     
     return $scope.riskAcceptance; 
-  }
+  };
 
 
     //on load 
@@ -241,7 +241,7 @@ angular.module('atpexpApp')
 
         return $scope.ratingWeatherIcon; 
       }
-    }
+    };
     //code added to get weather icon based on customer risk
     $scope.getRiskWeatherIcon=function(customerRisk){
       $scope.riskWeatherIcon ='';
@@ -267,18 +267,22 @@ angular.module('atpexpApp')
 
         return $scope.riskWeatherIcon; 
       }
-    }
+    };
+
+    //$scope.riskAcceptance ='';
 
   //function to validate risk acceptance
-  function isValidRiskAcceptance(country,industry,rating){
-    var riskAcceptance = $scope.getRiskAcceptanceRate(country,industry,rating);
-    if (riskAcceptance) {
-      return true;
+  $scope.isValidRiskAcceptance=function(country,industry,rating){
+    $scope.riskAcceptanceStatus = $scope.getRiskAcceptanceRate(country,industry,rating);
+    if ($scope.riskAcceptanceStatus) {
+      $scope.riskAcceptanceStatus=true;
+      return $scope.riskAcceptanceStatus;
     }  else{
-      return false;
+      $scope.riskAcceptanceStatus =false;
+      return $scope.riskAcceptanceStatus;
     }
     
-  } 
+  }; 
 
   //code to get Current Round
   Round.currentRound(function (currentRound) {
@@ -366,7 +370,7 @@ angular.module('atpexpApp')
       buyerCountry=selectedCustomer.buyerPortfolio[0].country;
       buyerIndustry=selectedCustomer.buyerPortfolio[0].industry;
       buyerRating =selectedCustomer.buyerPortfolio[0].rating;      
-      riskAcceptanceValidForBuyerSegment1=isValidRiskAcceptance(buyerCountry,buyerIndustry,buyerRating);
+      riskAcceptanceValidForBuyerSegment1=$scope.isValidRiskAcceptance(buyerCountry,buyerIndustry,buyerRating);
       if (!riskAcceptanceValidForBuyerSegment1){
         toastr.error($scope.riskError1);
       }
@@ -375,7 +379,7 @@ angular.module('atpexpApp')
       buyerCountry=selectedCustomer.buyerPortfolio[1].country;
       buyerIndustry=selectedCustomer.buyerPortfolio[1].industry;
       buyerRating =selectedCustomer.buyerPortfolio[1].rating;      
-      riskAcceptanceValidForBuyerSegment2=isValidRiskAcceptance(buyerCountry,buyerIndustry,buyerRating);
+      riskAcceptanceValidForBuyerSegment2=$scope.isValidRiskAcceptance(buyerCountry,buyerIndustry,buyerRating);
       if (!riskAcceptanceValidForBuyerSegment2){
         toastr.error($scope.riskError2);
       }
@@ -384,7 +388,7 @@ angular.module('atpexpApp')
       buyerCountry=selectedCustomer.buyerPortfolio[2].country;
       buyerIndustry=selectedCustomer.buyerPortfolio[2].industry;
       buyerRating =selectedCustomer.buyerPortfolio[2].rating;      
-      riskAcceptanceValidForBuyerSegment3=isValidRiskAcceptance(buyerCountry,buyerIndustry,buyerRating);
+      riskAcceptanceValidForBuyerSegment3=$scope.isValidRiskAcceptance(buyerCountry,buyerIndustry,buyerRating);
 
       if (!riskAcceptanceValidForBuyerSegment3){
         toastr.error($scope.riskError3);

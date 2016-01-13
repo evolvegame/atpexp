@@ -150,6 +150,7 @@
 	"market.tpl.millionEuro":"In million Euro",
 	"market.tpl.buyerSegment":"Buyer Segment",
 	"market.tpl.creditLimitAmount":"Credit Limit Amount",
+	"market.tpl.noRiskStrategyMsg":"No Risk Strategy",
 	"market.tpl.averageBuyerRating":"Average buyer rating",
 	"market.tpl.price":"Price",
 	"market.tpl.avgPriceMsg":"The average price is 0.1 of the turnover.",

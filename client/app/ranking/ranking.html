@@ -24,8 +24,15 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="table-responsive" ng-controller="RankingCtrl">
-                        <b>{{'ranking.tab1.title'|translate}}</b><br><br>
-                        <table class="table table-bordered table-striped table-actions">
+                        <div ng-switch on="previousRound">
+                        	<div ng-switch-when="0">
+								<b>{{'ranking.tab1.title'|translate}} </b>({{loggedInTeamName}} : {{'ranking.no.ranking.round.1' | translate}})<br><br>
+							</div>
+							<div ng-switch-default>
+								<b>{{'ranking.tab1.title'|translate}} </b>({{loggedInTeamName}} : {{loggedInTeamRankForPreviousRound}})<br><br>
+							</div>                 	
+                        </div>
+                        <table datatable="ng" class="table datatable hover">
                             <thead>
                                 <tr>
                                     <th style="width:25%;">{{'ranking.tab.rank'|translate}}</th>
@@ -35,11 +42,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 <tr ng-repeat="team in objects | orderBy: 'capital' :true" style="color:{{fontStyle(team.name)}};">
-                                   	<td>{{$index + 1 }}</td>
+                                 <tr ng-repeat="team in objects | orderBy: 'roundLevelInformation[previousRound].rankingPosition'" style="color:{{fontStyle(team.name)}};">
+                                   	<td>
+										<div ng-switch on="previousRound">
+											<div ng-switch-when="0">
+												{{'ranking.no.ranking.round.1' | translate}}
+											</div>
+											<div ng-switch-default>
+												{{ team.roundLevelInformation[previousRound].rankingPosition}}
+											</div>
+										</div>
+									</td>
                                     <td>{{ team.name }}</td>
                                     <td>{{ team.teamCountry }}</td>
-                                    <td>{{ team.capital }}</td>
+                                    <td>{{ team.roundLevelInformation[previousRound].capital }}</td>
                                 </tr> 
                             </tbody>
                         </table>
@@ -57,8 +73,16 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="table-responsive" ng-controller="RankingCtrl">
-                        <b>{{'ranking.tab.xpScoreRanking'|translate}}</b> <br><br>
-                        <table class="table table-bordered table-striped table-actions">
+                        
+                        <div ng-switch on="previousRound">
+                        	<div ng-switch-when="0">
+								<b>{{'ranking.tab.xpScoreRanking'|translate}} </b>({{loggedInTeamName}} : {{'ranking.no.ranking.round.1' | translate}})<br><br>
+							</div>
+							<div ng-switch-default>
+								<b>{{'ranking.tab.xpScoreRanking'|translate}} </b>({{loggedInTeamName}} : {{loggedInTeamExpScoreRankForPreviousRound}})<br><br>
+							</div>                 	
+                        </div>
+                        <table datatable="ng" class="table datatable hover">
                             <thead>
                                 <tr>
                                     <th style="width:25%;">{{'ranking.tab.rank'|translate}}</th>
@@ -68,11 +92,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 <tr ng-repeat="team in objects | orderBy: 'experienceScore' :true" style="color:{{fontStyle(team.name)}};">
-                                   	<td>{{$index + 1 }}</td>
+                                 <tr ng-repeat="team in objects | orderBy: 'roundLevelInformation[previousRound].experienceScoreRankingPosition'" style="color:{{fontStyle(team.name)}};">
+                                   	<td>
+                                   			<div ng-switch on="previousRound">
+												<div ng-switch-when="0">
+													{{'ranking.no.ranking.round.1' | translate}}
+												</div>
+												<div ng-switch-default>
+													{{ team.roundLevelInformation[previousRound].experienceScoreRankingPosition}}
+												</div>
+											</div>
+									</td>
                                     <td>{{ team.name }}</td>
                                     <td>{{ team.teamCountry }}</td>
-                                    <td>{{ team.experienceScore }}</td>
+                                    <td>{{ team.roundLevelInformation[previousRound].experienceScore }}</td>
                                 </tr> 
                             </tbody>
                         </table>
@@ -96,7 +129,7 @@
                 <div class="panel-body">
                     <div class="table-responsive" ng-controller="RankingCtrl">
                         <b>{{'ranking.tab1.title'|translate}}</b> <br><br>
-                        <table class="table table-bordered table-striped table-actions">
+                        <table datatable="ng" class="table datatable hover">
                             <thead>
                                 <tr>
                                     <th style="width: 33%;">{{'ranking.tab.rank'|translate}}</th>
@@ -127,7 +160,7 @@
                 <div class="panel-body">
                     <div class="table-responsive" ng-controller="RankingCtrl">
                         <b>{{'ranking.tab.xpScoreRanking'|translate}}</b> <br><br>
-                        <table class="table table-bordered table-striped table-actions" >
+                        <table datatable="ng" class="table datatable hover">
                             <thead>
                                 <tr>
                                     <th style="width: 33%;">{{'ranking.tab.rank'|translate}}</th>

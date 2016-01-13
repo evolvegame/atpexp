@@ -162,7 +162,160 @@ Team.find({}).remove(function() {
                                                  {name :'User5',email: 'user5@atradius.com' },
                                                  {name :'User6',email: 'user6@atradius.com'}
                                                  ]
-                                     }, function() {
+                                     },{
+                                         provider: 'local',
+                                         password: 'Tester1' ,   
+                                         name:'Team Z',
+                                         slogan:'Make it happen',
+                                         picture:'evolve-avatar.png',
+                                         teamCountry: "NL",
+                                         capital: 775,
+                                         experienceScore: 60,
+                                         members :[
+                                                   {name :'User8',email: 'user8@atradius.com' },
+                                                   {name :'User9',email: 'user9@atradius.com' },
+                                                   {name :'User10',email: 'user10@atradius.com'},
+                                                   {name :'User11',email: 'user11@atradius.com'}
+                                                   ],
+                                         offer:[
+                                                 ]          
+                                       },{
+                                           provider: 'local',
+                                           password: 'Tester1' ,   
+                                           name:'Team Y',
+                                           slogan:'Make it happen',
+                                           picture:'evolve-avatar.png',
+                                           teamCountry: "NL",
+                                           capital: 775,
+                                           experienceScore: 60,
+                                           members :[
+                                                     {name :'User8',email: 'user8@atradius.com' },
+                                                     {name :'User9',email: 'user9@atradius.com' },
+                                                     {name :'User10',email: 'user10@atradius.com'},
+                                                     {name :'User11',email: 'user11@atradius.com'}
+                                                     ],
+                                           offer:[
+                                                   ]          
+                                         },{
+                                             provider: 'local',
+                                             password: 'Tester1' ,   
+                                             name:'Team X',
+                                             slogan:'Make it happen',
+                                             picture:'evolve-avatar.png',
+                                             teamCountry: "NL",
+                                             capital: 775,
+                                             experienceScore: 60,
+                                             members :[
+                                                       {name :'User8',email: 'user8@atradius.com' },
+                                                       {name :'User9',email: 'user9@atradius.com' },
+                                                       {name :'User10',email: 'user10@atradius.com'},
+                                                       {name :'User11',email: 'user11@atradius.com'}
+                                                       ],
+                                             offer:[
+                                                     ]          
+                                           },{
+                                               provider: 'local',
+                                               password: 'Tester1' ,   
+                                               name:'Team W',
+                                               slogan:'Make it happen',
+                                               picture:'evolve-avatar.png',
+                                               teamCountry: "NL",
+                                               capital: 775,
+                                               experienceScore: 60,
+                                               members :[
+                                                         {name :'User8',email: 'user8@atradius.com' },
+                                                         {name :'User9',email: 'user9@atradius.com' },
+                                                         {name :'User10',email: 'user10@atradius.com'},
+                                                         {name :'User11',email: 'user11@atradius.com'}
+                                                         ],
+                                               offer:[
+                                                       ]          
+                                             },{
+                                                 provider: 'local',
+                                                 password: 'Tester1' ,   
+                                                 name:'Team V',
+                                                 slogan:'Make it happen',
+                                                 picture:'evolve-avatar.png',
+                                                 teamCountry: "NL",
+                                                 capital: 775,
+                                                 experienceScore: 60,
+                                                 members :[
+                                                           {name :'User8',email: 'user8@atradius.com' },
+                                                           {name :'User9',email: 'user9@atradius.com' },
+                                                           {name :'User10',email: 'user10@atradius.com'},
+                                                           {name :'User11',email: 'user11@atradius.com'}
+                                                           ],
+                                                 offer:[
+                                                         ]          
+                                               },{
+                                                   provider: 'local',
+                                                   password: 'Tester1' ,   
+                                                   name:'Team U',
+                                                   slogan:'Make it happen',
+                                                   picture:'evolve-avatar.png',
+                                                   teamCountry: "NL",
+                                                   capital: 775,
+                                                   experienceScore: 60,
+                                                   members :[
+                                                             {name :'User8',email: 'user8@atradius.com' },
+                                                             {name :'User9',email: 'user9@atradius.com' },
+                                                             {name :'User10',email: 'user10@atradius.com'},
+                                                             {name :'User11',email: 'user11@atradius.com'}
+                                                             ],
+                                                   offer:[
+                                                           ]          
+                                                 },{
+                                                     provider: 'local',
+                                                     password: 'Tester1' ,   
+                                                     name:'Team T',
+                                                     slogan:'Make it happen',
+                                                     picture:'evolve-avatar.png',
+                                                     teamCountry: "NL",
+                                                     capital: 775,
+                                                     experienceScore: 60,
+                                                     members :[
+                                                               {name :'User8',email: 'user8@atradius.com' },
+                                                               {name :'User9',email: 'user9@atradius.com' },
+                                                               {name :'User10',email: 'user10@atradius.com'},
+                                                               {name :'User11',email: 'user11@atradius.com'}
+                                                               ],
+                                                     offer:[
+                                                             ]          
+                                                   },{
+                                                       provider: 'local',
+                                                       password: 'Tester1' ,   
+                                                       name:'Team S',
+                                                       slogan:'Make it happen',
+                                                       picture:'evolve-avatar.png',
+                                                       teamCountry: "NL",
+                                                       capital: 775,
+                                                       experienceScore: 60,
+                                                       members :[
+                                                                 {name :'User8',email: 'user8@atradius.com' },
+                                                                 {name :'User9',email: 'user9@atradius.com' },
+                                                                 {name :'User10',email: 'user10@atradius.com'},
+                                                                 {name :'User11',email: 'user11@atradius.com'}
+                                                                 ],
+                                                       offer:[
+                                                               ]          
+                                                     },{
+                                                         provider: 'local',
+                                                         password: 'Tester1' ,   
+                                                         name:'Team R',
+                                                         slogan:'Make it happen',
+                                                         picture:'evolve-avatar.png',
+                                                         teamCountry: "NL",
+                                                         capital: 775,
+                                                         experienceScore: 60,
+                                                         members :[
+                                                                   {name :'User8',email: 'user8@atradius.com' },
+                                                                   {name :'User9',email: 'user9@atradius.com' },
+                                                                   {name :'User10',email: 'user10@atradius.com'},
+                                                                   {name :'User11',email: 'user11@atradius.com'}
+                                                                   ],
+                                                         offer:[
+                                                                 ]          
+                                                       }, function() {
                                        console.log('** Finished populating Teams and Users.');
                                      }
     );

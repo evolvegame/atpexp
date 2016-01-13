@@ -2,8 +2,13 @@
 
 angular.module('atpexpApp')
 
-  .controller('RankingCtrl', function ($scope, $http, Auth,Team) {
+  .controller('RankingCtrl', function ($scope, $rootScope, $http, Auth,Team) {
     
+	$http.get('/api/rounds/currentRound').success(function(round){  
+		$scope.currentRound = round.round;
+		$rootScope.previousRound = $scope.currentRound - 1; 
+    });
+	  
     $http.get('/api/team').success(function (teams) {
       console.log(teams)
       $scope.objects = teams
@@ -12,9 +17,11 @@ angular.module('atpexpApp')
       $scope.numPerPage = 5;
       $scope.getCurrentTeam = Auth.getCurrentTeam;      
       $scope.loggedInTeam =  $scope.getCurrentTeam().teamCountry;
-      /*{
-    		  country: "USA"
-      };*/
+      $scope.loggedInTeamName =  $scope.getCurrentTeam().name;
+      $scope.loggedInTeamRankForPreviousRound = $scope.getCurrentTeam().roundLevelInformation[$rootScope.previousRound].rankingPosition;
+      $scope.loggedInTeamExpScoreRankForPreviousRound = $scope.getCurrentTeam().roundLevelInformation[$rootScope.previousRound].experienceScoreRankingPosition;
+      
+
       
       $scope.paginate = function(value) {
         var begin, end, index;

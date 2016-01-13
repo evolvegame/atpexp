@@ -45,6 +45,7 @@ var TeamSchema = mongoose.Schema({
     totalExpense: Number,
     rankingPosition: Number,
     experienceScoreAmount: Number,
+    experienceScoreRankingPosition: Number,
     project: [{
     	type: Schema.ObjectId,
     	ref: 'Projects'

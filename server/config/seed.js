@@ -104,16 +104,6 @@ Team.find({}).remove(function() {
                   "premium": 23,
                   "premiumPercentage": 100 ,
                   "offerScore":0
-                }
-                ],customer:[{
-                  "businessName" : "Bope",
-                  "businessRevenue" : "200000",
-                   "businessCountry" : "Germany",
-                   "wonRound" : 1,
-                   "lostTo" : "",
-                   "lostIn" : 0,
-                   "calculatedRound" : 0,
-                   "agreement" : { "premium" : 23, "premiumPercentage" : 100, "riskStrategyId" : 1, "status" : "Active" }
                 }],
                 roundLevelInformation: [{
                     roundNumber: 1,

@@ -18,11 +18,126 @@ var Departments = require('../api/departments/departments.model');
 var RatingBands = require('../api/ratingBands/ratingBand.model');
 
 Team.find({}).remove(function() {
-  try { 
+  try {
     Team.create(
+      {
+        provider: 'local',
+        password: 'Tester1' ,
+        name:'Team A',
+        slogan:'Make the Difference',
+        picture:'evolve-avatar.png',
+        teamCountry: "USA",
+        capital: 750,
+        experienceScore: 50,
+        members :[
+                  {name :'User1',email: 'user1@atradius.com' },
+                  {name :'User2',email: 'user2@atradius.com' },
+                  {name :'User3',email: 'user3@atradius.com'},
+                  {name :'User7',email: 'user7@atradius.com'}
+                ],
+                offer:[
+                  { "round" : 1,
+                   "marketBusinessName" : "Ajo",
+                   "price" : 1000000,
+                   "cld":15000,
+                   "premium": 50000,
+                   "premiumPercentage": 100 ,
+                   "offerScore":0
+                 },
+                 { "round" : 1,
+                  "marketBusinessName" : "Bope",
+                  "price" : 1000000,
+                  "cld":15000,
+                  "premium": 300,
+                  "premiumPercentage": 100 ,
+                  "offerScore":0
+                }
+                ],
+                roundLevelInformation: [{
+                    roundNumber: 1,
+                    capital: 0,
+                    premium: 0,
+                    claims: 0,
+                    grossIncome: 0,
+                    claimsRatio: 0,
+                    profit: 0,
+                    investment: 0,
+                    experienceScore: 0,
+                    salesforceSize: 0,
+                    underwriterDepartmentSize: 0,
+                    iTMaintenance: 0,
+                    marketingBudget: 0,
+                    facilities: 0,
+                    totalExpense: 0,
+                    rankingPosition: 0,
+                    experienceScoreAmount:60000
+                  }]
+      },
+      {
+        provider: 'local',
+        password: 'Tester1' ,
+        name:'Team B',
+        slogan:'Make the Difference',
+        picture:'evolve-avatar.png',
+        teamCountry: "USA",
+        capital: 750,
+        experienceScore: 50,
+        members :[
+                  {name :'User1',email: 'user1@atradius.com' },
+                  {name :'User2',email: 'user2@atradius.com' },
+                  {name :'User3',email: 'user3@atradius.com'},
+                  {name :'User7',email: 'user7@atradius.com'}
+                ],
+                offer:[
+                  { "round" : 1,
+                   "marketBusinessName" : "Ajo",
+                   "price" : 1000000,
+                   "cld":3000,
+                   "premium": 400000,
+                   "premiumPercentage": 100 ,
+                   "offerScore":0
+                 },
+                 { "round" : 1,
+                  "marketBusinessName" : "Bope",
+                  "price" : 1000000,
+                  "cld":3000,
+                  "premium": 23,
+                  "premiumPercentage": 100 ,
+                  "offerScore":0
+                }
+                ],customer:[{
+                  "businessName" : "Bope",
+                  "businessRevenue" : "200000",
+                   "businessCountry" : "Germany",
+                   "wonRound" : 1,
+                   "lostTo" : "",
+                   "lostIn" : 0,
+                   "calculatedRound" : 0,
+                   "agreement" : { "premium" : 23, "premiumPercentage" : 100, "riskStrategyId" : 1, "status" : "Active" }
+                }],
+                roundLevelInformation: [{
+                    roundNumber: 1,
+                    capital: 0,
+                    premium: 0,
+                    claims: 0,
+                    grossIncome: 0,
+                    claimsRatio: 0,
+                    profit: 0,
+                    investment: 0,
+                    experienceScore: 0,
+                    salesforceSize: 0,
+                    underwriterDepartmentSize: 0,
+                    iTMaintenance: 0,
+                    marketingBudget: 0,
+                    facilities: 0,
+                    totalExpense: 0,
+                    rankingPosition: 0,
+                    experienceScoreAmount:90000
+                  }]
+      },
         {
           provider: 'local',
-          password: 'Tester1' ,   
+          password: 'Tester1' ,
           name:'Team C',
           slogan:'Make the Difference',
           picture:'evolve-avatar.png',
@@ -34,10 +149,46 @@ Team.find({}).remove(function() {
                     {name :'User2',email: 'user2@atradius.com' },
                     {name :'User3',email: 'user3@atradius.com'},
                     {name :'User7',email: 'user7@atradius.com'}
-                    ]
+                  ],
+                  offer:[
+                    { "round" : 1,
+                     "marketBusinessName" : "Ajo",
+                     "price" : 1000000,
+                     "cld":65000,
+                     "premium": 9000,
+                     "premiumPercentage": 100 ,
+                     "offerScore":0
+                   },{ "round" : 1,
+                    "marketBusinessName" : "Bope",
+                    "price" : 1000000,
+                    "cld":3000,
+                    "premium": 242,
+                    "premiumPercentage": 100 ,
+                    "offerScore":0
+                  }
+                  ],
+                  roundLevelInformation: [{
+                	    roundNumber: 1,
+                	    capital: 0,
+                	    premium: 0,
+                	    claims: 0,
+                	    grossIncome: 0,
+                	    claimsRatio: 0,
+                	    profit: 0,
+                	    investment: 0,
+                	    experienceScore: 0,
+                	    salesforceSize: 0,
+                	    underwriterDepartmentSize: 0,
+                	    iTMaintenance: 0,
+                	    marketingBudget: 0,
+                	    facilities: 0,
+                	    totalExpense: 0,
+                	    rankingPosition: 0,
+                      experienceScoreAmount:70000
+                	  }]
         },{
           provider: 'local',
-          password: 'Tester1' ,   
+          password: 'Tester1' ,
           name:'Team D',
           slogan:'Make it happen',
           picture:'evolve-avatar.png',
@@ -51,17 +202,351 @@ Team.find({}).remove(function() {
                     {name :'User11',email: 'user11@atradius.com'}
                     ],
           offer:[
-                  ]          
+            { "round" : 1,
+             "marketBusinessName" : "Ajo",
+             "price" : 1000000,
+             "cld":90000,
+             "premium": 20000,
+             "premiumPercentage": 100 ,
+             "offerScore":0
+           },{ "round" : 1,
+            "marketBusinessName" : "Bope",
+            "price" : 1000000,
+            "cld":90000,
+            "premium": 2000,
+            "premiumPercentage": 100 ,
+            "offerScore":0
+          }
+          ],
+          roundLevelInformation: [{
+        	    roundNumber: 1,
+        	    capital: 0,
+        	    premium: 0,
+        	    claims: 0,
+        	    grossIncome: 0,
+        	    claimsRatio: 0,
+        	    profit: 0,
+        	    investment: 0,
+        	    experienceScore: 0,
+        	    salesforceSize: 0,
+        	    underwriterDepartmentSize: 0,
+        	    iTMaintenance: 0,
+        	    marketingBudget: 0,
+        	    facilities: 0,
+        	    totalExpense: 0,
+        	    rankingPosition: 0,
+              experienceScoreAmount:10000
+        	  }]
         },{
           provider: 'local',
-          password: 'admin' ,   
+          password: 'Tester1' ,
+          name:'Team E',
+          slogan:'Make it happen',
+          picture:'evolve-avatar.png',
+          teamCountry: "NL",
+          capital: 775,
+          experienceScore: 60,
+          members :[
+                    {name :'User8',email: 'user8@atradius.com' },
+                    {name :'User9',email: 'user9@atradius.com' },
+                    {name :'User10',email: 'user10@atradius.com'},
+                    {name :'User11',email: 'user11@atradius.com'}
+                    ],
+          offer:[
+            { "round" : 1,
+            "marketBusinessName" : "Bope",
+            "price" : 1000000,
+            "cld":30003,
+            "premium": 2342,
+            "premiumPercentage": 100 ,
+            "offerScore":0
+          }
+          ],
+          roundLevelInformation: [{
+        	    roundNumber: 1,
+        	    capital: 0,
+        	    premium: 0,
+        	    claims: 0,
+        	    grossIncome: 0,
+        	    claimsRatio: 0,
+        	    profit: 0,
+        	    investment: 0,
+        	    experienceScore: 0,
+        	    salesforceSize: 0,
+        	    underwriterDepartmentSize: 0,
+        	    iTMaintenance: 0,
+        	    marketingBudget: 0,
+        	    facilities: 0,
+        	    totalExpense: 0,
+        	    rankingPosition: 0,
+              experienceScoreAmount:34200
+        	  }]
+        },{
+          provider: 'local',
+          password: 'Tester1' ,
+          name:'Team F',
+          slogan:'Make it happen',
+          picture:'evolve-avatar.png',
+          teamCountry: "NL",
+          capital: 775,
+          experienceScore: 60,
+          members :[
+                    {name :'User8',email: 'user8@atradius.com' },
+                    {name :'User9',email: 'user9@atradius.com' },
+                    {name :'User10',email: 'user10@atradius.com'},
+                    {name :'User11',email: 'user11@atradius.com'}
+                    ],
+          offer:[
+            { "round" : 1,
+             "marketBusinessName" : "Ajo",
+             "price" : 1000000,
+             "cld":90000,
+             "premium": 8000,
+             "premiumPercentage": 100 ,
+             "offerScore":0
+           },{ "round" : 1,
+            "marketBusinessName" : "Bope",
+            "price" : 1000000,
+            "cld":302300,
+            "premium": 2423,
+            "premiumPercentage": 100 ,
+            "offerScore":0
+          }
+          ],
+          roundLevelInformation: [{
+        	    roundNumber: 1,
+        	    capital: 0,
+        	    premium: 0,
+        	    claims: 0,
+        	    grossIncome: 0,
+        	    claimsRatio: 0,
+        	    profit: 0,
+        	    investment: 0,
+        	    experienceScore: 0,
+        	    salesforceSize: 0,
+        	    underwriterDepartmentSize: 0,
+        	    iTMaintenance: 0,
+        	    marketingBudget: 0,
+        	    facilities: 0,
+        	    totalExpense: 0,
+        	    rankingPosition: 0,
+              experienceScoreAmount:45000
+        	  }],
+        },{
+          provider: 'local',
+          password: 'Tester1' ,
+          name:'Team G',
+          slogan:'Make it happen',
+          picture:'evolve-avatar.png',
+          teamCountry: "NL",
+          capital: 775,
+          experienceScore: 60,
+          members :[
+                    {name :'User8',email: 'user8@atradius.com' },
+                    {name :'User9',email: 'user9@atradius.com' },
+                    {name :'User10',email: 'user10@atradius.com'},
+                    {name :'User11',email: 'user11@atradius.com'}
+                    ],
+          offer:[
+            { "round" : 1,
+             "marketBusinessName" : "Ajo",
+             "price" : 1000000,
+             "cld":90000,
+             "premium": 1000000,
+             "premiumPercentage": 100 ,
+             "offerScore":0
+           },
+           { "round" : 1,
+            "marketBusinessName" : "Bope",
+            "price" : 1000000,
+            "cld":90000,
+            "premium": 1000000,
+            "premiumPercentage": 100 ,
+            "offerScore":0
+          }
+          ],
+          roundLevelInformation: [{
+        	    roundNumber: 1,
+        	    capital: 0,
+        	    premium: 0,
+        	    claims: 0,
+        	    grossIncome: 0,
+        	    claimsRatio: 0,
+        	    profit: 0,
+        	    investment: 0,
+        	    experienceScore: 0,
+        	    salesforceSize: 0,
+        	    underwriterDepartmentSize: 0,
+        	    iTMaintenance: 0,
+        	    marketingBudget: 0,
+        	    facilities: 0,
+        	    totalExpense: 0,
+        	    rankingPosition: 0,
+              experienceScoreAmount:23420
+        	  }]
+        },{
+          provider: 'local',
+          password: 'Tester1' ,
+          name:'Team H',
+          slogan:'Make it happen',
+          picture:'evolve-avatar.png',
+          teamCountry: "NL",
+          capital: 775,
+          experienceScore: 60,
+          members :[
+                    {name :'User8',email: 'user8@atradius.com' },
+                    {name :'User9',email: 'user9@atradius.com' },
+                    {name :'User10',email: 'user10@atradius.com'},
+                    {name :'User11',email: 'user11@atradius.com'}
+                    ],
+          offer:[
+            { "round" : 1,
+             "marketBusinessName" : "Ajo",
+             "price" : 1000000,
+             "cld":90000,
+             "premium": 1000000,
+             "premiumPercentage": 100 ,
+             "offerScore":0
+           },{ "round" : 1,
+            "marketBusinessName" : "Bope",
+            "price" : 1000000,
+            "cld":90000,
+            "premium": 1000000,
+            "premiumPercentage": 100 ,
+            "offerScore":0
+          }
+          ],
+          roundLevelInformation: [{
+        	    roundNumber: 1,
+        	    capital: 0,
+        	    premium: 0,
+        	    claims: 0,
+        	    grossIncome: 0,
+        	    claimsRatio: 0,
+        	    profit: 0,
+        	    investment: 0,
+        	    experienceScore: 0,
+        	    salesforceSize: 0,
+        	    underwriterDepartmentSize: 0,
+        	    iTMaintenance: 0,
+        	    marketingBudget: 0,
+        	    facilities: 0,
+        	    totalExpense: 0,
+        	    rankingPosition: 0,
+              experienceScoreAmount:98800
+        	  }]
+        },{
+          provider: 'local',
+          password: 'Tester1' ,
+          name:'Team I',
+          slogan:'Make it happen',
+          picture:'evolve-avatar.png',
+          teamCountry: "NL",
+          capital: 775,
+          experienceScore: 60,
+          members :[
+                    {name :'User8',email: 'user8@atradius.com' },
+                    {name :'User9',email: 'user9@atradius.com' },
+                    {name :'User10',email: 'user10@atradius.com'},
+                    {name :'User11',email: 'user11@atradius.com'}
+                    ],
+          offer:[
+            { "round" : 1,
+             "marketBusinessName" : "Ajo",
+             "price" : 1000000,
+             "cld":90000,
+             "premium": 1000000,
+             "premiumPercentage": 100 ,
+             "offerScore":0
+           },{ "round" : 1,
+            "marketBusinessName" : "Bope",
+            "price" : 1000000,
+            "cld":23000,
+            "premium": 1000,
+            "premiumPercentage": 100 ,
+            "offerScore":0
+          }
+        ],
+          roundLevelInformation: [{
+        	    roundNumber: 1,
+        	    capital: 0,
+        	    premium: 0,
+        	    claims: 0,
+        	    grossIncome: 0,
+        	    claimsRatio: 0,
+        	    profit: 0,
+        	    investment: 0,
+        	    experienceScore: 0,
+        	    salesforceSize: 0,
+        	    underwriterDepartmentSize: 0,
+        	    iTMaintenance: 0,
+        	    marketingBudget: 0,
+        	    facilities: 0,
+        	    totalExpense: 0,
+        	    rankingPosition: 0,
+              experienceScoreAmount:100200
+        	  }]
+        },{
+          provider: 'local',
+          password: 'Tester1' ,
+          name:'Team J',
+          slogan:'Make it happen',
+          picture:'evolve-avatar.png',
+          teamCountry: "NL",
+          capital: 775,
+          experienceScore: 60,
+          members :[
+                    {name :'User8',email: 'user8@atradius.com' },
+                    {name :'User9',email: 'user9@atradius.com' },
+                    {name :'User10',email: 'user10@atradius.com'},
+                    {name :'User11',email: 'user11@atradius.com'}
+                    ],
+          offer:[
+            { "round" : 1,
+             "marketBusinessName" : "Ajo",
+             "price" : 1000000,
+             "cld":90000,
+             "premium": 1000000,
+             "premiumPercentage": 100,
+             "offerScore":0
+           },{ "round" : 1,
+            "marketBusinessName" : "Bope",
+            "price" : 1000000,
+            "cld":9340,
+            "premium": 112000,
+            "premiumPercentage": 100 ,
+            "offerScore":0
+          }
+          ],
+          roundLevelInformation: [{
+        	    roundNumber: 1,
+        	    capital: 0,
+        	    premium: 0,
+        	    claims: 0,
+        	    grossIncome: 0,
+        	    claimsRatio: 0,
+        	    profit: 0,
+        	    investment: 0,
+        	    experienceScore: 0,
+        	    salesforceSize: 0,
+        	    underwriterDepartmentSize: 0,
+        	    iTMaintenance: 0,
+        	    marketingBudget: 0,
+        	    facilities: 0,
+        	    totalExpense: 0,
+        	    rankingPosition: 0,
+              experienceScoreAmount:120000
+        	  }]
+        },{
+          provider: 'local',
+          password: 'admin' ,
           name:'Team Admin',
           slogan:'Do it youself',
           picture:'evolve-avatar.png',
           role:'admin',
           teamCountry: "NL",
-          capital: 400,
-          experienceScore: 75,          
+          capital: 5000000,
+          experienceScore: 75,
           members :[
                     {name :'Rajasekaran',email: 'raj@atradius.com' },
                     {name :'Ranagarajan',email: 'ranga@atradius.com' },
@@ -69,8 +554,23 @@ Team.find({}).remove(function() {
                     {name :'Emanuel',email: 'emanuel@atradius.com'},
                     {name :'Prajakta',email: 'prajakta@atradius.com'}
                     ],
-          offer:[              
-                ], 
+          offer:[
+                    { "round" : 1,
+                     "marketBusinessName" : "Ajo",
+                     "price" : 1000000,
+                     "cld":80000,
+                     "premium": 900000,
+                     "premiumPercentage": 90 ,
+                     "offerScore":0
+                   },{ "round" : 1,
+                    "marketBusinessName" : "Bope",
+                    "price" : 1000000,
+                    "cld":1200000,
+                    "premium": 34000,
+                    "premiumPercentage": 100 ,
+                    "offerScore":0
+                  }
+                ],
           roundLevelInformation: [{
         	    round: 1,
         	    capital: 4,
@@ -138,7 +638,7 @@ Team.find({}).remove(function() {
                                      strategyRatingBand4: 75,
                                      strategyRatingBand5: 40
                                      },
-                                     { 
+                                     {
                                        round: 1,
                                        strategyId: 2,
                                        strategyName: 'Strategy 2',
@@ -150,8 +650,8 @@ Team.find({}).remove(function() {
                                        strategyRatingBand4: 75,
                                        strategyRatingBand5: 40
                                      },
-                                     { 
-                                       round: 1,    
+                                     {
+                                       round: 1,
                                        strategyId: 3,
                                        strategyName: 'Strategy 3',
                                        buyerCountry: 'Argentina',
@@ -161,8 +661,8 @@ Team.find({}).remove(function() {
                                        strategyRatingBand3: 80,
                                        strategyRatingBand4: 75,
                                        strategyRatingBand5: 40
-                                     },{ 
-                                       round: 1,     
+                                     },{
+                                       round: 1,
                                        strategyId: 4,
                                        strategyName: 'Strategy 4',
                                        buyerCountry: 'The Netherlands',
@@ -172,8 +672,8 @@ Team.find({}).remove(function() {
                                        strategyRatingBand3: 23,
                                        strategyRatingBand4: 56,
                                        strategyRatingBand5: 80
-                                     },{ 
-                                       round: 1,    
+                                     },{
+                                       round: 1,
                                        strategyId: 5,
                                        strategyName: 'Strategy 5',
                                        buyerCountry: ['France','Spain'],
@@ -185,20 +685,6 @@ Team.find({}).remove(function() {
                                        strategyRatingBand5: 80
                                      }
                                        ]
-                                     },{
-                                       provider: 'local',
-                                       password: 'Tester1' ,   
-                                       name:'Team B',
-                                       slogan:'We are awesome',
-                                       picture:'evolve-avatar.png',
-                                       teamCountry: "DE",
-                                       capital: 250,
-                                       experienceScore: 98,
-                                       members :[
-                                                 {name :'User4',email: 'user4@atradius.com' },
-                                                 {name :'User5',email: 'user5@atradius.com' },
-                                                 {name :'User6',email: 'user6@atradius.com'}
-                                                 ]
                                      }, function() {
                                        console.log('** Finished populating Teams and Users.');
                                      }
@@ -253,9 +739,9 @@ Departments.find({}).remove(function(){
 			{unit: 'Huge', cost: 1000000}
 			]
 		}
-		
-		);	
-		  
+
+		);
+
 	});
 
 Projects.find({}).remove(function(){
@@ -311,7 +797,7 @@ Projects.find({}).remove(function(){
     type: 'Strategy',
     name: 'Innovate',
     amount: 5000
-  } 
+  }
   );
 });
 
@@ -454,6 +940,7 @@ Customer.find({}).remove(function() {
     region:"West-Europe",
     regionCode:"we",
     country:"The Netherlands",
+    minOfferScore:10,
     businessRisk: 40,
     countryCode:"nl",
     industry:"Services",
@@ -475,6 +962,7 @@ Customer.find({}).remove(function() {
     regionCode:"we",
     country:"Germany",
     countryCode:"de",
+    minOfferScore:1,
     industry:"Machines",
     industryCode:"mac",
     experienceScoreNeeded:50,
@@ -494,6 +982,7 @@ Customer.find({}).remove(function() {
     regionCode:"we",
     country:"United Kingdom",
     countryCode:"gb",
+    minOfferScore:1,
     industry:"Construction",
     industryCode:"con",
     experienceScoreNeeded:50,
@@ -513,6 +1002,7 @@ Customer.find({}).remove(function() {
     regionCode:"we",
     country:"Spain",
     countryCode:"es",
+    minOfferScore:1,
     industry:"Metals",
     industryCode:"met",
     experienceScoreNeeded:50,
@@ -532,6 +1022,7 @@ Customer.find({}).remove(function() {
     regionCode:"sa",
     country:"Argentina",
     countryCode:"ar",
+    minOfferScore:1,
     industry:"Textiles",
     industryCode:"tex",
     experienceScoreNeeded:50,
@@ -551,6 +1042,7 @@ Customer.find({}).remove(function() {
     regionCode:"sa",
     country:"Brazil",
     countryCode:"br",
+    minOfferScore:1,
     industry:"Finance",
     industryCode:"fin",
     experienceScoreNeeded:50,
@@ -570,6 +1062,7 @@ Customer.find({}).remove(function() {
     regionCode:"sa",
     country:"Chille",
     countryCode:"cl",
+    minOfferScore:1,
     industry:"Electronics",
     industryCode:"ele",
     experienceScoreNeeded:50,
@@ -589,6 +1082,7 @@ Customer.find({}).remove(function() {
     regionCode:"sa",
     country:"Colombia",
     countryCode:"co",
+    minOfferScore:1,
     industry:"Transport",
     industryCode:"tra",
     experienceScoreNeeded:50,
@@ -607,25 +1101,25 @@ Customer.find({}).remove(function() {
 
 
 Industry.find({}).remove(function() {
-  try { 
+  try {
     Industry.create(
         {    sno: '1',    industry: 'Agriculture' },
         {    sno: '2',   industry : 'Chemicals'},
-        {     sno: '3',    industry : 'Construction'      
+        {     sno: '3',    industry : 'Construction'
         },
         {    sno: '4',    industry: 'Construction Materials' },
         {    sno: '5',   industry : 'Consumer Durables'},
-        {     sno: '6',    industry : 'Electronics'      
+        {     sno: '6',    industry : 'Electronics'
         },
         {    sno: '7',    industry: 'Finances' },
         {    sno: '8',   industry : 'Food'},
-        {     sno: '9',    industry : 'Machines'      
+        {     sno: '9',    industry : 'Machines'
         },
         {    sno: '10',    industry: 'Metals' },
         {    sno: '11',   industry : 'Paper'},
-        {     sno: '12',     industry : 'Services'      
+        {     sno: '12',     industry : 'Services'
         },  {    sno: '13',   industry : 'Textiles'},
-        {     sno: '14',     industry : 'Transport'      
+        {     sno: '14',     industry : 'Transport'
         }
         ,function() {
           console.log('** Finished populating Industry');
@@ -640,7 +1134,7 @@ Industry.find({}).remove(function() {
 
 
 Country.find({}).remove(function() {
-  try { 
+  try {
     Country.create(
         {    sno: '1',  region: 'Americas', country:'Canada' },
         {    sno: '2',  region: 'Americas', country:'Mexico' },
@@ -693,7 +1187,7 @@ Country.find({}).remove(function() {
 
 
 France.find({}).remove(function() {
-  try { 
+  try {
     France.create(
         {
           HEADLINE: 'String',

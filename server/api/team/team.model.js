@@ -80,7 +80,7 @@ var TeamSchema = mongoose.Schema({
   customer: [{
     businessName: String,
     businessRevenue: String,
-    businessCountry: Number,
+    businessCountry: String,
     businessrisk: Number,
     experiencescoreneeded: Number,
     totalPremium: Number,

@@ -131,10 +131,14 @@ exports.calculateRound = function(req, res) {
 
         function(callback){
           Teams.find({role: 'user',customer: {$elemMatch:{calculatedRound:toBeCalculatedRound}}}).exec(function(err,teams){
+            console.log(err);
             if(err){
-                  callback(err);
+                  callback(null,"None to delete");
+                  console.log("No values to delete");
             }else{
+                  console.log("i am here 2");
                   if(teams!=null && !(teams===undefined) && teams.length>0){
+                    console.log("i am here 3");
                     for(var i=0; i<teams.length; i++){
                       var teamId = teams[i]._id;
                       Teams.findById(teamId,function(err,team){
@@ -160,10 +164,12 @@ exports.calculateRound = function(req, res) {
                             }
                           }
                         }
+
+
                       });
                     }
                   }
-
+                  callback(null,"None to delete");
             }
          });
         }
@@ -328,47 +334,173 @@ exports.calculateRound = function(req, res) {
           },
 
           function(callback){
+            var allKeys=[];
             for(var key in customerAllocation){
               if (customerAllocation.hasOwnProperty(key)) {
-                 var _customerValues = customerAllocation[key];
-                 var teamName = _customerValues.allocatedTo;
-                 Teams.findOne({role: 'user',customer: {$elemMatch:{'businessName':key,'agreement.status':'Active'}}}).exec(function(err,team){
-                        if(err){
-                          console.log("error in update");
-                        }else {
-                          var customers = team.customer;
-                          var customerId;
-                          if(customers!=null && !(customers===undefined)){
-                            for(var i=0; i<customers.length;i++){
-                              if(customers.businessName == key &&
-                                            customers.agreement.status=='Active'){
-                                              customerId = customers._id;
-                                              break;
-                                            }
-                            }
-                            if(team.name == teamName){
-                              if(customerId!=null && !(customerId===undefined)){
-                                Teams.update({"customer._id":customerId},
-                                    {$set: {"customer.$.offerScore": offerScore}},function(err){
-                                      if(err){
-                                        console.log("In error 2"+err);
-                                      }
-                                    });
-                              }
-                            }
-                          }
-                        }
-                 });
-                  //  Teams.update({"offer._id":currOfferId},
-                  //      {$set: {"offer.$.offerScore": offerScore}},function(err){
-                  //        if(err){
-                  //          console.log("In error 2"+err);
-                  //        }
-                  //      });
-
-                 console.log(key+" ---"+_customerValues.CustomerDetails);
-               }
+                allKeys.push(key);
+              }
             }
+              async.forEach(allKeys,function(key,callback){
+                  var _customerValues = customerAllocation[key];
+                  var teamName = _customerValues.allocatedTo;
+                  var _customerDetails = _customerValues.CustomerDetails;
+                  var previousWonTeam;
+
+                  Teams.findOne({role: 'user',customer: {$elemMatch:{'businessName':key,'agreement.status':'Active'}}}).exec(function(err,team){
+                    if(err){
+                      console.log("error in update");
+                    }else if(team!=null && !(team===undefined)){
+                      var customers = team.customer;
+                      var customerId;
+
+                      for(var i=0; i<customers.length;i++){
+                          if(customers[i].businessName == key &&
+                                        customers[i].agreement.status=='Active'){
+                                          customerId = customers[i]._id;
+                                          break;
+                                        }
+                      }
+                      if(team.name == teamName){
+                        if(customerId!=null && !(customerId===undefined)){
+                          Teams.update({"customer._id":customerId},
+                              {$set: {"customer.$.calculatedRound": toBeCalculatedRound}},function(err){
+                                if(err){
+                                  console.log("In error 2"+err);
+                                }
+                              });
+                        }
+                      }else {
+                        previousWonTeam=team.name;
+                        Teams.update({"customer._id":customerId},
+                            {$set: {"customer.$.lostTo": teamName, "customer.$.lostIn": toBeCalculatedRound,
+                                            "customer.$.agreement.status": "Closed"}},function(err){
+                              if(err){
+                                console.log("In error 2"+err);
+                              }
+                            });
+                        Teams.findOne({role: 'user',name:teamName},function(err,newTeam){
+                          if(err){
+                            console.log("In error "+err);
+                          }else if(newTeam!=null && !(newTeam===undefined)){
+                            var newCustomer;
+                            var newCustomerId;
+                            var newOffer;
+                            if(newTeam.customer!=null &&!(newTeam.customer===undefined)){
+                            var newCustomer = newTeam.customer;
+                            }
+                            if(newTeam.offer!=null &&!(newTeam.offer===undefined)){
+                            var newOffer = newTeam.offer;
+                            }
+                            for(var i=0; i<newCustomer.length;i++){
+                                if(newCustomer[i].businessName == key &&
+                                              newCustomer[i].agreement.status=='Closed'){
+                                                newCustomerId = newCustomer[i]._id;
+                                                break;
+                                              }
+                            }
+                            var newPremium = 0;
+                            var newPremiumPct =0;
+                            for(var j=0; j<newOffer.length;j++){
+                              if(newOffer[j].round!=null && !(newOffer[j].round === undefined)
+                                        && newOffer[j].marketBusinessName != null &&  !(newOffer[j].marketBusinessName  === undefined)){
+                                          if(newOffer[j].round == toBeCalculatedRound &&  newOffer[j].marketBusinessName == key){
+                                            newPremium = newOffer[j].premium;
+                                            newPremiumPct = newOffer[j].premiumPercentage;
+                                          }
+                                        }
+                            }
+                            if(newCustomerId!=null && !(newCustomerId===undefined)){
+                              Teams.update({"customer._id":newCustomerId},
+                                  {$set: {"customer.$.wonFrom": teamName, "customer.$.wonRound": toBeCalculatedRound,
+                                                  "customer.$.lostTo": "",
+                                                  "customer.$.lostIn": 0,
+                                                  "customer.agreement.$.status": "Active"}},function(err){
+                                    if(err){
+                                      console.log("In error 2"+err);
+                                    }
+                                  });
+
+                            }else{
+                              var agreementDetails=initializeAgreement(newPremium,newPremiumPct);
+                              newTeam.customer.push({
+                                  businessName: key,
+                                  businessRevenue: customerAllocation[key].CustomerDetails.businessRevenue,
+                                  businessCountry: customerAllocation[key].CustomerDetails.businessCountry,
+                                  businessrisk: customerAllocation[key].CustomerDetails.businessrisk,
+                                  experiencescoreneeded: customerAllocation[key].CustomerDetails.experiencescoreneeded,
+                                  buyerPortfolio:customerAllocation[key].CustomerDetails.buyerPortfolio,
+                                  wonRound: toBeCalculatedRound,
+                                  wonFrom: previousWonTeam,
+                                  lostTo:"",
+                                  lostIn:0,
+                                  calculatedRound:toBeCalculatedRound,
+                                  agreement:agreementDetails
+                                });
+
+                                newTeam.save(function(err){
+                                  if(err){
+                                    console.log("Error in saving"+err);
+                                  }
+                                });
+                            }
+
+                          }
+
+                        });
+                      }
+                      return team;
+                    }else{
+                      Teams.findOne({role: 'user',name:teamName},function(err,newTeam){
+                        if(err){
+                          console.log("In error "+err);
+                        }else if(newTeam!=null && !(newTeam===undefined)){
+                            var newCustomer;
+                            var newOffer;
+
+                            if(newTeam.offer!=null &&!(newTeam.offer===undefined)){
+                            var newOffer = newTeam.offer;
+                            }
+
+                            var newPremium = 0;
+                            var newPremiumPct =0;
+                            for(var j=0; j<newOffer.length;j++){
+                              if(newOffer[j].round!=null && !(newOffer[j].round === undefined)
+                                        && newOffer[j].marketBusinessName != null &&  !(newOffer[j].marketBusinessName  === undefined)){
+                                          if(newOffer[j].round == toBeCalculatedRound &&  newOffer[j].marketBusinessName == key){
+                                            newPremium = newOffer[j].premium;
+                                            newPremiumPct = newOffer[j].premiumPercentage;
+                                          }
+                                        }
+                            }
+
+                            // claims to be done
+                            var agreementDetails=initializeAgreement(newPremium,newPremiumPct);
+                            newTeam.customer.push({
+                                businessName: key,
+                                businessRevenue: customerAllocation[key].CustomerDetails.businessRevenue,
+                                businessCountry: customerAllocation[key].CustomerDetails.businessCountry,
+                                businessrisk: customerAllocation[key].CustomerDetails.businessrisk,
+                                experiencescoreneeded: customerAllocation[key].CustomerDetails.experiencescoreneeded,
+                                buyerPortfolio:customerAllocation[key].CustomerDetails.buyerPortfolio,
+                                wonRound: toBeCalculatedRound,
+                                wonFrom: previousWonTeam,
+                                lostTo:"",
+                                lostIn:0,
+                                calculatedRound:toBeCalculatedRound,
+                                agreement:agreementDetails
+                              });
+                              newTeam.save(function(err){
+                                if(err){
+                                  console.log("Error in saving 2"+err);
+                                }
+                              });
+                        }
+                      });
+                    }
+
+
+                  });
+              });
 
             callback();
           }
@@ -558,4 +690,14 @@ function deleteCurrRoundCustomers(toBeCalculatedRound){
  });
   //console.log("--Completed Delete Functionality--"+result);
   return result;
+}
+
+function initializeAgreement(newPremium,newPremiumPct){
+
+  var agreement={};
+  agreement['premium']=newPremium;
+  agreement['premiumPercentage']=newPremiumPct;
+  agreement['riskStrategyId']=1;
+  agreement['status']="Active";
+  return agreement;
 }

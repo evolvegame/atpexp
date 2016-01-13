@@ -126,7 +126,23 @@ angular.module('atpexpApp')
 		          }
 		        },
 	});
-});
+})
+
+
+//ranking related services
+.factory('Ranking', function($resource){
+	return $resource('/api/team/:previousRoundNumber/:controller',{
+		previousRoundNumber: '@previousRoundNumber'
+	},{
+		getAllTeamRankings: {
+	          method: 'GET',
+	          params: {
+	        	  controller:'getAllTeamRankings'
+	          },
+	          isArray: true
+	 },
+	});
+})
 
 
 

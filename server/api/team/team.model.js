@@ -28,7 +28,7 @@ var TeamSchema = mongoose.Schema({
   totalExpense: Number,
   rankingPosition: Number,
   roundLevelInformation: [{
-    roundNumber: Number,
+    round: Number,
     capital: Number,
     premium: Number,
     claims: Number,
@@ -44,8 +44,10 @@ var TeamSchema = mongoose.Schema({
     facilities: Number,
     totalExpense: Number,
     rankingPosition: Number,
+    countryLevelRankingPosition: Number,
     experienceScoreAmount: Number,
     experienceScoreRankingPosition: Number,
+    CountryLevelExperienceScoreRankingPosition: Number,
     customers:Number,
     project: [{
     	type: Schema.ObjectId,

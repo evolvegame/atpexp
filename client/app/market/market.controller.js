@@ -358,7 +358,7 @@ angular.module('atpexpApp')
         $scope.showPriceValidation=true;
         $scope.errorTextPriceValiation=$scope.priceValidationmsg;
         
-      }else if($scope.selected.price <selectedCustomer.turnover*0.2){
+      }else if($scope.selected.price <selectedCustomer.turnover*0.1){
        $scope.showAvgPriceValidation=true;        
      }      
 

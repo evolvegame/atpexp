@@ -112,7 +112,7 @@ angular.module('atpexpApp')
 	};
 
 
-	//translation on load 
+	/*//translation on load 
 	$scope.strategyNameMsg = $translate.instant('risk.addNewStrategy.strategyNameMsg');
 
 	//translation on language change
@@ -121,7 +121,7 @@ angular.module('atpexpApp')
 		$scope.strategyNameMsg = $translate.instant('risk.addNewStrategy.strategyNameMsg');
 		
 
-	});
+	});*/
 	
 	$scope.showCreateNewRiskStrategy = function() {
 		$scope.newRiskStrategy = {
@@ -179,11 +179,9 @@ angular.module('atpexpApp')
 		$scope.ind = industries;
 	});
 
-	function closeModal () {
-		$scope.selected = selectedRiskStrategy;
-		$modalInstance.dismiss('close');
-		refresh();
-	}
+	$scope.closeModal = function () {
+	      $modalInstance.dismiss('close');
+	};
 
 	function refresh(){
 		$http.get('/api/team/me').success( function (team){
@@ -202,6 +200,38 @@ angular.module('atpexpApp')
 		$scope.selected.strategyRatingBand3 = $scope.selected.ratingBand[3];
 		$scope.selected.strategyRatingBand4 = $scope.selected.ratingBand[4];
 		$scope.selected.strategyRatingBand5 = $scope.selected.ratingBand[5];
+		
+		$scope.showModifyStrategyNameRequiredError = false;
+		$scope.showModifyRatingBandRequiredError = false;
+		$scope.showModifyRatingBandRangeError = false;
+		$scope.showModifyBuyerCountryError = false;
+		$scope.showModifyBuyerIndustryError = false;
+		
+		if (typeof($scope.selected.strategyName)==='undefined'){
+			$scope.showModifyStrategyNameRequiredError = true;
+			return;
+		} else if (typeof($scope.selected.strategyRatingBand1)==='undefined' 
+			|| typeof($scope.selected.strategyRatingBand2)==='undefined' 
+			|| typeof($scope.selected.strategyRatingBand3)==='undefined' 
+			|| typeof($scope.selected.strategyRatingBand4)==='undefined' 
+			|| typeof($scope.selected.strategyRatingBand5)==='undefined') {
+			$scope.showModifyRatingBandRequiredError = true;
+			return;
+		} else if ($scope.selected.strategyRatingBand1 <1 || $scope.selected.strategyRatingBand1 > 100
+				|| $scope.selected.strategyRatingBand2 <1 || $scope.selected.strategyRatingBand2 > 100
+				|| $scope.selected.strategyRatingBand3 <1 || $scope.selected.strategyRatingBand3 > 100
+				|| $scope.selected.strategyRatingBand4 <1 || $scope.selected.strategyRatingBand4 > 100
+				|| $scope.selected.strategyRatingBand5 <1 || $scope.selected.strategyRatingBand5 > 100) {
+			$scope.showModifyRatingBandRangeError = true;
+			return;
+		} else if (typeof($scope.selected.buyerCountry) == 'undefined') {
+			$scope.showModifyBuyerCountryError = true;
+			return;
+		} else if (typeof($scope.selected.buyerIndustry) == 'undefined' ){
+			$scope.showModifyBuyerIndustryError = true;
+			return;
+		}
+		
 		var riskStrategy = {
 				toBeDeletedId: $scope.selected._id,
 				round: $scope.selected.round,
@@ -284,8 +314,7 @@ angular.module('atpexpApp')
 				});
 //				refresh();
 				toastr.success($scope.selected.strategyName +  $scope.createSuccMsg1,  $scope.createSuccMsg2);
-				closeModal();
-			}
+				$modalInstance.dismiss('close');			}
 		})
 
 
@@ -315,10 +344,9 @@ angular.module('atpexpApp')
 		$scope.ind = industries;
 	});
 
-	function closeModal () {
-		$modalInstance.dismiss('close');
-		refresh();
-	}
+	$scope.closeModal = function () {
+	      $modalInstance.dismiss('close');
+	};
 
 	function refresh(){
 		$http.get('/api/team/me').success( function (team){
@@ -336,7 +364,38 @@ angular.module('atpexpApp')
 		$scope.newRiskStrategy.strategyRatingBand3 = $scope.newRiskStrategy.ratingBand[3];
 		$scope.newRiskStrategy.strategyRatingBand4 = $scope.newRiskStrategy.ratingBand[4];
 		$scope.newRiskStrategy.strategyRatingBand5 = $scope.newRiskStrategy.ratingBand[5];
-
+		
+		$scope.showStrategyNameRequiredError = false;
+		$scope.showRatingBandRequiredError = false;
+		$scope.showRatingBandRangeError = false;
+		$scope.showBuyerCountryError = false;
+		$scope.showBuyerIndustryError = false;
+		
+		if (typeof($scope.newRiskStrategy.strategyName)==='undefined'){
+			$scope.showStrategyNameRequiredError = true;
+			return;
+		} else if (typeof($scope.newRiskStrategy.strategyRatingBand1)==='undefined' 
+			|| typeof($scope.newRiskStrategy.strategyRatingBand2)==='undefined' 
+			|| typeof($scope.newRiskStrategy.strategyRatingBand3)==='undefined' 
+			|| typeof($scope.newRiskStrategy.strategyRatingBand4)==='undefined' 
+			|| typeof($scope.newRiskStrategy.strategyRatingBand5)==='undefined') {
+			$scope.showRatingBandRequiredError = true;
+			return;
+		} else if ($scope.newRiskStrategy.strategyRatingBand1 <1 || $scope.newRiskStrategy.strategyRatingBand1 > 100
+				|| $scope.newRiskStrategy.strategyRatingBand2 <1 || $scope.newRiskStrategy.strategyRatingBand2 > 100
+				|| $scope.newRiskStrategy.strategyRatingBand3 <1 || $scope.newRiskStrategy.strategyRatingBand3 > 100
+				|| $scope.newRiskStrategy.strategyRatingBand4 <1 || $scope.newRiskStrategy.strategyRatingBand4 > 100
+				|| $scope.newRiskStrategy.strategyRatingBand5 <1 || $scope.newRiskStrategy.strategyRatingBand5 > 100) {
+			$scope.showRatingBandRangeError = true;
+			return;
+		} else if (typeof($scope.newRiskStrategy.buyerCountry) == 'undefined') {
+			$scope.showBuyerCountryError = true;
+			return;
+		} else if (typeof($scope.newRiskStrategy.buyerIndustry) == 'undefined' ){
+			$scope.showBuyerIndustryError = true;
+			return;
+		}
+		
 		var riskStrategy = {
 				round: 1,
 				strategyName: $scope.newRiskStrategy.strategyName,
@@ -395,7 +454,7 @@ angular.module('atpexpApp')
 			Risk.addRisk(riskStrategy);
 			refresh();
 			toastr.success($scope.newRiskStrategy.strategyName +  $scope.createSuccMsg1,   $scope.createSuccMsg2 );
-			closeModal();
+			$modalInstance.dismiss('close');
 		}		
 	};
 

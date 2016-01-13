@@ -187,11 +187,14 @@
 	"risk.addNewStrategy.title":"UW Settings",
 	"risk.addNewStrategy.name":"Strategy Name",
 	"risk.addNewStrategy.name.validationMsg":"Strategy Name is required.",
+	"risk.addNewStrategy.buyerCountry.validationMsg":"Country is required.",
+	"risk.addNewStrategy.buyerIndustry.validationMsg":"Industry is required.",
 	"risk.addNewStrategy.ratingBandSettings":"Rating Band Settings",
 	"risk.addNewStrategy.buyerRatings":"Buyer Ratings",
 	"risk.addNewStrategy.acceptancePercentage":"Acceptance percentage",
 	"risk.addNewStrategy.requiredMsg1":"Rating Band",
-	"risk.addNewStrategy.requiredMsg2":"is required",	
+	"risk.addNewStrategy.requiredMsg2":"is required",
+	"risk.addNewStrategy.ratingBand.range":"Rating bands should be between 1 to 100",	
 	"risk.addNewStrategy.country":"Country",
 	"risk.addNewStrategy.industry":"Industries",
 	"risk.addNewStrategy.Save":"Save",
@@ -199,9 +202,9 @@
 	"risk.addNewStrategy.strategyNameMsg":"Enter New Strategy Name",
 	"risk.addNewStrategy.succMsg1":" has been saved successfully",
 	"risk.addNewStrategy.succMsg2":"Strategy Saved!",
-	"risk.addNewStrategy.errMsg1":"There already exists a combination of",
-	"risk.addNewStrategy.errMsg2":"and",
-	"risk.addNewStrategy.errMsg3":"Duplicate Error",
+	"risk.addNewStrategy.errMsg1":"There already exists a combination of ",
+	"risk.addNewStrategy.errMsg2":" and ",
+	"risk.addNewStrategy.errMsg3":"Strategy Already Exists",
 	
 	
 	"bc.link":"Link"

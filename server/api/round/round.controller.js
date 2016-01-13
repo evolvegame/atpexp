@@ -131,14 +131,10 @@ exports.calculateRound = function(req, res) {
 
         function(callback){
           Teams.find({role: 'user',customer: {$elemMatch:{calculatedRound:toBeCalculatedRound}}}).exec(function(err,teams){
-            console.log(err);
             if(err){
-                  callback(null,"None to delete");
-                  console.log("No values to delete");
+                  callback(err,null);
             }else{
-                  console.log("i am here 2");
                   if(teams!=null && !(teams===undefined) && teams.length>0){
-                    console.log("i am here 3");
                     for(var i=0; i<teams.length; i++){
                       var teamId = teams[i]._id;
                       Teams.findById(teamId,function(err,team){
@@ -182,7 +178,6 @@ exports.calculateRound = function(req, res) {
                for(var i=0;i<allCustomers.length;i++){
                  var customer = allCustomers[i];
                  var customerName = customer.name;
-                 console.log(customerName);
                  var minOfferScore = customer.minOfferScore;
                  var customerAllocDetails={};
 
@@ -207,10 +202,8 @@ exports.calculateRound = function(req, res) {
         });
       },
       function(callback){
-
             var expScores=[];
             var teamCalcJSON={};
-
             async.forEach(allTeams,function(team,callback){
               var _1_teamName = team.name;
               var expScoreAmtJSON={};
@@ -250,10 +243,10 @@ exports.calculateRound = function(req, res) {
               teamCalcJSON[_1_teamName]=expScoreAmtJSON;
             });
 
-            console.log(teamCalcJSON);
+            //console.log("teamCalcJSON"+teamCalcJSON);
 
             var rankJSON = expScoreRanking(expScores);
-            console.log(rankJSON);
+            //console.log("rankJSON"+rankJSON);
             var scorePoint = expScorePointCalculation(rankJSON);
 
             var offerGroupJSON={};
@@ -262,7 +255,6 @@ exports.calculateRound = function(req, res) {
                 var _2_teamName = team.name;
                 var teamId = team._id;
                 var teamPoints = teamCalcJSON[_2_teamName].Points;
-                //console.log(teamPoints);
                 var expScorePoint = scorePoint[teamPoints];
                 console.log("expScorePoint for "+_2_teamName+" is ="+expScorePoint)
                 var offerArr = team.offer;
@@ -292,7 +284,6 @@ exports.calculateRound = function(req, res) {
                       if(currOffer.marketBusinessName!=null &&
                             !(currOffer.marketBusinessName===undefined)){
                         businessName=currOffer.marketBusinessName;
-                        console.log(businessName);
                       }
                       var offerScore=0;
                       if(roundPremium>0){
@@ -557,7 +548,6 @@ function validateRound(currentRound,callback){
             console.log("I am here 1");
             callback(new Error("error"));
           }else{
-             console.log("I am here skdfakjsfh"+round);
              callback(null,round);
           }
         }
@@ -591,6 +581,7 @@ function expScoreRanking(expScores) {
 }
 
 function expScorePointCalculation(expScores){
+  console.log(expScores);
     var returnJSON={};
     var arrVal=[];
     for(key in expScores){

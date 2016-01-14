@@ -8,7 +8,7 @@ var TeamSchema = mongoose.Schema({
   name: String,
   provider: String,
   role: { type: String, default: 'user' },
-  members: [{ name: String, email: { type: String, lowercase: true }, hashedPassword: String,  salt: String } ],
+  members: [{ name: String, email: { type: String, lowercase: true,unique:true }, hashedPassword: String,  salt: String } ],
   representingUnit: String,
   slogan: String,
   picture: String,

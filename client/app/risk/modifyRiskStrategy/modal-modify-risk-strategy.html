@@ -12,7 +12,7 @@
 	                <label style="text-align:center;">{{'risk.addNewStrategy.name'|translate}}</label>
 	            </div>
 				<div class="col-md-4">
-					<input name="strategyName" style="width:300px;" type="text" class="form-control" ng-model="selected.strategyName" required="required" placeholder="Enter a strategy Name"/>
+					<input name="strategyName" style="width:300px;" type="text" class="form-control" ng-model="selected.strategyName" required="required" placeholder="Enter a strategy Name" maxlength="30"/>
 						<span style="color: red" ng-show="modificationForm.strategyName.$dirty && modificationForm.strategyName.$invalid">
 							<span ng-show="modificationForm.strategyName.$error.required">
 								{{'risk.addNewStrategy.name.validationMsg'|translate}}

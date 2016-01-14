@@ -482,13 +482,7 @@ exports.roundLevelInformation = function(req, res, next) {
 
 exports.getAllTeamRankings = function(req, res, next) {
 	var previousRoundNumber = req.params.previousRoundNumber;
-	var index;
-	
-	if(previousRoundNumber == 0){
-		index = 0;
-	} else {
-		index = previousRoundNumber - 1;
-	}
+
 	
 	Team.find(function (err, teams) {
 	   if(err) return res.send(500, err);
@@ -497,23 +491,33 @@ exports.getAllTeamRankings = function(req, res, next) {
 	   allTeams.map = function() {
 		   emit(this, {_id: this._id, teamName: this.name, teamCountry: this.teamCountry, roundLevelInformation: this.roundLevelInformation});
 	   }
+
 	   
 	   Team.mapReduce(allTeams, function(err, data){
 		   var rankingTeams = new Array(data.length);
 		   for (var i = 0; i < data.length; i ++) {
+			   var roundLevelInformation;
+			   for(var j = 0; j < data[i].value.roundLevelInformation.length; j++) {
+				   if (data[i].value.roundLevelInformation[j].round == previousRoundNumber) {
+					   roundLevelInformation = data[i].value.roundLevelInformation[j];
+					   break;
+				   }
+			   }
+			   
 			   rankingTeams[i]= {
 				   _id: data[i].value._id,
 				   teamName: data[i].value.teamName,
 				   teamCountry: data[i].value.teamCountry,
-				   capital: data[i].value.roundLevelInformation.length > index ? data[i].value.roundLevelInformation[index].capital : null,
-				   rankingPosition: data[i].value.roundLevelInformation.length > index ? data[i].value.roundLevelInformation[index].rankingPosition : null,
-				   experienceScore: data[i].value.roundLevelInformation.length > index ? data[i].value.roundLevelInformation[index].experienceScore : null,
-				   experienceScoreRankingPosition: data[i].value.roundLevelInformation.length > index ? data[i].value.roundLevelInformation[index].experienceScoreRankingPosition : null,
-				   countryLevelRankingPosition: data[i].value.roundLevelInformation.length > index ? data[i].value.roundLevelInformation[index].countryLevelRankingPosition : null,
-				   CountryLevelExperienceScoreRankingPosition: data[i].value.roundLevelInformation.length > index ? data[i].value.roundLevelInformation[index].CountryLevelExperienceScoreRankingPosition : null		   
+				   capital: typeof(roundLevelInformation) == 'undefined' ? null : roundLevelInformation.capital,
+				   rankingPosition: typeof(roundLevelInformation) == 'undefined' ? null : roundLevelInformation.rankingPosition,
+				   experienceScore: typeof(roundLevelInformation) == 'undefined' ? null : roundLevelInformation.experienceScore,
+				   experienceScoreRankingPosition: typeof(roundLevelInformation) == 'undefined' ? null : roundLevelInformation.experienceScoreRankingPosition,
+				   countryLevelRankingPosition: typeof(roundLevelInformation) == 'undefined' ? null : roundLevelInformation.countryLevelRankingPosition,
+				   CountryLevelExperienceScoreRankingPosition: typeof(roundLevelInformation) == 'undefined' ? null : roundLevelInformation.CountryLevelExperienceScoreRankingPosition		   
 				   
 			   };
 		   }
+		   
 		   return res.json(rankingTeams);
 	   });
 	   

@@ -170,7 +170,7 @@ angular.module('atpexpApp')
 					console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
 					refreshAvatar();
 				}, function (resp) {
-					toastr.success ($scope.successMsgErr+resp.status);
+					toastr.error ($scope.successMsgErr+resp.status);
 					console.log('Error status: ' + resp.status);
 				}, function (evt) {
 					var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);

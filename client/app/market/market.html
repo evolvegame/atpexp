@@ -63,7 +63,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="cust in customers">
+                                <tr ng-repeat="cust in customers | filter: { offerFound : '!true' }">
                                     <td>{{ cust.name }}</td>
                                     <td>{{ cust.country }}</td>
                                     <td>{{ cust.region }}</td>
@@ -93,50 +93,61 @@
 
 </tab>
 <tab heading={{'market.tab3.title'|translate}}>
-<div class="tab-container">
-    <br>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default" style="background-color:#f9f9f9">
+<div class="row">
+    <div class="col-md-12">    
+        <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">{{'market.tab3.title'|translate}}</h3>
+                    <h3 class="panel-title">{{'market.tab2.default'|translate}}</h3>
                     <ul class="panel-controls">
-                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
-                        <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                        <li><a href="#" ng-click="isCollapsedCustomer = !isCollapsedCustomer" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                       <li><a href="#" ng-click="refreshCustomer()" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
                     </ul>
                 </div>
-                <div class="panel-body">
-                    <div class="table-responsive">
+            
+                <div class="panel-body" collapse="isCollapsedCustomer">
+                <div class="table-responsive">
                         <table datatable="ng" class="table datatable hover">
                             <thead>
                                 <tr>
-                                    <th>{{'market.tab3.customer'|translate}}</th>
-                                    <th>{{'market.tab3.avgAcceptanceRate'|translate}}</th>
-                                    <th>{{'market.tab3.price'|translate}}</th>
-                                    <th>{{'market.tab3.serviceScore'|translate}}</th>
-                                    <!-- <th>Improve Offer</th>
-                                    <th>Delete Offer</th>
-                                    <th>object</th> -->
+                                    <th>{{'market.tab2.name'|translate}}</th>
+                                    <th>{{'market.tab2.country'|translate}}</th>
+                                    <th>{{'market.tab2.region'|translate}}</th>
+                                    <th>{{'market.tab2.industry'|translate}}</th>
+                                    <th>{{'market.tab2.buyerSegment'|translate}} 1</th>
+                                    <th>{{'market.tab2.buyerSegment'|translate}} 2</th>
+                                    <th>{{'market.tab2.buyerSegment'|translate}} 3</th>
+                                    <th>{{'market.tab2.offer'|translate}}</th>                                    
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="offer in team.offer">
-                                    <td>{{ offer.marketBusinessName }}</td>
-                                    <td>{{ offer.avgAr }}</td>
-                                    <td>{{ offer.price }}</td>
-                                    <td>{{ offer.serviceScore }}</td>
-                               <!--      <td><button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showOffer(offer); improveOffer()">Improve Offer</button></td>
-                                    <td><button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showOffer(offer); deleteOffer(offer)">Delete Offer</button></td>
-                                    <td>{{offer._id}}</td> -->
+                                <tr ng-repeat="cust in customers | filter:{offerFound:true}">
+                                    <td>{{ cust.name }}</td>
+                                    <td>{{ cust.country }}</td>
+                                    <td>{{ cust.region }}</td>
+                                    <td>{{ cust.industry }}</td>
+                                    <td>{{ cust.buyerPortfolio[0].country }} - {{ cust.buyerPortfolio[0].industry }}</td>
+                                    <td>{{ cust.buyerPortfolio[1].country }} - {{ cust.buyerPortfolio[1].industry }}</td>
+                                    <td>{{ cust.buyerPortfolio[2].country }} - {{ cust.buyerPortfolio[2].industry }}</td>
+                                    <td ng-if="!cust.offerFound"><button type="button" 
+                                        class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust); open()">
+                                       {{'market.tab2.makeOffer'|translate}}</button></td>
+                                    <td ng-if="cust.offerFound"><button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust); modify()">{{'market.tab2.modifyOffer'|translate}}</button>
+                                    <button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="deleteOffer(cust.offerId)">{{'market.tab2.deleteOffer'|translate}}</button></td>                                    
+
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div>    
+
+                <div class="panel-footer" collapse="isCollapsedCustomer"> </div>
             </div>
-        </div>
-    </div>
-</div>
+        </div> 
+
+</div> 
+
+</div>            
+
 </tab>
 </tabset>
 

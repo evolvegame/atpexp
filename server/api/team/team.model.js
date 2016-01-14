@@ -44,8 +44,10 @@ var TeamSchema = mongoose.Schema({
     facilities: Number,
     totalExpense: Number,
     rankingPosition: Number,
+    countryLevelRankingPosition: Number,
     experienceScoreAmount: Number,
     experienceScoreRankingPosition: Number,
+    CountryLevelExperienceScoreRankingPosition: Number,
     customers:Number,
     project: [{
     	type: Schema.ObjectId,

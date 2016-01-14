@@ -23,6 +23,7 @@ router.put('/:round/:marketBusinessName/:price/:cld/offer', auth.isAuthenticated
 router.put('/:id/:round/:marketBusinessName/:price/:cld/modifyOffer', auth.isAuthenticated(), controller.modifyOffer);
 router.put('/:id/deleteOffer', auth.isAuthenticated(), controller.deleteOffer);
 router.post('/', controller.create);
+router.get('/:previousRoundNumber/getAllTeamRankings', controller.getAllTeamRankings);
 router.get('/:id/roundLevelInformation', auth.isAuthenticated(), controller.roundLevelInformation);
 router.get('/:id/miniDashboardInfo', auth.isAuthenticated(), controller.miniDashboardInfo);
 module.exports = router;

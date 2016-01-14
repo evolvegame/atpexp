@@ -481,8 +481,9 @@ exports.roundLevelInformation = function(req, res, next) {
 };
 
 exports.getAllTeamRankings = function(req, res, next) {
-	var previousRoundNumber = req.params.previousRoundNumber;
+	var previousRoundNumber = req.params.previousRoundNumber == 0 ? 1 : req.params.previousRoundNumber;
 
+	console.log('previousRoundNumber -- ' + previousRoundNumber);
 	
 	Team.find(function (err, teams) {
 	   if(err) return res.send(500, err);

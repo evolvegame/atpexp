@@ -141,7 +141,7 @@
 								<b>{{'ranking.tab1.title'|translate}} </b>({{loggedInTeamName}} : {{'ranking.no.ranking.round.1' | translate}})<br><br>
 							</div>
 							<div ng-switch-default>
-								<b>{{'ranking.tab1.title'|translate}} </b>({{loggedInTeamName}} : {{loggedInTeamRankForPreviousRound}})<br><br>
+								<b>{{'ranking.tab1.title'|translate}} </b>({{loggedInTeamName}} : {{countryLevelTeamRankForPreviousRound}})<br><br>
 							</div>                 	
                         </div>
                         <div collapse="isCollapsedCountryLevelCapital">
@@ -189,10 +189,10 @@
             		</ul>
                         <div ng-switch on="previousRound">
                         	<div ng-switch-when="0">
-								<b>{{'ranking.tab1.title'|translate}} </b>({{loggedInTeamName}} : {{'ranking.no.ranking.round.1' | translate}})<br><br>
+								<b>{{'ranking.tab.xpScoreRanking'|translate}} </b>({{loggedInTeamName}} : {{'ranking.no.ranking.round.1' | translate}})<br><br>
 							</div>
 							<div ng-switch-default>
-								<b>{{'ranking.tab1.title'|translate}} </b>({{loggedInTeamName}} : {{loggedInTeamRankForPreviousRound}})<br><br>
+								<b>{{'ranking.tab.xpScoreRanking'|translate}} </b>({{loggedInTeamName}} : {{countryLevelTeamExpScoreRankForPreviousRound}})<br><br>
 							</div>                 	
                         </div>
                         <div collapse="isCollapsedCountryLevelExpScore">

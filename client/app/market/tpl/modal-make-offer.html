@@ -14,7 +14,7 @@
                     <p style="margin-top:2px;line-height:14px;">{{selected.country}}<small style="color:#bbb"><br>({{ selected.industry }} {{'market.tpl.sector'|translate}})</small></p>
                 </div>
                 <div class="col-md-4">
-                    <span class="label label-warning label-form"><span class="fa fa-cogs"></span>{{selected.experienceScoreNeeded}}</span>
+                    <span class="label label-warning label-form"><span class="fa fa-flash"></span>&nbsp{{selected.experienceScoreNeeded}}</span>
                     <p style="line-height:14px;margin-top:10px;">{{'market.tpl.serviceNeed'|translate}}</p>
                 </div>
                 <div class="col-md-4">
@@ -34,7 +34,7 @@
                 <p style="font-size:12px;"><img ng-src="assets/img/flags/{{buyer.countryCode }}.png" width="12" height="12" style="margin-bottom:4px">
                     {{buyer.country}}</p>
 
-                    <p><span class="{{getRatingWeatherIcon(buyer.rating)}}" style="font-size: 32px;line-height: 54px;"></span></p>
+                    <p><span class="{{getRatingWeatherIcon(buyer.rating)}}" style="font-size: 20px;line-height: 54px;"></span></p>
                     <p style="font-size:12px"><span class="fa fa-globe" style="font-size: 12px;line-height: 18px;"></span> {{ buyer.industry }}</p>
                     <p style="font-size:12px;"> {{'market.tpl.averageBuyerRating'|translate}}</p>
 
@@ -87,7 +87,7 @@
         <div class="col-md-6 as-col-md-6" style="padding-right:15px">
             <span href="#" class="tile tile-default" style="height:130px;">
                 <div style="font-size:12px;"><h6>{{'market.tpl.service'|translate}}</h6></div>
-                <span class="label label-warning label-form"><span class="fa fa-flash"></span> {{team.experienceScore}} </span> 
+                <span class="label label-warning label-form"><span class="fa fa-flash"></span> &nbsp{{team.experienceScore}} </span> 
                 <p style="line-height:14px;margin-top:10px;padding-right:40px;padding-left:40px;">{{'market.tpl.xpScore'|translate}}<small style="color:#bbb"><br>{{'market.tpl.xpScore.msg'|translate}} {{ selected.name }}.</small></p>
             </span>
         </div>

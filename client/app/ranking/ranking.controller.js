@@ -9,7 +9,7 @@ angular.module('atpexpApp')
 		$rootScope.getCurrentTeam = Auth.getCurrentTeam;      
 		$rootScope.loggedInTeam =  $rootScope.getCurrentTeam().teamCountry;
 		$rootScope.loggedInTeamName =  $rootScope.getCurrentTeam().name;
-		Team.roundLevelInformation({id: $rootScope.previousRound}).$promise.then(function(previousRoundLevelInformatiom){
+		Team.roundLevelInformation({id: ($rootScope.previousRound == 0 ? 1 : $rootScope.previousRound)}).$promise.then(function(previousRoundLevelInformatiom){
 			$rootScope.loggedInTeamRankForPreviousRound = previousRoundLevelInformatiom.roundLevelInformation[0].rankingPosition;
 			$rootScope.loggedInTeamExpScoreRankForPreviousRound = previousRoundLevelInformatiom.roundLevelInformation[0].experienceScoreRankingPosition; 
 			$rootScope.countryLevelTeamRankForPreviousRound = previousRoundLevelInformatiom.roundLevelInformation[0].countryLevelRankingPosition;

@@ -36,25 +36,10 @@ Team.find({}).remove(function() {
                   {name :'User7',email: 'user7@atradius.com'}
                 ],
                 offer:[
-                  { "round" : 1,
-                   "marketBusinessName" : "Ajo",
-                   "price" : 1000000,
-                   "cld":15000,
-                   "premium": 50000,
-                   "premiumPercentage": 100 ,
-                   "offerScore":0
-                 },
-                 { "round" : 1,
-                  "marketBusinessName" : "Bope",
-                  "price" : 1000000,
-                  "cld":15000,
-                  "premium": 300,
-                  "premiumPercentage": 100 ,
-                  "offerScore":0
-                }
+                  
                 ],
                 roundLevelInformation: [{
-                    roundNumber: 1,
+                    round: 1,
                     capital: 0,
                     premium: 0,
                     claims: 0,
@@ -106,7 +91,7 @@ Team.find({}).remove(function() {
                   "offerScore":0
                 }],
                 roundLevelInformation: [{
-                    roundNumber: 1,
+                    round: 1,
                     capital: 0,
                     premium: 0,
                     claims: 0,
@@ -158,7 +143,7 @@ Team.find({}).remove(function() {
                   }
                   ],
                   roundLevelInformation: [{
-                	    roundNumber: 1,
+                	    round: 1,
                 	    capital: 0,
                 	    premium: 0,
                 	    claims: 0,
@@ -209,7 +194,7 @@ Team.find({}).remove(function() {
           }
           ],
           roundLevelInformation: [{
-        	    roundNumber: 1,
+        	    round: 1,
         	    capital: 0,
         	    premium: 0,
         	    claims: 0,
@@ -253,7 +238,7 @@ Team.find({}).remove(function() {
           }
           ],
           roundLevelInformation: [{
-        	    roundNumber: 1,
+        	    round: 1,
         	    capital: 0,
         	    premium: 0,
         	    claims: 0,
@@ -304,7 +289,7 @@ Team.find({}).remove(function() {
           }
           ],
           roundLevelInformation: [{
-        	    roundNumber: 1,
+        	    round: 1,
         	    capital: 0,
         	    premium: 0,
         	    claims: 0,
@@ -356,7 +341,7 @@ Team.find({}).remove(function() {
           }
           ],
           roundLevelInformation: [{
-        	    roundNumber: 1,
+        	    round: 1,
         	    capital: 0,
         	    premium: 0,
         	    claims: 0,
@@ -407,7 +392,7 @@ Team.find({}).remove(function() {
           }
           ],
           roundLevelInformation: [{
-        	    roundNumber: 1,
+        	    round: 1,
         	    capital: 0,
         	    premium: 0,
         	    claims: 0,
@@ -458,7 +443,7 @@ Team.find({}).remove(function() {
           }
         ],
           roundLevelInformation: [{
-        	    roundNumber: 1,
+        	    round: 1,
         	    capital: 0,
         	    premium: 0,
         	    claims: 0,
@@ -509,7 +494,7 @@ Team.find({}).remove(function() {
           }
           ],
           roundLevelInformation: [{
-        	    roundNumber: 1,
+        	    round: 1,
         	    capital: 0,
         	    premium: 0,
         	    claims: 0,
@@ -545,22 +530,7 @@ Team.find({}).remove(function() {
                     {name :'Prajakta',email: 'prajakta@atradius.com'}
                     ],
           offer:[
-                    { "round" : 1,
-                     "marketBusinessName" : "Ajo",
-                     "price" : 1000000,
-                     "cld":80000,
-                     "premium": 900000,
-                     "premiumPercentage": 90 ,
-                     "offerScore":0
-                   },{ "round" : 1,
-                    "marketBusinessName" : "Bope",
-                    "price" : 1000000,
-                    "cld":1200000,
-                    "premium": 34000,
-                    "premiumPercentage": 100 ,
-                    "offerScore":0
-                  }
-                ],
+                     ],
           roundLevelInformation: [{
         	    round: 1,
         	    capital: 4,
@@ -1271,7 +1241,7 @@ Industry.find({}).remove(function() {
         {    sno: '5',   industry : 'Consumer Durables'},
         {     sno: '6',    industry : 'Electronics'
         },
-        {    sno: '7',    industry: 'Finances' },
+        {    sno: '7',    industry: 'Finance' },
         {    sno: '8',   industry : 'Food'},
         {     sno: '9',    industry : 'Machines'
         },
@@ -1302,7 +1272,7 @@ Country.find({}).remove(function() {
         {    sno: '4',  region: 'Americas', country:'Brazil' },
         {    sno: '5',  region: 'Americas', country:'Colombia' },
         {    sno: '6',  region: 'Americas', country:'Peru' },
-        {    sno: '7',  region: 'Americas', country:'Chile' },
+        {    sno: '7',  region: 'Americas', country:'Chille' },
         {    sno: '8',  region: 'Asia', country:'China' },
         {    sno: '9',  region: 'Asia', country:'Hong Kong' },
         {    sno: '10',  region: 'Asia', country:'India' },
@@ -1332,7 +1302,8 @@ Country.find({}).remove(function() {
         {    sno: '34',  region: 'Western-Europe', country:'Austria' },
         {    sno: '35',  region: 'Western-Europe', country:'Germany' },
         {    sno: '36',  region: 'Western-Europe', country:'Switzerland' },
-        {    sno: '37',  region: 'Western-Europe', country:'Netherlands' }
+        {    sno: '37',  region: 'Western-Europe', country:'The Netherlands' },
+        {    sno: '38',  region: 'Western-Europe', country:'Argentina' }
         ,function() {
           console.log('** Finished populating Country');
         }

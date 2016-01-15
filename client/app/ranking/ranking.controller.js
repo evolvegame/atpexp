@@ -2,7 +2,7 @@
 
 angular.module('atpexpApp')
 
-  .controller('RankingCtrl', function ($scope, $rootScope, $http, Auth, Ranking, Round, Team) {
+  .controller('RankingCtrl', function ($scope, $rootScope, $http, Auth, Ranking, Round, Team, $window) {
     
 	Round.currentRound(function(round){
 		$rootScope.previousRound = round.round - 1;
@@ -27,6 +27,12 @@ angular.module('atpexpApp')
     		color = "red";
     	}
     	return color;
+    };
+    
+    $scope.clickTeamRow = function (teamName) {
+    	if (teamName == $scope.getCurrentTeam().name) {
+    		$window.location.href = "/";
+    	}
     };
     
   })

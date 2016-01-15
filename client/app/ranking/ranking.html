@@ -54,7 +54,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 <tr ng-repeat="team in rankingTeams | orderBy: 'rankingPosition'" style="color:{{fontStyle(team.teamName)}};">
+                                 <tr ng-repeat="team in rankingTeams | orderBy: 'rankingPosition'" style="color:{{fontStyle(team.teamName)}};" ng-click="clickTeamRow(team.teamName);">
                                    	<td>{{ team.rankingPosition }}</td>
                                     <td>{{ team.teamName }}</td>
                                     <td>{{ team.teamCountry }}</td>

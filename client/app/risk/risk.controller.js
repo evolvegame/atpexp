@@ -9,16 +9,7 @@ angular.module('atpexpApp')
 		$rootScope.strategies = $rootScope.team.riskStrategy; 
 	});
 
-	//delete strategy
-	$scope.delete = function (strategy) {
-		console.log('strategy--> ' + JSON.stringify(strategy));
-		var toBedeletedRiskStrategy = {toBeDeletedId:strategy._id};
-		var strategies;
-		Risk.deleteRisk(toBedeletedRiskStrategy).$promise.then(function(strategies){
-			console.log('Strategies back from server -- ' + JSON.stringify(strategies));
-			$rootScope.strategies = strategies;
-		});
-	};
+	
 
 	//get industry
 	$http.get('/api/industry').success(function (industries) {
@@ -88,6 +79,26 @@ angular.module('atpexpApp')
 			$scope.selected = selectedRiskStrategy;
 		});
 	};
+	
+	$scope.openDeleteRiskStrategyConfirmation = function () {
+		// open modal and load tpl
+		console.log('OPenind delete modal ---- ');
+		var modalInstance = $modal.open({
+			animation: $scope.animationsEnabled,
+			templateUrl: 'app/risk/modifyRiskStrategy/modal-confirm-delete.html',
+			controller: 'DeleteRiskModalInstanceCtrl',
+			resolve: {
+				selectedDeleteRiskStrategy: function () {
+					return $scope.selectedDelete;
+				}
+			}
+		});
+		
+		// add selected risk strategy to $scope.selected
+		modalInstance.result.then(function (selectedDeleteRiskStrategy) {
+			$scope.selectedDelete = selectedDeleteRiskStrategy;
+		});
+	};
 
 	$scope.openCreateNewRiskStrategy = function () {
 		// open modal and load tpl
@@ -109,6 +120,11 @@ angular.module('atpexpApp')
 
 	$scope.showModifyRiskStrategy = function(strategy) {
 		$scope.selected = strategy;
+	};
+	
+	$scope.showDeleteRiskStrategy = function(strategy) {
+		$scope.selectedDelete = strategy;
+		console.log('SDelectywed foe delete --- ' + JSON.stringify($scope.selectedDelete));
 	};
 
 
@@ -318,6 +334,27 @@ angular.module('atpexpApp')
 		})
 
 
+	};
+})
+
+.controller('DeleteRiskModalInstanceCtrl', function ($http, $scope, $modalInstance, selectedDeleteRiskStrategy, Auth, toastr, Offer, $rootScope, Risk, $translate){
+	$scope.selectedDelete = selectedDeleteRiskStrategy;
+	console.log('in modal ctrle for delete strategy ---->>>>> ' + JSON.stringify(selectedDeleteRiskStrategy));
+	
+	//delete strategy
+	$scope.delete = function (strategy) {
+		console.log('strategy to be deleted..........................--> ' + JSON.stringify(strategy));
+		var toBedeletedRiskStrategy = {toBeDeletedId:strategy._id};
+		var strategies;
+		Risk.deleteRisk(toBedeletedRiskStrategy).$promise.then(function(strategies){
+			console.log('Strategies back from server -- ' + JSON.stringify(strategies));
+			$rootScope.strategies = strategies;
+		});
+		$modalInstance.dismiss('close');
+	};
+	
+	$scope.closeModal = function () {
+		$modalInstance.dismiss('close');
 	};
 })
 

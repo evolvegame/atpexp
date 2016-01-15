@@ -106,14 +106,10 @@ angular.module('atpexpApp')
       }
 
     Round.calculateRound({"roundId":round.round},teamAdmin,function(calculation){
+        if(calculation)toastr.success('Calculation completed successfully!!!');
         console.log("Successfully calculated"+calculation);
       },function(error){
-        if(error.status==403){
-          toastr.error('You are not authorized for this function. Please contact admin');
-        }
-        if(error.status==412){
-          toastr.error('This is not current round. Calculation can be initiated only for current round');
-        }
+          toastr.error(error.data.message);
       });
     };
 

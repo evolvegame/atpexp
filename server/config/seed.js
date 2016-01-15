@@ -29,6 +29,7 @@ Team.find({}).remove(function() {
         teamCountry: "USA",
         capital: 750,
         experienceScore: 50,
+        customer:[{}],
         members :[
                   {name :'User1',email: 'user1@atradius.com' },
                   {name :'User2',email: 'user2@atradius.com' },
@@ -67,6 +68,7 @@ Team.find({}).remove(function() {
         teamCountry: "USA",
         capital: 750,
         experienceScore: 50,
+        customer:[{}],
         members :[
                   {name :'User1',email: 'user1@atradius.com' },
                   {name :'User2',email: 'user2@atradius.com' },
@@ -119,6 +121,7 @@ Team.find({}).remove(function() {
           teamCountry: "USA",
           capital: 750,
           experienceScore: 50,
+          customer:[{}],
           members :[
                     {name :'User1',email: 'user1@atradius.com' },
                     {name :'User2',email: 'user2@atradius.com' },
@@ -170,6 +173,7 @@ Team.find({}).remove(function() {
           teamCountry: "NL",
           capital: 775,
           experienceScore: 60,
+          customer:[{}],
           members :[
                     {name :'User8',email: 'user8@atradius.com' },
                     {name :'User9',email: 'user9@atradius.com' },
@@ -221,6 +225,7 @@ Team.find({}).remove(function() {
           teamCountry: "NL",
           capital: 775,
           experienceScore: 60,
+          customer:[{}],
           members :[
                     {name :'User8',email: 'user8@atradius.com' },
                     {name :'User9',email: 'user9@atradius.com' },
@@ -265,6 +270,7 @@ Team.find({}).remove(function() {
           teamCountry: "NL",
           capital: 775,
           experienceScore: 60,
+          customer:[{}],
           members :[
                     {name :'User8',email: 'user8@atradius.com' },
                     {name :'User9',email: 'user9@atradius.com' },
@@ -339,7 +345,35 @@ Team.find({}).remove(function() {
             "premiumPercentage": 100 ,
             "offerScore":0
           }
-          ],
+          ],customer :
+           [ { businessName : "Bope",
+            	businessRevenue : "200000",
+            	businessCountry : "Germany",
+            	experiencescoreneeded: 50,
+            	wonRound : 0,
+            	lostTo : "",
+            	lostIn : 0,
+            	calculatedRound: 0,
+            	 agreement : { premium : 0, premiumPercentage : 0, riskStrategyId : 1, status : "Active" }
+          },{ businessName : "Calcent",
+            	businessRevenue : "200000",
+            	businessCountry : "Germany",
+            	experiencescoreneeded: 50,
+            	wonRound : 1,
+            	lostTo : "",
+            	lostIn : 0,
+            	calculatedRound: 1,
+            	 agreement : { premium : 0, premiumPercentage : 0, riskStrategyId : 1, status : "Active" }
+          },,{ businessName : "Bope",
+            	businessRevenue : "200000",
+            	businessCountry : "Germany",
+            	experiencescoreneeded: 50,
+            	wonRound : 1,
+            	lostTo : "",
+            	lostIn : 0,
+            	calculatedRound: 1,
+            	 agreement : { premium : 0, premiumPercentage : 0, riskStrategyId : 1, status : "Active" }
+          }],
           roundLevelInformation: [{
         	    round: 1,
         	    capital: 0,
@@ -368,6 +402,17 @@ Team.find({}).remove(function() {
           teamCountry: "NL",
           capital: 775,
           experienceScore: 60,
+          customer :
+          [ { businessName : "Ajo",
+            	businessRevenue : "200000",
+            	businessCountry : "Germany",
+            	experiencescoreneeded: 50,
+            	wonRound : 1,
+            	lostTo : "",
+            	lostIn : 0,
+            	calculatedRound: 1,
+            	 agreement : { premium : 0, premiumPercentage : 0, riskStrategyId : 1, status : "Active" }
+          }],
           members :[
                     {name :'User8',email: 'user8@atradius.com' },
                     {name :'User9',email: 'user9@atradius.com' },
@@ -419,6 +464,7 @@ Team.find({}).remove(function() {
           teamCountry: "NL",
           capital: 775,
           experienceScore: 60,
+          customer:[{}],
           members :[
                     {name :'User8',email: 'user8@atradius.com' },
                     {name :'User9',email: 'user9@atradius.com' },
@@ -470,6 +516,7 @@ Team.find({}).remove(function() {
           teamCountry: "NL",
           capital: 775,
           experienceScore: 60,
+          customer:[{}],
           members :[
                     {name :'User8',email: 'user8@atradius.com' },
                     {name :'User9',email: 'user9@atradius.com' },
@@ -647,7 +694,7 @@ Team.find({}).remove(function() {
                                        ]
                                      },{
                                        provider: 'local',
-                                       password: 'Tester1' ,   
+                                       password: 'Tester1' ,
                                        name:'Team B',
                                        slogan:'We are awesome',
                                        picture:'evolve-avatar.png',
@@ -661,7 +708,7 @@ Team.find({}).remove(function() {
                                                  ]
                                      },{
                                          provider: 'local',
-                                         password: 'Tester1' ,   
+                                         password: 'Tester1' ,
                                          name:'Team Z',
                                          slogan:'Make it happen',
                                          picture:'evolve-avatar.png',
@@ -675,10 +722,10 @@ Team.find({}).remove(function() {
                                                    {name :'User11',email: 'user11@atradius.com'}
                                                    ],
                                          offer:[
-                                                 ]          
+                                                 ]
                                        },{
                                            provider: 'local',
-                                           password: 'Tester1' ,   
+                                           password: 'Tester1' ,
                                            name:'Team Y',
                                            slogan:'Make it happen',
                                            picture:'evolve-avatar.png',
@@ -692,10 +739,10 @@ Team.find({}).remove(function() {
                                                      {name :'User11',email: 'user11@atradius.com'}
                                                      ],
                                            offer:[
-                                                   ]          
+                                                   ]
                                          },{
                                              provider: 'local',
-                                             password: 'Tester1' ,   
+                                             password: 'Tester1' ,
                                              name:'Team X',
                                              slogan:'Make it happen',
                                              picture:'evolve-avatar.png',
@@ -709,10 +756,10 @@ Team.find({}).remove(function() {
                                                        {name :'User11',email: 'user11@atradius.com'}
                                                        ],
                                              offer:[
-                                                     ]          
+                                                     ]
                                            },{
                                                provider: 'local',
-                                               password: 'Tester1' ,   
+                                               password: 'Tester1' ,
                                                name:'Team W',
                                                slogan:'Make it happen',
                                                picture:'evolve-avatar.png',
@@ -726,10 +773,10 @@ Team.find({}).remove(function() {
                                                          {name :'User11',email: 'user11@atradius.com'}
                                                          ],
                                                offer:[
-                                                       ]          
+                                                       ]
                                              },{
                                                  provider: 'local',
-                                                 password: 'Tester1' ,   
+                                                 password: 'Tester1' ,
                                                  name:'Team V',
                                                  slogan:'Make it happen',
                                                  picture:'evolve-avatar.png',
@@ -743,10 +790,10 @@ Team.find({}).remove(function() {
                                                            {name :'User11',email: 'user11@atradius.com'}
                                                            ],
                                                  offer:[
-                                                         ]          
+                                                         ]
                                                },{
                                                    provider: 'local',
-                                                   password: 'Tester1' ,   
+                                                   password: 'Tester1' ,
                                                    name:'Team U',
                                                    slogan:'Make it happen',
                                                    picture:'evolve-avatar.png',
@@ -760,10 +807,10 @@ Team.find({}).remove(function() {
                                                              {name :'User11',email: 'user11@atradius.com'}
                                                              ],
                                                    offer:[
-                                                           ]          
+                                                           ]
                                                  },{
                                                      provider: 'local',
-                                                     password: 'Tester1' ,   
+                                                     password: 'Tester1' ,
                                                      name:'Team T',
                                                      slogan:'Make it happen',
                                                      picture:'evolve-avatar.png',
@@ -777,10 +824,10 @@ Team.find({}).remove(function() {
                                                                {name :'User11',email: 'user11@atradius.com'}
                                                                ],
                                                      offer:[
-                                                             ]          
+                                                             ]
                                                    },{
                                                        provider: 'local',
-                                                       password: 'Tester1' ,   
+                                                       password: 'Tester1' ,
                                                        name:'Team S',
                                                        slogan:'Make it happen',
                                                        picture:'evolve-avatar.png',
@@ -794,10 +841,10 @@ Team.find({}).remove(function() {
                                                                  {name :'User11',email: 'user11@atradius.com'}
                                                                  ],
                                                        offer:[
-                                                               ]          
+                                                               ]
                                                      },{
                                                          provider: 'local',
-                                                         password: 'Tester1' ,   
+                                                         password: 'Tester1' ,
                                                          name:'Team R',
                                                          slogan:'Make it happen',
                                                          picture:'evolve-avatar.png',
@@ -811,7 +858,7 @@ Team.find({}).remove(function() {
                                                                    {name :'User11',email: 'user11@atradius.com'}
                                                                    ],
                                                          offer:[
-                                                                 ]          
+                                                                 ]
                                                        }, function() {
 
                                      }, function() {

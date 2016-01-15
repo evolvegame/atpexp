@@ -79,7 +79,13 @@ var TeamSchema = mongoose.Schema({
     premiumPercentage: Number,
     cld:Number,
     offerScore:Number,
-    strategyId:Number
+      buyerPortfolio: [{
+      country:String,
+      industry:String,
+      buyerRating:Number,
+      cla:Number,
+      riskAcceptance:Number
+    }]
   }],
   customer: [{
     businessName: String,

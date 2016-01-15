@@ -43,7 +43,7 @@
                     <h3 class="panel-title">{{'market.tab2.default'|translate}}</h3>
                     <ul class="panel-controls">
                         <li><a href="#" ng-click="isCollapsedCustomer = !isCollapsedCustomer" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
-                       <li><a href="#" ng-click="refreshCustomer()" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                       <li><a href="#" ng-click="refreshMarketGlobal()" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
                     </ul>
                 </div>
             
@@ -77,7 +77,7 @@
                                         class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust); open()">
                                        {{'market.tab2.makeOffer'|translate}}</button></td>
                                     <td ng-if="cust.offerFound"><button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust); modify()">{{'market.tab2.modifyOffer'|translate}}</button>
-                                    <button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="deleteOffer(cust.offerId)">{{'market.tab2.deleteOffer'|translate}}</button></td>                                    
+                                    <button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust); deleteConfirmation()">{{'market.tab2.deleteOffer'|translate}}</button></td>                                    
 
                                 </tr>
                             </tbody>
@@ -102,7 +102,7 @@
                     <h3 class="panel-title">{{'market.tab2.default'|translate}}</h3>
                     <ul class="panel-controls">
                         <li><a href="#" ng-click="isCollapsedCustomer = !isCollapsedCustomer" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
-                       <li><a href="#" ng-click="refreshCustomer()" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                       <li><a href="#" ng-click="refreshMarketGlobal()" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
                     </ul>
                 </div>
             
@@ -136,7 +136,7 @@
                                         class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust); open()">
                                        {{'market.tab2.makeOffer'|translate}}</button></td>
                                     <td ng-if="cust.offerFound"><button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust); modify()">{{'market.tab2.modifyOffer'|translate}}</button>
-                                    <button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="deleteOffer(cust.offerId)">{{'market.tab2.deleteOffer'|translate}}</button></td>                                    
+                                    <button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust); deleteConfirmation()">{{'market.tab2.deleteOffer'|translate}}</button></td>                                    
 
                                 </tr>
                             </tbody>

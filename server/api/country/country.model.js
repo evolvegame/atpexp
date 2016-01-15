@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
 var CountrySchema = new Schema({
 	sno: String,
 	region:String,
-  country: String
+    country: String
  
 });
 

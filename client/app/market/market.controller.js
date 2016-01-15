@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('atpexpApp')
-.controller('MarketCtrl', function ($scope, $modal, $http, Customer, $rootScope, toastr,$translate, Round,Offer) {
+.controller('MarketCtrl', function ($scope, $modal, $http, Customer, $rootScope, toastr,$translate, Round,Offer,OfferCount) {
     // load selected customer in modal
     $scope.showCustomer = function(cust) {
       $scope.selected = cust;
@@ -46,6 +46,24 @@ angular.module('atpexpApp')
       });
     };
 
+    $scope.deleteConfirmation = function () {
+      // open modal and load tpl
+      var modalInstance = $modal.open({
+        animation: $scope.animationsEnabled,
+        templateUrl: 'app/market/tpl/modal-delete-offer-confirmation.html',
+        controller: 'DeleteOfferModalInstanceCtrl',
+        resolve: {
+          selectedCustomer: function () {
+            return $scope.selected;
+          }
+        }
+      });
+      // add selected customer to $scope.selected
+      modalInstance.result.then(function (selectedCustomer) {
+        $scope.selected = selectedCustomer;
+      });
+    };
+
     //code to get Current Round
     Round.currentRound(function (currentRound) {
       var currentRoundRecord = currentRound;
@@ -58,34 +76,39 @@ angular.module('atpexpApp')
     });
 
     //function to refresh Customers
-
-    function refreshMarketGlobal(){
-      Customer.customers.query().$promise.then(function (customers) {
+    $scope.refreshMarketGlobal =function(){
+      //console.log('refresh team:'+JSON.stringify($rootScope.team.offer.length));
+      Customer.customers.query().$promise.then(function (customers) {        
         for (var i = 0; i < customers.length ; i++) {
-          var obj = customers[i];                        
+          var obj = customers[i]; 
+          //console.log(JSON.stringify(customers[i]));                       
           for (var j = 0; j < $rootScope.team.offer.length; j++) {
+            //console.log("I am here 1");
             var offer = $rootScope.team.offer[j];                    
-            if (offer.marketBusinessName == obj.name && offer.round===$scope.currentRoundNumber) {
+            if (offer.marketBusinessName == obj.name) {
               obj.offerFound = true;
               obj.offerId=offer._id;
-              console.log('offer found:'+obj.name );
+              //console.log('offer found:'+obj.name );
               break;                
             }
           }                                  
 
         }
-
+         console.log("I am here 4" +customers);
         $rootScope.customers = customers;
       });
     }
 
+
+
+    
 
     Customer.customers.query().$promise.then(function (customers) {
       for (var i = 0; i < customers.length ; i++) {
         var obj = customers[i];                        
         for (var j = 0; j < $rootScope.team.offer.length; j++) {
           var offer = $rootScope.team.offer[j];                    
-          if (offer.marketBusinessName == obj.name && offer.round===$scope.currentRoundNumber) {
+          if (offer.marketBusinessName == obj.name) {
             obj.offerFound = true;
             obj.offerId=offer._id;
             obj.price=offer.price;
@@ -100,31 +123,85 @@ angular.module('atpexpApp')
     });
 
     //on load 
-    $scope.msg = $translate.instant('market.msg');
-    $scope.deleteOfferSuccessMsg1 = $translate.instant('market.global.deleteOfferSuccessMsg1');
+    $scope.msg = $translate.instant('market.msg');    
     //on language change
     $rootScope.$on('$translateChangeSuccess', function () {
 
-      $scope.msg = $translate.instant('market.msg');
-      $scope.deleteOfferSuccessMsg1 = $translate.instant('market.deleteOfferSuccessMsg1');
-
+      $scope.msg = $translate.instant('market.msg');      
     }); 
 
     
-  //delete Offer
-  $scope.deleteOffer = function (offerId) {
-    var offerId = {offerId:offerId};
-    Offer.deleteOffer(offerId).$promise.then(function(team){
-      toastr.success($scope.deleteOfferSuccessMsg1);
-      $rootScope.team=team;
-      refreshMarketGlobal();
-    });
-  };
+  
 
 
 })
 
-.controller('ModalInstanceCtrl', function ($scope, $modalInstance, selectedCustomer, toastr, Offer, $rootScope,$translate,Customer, Round){
+.controller('DeleteOfferModalInstanceCtrl', function ($scope, $modalInstance, selectedCustomer, toastr, Offer, $rootScope,$translate,Customer, Round,OfferCount){
+  
+    //on load    
+    $scope.deleteOfferSuccessMsg1 = $translate.instant('market.global.deleteOfferSuccessMsg1');
+    //on language change
+    $rootScope.$on('$translateChangeSuccess', function () {      
+      $scope.deleteOfferSuccessMsg1 = $translate.instant('market.deleteOfferSuccessMsg1');
+
+    }); 
+
+
+  $scope.selected = selectedCustomer;
+  console.log('Delete Offer model ' + JSON.stringify($scope.selected));
+  
+//function to refresh Customers
+    function refreshMarketGlobal(){
+
+      console.log('refresh team:'+JSON.stringify($rootScope.team.offer.length));
+      Customer.customers.query().$promise.then(function (customers) {
+         for (var i = 0; i < customers.length ; i++) {
+          var obj = customers[i]; 
+          //console.log(JSON.stringify(customers[i]));                       
+          for (var j = 0; j < $rootScope.team.offer.length; j++) {
+            
+            var offer = $rootScope.team.offer[j];                    
+            if (offer.marketBusinessName == obj.name) {
+              
+              obj.offerFound = true;
+              obj.offerId=offer._id;
+             // console.log('offer found:'+obj.name );
+              break;                
+            }
+          }                                  
+
+        }
+        $rootScope.customers = customers;
+      });
+    }
+
+
+//delete Offer
+$scope.deleteOffer = function (offerId) {
+
+  console.log('DELETE OFFER CALLED :'+offerId);
+
+  var offerId = {offerId:offerId};  
+
+  Offer.deleteOffer(offerId).$promise.then(function(team){      
+    $rootScope.team=team;  
+
+    refreshMarketGlobal();
+    toastr.success($scope.deleteOfferSuccessMsg1);
+  });
+  
+  $modalInstance.dismiss('close');
+
+};
+
+  
+  
+  $scope.closeModal = function () {
+    $modalInstance.dismiss('close');
+  };
+})
+
+.controller('ModalInstanceCtrl', function ($scope, $modalInstance, selectedCustomer, toastr, Offer, $rootScope,$translate,Customer, Round,OfferCount){
 
     // re-add selectedCustomer to $scope.selected
     $scope.selected = selectedCustomer;
@@ -440,25 +517,43 @@ angular.module('atpexpApp')
       price: $scope.selected.price,
       cld :$scope.calculatedCld        
     };
+
+    var offerCountIncrementObj={
+      customerId:selectedCustomer._id,
+      count : 1
+    };
+
     Offer.addOffer(offerObj).$promise.then(function(team){
       $rootScope.team=team;
+      OfferCount.updateOfferCount(offerCountIncrementObj).$promise.then(function(customer){
       Customer.customers.query().$promise.then(function (customers) {
-        for (var i = 0; i < customers.length ; i++) {
-          var obj = customers[i];                        
-          for (var j = 0; j < $rootScope.team.offer.length; j++) {
-            var offer = $rootScope.team.offer[j];                    
-            if (offer.marketBusinessName == obj.name && offer.round===$scope.currentRoundNumber) {
-              obj.offerFound = true;
-              obj.offerId=offer._id;
-              obj.price=offer.price;
-              break;                
-            }
-          }                                  
+          for (var i = 0; i < customers.length ; i++) {
+            var obj = customers[i];                        
+            for (var j = 0; j < $rootScope.team.offer.length; j++) {
+              var offer = $rootScope.team.offer[j];                    
+              if (offer.marketBusinessName == obj.name ) {
+                obj.offerFound = true;
+                obj.offerId=offer._id;
+                obj.price=offer.price;
+                break;                
+              }
+            }                                  
 
-        }
+          }
 
-        $rootScope.customers = customers;
-      });
+          $rootScope.customers = customers;
+        });
+
+  
+
+           }); 
+
+       
+
+      
+
+
+
 
     });    
 

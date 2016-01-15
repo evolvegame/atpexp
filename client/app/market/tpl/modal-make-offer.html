@@ -66,6 +66,7 @@
 
                     <div ng-show="{{ isValidRiskAcceptance(buyer.country,buyer.industry,buyer.rating) }}" >
 
+                        <br>
                         <p style="font-size:12px;">{{ getRiskAcceptanceRate(buyer.country,buyer.industry,buyer.rating)}}%</p>
                         <p>
                             <div ng-controller="SpinnerCtrl as spinner" style="margin-top:10px;">

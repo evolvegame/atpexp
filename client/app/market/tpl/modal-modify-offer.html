@@ -66,7 +66,7 @@
 
                     <div ng-show="{{ isValidRiskAcceptance(buyer.country,buyer.industry,buyer.rating) }}" >
 
-                        <p style="font-size:12px;">{{ getRiskAcceptanceRate(buyer.country,buyer.industry,buyer.rating)}}%</p>
+                       <br> <p style="font-size:12px;">{{ getRiskAcceptanceRate(buyer.country,buyer.industry,buyer.rating)}}%</p>
                         <p>
                             <div ng-controller="SpinnerCtrl as spinner" style="margin-top:10px;">
                                 <a ng-href="/risk" ng-click="closeModal()" >

@@ -1140,7 +1140,7 @@ Industry.find({}).remove(function() {
         {    sno: '5',   industry : 'Consumer Durables'},
         {     sno: '6',    industry : 'Electronics'
         },
-        {    sno: '7',    industry: 'Finances' },
+        {    sno: '7',    industry: 'Finance' },
         {    sno: '8',   industry : 'Food'},
         {     sno: '9',    industry : 'Machines'
         },
@@ -1201,7 +1201,8 @@ Country.find({}).remove(function() {
         {    sno: '34',  region: 'Western-Europe', country:'Austria' },
         {    sno: '35',  region: 'Western-Europe', country:'Germany' },
         {    sno: '36',  region: 'Western-Europe', country:'Switzerland' },
-        {    sno: '37',  region: 'Western-Europe', country:'Netherlands' }
+        {    sno: '37',  region: 'Western-Europe', country:'The Netherlands' },
+        {    sno: '38',  region: 'Western-Europe', country:'Argentina' }
         ,function() {
           console.log('** Finished populating Country');
         }

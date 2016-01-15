@@ -120,6 +120,7 @@ exports.calculateRound = function(req, res) {
         console.log("Step 2: Starting deletion of existing calculation details for the current round");
         CalcController.deleteCalcRoundDetails(toBeCalculatedRound,function(err,teams){
           if(err)return callback(err);
+          console.log("Step 2 completed. Proceed to Step 3");
           callback(null,teams);
         });
       }
@@ -129,6 +130,7 @@ exports.calculateRound = function(req, res) {
         CalcController.findAllTeams(toBeCalculatedRound,function(err,teams){
           if(err) return callback(err);
           allTeams = teams;
+          console.log("Step 3 completed. Proceed to Step 4");
           callback(null,teams);
         });
       }
@@ -138,6 +140,7 @@ exports.calculateRound = function(req, res) {
         CalcController.findAllCustomers(function(err,customers){
           if(err) return callback(err);
           allCustomers = customers;
+          console.log("Step 4 completed.Proceed to Step 5");
           callback(null,customers);
         });
       }
@@ -147,7 +150,22 @@ exports.calculateRound = function(req, res) {
         CalcController.buildAllocation(allCustomers,function(err,allocation){
           if(err) return callback(err);
           customerAllocation = allocation;
+          console.log("Step 5 completed.. Proceed to Step 6");
           callback(null,allocation);
+        });
+      }
+
+      ,step6: function(callback){
+        console.log("Step 6: Calculate Experience Score"+allTeams.length);
+        var result={};
+        var input ={};
+        input["allTeams"] = allTeams;
+        input["currentRound"] = toBeCalculatedRound;
+        CalcController.calculateExpScorePoints(input,function(err,resultJSON){
+          if(err) return callback(err);
+          result = resultJSON;
+          console.log("Step 6 completed.Proceed to Step 7");
+          callback(null,resultJSON);
         });
       }
 

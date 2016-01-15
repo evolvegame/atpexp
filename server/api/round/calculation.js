@@ -67,13 +67,19 @@ exports.deleteCalcRoundDetails = function(currentRound, callback) {
       async.forEachSeries(teams,
         function(team, callback) {
           var customers = team.customer;
-          customers.forEach(function(customer) {
-            if (!checkVariables(customer.calculateRound) && customer.calculatedRound == currentRound) {
-              console.log("Removing customer - " + customer.businessName + " from team - " + team.name);
-              customers.pull(customer._id);
-              console.log("Succesfully removed customer - " + customer.businessName + " from team - " + team.name);
-            }
-          });
+          try{
+            customers.forEach(function(customer) {
+              if (customer!=null && customer.calculateRound != null && !(customer.calculateRound === undefined)
+                          && customer.calculatedRound == currentRound) {
+                console.log("Removing customer - " + customer.businessName + " from team - " + team.name);
+                customers.pull(customer._id);
+                console.log("Succesfully removed customer - " + customer.businessName + " from team - " + team.name);
+              }
+            });
+          }catch(err){
+            console.log("Failure in loop for customers"+err);
+            return callback(err);
+          }
           team.save(function(err) {
             if (err != null) return callback(err);
             console.log("Saving team -->" + team.name);
@@ -97,7 +103,7 @@ exports.findAllTeams = function(currentRound, callback) {
   var query = queryAllTeams(currentRound);
   query.exec(function(err, teams) {
     if (err) return callback(err);
-    if (!checkVariables(teams)) return callback(new Error("No Teams are present for current round"));
+    if (!(checkVariables(teams))) return callback(new Error("No Teams are present for current round"));
     console.log("Successfully retrieved teams");
     callback(null, teams);
   });
@@ -106,7 +112,7 @@ exports.findAllTeams = function(currentRound, callback) {
 exports.findAllCustomers = function(callback) {
   Customers.find().exec(function(err, customers) {
     if (err) return callback(err);
-    if (!checkVariables(customers)) return callback(new Error("No Customers are present for current round"));
+    if (!(checkVariables(customers))) return callback(new Error("No Customers are present for current round"));
     console.log("Successfully retrieved customers");
     callback(null, customers);
   });
@@ -138,7 +144,71 @@ exports.buildAllocation = function(allCustomers, callback) {
     callback(null,customerAllocation);
   } catch (err) {
     console.log("Error in build location" + err);
-    callback(err);
+    return callback(err);
   }
 
+}
+
+exports.calculateExpScorePoints = function (input, callback){
+  var allTeams = input["allTeams"];
+  var currentRound = input["currentRound"];
+  var expScores=[];
+  var teamCalcJSON={};
+  var returnJSON={};
+  async.forEach(allTeams,
+    function(team, callback) {
+      var points = 0;
+      var _1_teamName = team.name;
+      var roundInformation_Id;
+      try{
+        console.log("Starting experience score calculcation for "+_1_teamName);
+        var expScoreAmtJSON={};
+        var roundInformation = team.roundLevelInformation;
+        if(checkVariables(roundInformation)){
+          roundInformation.forEach(function(currRoundInfo){
+            var count = 0;
+            if (checkVariables(currRoundInfo) && currRoundInfo.round == currentRound && count<1){
+              roundInformation_Id = currRoundInfo._id;
+              if(checkVariables(currRoundInfo.experienceScoreAmount)){
+                count++;
+                points=currRoundInfo.experienceScoreAmount/(_expScorePoint);
+                expScores.push(points);
+                expScoreAmtJSON['Points']=points;
+                teamCalcJSON[_1_teamName]=expScoreAmtJSON;
+                console.log("Points calculated in if loop for team  "+_1_teamName +" is = "+points);
+              }else{
+                count++
+                points=0;
+                expScores.push(points);
+                expScoreAmtJSON['Points']=0;
+                teamCalcJSON[_1_teamName]=expScoreAmtJSON;
+                console.log("Points calculated in else loop for team  "+_1_teamName +" is = "+points);
+              }
+            }
+          });
+        }
+      }catch(err){
+        console.log("Error in experience score point calculation");
+        return callback(err);
+      }
+      if(checkVariables(roundInformation_Id)){
+        Teams.update({"roundLevelInformation._id":roundInformation_Id},
+                      {$set: {"roundLevelInformation.$.experienceScore": points}},function(err){
+                        if(err != null) return callback(err)
+                        console.log("Saving experience score for team -->" +_1_teamName +" value= "+points);
+                        callback(null,"Saved experience score");
+                      });
+
+      }else{
+        console.log("No experience score to be saved for "+_1_teamName +" since no round information available");
+        callback(null,"Nothing to save");
+      }
+    },
+    function(err) {
+      if (err) return callback(err);
+      returnJSON['value1']=expScores;
+      returnJSON['value2']=teamCalcJSON;
+      console.log("Successfully calculated experience score for teams");
+      callback(null, returnJSON);
+    });
 }

@@ -5,7 +5,7 @@ var Teams = require('../team/team.model');
 var Customers = require('../customer/customer.model');
 var async = require('async');
 
-var _expScorePoint=1000;
+var _expScorePoint = 1000;
 var _selfInsured = "_SelfInsured";
 
 function queryTeamsCurrentRound(roundNumber) {
@@ -67,17 +67,16 @@ exports.deleteCalcRoundDetails = function(currentRound, callback) {
       async.forEachSeries(teams,
         function(team, callback) {
           var customers = team.customer;
-          try{
+          try {
             customers.forEach(function(customer) {
-              if (customer!=null && customer.calculateRound != null && !(customer.calculateRound === undefined)
-                          && customer.calculatedRound == currentRound) {
+              if (customer != null && customer.calculateRound != null && !(customer.calculateRound === undefined) && customer.calculatedRound == currentRound) {
                 console.log("Removing customer - " + customer.businessName + " from team - " + team.name);
                 customers.pull(customer._id);
                 console.log("Succesfully removed customer - " + customer.businessName + " from team - " + team.name);
               }
             });
-          }catch(err){
-            console.log("Failure in loop for customers"+err);
+          } catch (err) {
+            console.log("Failure in loop for customers" + err);
             return callback(err);
           }
           team.save(function(err) {
@@ -121,7 +120,7 @@ exports.findAllCustomers = function(callback) {
 exports.buildAllocation = function(allCustomers, callback) {
   var customerAllocation = {};
   try {
-    allCustomers.forEach(function(customer){
+    allCustomers.forEach(function(customer) {
       var customerName = customer.name;
       var minOfferScore = customer.minOfferScore;
       var customerAllocDetails = {};
@@ -141,7 +140,7 @@ exports.buildAllocation = function(allCustomers, callback) {
       customerAllocation[customerName] = customerAllocDetails;
     });
     console.log("Built Customer allocation successfully");
-    callback(null,customerAllocation);
+    callback(null, customerAllocation);
   } catch (err) {
     console.log("Error in build location" + err);
     return callback(err);
@@ -149,66 +148,162 @@ exports.buildAllocation = function(allCustomers, callback) {
 
 }
 
-exports.calculateExpScorePoints = function (input, callback){
+exports.calculateExpScorePoints = function(input, callback) {
   var allTeams = input["allTeams"];
   var currentRound = input["currentRound"];
-  var expScores=[];
-  var teamCalcJSON={};
-  var returnJSON={};
+  var expScores = [];
+  var teamCalcJSON = {};
+  var returnJSON = {};
   async.forEach(allTeams,
     function(team, callback) {
       var points = 0;
       var _1_teamName = team.name;
       var roundInformation_Id;
-      try{
-        console.log("Starting experience score calculcation for "+_1_teamName);
-        var expScoreAmtJSON={};
+      try {
+        console.log("Starting experience score calculcation for " + _1_teamName);
+        var expScoreAmtJSON = {};
         var roundInformation = team.roundLevelInformation;
-        if(checkVariables(roundInformation)){
-          roundInformation.forEach(function(currRoundInfo){
+        if (checkVariables(roundInformation)) {
+          roundInformation.forEach(function(currRoundInfo) {
             var count = 0;
-            if (checkVariables(currRoundInfo) && currRoundInfo.round == currentRound && count<1){
+            if (checkVariables(currRoundInfo) && currRoundInfo.round == currentRound && count < 1) {
               roundInformation_Id = currRoundInfo._id;
-              if(checkVariables(currRoundInfo.experienceScoreAmount)){
+              if (checkVariables(currRoundInfo.experienceScoreAmount)) {
                 count++;
-                points=currRoundInfo.experienceScoreAmount/(_expScorePoint);
+                points = currRoundInfo.experienceScoreAmount / (_expScorePoint);
                 expScores.push(points);
-                expScoreAmtJSON['Points']=points;
-                teamCalcJSON[_1_teamName]=expScoreAmtJSON;
-                console.log("Points calculated in if loop for team  "+_1_teamName +" is = "+points);
-              }else{
+                expScoreAmtJSON['Points'] = points;
+                teamCalcJSON[_1_teamName] = expScoreAmtJSON;
+                console.log("Points calculated in if loop for team  " + _1_teamName + " is = " + points);
+              } else {
                 count++
-                points=0;
+                points = 0;
                 expScores.push(points);
-                expScoreAmtJSON['Points']=0;
-                teamCalcJSON[_1_teamName]=expScoreAmtJSON;
-                console.log("Points calculated in else loop for team  "+_1_teamName +" is = "+points);
+                expScoreAmtJSON['Points'] = 0;
+                teamCalcJSON[_1_teamName] = expScoreAmtJSON;
+                console.log("Points calculated in else loop for team  " + _1_teamName + " is = " + points);
               }
             }
           });
         }
-      }catch(err){
+      } catch (err) {
         console.log("Error in experience score point calculation");
         return callback(err);
       }
-      if(checkVariables(roundInformation_Id)){
-        Teams.update({"roundLevelInformation._id":roundInformation_Id},
-                      {$set: {"roundLevelInformation.$.experienceScore": points}},function(err){
-                        if(err != null) return callback(err)
-                        console.log("Saving experience score for team -->" +_1_teamName +" value= "+points);
-                        callback(null,"Saved experience score");
-                      });
+      if (checkVariables(roundInformation_Id)) {
+        Teams.update({
+          "roundLevelInformation._id": roundInformation_Id
+        }, {
+          $set: {
+            "roundLevelInformation.$.experienceScore": points
+          }
+        }, function(err) {
+          if (err != null) return callback(err)
+          console.log("Saving experience score for team -->" + _1_teamName + " value= " + points);
+          callback(null, "Saved experience score");
+        });
 
-      }else{
-        console.log("No experience score to be saved for "+_1_teamName +" since no round information available");
-        callback(null,"Nothing to save");
+      } else {
+        console.log("No experience score to be saved for " + _1_teamName + " since no round information available");
+        callback(null, "Nothing to save");
       }
     },
     function(err) {
       if (err) return callback(err);
-      returnJSON['value1']=expScores;
-      returnJSON['value2']=teamCalcJSON;
+      returnJSON['value1'] = expScores;
+      returnJSON['value2'] = teamCalcJSON;
       console.log("Successfully calculated experience score for teams");
       callback(null, returnJSON);
     });
+}
+
+exports.expScoreSorting = function(expScores, callback) {
+  try {
+    console.log("Starting the sort and assign ranking");
+    var sortedJSON = {};
+    var sorted = expScores.slice().sort(function(a, b) {
+      return b - a
+    });
+    var ranks = expScores.slice().map(function(v) {
+      var rankIndex = sorted.indexOf(v) + 1;
+      if (sortedJSON != null && !(sortedJSON === undefined)) {
+        if (sortedJSON.rankIndex == null || sortedJSON.rankIndex === undefined) {
+          sortedJSON[rankIndex] = v;
+        }
+      }
+      return rankIndex;
+    });
+    console.log("Successfully sorted and ranked -->" + JSON.stringify(sortedJSON));
+    callback(null, sortedJSON);
+  } catch (err) {
+    console.log("Error in experience score sorting-->" + err);
+  }
+}
+
+exports.expScoreFactor = function(expScores, callback) {
+  try {
+    var returnJSON = {};
+
+    var arrVal = [];
+    for (key in expScores) {
+      arrVal.push(expScores[key]);
+    }
+    var keys = Object.keys(expScores);
+    var len = keys.length;
+    arrVal.sort(function(a, b) {
+      return b - a
+    });
+    if (len == 1) {
+      var key = arrVal[0];
+      returnJSON[key] = 1;
+    } else {
+      var medianPoint = 5;
+
+      if (len < 11) {
+        medianPoint = Math.round(len / 2);
+      }
+
+      var score = (medianPoint * 0.01) + 1.01;
+      var i = 0;
+      for (i; i <= medianPoint; i++) {
+        var keyVal = arrVal[i];
+        score = score - 0.01;
+        returnJSON[keyVal] = score;
+      }
+
+      var j = i;
+      if (medianPoint < 5) {
+        j = 0;
+        for (j; j >= (len - medianPoint); j++) {
+          var keyVal = arrVal[j];
+          score = 1;
+          returnJSON[keyVal] = score;
+        }
+      } else {
+        for (j; j < (len - medianPoint); j++) {
+          var keyVal = arrVal[j];
+          score = 1;
+          returnJSON[keyVal] = score;
+        }
+      }
+      var k = j;
+      if (medianPoint < 5) {
+        k = j + i;
+      }
+      for (k; k < len; k++) {
+        var keyVal = arrVal[k];
+        score = score - 0.01;
+        returnJSON[keyVal] = score;
+      }
+    }
+
+    // for (key in returnJSON) {
+    //   console.log("Iamhere for " + key + " = " + returnJSON[key]);
+    // }
+    //console.log("Iamhere"+returnJSON);
+
+    callback(null, returnJSON);
+  } catch (err) {
+    console.log("Error in experience score factor calculation-->" + err);
+  }
 }

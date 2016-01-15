@@ -521,7 +521,7 @@ Team.find({}).remove(function() {
           role:'admin',
           teamCountry: "NL",
           capital: 5000000,
-          experienceScore: 75,
+          experienceScore: 70,
           members :[
                     {name :'Rajasekaran',email: 'raj@atradius.com' },
                     {name :'Ranagarajan',email: 'ranga@atradius.com' },
@@ -806,7 +806,6 @@ Team.find({}).remove(function() {
                                                          experienceScore: 60,
                                                          members :[
                                                                    {name :'User8',email: 'user8@atradius.com' },
-                                                                   {name :'User8',email: 'user8@atradius.com' },
                                                                    {name :'User9',email: 'user9@atradius.com' },
                                                                    {name :'User10',email: 'user10@atradius.com'},
                                                                    {name :'User11',email: 'user11@atradius.com'}
@@ -1077,6 +1076,7 @@ Customer.find({}).remove(function() {
     industry:"Services",
     industryCode:"ser",
     experienceScoreNeeded:50,
+    offerCount:0,
     buyerPortfolio:[
                     {region:"West-Europe",regionCode:"we",country:"Belgium",countryCode:"be",industry:"Food",industryCode:"foo",tpe:3579440,rating:30,cla:44678},
                     {region:"West-Europe",regionCode:"we",country:"Germany",countryCode:"de",industry:"Finance",industryCode:"fin",tpe:1587862,rating:60,cla:23455},
@@ -1097,6 +1097,7 @@ Customer.find({}).remove(function() {
     industry:"Machines",
     industryCode:"mac",
     experienceScoreNeeded:50,
+    offerCount:0,
     buyerPortfolio:[
                     {region:"West-Europe",regionCode:"we",country:"The Netherlands",countryCode:"nl",industry:"Paper",industryCode:"pap",tpe:2674760,rating:5,cla:45674},
                     {region:"West-Europe",regionCode:"we",country:"Germany",countryCode:"de",industry:"Electronics",industryCode:"ele",tpe:2185842,rating:5,cla:34567},
@@ -1117,6 +1118,7 @@ Customer.find({}).remove(function() {
     industry:"Construction",
     industryCode:"con",
     experienceScoreNeeded:50,
+    offerCount:0,
     buyerPortfolio:[
                     {region:"West-Europe",regionCode:"we",country:"The Netherlands",countryCode:"nl",industry:"Paper",industryCode:"pap",tpe:2674760,rating:5,cla:54252},
                     {region:"West-Europe",regionCode:"we",country:"United Kingdom",countryCode:"gb",industry:"Paper",industryCode:"pap",tpe:3085462,rating:5,cla:54252},
@@ -1137,6 +1139,7 @@ Customer.find({}).remove(function() {
     industry:"Metals",
     industryCode:"met",
     experienceScoreNeeded:50,
+    offerCount:0,
     buyerPortfolio:[
                     {region:"West-Europe",regionCode:"we",country:"Spain",countryCode:"es",industry:"Agriculture",industryCode:"agr",tpe:1374770,rating:5,cla:54252},
                     {region:"West-Europe",regionCode:"we",country:"Spain",countryCode:"es",industry:"Transport",industryCode:"tra",tpe:2385722,rating:5,cla:54252},
@@ -1157,6 +1160,7 @@ Customer.find({}).remove(function() {
     industry:"Textiles",
     industryCode:"tex",
     experienceScoreNeeded:50,
+    offerCount:0,
     buyerPortfolio:[
                     {region:"South-America",regionCode:"sa",country:"Brazil",countryCode:"br",industry:"Consumer Durables",industryCode:"csr",tpe:6374462,rating:5,cla:54252},
                     {region:"South-America",regionCode:"sa",country:"Colombia",countryCode:"co",industry:"Chemicals",industryCode:"che",tpe:5035472,rating:5,cla:54252},
@@ -1177,6 +1181,7 @@ Customer.find({}).remove(function() {
     industry:"Finance",
     industryCode:"fin",
     experienceScoreNeeded:50,
+    offerCount:0,
     buyerPortfolio:[
                     {region:"South-America",regionCode:"sa",country:"Chille",countryCode:"cl",industry:"Paper",industryCode:"pap",tpe:5344761,rating:5,cla:54252},
                     {region:"South-America",regionCode:"sa",country:"Chille",countryCode:"cl",industry:"Machines",industryCode:"mac",tpe:6235721,rating:5,cla:54252},
@@ -1197,6 +1202,7 @@ Customer.find({}).remove(function() {
     industry:"Electronics",
     industryCode:"ele",
     experienceScoreNeeded:50,
+    offerCount:0,
     buyerPortfolio:[
                     {region:"South-America",regionCode:"sa",country:"Colombia",countryCode:"co",industry:"Metals",industryCode:"met",tpe:7314465,rating:5,cla:43533},
                     {region:"South-America",regionCode:"sa",country:"Brazil",countryCode:"br",industry:"Metals",industryCode:"met",tpe:5833729,rating:5,cla:45656},
@@ -1217,6 +1223,7 @@ Customer.find({}).remove(function() {
     industry:"Transport",
     industryCode:"tra",
     experienceScoreNeeded:50,
+    offerCount:0,
     buyerPortfolio:[
                     {region:"South-America",regionCode:"sa",country:"Argentina",countryCode:"ar",industry:"Finance",industryCode:"fin",tpe:6114764,rating:5,cla:4},
                     {region:"South-America",regionCode:"sa",country:"Brazil",countryCode:"br",industry:"Metals",industryCode:"met",tpe:5833729,rating:5,cla:4},

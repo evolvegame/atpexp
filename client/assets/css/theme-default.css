@@ -8850,3 +8850,7 @@ li.ext_zip {
 .loginErrorText{
   color: red;
 }
+
+.row-fluid [class*="span"] {
+    margin-left: 0;
+}

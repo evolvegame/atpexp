@@ -128,6 +128,7 @@
 	"market.tab2.industry":"Industry",
 	"market.tab2.buyerSegment":"Buyer segment",
 	
+	"market.tab2.offerCount":"Offer Count",
 	"market.tab2.offer":"Offer",
 	"market.tab2.makeOffer":"Make Offer",
 	"market.tab2.modifyOffer":"Modify Offer",
@@ -157,7 +158,8 @@
 	"market.tpl.avgPriceMsg":"The average price is 0.1 of the turnover.",
 	"market.tpl.service":"Service",
 	"market.tpl.xpScore":"Your Experience Score",
-	"market.tpl.xpScore.msg":"You have enough Experience Score to insure",
+	"market.tpl.xpScore.msgEnough":"You have enough Experience Score to insure",
+	"market.tpl.xpScore.msgNotEnough":"You don't have enough Experience Score to insure",
 	"market.tpl.makeOffer":"Make an offer",
 	"market.tpl.modifyOffer":"Modify offer",
 	"market.tpl.close":"(close)",

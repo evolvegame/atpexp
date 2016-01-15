@@ -16,6 +16,7 @@ var CustomerSchema = new Schema({
   businessRisk:Number,
   experienceScoreNeeded:Number,
   minOfferScore:Number,
+  offerCount:Number,
   buyerPortfolio:[
   {region:String,
     regionCode:String,
@@ -30,6 +31,5 @@ var CustomerSchema = new Schema({
     ]
 
   });
-
 
 module.exports = mongoose.model('Customer', CustomerSchema);

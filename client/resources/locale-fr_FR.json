@@ -152,7 +152,8 @@
 	"market.tpl.avgPriceMsg":"Le prix moyen est de 0,1 du chiffre d'affaires .",
 	"market.tpl.service":"Service",
 	"market.tpl.xpScore":"Votre pointage de l'expérience",
-	"market.tpl.xpScore.msg":"Vous avez suffisamment d'expérience pour assurer Score",
+	"market.tpl.xpScore.msgEnough":"Vous avez suffisamment d'expérience pour assurer Score",
+	"market.tpl.xpScore.msgNotEnough":"Vous ne disposez pas de suffisamment d'expérience pour assurer Score",
 	"market.tpl.makeOffer":"Faire une offre",
 	"market.tpl.close":"(Près)",
 	

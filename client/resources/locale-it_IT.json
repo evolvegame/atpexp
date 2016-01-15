@@ -156,7 +156,8 @@
 	"market.tpl.avgPriceMsg":"Il prezzo medio è di 0,1 del fatturato .",
 	"market.tpl.service":"Servizio",
 	"market.tpl.xpScore":"Il tuo punteggio esperienza",
-	"market.tpl.xpScore.msg":"Avete abbastanza esperienza per assicurare Score",
+	"market.tpl.xpScore.msgEnough":"Avete abbastanza esperienza per assicurare Score",
+	"market.tpl.xpScore.msgNotEnough":"Non si dispone di sufficiente esperienza per assicurare Score",
 	"market.tpl.makeOffer":"Fare un'offerta",
 	"market.tpl.close":"(chiudere)",
 	

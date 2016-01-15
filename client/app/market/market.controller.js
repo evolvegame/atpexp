@@ -198,11 +198,15 @@ angular.module('atpexpApp')
     $scope.successMsg1=$translate.instant('market.tpl.offer.success1');
     $scope.successMsg2=$translate.instant('market.tpl.offer.success2');
     $scope.successMsg3=$translate.instant('market.tpl.offer.success3');
+    $scope.experieneScoreMsgEnough= $translate.instant('market.tpl.xpScore.msgEnough');
+    $scope.experieneScoreMsgNotEnough= $translate.instant('market.tpl.xpScore.msgNotEnough');
     
     //on language change
     $rootScope.$on('$translateChangeSuccess', function () {
 
       $scope.priceValidationmsg= $translate.instant('market.tpl.priceValidation');
+      $scope.experieneScoreMsgEnough= $translate.instant('market.tpl.xpScore.msgEnough');
+      $scope.experieneScoreMsgNotEnough= $translate.instant('market.tpl.xpScore.msgNotEnough');
       $scope.veryBad = $translate.instant('market.tpl.veryBad');
       $scope.bad = $translate.instant('market.tpl.bad');
       $scope.moderate = $translate.instant('market.tpl.moderate');
@@ -300,7 +304,8 @@ angular.module('atpexpApp')
     var riskAcceptanceValidForBuyerSegment1=false;
     var riskAcceptanceValidForBuyerSegment2=false;
     var riskAcceptanceValidForBuyerSegment3=false;
-    var calculatedCldIsValid=false;      
+    var calculatedCldIsValid=false;
+    var experienceScoreEnough =false;      
     var buyerCountry, buyerIndustry,buyerRating;
     $scope.showPriceValidation=false;
     $scope.showAvgPriceValidation=false;
@@ -362,9 +367,9 @@ angular.module('atpexpApp')
         $scope.showPriceValidation=true;
         $scope.errorTextPriceValiation=$scope.priceValidationmsg;
         
-      }else if($scope.selected.price <selectedCustomer.turnover*0.1){
+      }/*else if($scope.selected.price <selectedCustomer.turnover*0.1){
        $scope.showAvgPriceValidation=true;        
-     }      
+     }     */ 
 
       //Risk acceptance validation for Buyer Segment 1
       buyerCountry=selectedCustomer.buyerPortfolio[0].country;
@@ -400,6 +405,15 @@ angular.module('atpexpApp')
         toastr.error('Error In CLD calculation');
       }
 
+      experienceScoreEnough = $rootScope.team.experienceScore >=selectedCustomer.experienceScoreNeeded ? true:false;
+      console.log('--'+$rootScope.team.experienceScore);
+      console.log('--'+selectedCustomer.experienceScoreNeeded);
+      //Validation for experience score
+      if(!experienceScoreEnough){
+       toastr.error($scope.experieneScoreMsgNotEnough);
+
+      }
+
     }
 
     
@@ -414,7 +428,8 @@ angular.module('atpexpApp')
        riskAcceptanceValidForBuyerSegment1 &&
        riskAcceptanceValidForBuyerSegment2 &&
        riskAcceptanceValidForBuyerSegment3 &&
-       calculatedCldIsValid){
+       calculatedCldIsValid &&
+       experienceScoreEnough ){
 
       // create new offer
     console.log("MarketBusinessName --> " + selectedCustomer.name);

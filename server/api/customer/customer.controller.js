@@ -54,6 +54,40 @@ exports.destroy = function(req, res) {
   });
 };
 
+
+/*exports.updateCount = function(req, res, next) {
+  
+  var customerId =req.params.id;
+  var count = req.params.count;
+  console.log('Reached customer controller updateCount !!! - customerId ' + customerId);
+  console.log('Reached customer controller updateCount !!! - count ' + count);
+Customer.findById(customerId,function(err,customer){ 
+        if (err) return validationError(res, err);
+                  count = count + customer.offerCount;
+        
+Customer.update(
+    { _id: customerId },
+    { offerCount:count },function(err,result){
+      console.log('Inside modifyOffer :'+result);
+      if (err) return validationError(res, err);
+
+      
+      );
+
+
+        }
+
+
+        res.send(200,team);
+      )
+
+
+  
+
+   
+
+};*/
+
 function handleError(res, err) {
   return res.send(500, err);
 }

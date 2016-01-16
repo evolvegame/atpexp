@@ -6,6 +6,7 @@ var Round = require('./round.model');
 var Teams = require('../team/team.model');
 var Customers = require('../customer/customer.model');
 var CalcController = require('./calculation');
+var agreementConverter = require('./agreement.conversion');
 
 var async = require('async');
 
@@ -94,6 +95,7 @@ exports.calculateRound = function(req, res) {
   var expScores = [];
   var teamCalcJSON = {};
   var sortedJSON = {};
+  var expScoreFactor = {};
 
   if (!checkVariables(req) || !checkVariables(req.params.roundId) || !checkVariables(req.body)) {
     errorMsg = new Error('Invalid input for Calculation');
@@ -189,18 +191,46 @@ exports.calculateRound = function(req, res) {
         console.log("Step 7: ExpScore Sorting");
         CalcController.expScoreSorting(expScores, function(err, result) {
           if (err) return callback(err);
-          console.log("Step 7 completed.Proceed to Step 8");
           sortedJSON = result;
+          console.log("Step 7 completed.Proceed to Step 8");
           callback(null, result);
         });
       }
 
-      ,
-      step8: function(callback) {
-        console.log("Step 8: ExpScore Factor Calculation" + JSON.stringify(sortedJSON));
+      ,step8: function(callback) {
+        console.log("Step 8: ExpScore Factor Calculation" );
         CalcController.expScoreFactor(sortedJSON, function(err, result) {
           if (err) return callback(err);
+          expScoreFactor = result;
           console.log("Step 8 completed.Proceed to Step 9");
+          callback(null, result);
+        });
+      }
+
+      ,step9: function(callback) {
+        console.log("Step 9: Offer Score per team calculation");
+        var input = {};
+        input["customerAllocation"] = customerAllocation;
+        input["allTeams"] = allTeams;
+        input["teamCalcJSON"] = teamCalcJSON;
+        input["expScoreFactor"] = expScoreFactor;
+        CalcController.calcOfferScore(input,function(err,result){
+          if (err) return callback(err);
+          customerAllocation=result;
+          console.log("Step 9 completed. Proceed to Step 10");
+          callback(null,result);
+        });
+      }
+
+      ,step10: function(callback) {
+        console.log("Step 10: Customer Allocation" );
+        var input = {};
+        input["customerAllocation"] = customerAllocation;
+        input["toBeCalculatedRound"] = toBeCalculatedRound;
+        agreementConverter.agreementConversion(input, function(err, result) {
+          if (err) return callback(err);
+          expScoreFactor = result;
+          console.log("Step 10 completed.Proceed to Step 11");
           callback(null, result);
         });
       }
@@ -249,101 +279,5 @@ function handleErrors(res, err, errorCode) {
   return res.status(errorCode).send({
     type: "serverError",
     message: err.message
-  });
-}
-
-function expScorePointCalculation(expScores) {
-  console.log(expScores);
-  var returnJSON = {};
-  var arrVal = [];
-  for (key in expScores) {
-    arrVal.push(expScores[key]);
-  }
-  var keys = Object.keys(expScores);
-  var len = keys.length;
-  arrVal.sort(function(a, b) {
-    return b - a
-  });
-  if (len == 1) {
-    var key = arrVal[0];
-    returnJSON[key] = 1;
-  } else {
-    var medianPoint = 5;
-
-    if (len < 11) {
-      medianPoint = Math.round(len / 2);
-    }
-
-    var score = (medianPoint * 0.01) + 1.01;
-    var i = 0;
-    for (i; i <= medianPoint; i++) {
-      var keyVal = arrVal[i];
-      score = score - 0.01;
-      returnJSON[keyVal] = score;
-    }
-
-    var j = i;
-    if (medianPoint < 5) {
-      j = 0;
-      for (j; j >= (len - medianPoint); j++) {
-        var keyVal = arrVal[j];
-        score = 1;
-        returnJSON[keyVal] = score;
-      }
-    } else {
-      for (j; j < (len - medianPoint); j++) {
-        var keyVal = arrVal[j];
-        score = 1;
-        returnJSON[keyVal] = score;
-      }
-    }
-    var k = j;
-    if (medianPoint < 5) {
-      k = j + i;
-    }
-    for (k; k < len; k++) {
-      var keyVal = arrVal[k];
-      score = score - 0.01;
-      returnJSON[keyVal] = score;
-    }
-  }
-  // debug purposes enable the code below
-  // for(key in returnJSON){
-  //   console.log("Iamhere for "+key+" = "+returnJSON[key]);
-  // }
-  // //console.log("Iamhere"+returnJSON);
-
-  return returnJSON;
-}
-
-
-function initializeAgreement(newPremium, newPremiumPct) {
-
-  var agreement = {};
-  agreement['premium'] = newPremium;
-  agreement['premiumPercentage'] = newPremiumPct;
-  agreement['riskStrategyId'] = 1;
-  agreement['status'] = "Active";
-  return agreement;
-}
-
-function findActiveTeam(key, callback) {
-  console.log("Entry Point 4" + key);
-  var status = "Active";
-  Teams.findOne({
-    role: 'user',
-    customer: {
-      $elemMatch: {
-        'businessName': key
-      }
-    }
-  }).exec(function(err, activeTeam) {
-    console.log("Entry Point 4.121" + key);
-    if (err) {
-      console.log("Not able to get agreements which are active");
-      callback(err);
-    } else {
-      callback(null, activeTeam);
-    }
   });
 }

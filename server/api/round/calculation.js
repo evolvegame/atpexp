@@ -250,47 +250,49 @@ exports.expScoreFactor = function(expScores, callback) {
     var keys = Object.keys(expScores);
     var len = keys.length;
     // sort the values
-    arrVal.sort(function(a, b){return b - a});
+    arrVal.sort(function(a, b) {
+      return b - a
+    });
     if (len == 1) {
       var key = arrVal[0];
       returnJSON[key] = 1;
     } else {
-        var medianPoint = 5;
-        if (len < 11) medianPoint = Math.round(len / 2);
-        // assigning from 1.05 to 1.01
-        var score = (medianPoint * 0.01) + 1.01;
-        var i = 0;
-        for (i; i <= medianPoint; i++) {
-          var keyVal = arrVal[i];
-          score = score - 0.01;
+      var medianPoint = 5;
+      if (len < 11) medianPoint = Math.round(len / 2);
+      // assigning from 1.05 to 1.01
+      var score = (medianPoint * 0.01) + 1.01;
+      var i = 0;
+      for (i; i <= medianPoint; i++) {
+        var keyVal = arrVal[i];
+        score = score - 0.01;
+        returnJSON[keyVal] = score;
+      }
+      // assigning team with points 1
+      var j = i;
+      if (medianPoint < 5) {
+        j = 0;
+        for (j; j >= (len - medianPoint); j++) {
+          var keyVal = arrVal[j];
+          score = 1;
           returnJSON[keyVal] = score;
         }
-        // assigning team with points 1
-        var j = i;
-        if (medianPoint < 5) {
-          j = 0;
-          for (j; j >= (len - medianPoint); j++) {
-            var keyVal = arrVal[j];
-            score = 1;
-            returnJSON[keyVal] = score;
-          }
-        } else {
-          for (j; j < (len - medianPoint); j++) {
-            var keyVal = arrVal[j];
-            score = 1;
-            returnJSON[keyVal] = score;
-          }
-        }
-        // assigning 0.99 to 0.95
-        var k = j;
-        if (medianPoint < 5) {
-          k = j + i;
-        }
-        for (k; k < len; k++) {
-          var keyVal = arrVal[k];
-          score = score - 0.01;
+      } else {
+        for (j; j < (len - medianPoint); j++) {
+          var keyVal = arrVal[j];
+          score = 1;
           returnJSON[keyVal] = score;
         }
+      }
+      // assigning 0.99 to 0.95
+      var k = j;
+      if (medianPoint < 5) {
+        k = j + i;
+      }
+      for (k; k < len; k++) {
+        var keyVal = arrVal[k];
+        score = score - 0.01;
+        returnJSON[keyVal] = score;
+      }
     }
     console.log("Experience score factor calculated");
     callback(null, returnJSON);
@@ -305,63 +307,63 @@ exports.calcOfferScore = function(input, callback) {
   var teamCalcJSON = input['teamCalcJSON'];
   var expScoreFactor = input['expScoreFactor'];
   async.forEachSeries(allTeams,
-      function(team, callback) {
-        var _2_teamName = team.name;
-        var teamId = team._id;
-        var teamPoints = teamCalcJSON[_2_teamName].Points;
-        var expScorePoint = expScoreFactor[teamPoints];
-        console.log("expScorePoint for " + _2_teamName + " is =" + expScorePoint)
-        var offerArr = team.offer;
-        var roundInformation = team.roundLevelInformation;
-        var roundPremium = 0;
-        var roundCld = 0;
-        var businessName;
-        var intermediateJSON = {};
-        try {
-          if (checkVariables(offerArr)) {
-            async.forEachSeries(offerArr,
-              function(currOffer, callback) {
-                try {
-                  var currOfferId = currOffer._id;
-                  if (checkVariables(currOffer.premium) && currOffer.premium > 0) roundPremium = currOffer.premium;
-                  if (checkVariables(currOffer.cld) && currOffer.cld > 0) roundCld = currOffer.cld;
-                  if (checkVariables(currOffer.marketBusinessName)) businessName = currOffer.marketBusinessName;
-                  var offerScore = 0;
-                  if (roundPremium > 0) offerScore = (roundCld / roundPremium) * expScorePoint;
-                  console.log(_2_teamName + " has an offerScore of " + offerScore + " for customer ->" + businessName);
+    function(team, callback) {
+      var _2_teamName = team.name;
+      var teamId = team._id;
+      var teamPoints = teamCalcJSON[_2_teamName].Points;
+      var expScorePoint = expScoreFactor[teamPoints];
+      console.log("expScorePoint for " + _2_teamName + " is =" + expScorePoint)
+      var offerArr = team.offer;
+      var roundInformation = team.roundLevelInformation;
+      var roundPremium = 0;
+      var roundCld = 0;
+      var businessName;
+      var intermediateJSON = {};
+      try {
+        if (checkVariables(offerArr)) {
+          async.forEachSeries(offerArr,
+            function(currOffer, callback) {
+              try {
+                var currOfferId = currOffer._id;
+                if (checkVariables(currOffer.premium) && currOffer.premium > 0) roundPremium = currOffer.premium;
+                if (checkVariables(currOffer.cld) && currOffer.cld > 0) roundCld = currOffer.cld;
+                if (checkVariables(currOffer.marketBusinessName)) businessName = currOffer.marketBusinessName;
+                var offerScore = 0;
+                if (roundPremium > 0) offerScore = (roundCld / roundPremium) * expScorePoint;
+                console.log(_2_teamName + " has an offerScore of " + offerScore + " for customer ->" + businessName);
 
-                  if (checkVariables(customerAllocation)) {
-                    if (checkVariables(customerAllocation[businessName])) {
-                      if (checkVariables(customerAllocation[businessName].winningScore) && customerAllocation[businessName].winningScore < offerScore) {
-                        customerAllocation[businessName].allocatedTo = _2_teamName;
-                        customerAllocation[businessName].winningScore = offerScore;
-                      }
+                if (checkVariables(customerAllocation)) {
+                  if (checkVariables(customerAllocation[businessName])) {
+                    if (checkVariables(customerAllocation[businessName].winningScore) && customerAllocation[businessName].winningScore < offerScore) {
+                      customerAllocation[businessName].allocatedTo = _2_teamName;
+                      customerAllocation[businessName].winningScore = offerScore;
                     }
                   }
-                } catch (err) {
-                  console.log("Error in offer score calculation-->" + err);
-                  return callback(err);
                 }
-                console.log("Saving offer score for team -->" + _2_teamName + " for customer --> " + businessName + " the value -->"+offerScore);
-                Teams.update({
-                  "offer._id": currOfferId
-                }, {
-                  $set: {
-                    "offer.$.offerScore": offerScore
-                  }
-                }, function(err) {
-                  if (err != null) return callback(err)
-                  console.log("Saved offer score for team " + _2_teamName + " for customer --> " + businessName );
-                  callback(null, "Saved offer score");
-                });
-
-              },
-              function(err) {
-                if (err) return callback(err);
-                console.log("Offer scores for each offer calculated for team-->"+ _2_teamName);
-                callback(null, "Saved all offers for Team");
+              } catch (err) {
+                console.log("Error in offer score calculation-->" + err);
+                return callback(err);
+              }
+              console.log("Saving offer score for team -->" + _2_teamName + " for customer --> " + businessName + " the value -->" + offerScore);
+              Teams.update({
+                "offer._id": currOfferId
+              }, {
+                $set: {
+                  "offer.$.offerScore": offerScore
+                }
+              }, function(err) {
+                if (err != null) return callback(err)
+                console.log("Saved offer score for team " + _2_teamName + " for customer --> " + businessName);
+                callback(null, "Saved offer score");
               });
-          } else callback(null, "No offers");
+
+            },
+            function(err) {
+              if (err) return callback(err);
+              console.log("Offer scores for each offer calculated for team-->" + _2_teamName);
+              callback(null, "Saved all offers for Team");
+            });
+        } else callback(null, "No offers");
       } catch (err) {
         console.log("Error in iterating offers for teams-->" + err)
         callback(err);

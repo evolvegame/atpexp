@@ -117,7 +117,7 @@ exports.calculateRound = function(req, res) {
   // Start - async.series1 - series of steps executed sequentially
   async.series({
       // validate whether the calculation needs to be done for the current round
-      step1: function(callback) {
+      step0: function(callback) {
         console.log("Starting validation for current round");
         CalcController.validateRound(toBeCalculatedRound, function(err, round) {
           if (err) return callback(err);
@@ -126,6 +126,7 @@ exports.calculateRound = function(req, res) {
           callback(null, round);
         });
       }
+
 
       ,
       step2: function(callback) {
@@ -136,6 +137,7 @@ exports.calculateRound = function(req, res) {
           callback(null, teams);
         });
       }
+
 
       ,
       step3: function(callback) {
@@ -148,6 +150,7 @@ exports.calculateRound = function(req, res) {
         });
       }
 
+
       ,
       step4: function(callback) {
         console.log("Step 4: Get All the Customers");
@@ -159,6 +162,7 @@ exports.calculateRound = function(req, res) {
         });
       }
 
+
       ,
       step5: function(callback) {
         console.log("Step 5: Build Customer Allocation Details");
@@ -169,6 +173,7 @@ exports.calculateRound = function(req, res) {
           callback(null, allocation);
         });
       }
+
 
       ,
       step6: function(callback) {
@@ -186,6 +191,7 @@ exports.calculateRound = function(req, res) {
         });
       }
 
+
       ,
       step7: function(callback) {
         console.log("Step 7: ExpScore Sorting");
@@ -197,8 +203,9 @@ exports.calculateRound = function(req, res) {
         });
       }
 
-      ,step8: function(callback) {
-        console.log("Step 8: ExpScore Factor Calculation" );
+      ,
+      step8: function(callback) {
+        console.log("Step 8: ExpScore Factor Calculation");
         CalcController.expScoreFactor(sortedJSON, function(err, result) {
           if (err) return callback(err);
           expScoreFactor = result;
@@ -207,23 +214,25 @@ exports.calculateRound = function(req, res) {
         });
       }
 
-      ,step9: function(callback) {
+      ,
+      step9: function(callback) {
         console.log("Step 9: Offer Score per team calculation");
         var input = {};
         input["customerAllocation"] = customerAllocation;
         input["allTeams"] = allTeams;
         input["teamCalcJSON"] = teamCalcJSON;
         input["expScoreFactor"] = expScoreFactor;
-        CalcController.calcOfferScore(input,function(err,result){
+        CalcController.calcOfferScore(input, function(err, result) {
           if (err) return callback(err);
-          customerAllocation=result;
+          customerAllocation = result;
           console.log("Step 9 completed. Proceed to Step 10");
-          callback(null,result);
+          callback(null, result);
         });
       }
 
-      ,step10: function(callback) {
-        console.log("Step 10: Customer Allocation" );
+      ,
+      step10: function(callback) {
+        console.log("Step 10: Customer Allocation");
         var input = {};
         input["customerAllocation"] = customerAllocation;
         input["toBeCalculatedRound"] = toBeCalculatedRound;

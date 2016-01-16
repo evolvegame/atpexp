@@ -38,6 +38,8 @@ function checkVariables(input) {
   else return false;
 }
 
+
+
 exports.validateRound = function(currentRound, callback) {
   Round.findOne({
     "round": currentRound
@@ -69,7 +71,7 @@ exports.deleteCalcRoundDetails = function(currentRound, callback) {
           var customers = team.customer;
           try {
             customers.forEach(function(customer) {
-              if (customer != null && customer.calculateRound != null && !(customer.calculateRound === undefined) && customer.calculatedRound == currentRound) {
+              if (customer != null && checkVariables(customer.calculatedRound) && customer.calculatedRound == currentRound) {
                 console.log("Removing customer - " + customer.businessName + " from team - " + team.name);
                 customers.pull(customer._id);
                 console.log("Succesfully removed customer - " + customer.businessName + " from team - " + team.name);
@@ -135,7 +137,6 @@ exports.buildAllocation = function(allCustomers, callback) {
       //customerAllocDetail['totalPremium']=customer.revenue; // to be clarified and added
       //customerAllocDetail['totalClaims']=customer.revenue; // to be clarified and added
       customerDetailsJSON['buyerPortfolio'] = customer.buyerPortfolio;
-
       customerAllocDetails['CustomerDetails'] = customerDetailsJSON;
       customerAllocation[customerName] = customerAllocDetails;
     });
@@ -242,68 +243,133 @@ exports.expScoreSorting = function(expScores, callback) {
 
 exports.expScoreFactor = function(expScores, callback) {
   try {
+    console.log("Starting Experience Score Factor calculation");
     var returnJSON = {};
-
     var arrVal = [];
-    for (key in expScores) {
-      arrVal.push(expScores[key]);
-    }
+    for (key in expScores) arrVal.push(expScores[key]);
     var keys = Object.keys(expScores);
     var len = keys.length;
-    arrVal.sort(function(a, b) {
-      return b - a
-    });
+    // sort the values
+    arrVal.sort(function(a, b){return b - a});
     if (len == 1) {
       var key = arrVal[0];
       returnJSON[key] = 1;
     } else {
-      var medianPoint = 5;
-
-      if (len < 11) {
-        medianPoint = Math.round(len / 2);
-      }
-
-      var score = (medianPoint * 0.01) + 1.01;
-      var i = 0;
-      for (i; i <= medianPoint; i++) {
-        var keyVal = arrVal[i];
-        score = score - 0.01;
-        returnJSON[keyVal] = score;
-      }
-
-      var j = i;
-      if (medianPoint < 5) {
-        j = 0;
-        for (j; j >= (len - medianPoint); j++) {
-          var keyVal = arrVal[j];
-          score = 1;
+        var medianPoint = 5;
+        if (len < 11) medianPoint = Math.round(len / 2);
+        // assigning from 1.05 to 1.01
+        var score = (medianPoint * 0.01) + 1.01;
+        var i = 0;
+        for (i; i <= medianPoint; i++) {
+          var keyVal = arrVal[i];
+          score = score - 0.01;
           returnJSON[keyVal] = score;
         }
-      } else {
-        for (j; j < (len - medianPoint); j++) {
-          var keyVal = arrVal[j];
-          score = 1;
+        // assigning team with points 1
+        var j = i;
+        if (medianPoint < 5) {
+          j = 0;
+          for (j; j >= (len - medianPoint); j++) {
+            var keyVal = arrVal[j];
+            score = 1;
+            returnJSON[keyVal] = score;
+          }
+        } else {
+          for (j; j < (len - medianPoint); j++) {
+            var keyVal = arrVal[j];
+            score = 1;
+            returnJSON[keyVal] = score;
+          }
+        }
+        // assigning 0.99 to 0.95
+        var k = j;
+        if (medianPoint < 5) {
+          k = j + i;
+        }
+        for (k; k < len; k++) {
+          var keyVal = arrVal[k];
+          score = score - 0.01;
           returnJSON[keyVal] = score;
         }
-      }
-      var k = j;
-      if (medianPoint < 5) {
-        k = j + i;
-      }
-      for (k; k < len; k++) {
-        var keyVal = arrVal[k];
-        score = score - 0.01;
-        returnJSON[keyVal] = score;
-      }
     }
-
-    // for (key in returnJSON) {
-    //   console.log("Iamhere for " + key + " = " + returnJSON[key]);
-    // }
-    //console.log("Iamhere"+returnJSON);
-
+    console.log("Experience score factor calculated");
     callback(null, returnJSON);
   } catch (err) {
     console.log("Error in experience score factor calculation-->" + err);
   }
+}
+
+exports.calcOfferScore = function(input, callback) {
+  var customerAllocation = input['customerAllocation'];
+  var allTeams = input['allTeams'];
+  var teamCalcJSON = input['teamCalcJSON'];
+  var expScoreFactor = input['expScoreFactor'];
+  async.forEachSeries(allTeams,
+      function(team, callback) {
+        var _2_teamName = team.name;
+        var teamId = team._id;
+        var teamPoints = teamCalcJSON[_2_teamName].Points;
+        var expScorePoint = expScoreFactor[teamPoints];
+        console.log("expScorePoint for " + _2_teamName + " is =" + expScorePoint)
+        var offerArr = team.offer;
+        var roundInformation = team.roundLevelInformation;
+        var roundPremium = 0;
+        var roundCld = 0;
+        var businessName;
+        var intermediateJSON = {};
+        try {
+          if (checkVariables(offerArr)) {
+            async.forEachSeries(offerArr,
+              function(currOffer, callback) {
+                try {
+                  var currOfferId = currOffer._id;
+                  if (checkVariables(currOffer.premium) && currOffer.premium > 0) roundPremium = currOffer.premium;
+                  if (checkVariables(currOffer.cld) && currOffer.cld > 0) roundCld = currOffer.cld;
+                  if (checkVariables(currOffer.marketBusinessName)) businessName = currOffer.marketBusinessName;
+                  var offerScore = 0;
+                  if (roundPremium > 0) offerScore = (roundCld / roundPremium) * expScorePoint;
+                  console.log(_2_teamName + " has an offerScore of " + offerScore + " for customer ->" + businessName);
+
+                  if (checkVariables(customerAllocation)) {
+                    if (checkVariables(customerAllocation[businessName])) {
+                      if (checkVariables(customerAllocation[businessName].winningScore) && customerAllocation[businessName].winningScore < offerScore) {
+                        customerAllocation[businessName].allocatedTo = _2_teamName;
+                        customerAllocation[businessName].winningScore = offerScore;
+                      }
+                    }
+                  }
+                } catch (err) {
+                  console.log("Error in offer score calculation-->" + err);
+                  return callback(err);
+                }
+                console.log("Saving offer score for team -->" + _2_teamName + " for customer --> " + businessName + " the value -->"+offerScore);
+                Teams.update({
+                  "offer._id": currOfferId
+                }, {
+                  $set: {
+                    "offer.$.offerScore": offerScore
+                  }
+                }, function(err) {
+                  if (err != null) return callback(err)
+                  console.log("Saved offer score for team " + _2_teamName + " for customer --> " + businessName );
+                  callback(null, "Saved offer score");
+                });
+
+              },
+              function(err) {
+                if (err) return callback(err);
+                console.log("Offer scores for each offer calculated for team-->"+ _2_teamName);
+                callback(null, "Saved all offers for Team");
+              });
+          } else callback(null, "No offers");
+      } catch (err) {
+        console.log("Error in iterating offers for teams-->" + err)
+        callback(err);
+      }
+    },
+    function(err) {
+      if (err) return callback(err);
+      console.log("Offer scores for each offer calculated for all teams");
+      callback(null, customerAllocation);
+    });
 }

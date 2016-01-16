@@ -144,5 +144,21 @@ angular.module('atpexpApp')
 	});
 })
 
+//Password Reset services
+.factory('ResetPassword', function($resource){
+	return $resource('/api/team/:teamId/:memberId/:password/:controller',{
+		teamId: '@teamId',
+		memberId: '@memberId',
+		password:'@password'
+	},{
+		resetPassword: {
+	          method: 'PUT',
+	          params: {
+	        	  controller:'resetPassword'
+	          }
+	         
+	 },
+	});
+})
 
 

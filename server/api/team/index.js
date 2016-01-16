@@ -26,4 +26,5 @@ router.post('/', controller.create);
 router.get('/:previousRoundNumber/getAllTeamRankings', controller.getAllTeamRankings);
 router.get('/:id/roundLevelInformation', auth.isAuthenticated(), controller.roundLevelInformation);
 router.get('/:id/miniDashboardInfo', auth.isAuthenticated(), controller.miniDashboardInfo);
+router.put('/:id/:memberId/:password/resetPassword', auth.isAuthenticated(), controller.resetPassword);
 module.exports = router;

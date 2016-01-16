@@ -774,6 +774,35 @@ exports.getAllTeamRankings = function(req, res, next) {
 
 };
 
+/**
+ * Change a users password
+ */
+
+exports.resetPassword = function(req, res, next) {
+
+	var teamId =req.params.id;
+	var memberId = req.params.memberId;
+	var password = req.params.password;
+	var newEncryptPassword={};
+	
+	console.log('Reached team controller resetPassword !!! - teamId ' + teamId);
+	console.log('Reached team controller resetPassword !!! - memberId ' + memberId);
+	console.log('Reached team controller resetPassword !!! - password ' + password);
+  
+  Team.findOne({ 'members._id' :  memberId },{'members.$': 1}, function (err, team) {   
+     if (err) return validationError(res, err);
+     newEncryptPassword =team.encryptPassword(password,0);
+      console.log('newEncryptPassword '+newEncryptPassword);
+      Team.update({"members._id":memberId },{$set:{"members.$.hashedPassword" : newEncryptPassword}},function(err){
+      if (err) return validationError(res, err);
+        res.send(200);
+      });  
+
+  
+  });
+};
+
+
 
 
 /**

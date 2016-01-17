@@ -106,15 +106,20 @@ exports.agreementConversion = function(input, callback) {
             if (checkVariables(team)) {
               console.log("Team is -- " + team.name);
               var customers = team.customer;
+              console.log(customers.length);
               async.forEachSeries(customers,
                 function(customer, callback) {
                   var customerId;
+                  console.log(customer.businessName);
+                  console.log(customer.agreement.status);
                   if (checkVariables(customer.businessName) && customer.businessName == customerKey &&
                     checkVariables(customer.agreement.status) && customer.agreement.status == 'Active') {
+                    console.log("customerId in step 1=="+customer._id);
                     customerId = customer._id;
                   }
 
                   if (team.name == teamName) {
+                    console.log("customerId=="+customerId);
                     if (checkVariables(customerId)) {
                       console.log("Updating existing customer--" + customerKey + " for the team--" + team.name);
                       Teams.update({
@@ -125,12 +130,9 @@ exports.agreementConversion = function(input, callback) {
                         }
                       }, function(err) {
                         if (err) return callback(err)
-                        return callback(null);
+                        callback(null);
                       });
-                    } else {
-                      console.log("Found active team but couldnt update");
-                      return callback(new Error('Found active team but couldnt update'));
-                    }
+                    } else callback(null);
                   } else {
                     if (checkVariables(customerId)) {
                       console.log('Converting active customer--' + customerKey + ' to closed for team --' + team.name);
@@ -204,21 +206,20 @@ exports.agreementConversion = function(input, callback) {
 
                     });
                     var agreementDetails = initializeAgreement(newPremium, newPremiumPct);
-                    newTeam.customer.push({
-                      businessName: customerKey,
-                      businessRevenue: customerAllocation[customerKey].CustomerDetails.businessRevenue,
-                      businessCountry: customerAllocation[customerKey].CustomerDetails.businessCountry,
-                      businessrisk: customerAllocation[customerKey].CustomerDetails.businessrisk,
-                      experiencescoreneeded: customerAllocation[customerKey].CustomerDetails.experiencescoreneeded,
-                      buyerPortfolio: customerAllocation[customerKey].CustomerDetails.buyerPortfolio,
-                      wonRound: toBeCalculatedRound,
-                      wonFrom: wonFrom,
-                      lostTo: "",
-                      lostIn: 0,
-                      calculatedRound: toBeCalculatedRound,
-                      agreement: agreementDetails
-                    });
-
+                    var newCustomer ={};
+                    newCustomer['businessName']= customerKey,
+                    newCustomer['businessRevenue']= customerAllocation[customerKey].CustomerDetails.businessRevenue,
+                    newCustomer['businessCountry']= customerAllocation[customerKey].CustomerDetails.businessCountry,
+                    newCustomer['businessrisk']= customerAllocation[customerKey].CustomerDetails.businessrisk,
+                    newCustomer['experiencescoreneeded']= customerAllocation[customerKey].CustomerDetails.experiencescoreneeded,
+                    //newCustomer['buyerPortfolio']= customerAllocation[customerKey].CustomerDetails.buyerPortfolio,
+                    newCustomer['wonRound']= toBeCalculatedRound,
+                    newCustomer['wonFrom']= wonFrom,
+                    newCustomer['lostTo']= "",
+                    newCustomer['lostIn']= 0,
+                    newCustomer['calculatedRound']= toBeCalculatedRound,
+                    newCustomer['agreement']= agreementDetails
+                    newTeam.customer.push(newCustomer);
                     newTeam.save(function(err) {
                       if (err) return callback(err);
                       callback(null, 'Saved successfully');

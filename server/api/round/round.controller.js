@@ -265,9 +265,26 @@ exports.calculateRound = function(req, res) {
           if (err) return callback (err);
           console.log("Step 11 completed. Proceed to Step 12");
           callback(null);
-        })
-
+        });
       }
+
+      ,
+      step12: function(callback) {
+        console.log("Step 12: Populate capital ranking");
+        calcResults.capitalRanking(toBeCalculatedRound,function(err,result){
+          if (err) return callback (err);
+          console.log("Step 12 completed. Proceed to Step 13");
+          callback(null);
+        });
+      }
+
+      // step13 -- country level rankingPosition
+
+      // ,
+      // step14: function(callback){
+      //   console.log("Final step");
+      //   Round.find
+      // }
     },
     // End - async.series1. Handle results
     function(err, results) {

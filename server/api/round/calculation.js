@@ -379,7 +379,7 @@ exports.expScoreRanking = function(input, callback) {
     function(err) {
       if (err) return callback(err);
       callback(null, "Successfully ranking applied for experience score");
-    })
+    });
 }
 
 exports.expScoreFactor = function(expScores, callback) {

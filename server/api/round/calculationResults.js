@@ -68,8 +68,8 @@ exports.populateValues = function(currentRound, callback) {
         },
 
         function(teams, callback) {
-          var capitalArr=[];
-          var expScore=[];
+          var capitalArr = [];
+          var expScore = [];
           async.forEachSeries(teams,
             function(team, callback) {
 
@@ -169,72 +169,72 @@ exports.populateValues = function(currentRound, callback) {
                 capital = capital + profit;
                 console.log("Capital for team - " + team.name + " is -->" + capital);
                 async.series([
-                  function(callback) {
-                    console.log("Update the calculation results at current round level -->" + roundInfoId);
-                    try {
-                      Teams.update({
-                        "roundLevelInformation._id": roundInfoId
-                      }, {
-                        $set: {
-                          "roundLevelInformation.$.capital": capital,
-                          "roundLevelInformation.$.premium": premium,
-                          "roundLevelInformation.$.claims": claims,
-                          "roundLevelInformation.$.grossIncome": grossIncome,
-                          "roundLevelInformation.$.claimsRatio": claimsRatio,
-                          "roundLevelInformation.$.profit": profit,
-                          "roundLevelInformation.$.investment": investment,
-                          "roundLevelInformation.$.salesforceSize": salesforceSize,
-                          "roundLevelInformation.$.underwriterDepartmentSize": underwriterDepartmentSize,
-                          "roundLevelInformation.$.marketingBudget": marketingBudget,
-                          "roundLevelInformation.$.facilities": facilities,
-                          "roundLevelInformation.$.totalExpense": totalExpense
-                        }
-                      }, function(err) {
-                        if (err) return callback(err)
-                        console.log("Update completed for round level information for team"+team.name);
-                        callback(null);
-                      });
-                    } catch (err) {
-                      if (err) return callback(err);
+                    function(callback) {
+                      console.log("Update the calculation results at current round level -->" + roundInfoId);
+                      try {
+                        Teams.update({
+                          "roundLevelInformation._id": roundInfoId
+                        }, {
+                          $set: {
+                            "roundLevelInformation.$.capital": capital,
+                            "roundLevelInformation.$.premium": premium,
+                            "roundLevelInformation.$.claims": claims,
+                            "roundLevelInformation.$.grossIncome": grossIncome,
+                            "roundLevelInformation.$.claimsRatio": claimsRatio,
+                            "roundLevelInformation.$.profit": profit,
+                            "roundLevelInformation.$.investment": investment,
+                            "roundLevelInformation.$.salesforceSize": salesforceSize,
+                            "roundLevelInformation.$.underwriterDepartmentSize": underwriterDepartmentSize,
+                            "roundLevelInformation.$.marketingBudget": marketingBudget,
+                            "roundLevelInformation.$.facilities": facilities,
+                            "roundLevelInformation.$.totalExpense": totalExpense
+                          }
+                        }, function(err) {
+                          if (err) return callback(err)
+                          console.log("Update completed for round level information for team" + team.name);
+                          callback(null);
+                        });
+                      } catch (err) {
+                        if (err) return callback(err);
+                      }
+                    },
+                    function(callback) {
+                      console.log("Update the calculation results at top level for team -->" + team.name);
+                      try {
+                        var teamId = team._id;
+                        Teams.update({
+                          _id: teamId
+                        }, {
+                          $set: {
+                            capital: capital,
+                            premium: premium,
+                            claims: claims,
+                            claimsRatio: claimsRatio,
+                            grossIncome: grossIncome,
+                            profit: profit,
+                            investment: investment,
+                            experienceScore: expScore,
+                            salesForceSize: salesforceSize,
+                            underwriterDepartmentSize: underwriterDepartmentSize,
+                            iTMaintenance: iTMaintenance,
+                            marketingBudget: marketingBudget,
+                            facilities: facilities,
+                            totalExpense: totalExpense
+                          }
+                        }, function(err) {
+                          if (err != null) return callback(err)
+                          console.log("Update completed at top level for team " + team.name);
+                          callback(null, "Updates done successfully for calculation results.");
+                        });
+                      } catch (err) {
+                        if (err) return callback(err);
+                      }
                     }
-                  }
-                  ,function(callback){
-                    console.log("Update the calculation results at top level for team -->" + team.name);
-                    try {
-                      var teamId = team._id;
-                      Teams.update({
-                        _id: teamId
-                      }, {
-                        $set: {
-                          capital: capital,
-                          premium: premium,
-                          claims: claims,
-                          claimsRatio: claimsRatio,
-                          grossIncome: grossIncome,
-                          profit: profit,
-                          investment: investment,
-                          experienceScore: expScore,
-                          salesForceSize: salesforceSize,
-                          underwriterDepartmentSize: underwriterDepartmentSize,
-                          iTMaintenance: iTMaintenance,
-                          marketingBudget:marketingBudget,
-                          facilities: facilities,
-                          totalExpense: totalExpense
-                        }
-                      }, function(err) {
-                        if (err != null) return callback(err)
-                        console.log("Update completed at top level for team " + team.name);
-                        callback(null, "Updates done successfully for calculation results.");
-                      });
-                    } catch (err) {
-                      if (err) return callback(err);
-                    }
-                  }
-                ],
-                function(err){
-                  if(err) return callback(err);
-                  callback(null,"Calculation of Results done and data updated.")
-                });
+                  ],
+                  function(err) {
+                    if (err) return callback(err);
+                    callback(null, "Calculation of Results done and data updated.")
+                  });
               });
             },
             function(err) {
@@ -251,4 +251,97 @@ exports.populateValues = function(currentRound, callback) {
   } catch (err) {
     if (err) return callback(err);
   }
+}
+
+exports.capitalRanking = function(currRound, callback) {
+  try {
+    var query = queryAllTeams();
+    var allProjects;
+    var allTeams;
+    var capitalArr = [];
+    async.waterfall([
+      function(callback) {
+        query.exec(function(err, teams) {
+          if (err) return callback(err)
+          callback(null, teams);
+        });
+      },
+
+      function(teams, callback) {
+        teams.forEach(function(team) {
+          var capitalVal = 0;
+          if (checkVariables(team.capital)) {
+            capitalVal = team.capital;
+          }
+          capitalArr.push(capitalVal);
+        });
+        // sort based on capital
+        var sorted = capitalArr.slice().sort(function(a, b) {
+          return b - a
+        });
+        var sortedJSON = {};
+        // ranking order
+        var ranks = sorted.slice().map(function(v) {
+          var rankIndex = sorted.indexOf(v) + 1;
+          if (sortedJSON != null && !(sortedJSON === undefined)) {
+            if (sortedJSON.rankIndex == null || sortedJSON.rankIndex === undefined) {
+              sortedJSON[rankIndex] = v;
+            }
+          }
+        });
+        // swap values
+        var one, swappedJSON = {};
+        for (one in sortedJSON) {
+          if (sortedJSON.hasOwnProperty(one)) {
+            swappedJSON[sortedJSON[one]] = one;
+          }
+        }
+
+        async.forEach(teams,
+          function(team, callback) {
+            var roundInfo = team.roundLevelInformation;
+            if (checkVariables(roundInfo)) {
+              async.forEach(roundInfo,
+                function(currRoundInfo, callback) {
+                  if (checkVariables(currRoundInfo) && checkVariables(currRoundInfo._id) && checkVariables(currRoundInfo.round) && currRoundInfo.round == currRound) {
+                    var roundId = currRoundInfo._id;
+                    var capitalForRank = currRoundInfo.capital;
+                    var rank = swappedJSON[capitalForRank];
+                    var teamId = team._id;
+                    Teams.update({
+                      _id: teamId,
+                      "roundLevelInformation._id": roundId
+                    }, {
+                      $set: {
+                        rankingPosition: rank,
+                        "roundLevelInformation.$.rankingPosition": rank
+                      }
+                    }, function(err) {
+                      if (err != null) return callback(err)
+                      console.log("Saving capital ranking for team -->" + team.name + " rank= " + rank);
+                      callback(null, "Saved capital ranking");
+                    });
+                  } else callback(null);
+                },
+                function(err) {
+                  if (err) return callback(err);
+                  callback(null);
+                });
+            } else callback(null);
+          },
+          function(err) {
+            if (err) return callback(err);
+            callback(null, "Successfully ranking applied for capital");
+          });
+
+      }
+
+    ], function(err) {
+      if (err) return callback(err);
+      callback(null, "Success");
+    });
+  } catch (err) {
+    if (err) return callback(err);
+  }
+
 }

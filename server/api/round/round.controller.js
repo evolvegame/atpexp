@@ -208,8 +208,8 @@ exports.calculateRound = function(req, res) {
             input["allTeams"] = allTeams;
             input["sortedJSON"] = sortedJSON;
             input["currRound"] = toBeCalculatedRound;
-            CalcController.expScoreRanking(input,function(err,result){
-              if(err) return callback(err);
+            CalcController.expScoreRanking(input, function(err, result) {
+              if (err) return callback(err);
               console.log("Step 7 completed.Proceed to Step 8");
               callback(null, sortedJSON);
             });
@@ -261,8 +261,8 @@ exports.calculateRound = function(req, res) {
       ,
       step11: function(callback) {
         console.log("Step 11: Populate round level values");
-        calcResults.populateValues(toBeCalculatedRound,function(err,result){
-          if (err) return callback (err);
+        calcResults.populateValues(toBeCalculatedRound, function(err, result) {
+          if (err) return callback(err);
           console.log("Step 11 completed. Proceed to Step 12");
           callback(null);
         });
@@ -271,8 +271,8 @@ exports.calculateRound = function(req, res) {
       ,
       step12: function(callback) {
         console.log("Step 12: Populate capital ranking");
-        calcResults.capitalRanking(toBeCalculatedRound,function(err,result){
-          if (err) return callback (err);
+        calcResults.capitalRanking(toBeCalculatedRound, function(err, result) {
+          if (err) return callback(err);
           console.log("Step 12 completed. Proceed to Step 13");
           callback(null);
         });
@@ -280,11 +280,23 @@ exports.calculateRound = function(req, res) {
 
       // step13 -- country level rankingPosition
 
-      // ,
-      // step14: function(callback){
-      //   console.log("Final step");
-      //   Round.find
-      // }
+      ,
+      step14: function(callback) {
+        console.log("Final step. Update Calculation Flag to true for the round");
+        Round.findOneAndUpdate(
+          {
+            "round": toBeCalculatedRound
+          }, {
+            $set: {
+              "calculationFlag": true
+            }
+          }
+         , function(err) {
+          if (err != null) return callback(err)
+          console.log("Great Job... Calculation completed successfully. Hurray...");
+          callback(null);
+        });
+      }
     },
     // End - async.series1. Handle results
     function(err, results) {

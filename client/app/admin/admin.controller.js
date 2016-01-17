@@ -2,7 +2,7 @@
 
 angular.module('atpexpApp')
   .controller('AdminCtrl', function ($rootScope,$scope,Team,Round,$http, toastr) {
-  Round.currentRound(function (currRound) {
+   Round.currentRound(function (currRound) {
               var currRoundRecord = currRound;
               if(currRoundRecord!=null && currRoundRecord.round>0){
                 $scope.currRound =currRoundRecord;
@@ -100,8 +100,26 @@ angular.module('atpexpApp')
       }
 
     Round.calculateRound({"roundId":round.round},teamAdmin,function(calculation){
-        if(calculation)toastr.success('Calculation completed successfully!!!');
+        if(calculation){
+          toastr.success('Calculation completed successfully!!!');
+          Round.currentRound(function (currRound) {
+                     var currRoundRecord = currRound;
+                     if(currRoundRecord!=null && currRoundRecord.round>0){
+                       $scope.currRound =currRoundRecord;
+                       if(currRoundRecord.calculationFlag){
+                         $scope.colorCalculated = 'success';
+                       }else{
+                         $scope.colorCalculated = 'danger';
+                       }
+                     }else{
+                       console.log("Error loading current round ");
+                       toastr.error("Error: Currently no details are available for current round. Request to initiate.");
+                     }
+
+           });
+        }
         console.log("Successfully calculated"+calculation);
+
       },function(error){
           toastr.error(error.data.message);
       });

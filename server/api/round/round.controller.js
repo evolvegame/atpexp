@@ -48,7 +48,7 @@ exports.endCurrRound = function(req, res) {
   try {
     var currRoundId = parseInt(req.params.entryId);
   } catch (err) {
-    if(err) res.send(500);
+    if (err) res.send(500);
   }
   // Find the current round and merge with the new values
   Round.findOne({
@@ -68,9 +68,9 @@ exports.endCurrRound = function(req, res) {
         console.error(
           "Current round cannot be ended due to technical issues" + err);
         return handleError(res, err);
-      }else{
-        setNewRoundLevelInfo(currRoundId+1,function(err){
-          if(err) return res.send(500);
+      } else {
+        setNewRoundLevelInfo(currRoundId + 1, function(err) {
+          if (err) return res.send(500);
           return res.json(200, round);
         });
       }
@@ -294,7 +294,7 @@ function handleErrors(res, err, errorCode) {
   });
 }
 
-function initializeRoundLevelInfo(newRound){
+function initializeRoundLevelInfo(newRound) {
   var roundLevelInformation = {};
   roundLevelInformation['round'] = newRound;
   roundLevelInformation['capital'] = 0;
@@ -303,89 +303,90 @@ function initializeRoundLevelInfo(newRound){
   roundLevelInformation['grossIncome'] = 0;
   roundLevelInformation['claimsRatio'] = 0;
   roundLevelInformation['profit'] = 0;
-  roundLevelInformation['investment'] =0;
-  roundLevelInformation['experienceScore'] =0;
-  roundLevelInformation['salesforceSize'] =0;
-  roundLevelInformation['underwriterDepartmentSize'] =0;
-  roundLevelInformation['iTMaintenance'] =0;
-  roundLevelInformation['marketingBudget'] =0;
-  roundLevelInformation['facilities'] =0;
-  roundLevelInformation['totalExpense'] =0;
-  roundLevelInformation['rankingPosition'] =0;
-  roundLevelInformation['experienceScoreAmount'] =0;
+  roundLevelInformation['investment'] = 0;
+  roundLevelInformation['experienceScore'] = 0;
+  roundLevelInformation['salesforceSize'] = 0;
+  roundLevelInformation['underwriterDepartmentSize'] = 0;
+  roundLevelInformation['iTMaintenance'] = 0;
+  roundLevelInformation['marketingBudget'] = 0;
+  roundLevelInformation['facilities'] = 0;
+  roundLevelInformation['totalExpense'] = 0;
+  roundLevelInformation['rankingPosition'] = 0;
+  roundLevelInformation['experienceScoreAmount'] = 0;
   return roundLevelInformation;
 }
 
-function setNewRoundLevelInfo(nextRoundNum,callback){
+function setNewRoundLevelInfo(nextRoundNum, callback) {
   async.waterfall([
-    function(callback){
-      Teams.find({
-      roundLevelInformation: {
-        $elemMatch: {
-          'round': nextRoundNum
-        }
-      }}).exec(function(err,teams){
-        if(err) return callback(err);
-        callback(null,teams);
+      function(callback) {
+        Teams.find({
+          roundLevelInformation: {
+            $elemMatch: {
+              'round': nextRoundNum
+            }
+          }
+        }).exec(function(err, teams) {
+          if (err) return callback(err);
+          callback(null, teams);
 
-      });
-    }
-    ,function(teams,callback){
-      async.forEach(teams,
-       function(team,callback){
-         var roundsInfo = team.roundLevelInformation;
-         async.forEachSeries(roundsInfo,
-           function(roundInfo,callback){
-             if(roundInfo!=null && roundInfo!=undefined && roundInfo.round != null
-                   &&  roundInfo.round != undefined && roundInfo.round == nextRoundNum){
-                      var roundInfoId = roundInfo._id;
-                      roundsInfo.pull(roundInfoId);
-                      team.save(function(err) {
-                        if (err != null) return callback(err);
-                        console.log("Deleting duplicate round info -->" + team.name);
-                        callback(null);
-                      });
-                    }
-           }
+        });
+      },
+      function(teams, callback) {
+        async.forEach(teams,
+          function(team, callback) {
+            var roundsInfo = team.roundLevelInformation;
+            async.forEachSeries(roundsInfo,
+              function(roundInfo, callback) {
+                if (roundInfo != null && roundInfo != undefined && roundInfo.round != null && roundInfo.round != undefined && roundInfo.round == nextRoundNum) {
+                  var roundInfoId = roundInfo._id;
+                  roundsInfo.pull(roundInfoId);
+                  team.save(function(err) {
+                    if (err != null) return callback(err);
+                    console.log("Deleting duplicate round info -->" + team.name);
+                    callback(null);
+                  });
+                }
+              }
 
-           ,function(err){
-             if(err) return callback(err);
-             callback(null);
-           }
-          )
-       }
-       ,function(err){
-         if(err) return callback(err);
-         callback(null);
-       }
-     );
-    }
-    ,function(callback){
-      Teams.find().exec(function(err,teams){
-        if(err) return callback(err);
-        callback(null,teams);
-      });
-    }
-    ,function(teams,callback){
-      async.forEach(teams,
-        function(team,callback){
-          var newRoundInfo = initializeRoundLevelInfo(nextRoundNum);
-          team.roundLevelInformation.push(newRoundInfo);
-          team.save(function(err) {
-            if (err != null) return callback(err);
-            console.log("Saving team with new round info-->" + team.name);
+              ,
+              function(err) {
+                if (err) return callback(err);
+                callback(null);
+              }
+            )
+          },
+          function(err) {
+            if (err) return callback(err);
+            callback(null);
+          }
+        );
+      },
+      function(callback) {
+        Teams.find().exec(function(err, teams) {
+          if (err) return callback(err);
+          callback(null, teams);
+        });
+      },
+      function(teams, callback) {
+        async.forEach(teams,
+          function(team, callback) {
+            var newRoundInfo = initializeRoundLevelInfo(nextRoundNum);
+            team.roundLevelInformation.push(newRoundInfo);
+            team.save(function(err) {
+              if (err != null) return callback(err);
+              console.log("Saving team with new round info-->" + team.name);
+              callback(null);
+            });
+          },
+          function(err) {
+            if (err) return callback(err);
             callback(null);
           });
-        }
-       , function(err){
-         if(err) return callback(err);
-         callback(null);
-       });
-    }
-  ],
-  function(err){
-    if (err) return callback(err);
-    callback(null);
-  })
+      }
+    ],
+    function(err) {
+      if (err) return callback(err);
+      callback(null);
+    })
 
 }

@@ -27,8 +27,6 @@ angular.module('atpexpApp')
         if(currRoundVal!=null){
           if(!currRoundVal.round>0){
             return true;
-          }else if (currRoundVal.calculationFlag) {
-            return true;
           }else{
             return false;
           }
@@ -39,23 +37,18 @@ angular.module('atpexpApp')
 
     $scope.disableNextRound = function(e){
       if(teamAdmin.role!='admin'){
-         console.log("I am here");
          return true;
       }
       var currRoundVal = $scope.currRound;
       if(currRoundVal!=null){
         if(currRoundVal.round>0 && currRoundVal.calculationFlag){
-          console.log("I am here 1");
           return false;
         }else if (currRoundVal.round>0 && !currRoundVal.calculationFlag) {
-          console.log("I am here 2");
           return true;
         }else{
-          console.log("I am here 3");
           return false;
         }
       }else{
-        console.log("I am here 4");
           return false;
       }
     }
@@ -69,6 +62,7 @@ angular.module('atpexpApp')
       if(existingRound.currentRoundFlag===true ){
         existingRound.currentRoundFlag = false;
       }
+      existingRound.calculationFlag=true;
       existingRound.$update({ roundId: $scope.currRound.round });
       var currDate = new Date();
       var endDate = new Date();

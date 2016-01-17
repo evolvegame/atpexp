@@ -7,6 +7,7 @@ var async = require('async');
 
 var _expScorePoint = 1000;
 var _selfInsured = "_SelfInsured";
+var _initialCapital = 5000000;
 
 function queryTeamsCurrentRound(roundNumber) {
   var query = Teams.find({
@@ -38,6 +39,8 @@ function checkVariables(input) {
   else return false;
 }
 
+
+
 exports.validateRound = function(currentRound, callback) {
   Round.findOne({
     "round": currentRound
@@ -67,31 +70,120 @@ exports.deleteCalcRoundDetails = function(currentRound, callback) {
       async.forEachSeries(teams,
         function(team, callback) {
           var customers = team.customer;
-          try {
-            customers.forEach(function(customer) {
-              if (customer != null && customer.calculateRound != null && !(customer.calculateRound === undefined) && customer.calculatedRound == currentRound) {
-                console.log("Removing customer - " + customer.businessName + " from team - " + team.name);
-                customers.pull(customer._id);
-                console.log("Succesfully removed customer - " + customer.businessName + " from team - " + team.name);
-              }
+          if (checkVariables(customers)) {
+            try {
+              customers.forEach(function(customer) {
+                if (customer != null && checkVariables(customer.calculatedRound) && customer.calculatedRound == currentRound) {
+                  console.log("Removing customer - " + customer.businessName + " from team - " + team.name);
+                  customers.pull(customer._id);
+                  console.log("Succesfully removed customer - " + customer.businessName + " from team - " + team.name);
+                }
+              });
+            } catch (err) {
+              console.log("Failure in loop for customers" + err);
+              return callback(err);
+            }
+            team.save(function(err) {
+              if (err != null) return callback(err);
+              console.log("Saving team -->" + team.name);
+              callback(null, "Deletion for team completed");
             });
-          } catch (err) {
-            console.log("Failure in loop for customers" + err);
-            return callback(err);
-          }
-          team.save(function(err) {
-            if (err != null) return callback(err);
-            console.log("Saving team -->" + team.name);
-            callback(null, "Deletion for team completed");
-          });
+          } else callback(null, "Nothing to delete");
         },
         function(err) {
           if (err) return callback(err);
           callback(null, 'All customers from all teams deleted');
         });
+    },
+    function(msg, callback) {
+      Teams.find().exec(function(err, teams) {
+        if (err) return callback(err);
+        callback(null, teams);
+      });
+    },
+
+    function(teams, callback) {
+      async.forEachSeries(teams,
+        function(team, callback) {
+          console.log(currentRound);
+          if (currentRound == 1) {
+            var teamId = team._id;
+            Teams.update({
+              _id: teamId
+            }, {
+              $set: {
+                capital: _initialCapital,
+                premium: 0,
+                claims: 0,
+                claimsRatio: 0,
+                grossIncome: 0,
+                profit: 0,
+                investment: 0,
+                experienceScore: 0,
+                salesForceSize: 0,
+                underwriterDepartmentSize: 0,
+                iTMaintenance: 0,
+                marketingBudget: 0,
+                facilities: 0,
+                totalExpense: 0,
+                rankingPosition: 0
+              }
+            }, function(err) {
+              if (err != null) return callback(err)
+              console.log("Reset values for team for Round 1 --> " + team.name);
+              callback(null, "Reset completed for Round 1");
+            });
+
+          } else {
+            var previousRound = currentRound-1;
+            var roundInfos = team.roundLevelInformation;
+            var teamId = team._id;
+            if (checkVariables(roundInfos)) {
+              console.log(team.name)
+              async.forEach(roundInfos,
+                function(roundInfo, callback) {
+                  if (checkVariables(roundInfos) && checkVariables(roundInfo.round) && roundInfo.round == previousRound) {
+                    Teams.update({
+                      _id: teamId
+                    }, {
+                      $set: {
+                        capital: roundInfo.capital,
+                        premium: roundInfo.premium,
+                        claims: roundInfo.claims,
+                        claimsRatio: roundInfo.claimsRatio,
+                        grossIncome: roundInfo.grossIncome,
+                        profit: roundInfo.profit,
+                        investment: roundInfo.investment,
+                        experienceScore: roundInfo.experienceScore,
+                        salesForceSize: roundInfo.salesforceSize,
+                        underwriterDepartmentSize: roundInfo.underwriterDepartmentSize,
+                        iTMaintenance: roundInfo.iTMaintenance,
+                        marketingBudget: roundInfo.marketingBudget,
+                        facilities: roundInfo.facilities,
+                        totalExpense: roundInfo.totalExpense,
+                        rankingPosition: roundInfo.rankingPosition
+                      }
+                    }, function(err) {
+                      if (err != null) return callback(err);
+                      console.log("Reset values for team for current round for team--> " + team.name);
+                      callback(null, "Reset completed for current round");
+                    });
+
+                  } else callback(null,"Loop over");
+                },
+                function(err) {
+                  if (err) return callback(err);
+                  return callback(null,"Reset done for team --> " + team.name);
+                });
+            } else callback(null,"No round Info");
+          }
+        },
+        function(err) {
+          if (err) return callback(err);
+          return callback(null, "Reset of values for all teams completed")
+        });
 
     }
-
   ], function(err, result) {
     if (err) return callback(err);
     callback(null, "Deletion task completed successfully")
@@ -135,7 +227,6 @@ exports.buildAllocation = function(allCustomers, callback) {
       //customerAllocDetail['totalPremium']=customer.revenue; // to be clarified and added
       //customerAllocDetail['totalClaims']=customer.revenue; // to be clarified and added
       customerDetailsJSON['buyerPortfolio'] = customer.buyerPortfolio;
-
       customerAllocDetails['CustomerDetails'] = customerDetailsJSON;
       customerAllocation[customerName] = customerAllocDetails;
     });
@@ -240,16 +331,66 @@ exports.expScoreSorting = function(expScores, callback) {
   }
 }
 
+function swapJsonKeyValues(input) {
+  var one, output = {};
+  for (one in input) {
+    if (input.hasOwnProperty(one)) {
+      output[input[one]] = one;
+    }
+  }
+  return output;
+}
+
+exports.expScoreRanking = function(input, callback) {
+
+  var allTeams = input["allTeams"];
+  var sortedJSON = input["sortedJSON"];
+  var swappedJSON = swapJsonKeyValues(sortedJSON);
+  var currRound = input["currRound"];
+  async.forEach(allTeams,
+    function(team, callback) {
+      var roundInfo = team.roundLevelInformation;
+      if (checkVariables(roundInfo)) {
+        async.forEach(roundInfo,
+          function(currRoundInfo, callback) {
+            if (checkVariables(currRoundInfo) && checkVariables(currRoundInfo._id) && checkVariables(currRoundInfo.round) && currRoundInfo.round == currRound) {
+              var roundId = currRoundInfo._id;
+              var expScore = currRoundInfo.experienceScore;
+              var rank = swappedJSON[expScore];
+              Teams.update({
+                "roundLevelInformation._id": roundId
+              }, {
+                $set: {
+                  "roundLevelInformation.$.experienceScoreRankingPosition": rank
+                }
+              }, function(err) {
+                if (err != null) return callback(err)
+                console.log("Saving experience score ranking for team -->" + team.name + " rank= " + rank);
+                callback(null, "Saved experience score ranking");
+              });
+            } else callback(null)
+          },
+          function(err) {
+            if (err) return callback(err);
+            callback(null);
+          });
+      } else callback(null);
+    },
+    function(err) {
+      if (err) return callback(err);
+      callback(null, "Successfully ranking applied for experience score");
+    })
+}
+
 exports.expScoreFactor = function(expScores, callback) {
   try {
+    console.log("Starting Experience Score Factor calculation");
     var returnJSON = {};
-
     var arrVal = [];
-    for (key in expScores) {
-      arrVal.push(expScores[key]);
-    }
+    for (key in expScores) arrVal.push(expScores[key]);
     var keys = Object.keys(expScores);
     var len = keys.length;
+    // sort the values
     arrVal.sort(function(a, b) {
       return b - a
     });
@@ -258,11 +399,8 @@ exports.expScoreFactor = function(expScores, callback) {
       returnJSON[key] = 1;
     } else {
       var medianPoint = 5;
-
-      if (len < 11) {
-        medianPoint = Math.round(len / 2);
-      }
-
+      if (len < 11) medianPoint = Math.round(len / 2);
+      // assigning from 1.05 to 1.01
       var score = (medianPoint * 0.01) + 1.01;
       var i = 0;
       for (i; i <= medianPoint; i++) {
@@ -270,7 +408,7 @@ exports.expScoreFactor = function(expScores, callback) {
         score = score - 0.01;
         returnJSON[keyVal] = score;
       }
-
+      // assigning team with points 1
       var j = i;
       if (medianPoint < 5) {
         j = 0;
@@ -286,6 +424,7 @@ exports.expScoreFactor = function(expScores, callback) {
           returnJSON[keyVal] = score;
         }
       }
+      // assigning 0.99 to 0.95
       var k = j;
       if (medianPoint < 5) {
         k = j + i;
@@ -296,14 +435,84 @@ exports.expScoreFactor = function(expScores, callback) {
         returnJSON[keyVal] = score;
       }
     }
-
-    // for (key in returnJSON) {
-    //   console.log("Iamhere for " + key + " = " + returnJSON[key]);
-    // }
-    //console.log("Iamhere"+returnJSON);
-
+    console.log("Experience score factor calculated");
     callback(null, returnJSON);
   } catch (err) {
     console.log("Error in experience score factor calculation-->" + err);
   }
+}
+
+exports.calcOfferScore = function(input, callback) {
+  var customerAllocation = input['customerAllocation'];
+  var allTeams = input['allTeams'];
+  var teamCalcJSON = input['teamCalcJSON'];
+  var expScoreFactor = input['expScoreFactor'];
+  async.forEachSeries(allTeams,
+    function(team, callback) {
+      var _2_teamName = team.name;
+      var teamId = team._id;
+      var teamPoints = teamCalcJSON[_2_teamName].Points;
+      var expScorePoint = expScoreFactor[teamPoints];
+      console.log("expScorePoint for " + _2_teamName + " is =" + expScorePoint)
+      var offerArr = team.offer;
+      var roundInformation = team.roundLevelInformation;
+      var roundPremium = 0;
+      var roundCld = 0;
+      var businessName;
+      var intermediateJSON = {};
+      try {
+        if (checkVariables(offerArr)) {
+          async.forEachSeries(offerArr,
+            function(currOffer, callback) {
+              try {
+                var currOfferId = currOffer._id;
+                if (checkVariables(currOffer.premium) && currOffer.premium > 0) roundPremium = currOffer.premium;
+                if (checkVariables(currOffer.cld) && currOffer.cld > 0) roundCld = currOffer.cld;
+                if (checkVariables(currOffer.marketBusinessName)) businessName = currOffer.marketBusinessName;
+                var offerScore = 0;
+                if (roundPremium > 0) offerScore = (roundCld / roundPremium) * expScorePoint;
+                console.log(_2_teamName + " has an offerScore of " + offerScore + " for customer ->" + businessName);
+
+                if (checkVariables(customerAllocation)) {
+                  if (checkVariables(customerAllocation[businessName])) {
+                    if (checkVariables(customerAllocation[businessName].winningScore) && customerAllocation[businessName].winningScore < offerScore) {
+                      customerAllocation[businessName].allocatedTo = _2_teamName;
+                      customerAllocation[businessName].winningScore = offerScore;
+                    }
+                  }
+                }
+              } catch (err) {
+                console.log("Error in offer score calculation-->" + err);
+                return callback(err);
+              }
+              console.log("Saving offer score for team -->" + _2_teamName + " for customer --> " + businessName + " the value -->" + offerScore);
+              Teams.update({
+                "offer._id": currOfferId
+              }, {
+                $set: {
+                  "offer.$.offerScore": offerScore
+                }
+              }, function(err) {
+                if (err != null) return callback(err)
+                console.log("Saved offer score for team " + _2_teamName + " for customer --> " + businessName);
+                callback(null, "Saved offer score");
+              });
+
+            },
+            function(err) {
+              if (err) return callback(err);
+              console.log("Offer scores for each offer calculated for team-->" + _2_teamName);
+              callback(null, "Saved all offers for Team");
+            });
+        } else callback(null, "No offers");
+      } catch (err) {
+        console.log("Error in iterating offers for teams-->" + err)
+        callback(err);
+      }
+    },
+    function(err) {
+      if (err) return callback(err);
+      console.log("Offer scores for each offer calculated for all teams");
+      callback(null, customerAllocation);
+    });
 }

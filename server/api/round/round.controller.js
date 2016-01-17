@@ -1,13 +1,13 @@
 'use strict';
 
 var _this = this;
-var _ = require('lodash');
 var Round = require('./round.model');
 var Teams = require('../team/team.model');
 var Customers = require('../customer/customer.model');
 var CalcController = require('./calculation');
 var agreementConverter = require('./agreement.conversion');
-
+var calcResults = require('./calculationResults');
+var _ = require('lodash');
 var async = require('async');
 
 // Get list of rounds
@@ -246,6 +246,17 @@ exports.calculateRound = function(req, res) {
           callback(null, result);
         });
       }
+
+      ,
+      step11: function(callback) {
+        console.log("Step 11: Populate round level values");
+        calcResults.populateValues(toBeCalculatedRound,function(err,result){
+          if (err) return callback (err);
+          console.log("Step 11 completed. Proceed to Step 12");
+          callback(null);
+        })
+
+      }
     },
     // End - async.series1. Handle results
     function(err, results) {
@@ -313,6 +324,12 @@ function initializeRoundLevelInfo(newRound) {
   roundLevelInformation['totalExpense'] = 0;
   roundLevelInformation['rankingPosition'] = 0;
   roundLevelInformation['experienceScoreAmount'] = 0;
+  roundLevelInformation['countryLevelRankingPosition'] = 0;
+  roundLevelInformation['experienceScoreRankingPosition'] = 0;
+  roundLevelInformation['CountryLevelExperienceScoreRankingPosition'] = 0;
+  roundLevelInformation['customers'] = 0;
+  roundLevelInformation['project'] = [];
+  roundLevelInformation['department'] = [];
   return roundLevelInformation;
 }
 

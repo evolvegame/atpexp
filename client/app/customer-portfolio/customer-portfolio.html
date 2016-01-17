@@ -44,7 +44,7 @@
                                                                        
                             </thead>
                             <tbody>
-                                <tr ng-repeat="cust in customerPortfolio">
+                                <tr ng-repeat="cust in customerPortfolio | filter:{agreement:{status:'Active'}}">
                                     <td>{{ cust.businessName }}</td>
                                     <td>{{ cust.businessCountry }}</td>
                                     <td>{{ cust.buyerPortfolio[0].buyerCountry }} - {{ cust.buyerPortfolio[0].buyerIndustry }}</td>

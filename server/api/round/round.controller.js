@@ -201,8 +201,19 @@ exports.calculateRound = function(req, res) {
         CalcController.expScoreSorting(expScores, function(err, result) {
           if (err) return callback(err);
           sortedJSON = result;
-          console.log("Step 7 completed.Proceed to Step 8");
-          callback(null, result);
+          var input = {};
+          CalcController.findAllTeams(toBeCalculatedRound, function(err, teams) {
+            if (err) return callback(err);
+            allTeams = teams;
+            input["allTeams"] = allTeams;
+            input["sortedJSON"] = sortedJSON;
+            input["currRound"] = toBeCalculatedRound;
+            CalcController.expScoreRanking(input,function(err,result){
+              if(err) return callback(err);
+              console.log("Step 7 completed.Proceed to Step 8");
+              callback(null, sortedJSON);
+            });
+          });
         });
       }
 

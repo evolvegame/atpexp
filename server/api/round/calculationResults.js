@@ -68,6 +68,8 @@ exports.populateValues = function(currentRound, callback) {
         },
 
         function(teams, callback) {
+          var capitalArr=[];
+          var expScore=[];
           async.forEachSeries(teams,
             function(team, callback) {
 

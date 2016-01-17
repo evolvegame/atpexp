@@ -90,18 +90,18 @@ exports.deleteCalcRoundDetails = function(currentRound, callback) {
         },
         function(err) {
           if (err) return callback(err);
-          callback(null,'All customers from all teams deleted');
+          callback(null, 'All customers from all teams deleted');
         });
 
     },
-    function(msg,callback) {
+    function(msg, callback) {
       Teams.find().exec(function(err, teams) {
         if (err) return callback(err);
         callback(null, teams);
       });
     },
 
-    function(teams,callback) {
+    function(teams, callback) {
       async.forEachSeries(teams,
         function(team, callback) {
           if (currentRound == 1) {
@@ -325,6 +325,58 @@ exports.expScoreSorting = function(expScores, callback) {
   } catch (err) {
     console.log("Error in experience score sorting-->" + err);
   }
+}
+
+function swapJsonKeyValues(input) {
+  var one, output = {};
+  for (one in input) {
+    if (input.hasOwnProperty(one)) {
+      output[input[one]] = one;
+    }
+  }
+  return output;
+}
+
+exports.expScoreRanking = function(input, callback) {
+
+  var allTeams = input["allTeams"];
+  var sortedJSON = input["sortedJSON"];
+  var swappedJSON = swapJsonKeyValues(sortedJSON);
+  var currRound = input["currRound"];
+  async.forEach(allTeams,
+    function(team, callback) {
+      var roundInfo = team.roundLevelInformation;
+      if (checkVariables(roundInfo)) {
+        async.forEach(roundInfo,
+          function(currRoundInfo, callback) {
+            if (checkVariables(currRoundInfo) && checkVariables(currRoundInfo._id) && checkVariables(currRoundInfo.round) && currRoundInfo.round == currRound) {
+              var roundId = currRoundInfo._id;
+              var expScore = currRoundInfo.experienceScore;
+              console.log(team.name+" -- "+expScore);
+              var rank = swappedJSON[expScore];
+              Teams.update({
+                "roundLevelInformation._id": roundId
+              }, {
+                $set: {
+                  "roundLevelInformation.$.experienceScoreRankingPosition": rank
+                }
+              }, function(err) {
+                if (err != null) return callback(err)
+                console.log("Saving experience score ranking for team -->" + team.name + " rank= " + rank);
+                callback(null, "Saved experience score ranking");
+              });
+            } else callback(null)
+          },
+          function(err) {
+            if (err) return callback(err);
+            callback(null);
+          });
+      } else callback(null);
+    },
+    function(err) {
+      if (err) return callback(err);
+      callback(null, "Successfully ranking applied for experience score");
+    })
 }
 
 exports.expScoreFactor = function(expScores, callback) {

@@ -106,12 +106,9 @@ exports.agreementConversion = function(input, callback) {
             if (checkVariables(team)) {
               console.log("Team is -- " + team.name);
               var customers = team.customer;
-              console.log(customers.length);
               async.forEachSeries(customers,
                 function(customer, callback) {
                   var customerId;
-                  console.log(customer.businessName);
-                  console.log(customer.agreement.status);
                   if (checkVariables(customer.businessName) && customer.businessName == customerKey &&
                     checkVariables(customer.agreement.status) && customer.agreement.status == 'Active') {
                     console.log("customerId in step 1=="+customer._id);

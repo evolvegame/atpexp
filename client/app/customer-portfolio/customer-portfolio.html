@@ -13,3 +13,64 @@
 <div class="page-title">
     <h2>Customer Portfolio</h2>
 </div>
+
+
+
+<div class="row">
+    <div class="col-md-12">    
+        <div class="panel panel-default">
+                <div class="panel-heading">                    
+                    <ul class="panel-controls">
+                        <li><a href="#" ng-click="isCollapsed = !isCollapsed" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                       <li><a href="#" ng-click="refresh()" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                    </ul>
+                </div>
+            
+                <div class="panel-body" collapse="isCollapsed">
+                <div class="table-responsive">
+                        <table datatable="ng" class="table datatable hover">
+                            <thead>
+                                <tr>
+                                    <th>{{'customer-portfolio.name'|translate}}</th>
+                                    <th>{{'customer-portfolio.country'|translate}}</th>
+                                    <th>{{'customer-portfolio.buyerSegment'|translate}} 1</th>
+                                    <th>{{'customer-portfolio.buyerSegment'|translate}} 2</th>
+                                    <th>{{'customer-portfolio.buyerSegment'|translate}} 3</th>
+                                    <th>{{'customer-portfolio.wonRound'|translate}}</th>
+                                    <th>{{'customer-portfolio.wonFrom'|translate}}</th>
+                                    <th>{{'customer-portfolio.lostTo'|translate}}</th>
+                                    <th>{{'customer-portfolio.lostIn'|translate}}</th>                               
+                                    <th>{{'customer-portfolio.manageOut'|translate}}</th> 
+                                                                       
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="cust in customerPortfolio">
+                                    <td>{{ cust.businessName }}</td>
+                                    <td>{{ cust.businessCountry }}</td>
+                                    <td>{{ cust.buyerPortfolio[0].buyerCountry }} - {{ cust.buyerPortfolio[0].buyerIndustry }}</td>
+                                    <td>{{ cust.buyerPortfolio[1].buyerCountry }} - {{ cust.buyerPortfolio[1].buyerIndustry }}</td>
+                                    <td>{{ cust.buyerPortfolio[2].buyerCountry }} - {{ cust.buyerPortfolio[2].buyerIndustry }}</td>      
+                                    <td>{{ cust.wonRound }}</td>
+                                    <td>{{ cust.wonFrom }}</td>
+                                    <td>{{ cust.lostTo }}</td>
+                                    <td>{{ cust.lostIn }}</td>
+                                                                  
+                                    <td><button type="button" 
+                                        class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust); deleteConfirmation()">
+                                       {{'customer-portfolio.manageOut'|translate}}</button></td>
+                                                         
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>    
+
+                <div class="panel-footer" collapse="isCollapsed"> </div>
+            </div>
+        </div> 
+
+</div> 
+
+</div>            
+

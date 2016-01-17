@@ -210,6 +210,16 @@
 	"risk.addNewStrategy.errMsg3":"Strategy Already Exists",
 	
 	
-	"bc.link":"Link"
+	"bc.link":"Link",
+
+	"customer-portfolio.wonRound":"Won Round",
+	"customer-portfolio.wonFrom":"Won From",
+	"customer-portfolio.lostTo":"Lost To",
+	"customer-portfolio.lostIn":"Lost In",
+	"customer-portfolio.manageOut":"Manage Out",
+	"customer-portfolio.name":"Name",
+	"customer-portfolio.country":"Country",
+	"customer-portfolio.buyerSegment":"Buyer segment"
+
 		
 }

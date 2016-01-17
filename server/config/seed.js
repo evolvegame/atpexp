@@ -69,7 +69,8 @@ Team.find({}).remove(function() {
                     facilities: 0,
                     totalExpense: 0,
                     rankingPosition: 0,
-                    experienceScoreAmount:60000
+                    experienceScoreAmount:60000,
+                    customers:0
                   }]
       },
       {
@@ -120,7 +121,8 @@ Team.find({}).remove(function() {
                     facilities: 0,
                     totalExpense: 0,
                     rankingPosition: 0,
-                    experienceScoreAmount:90000
+                    experienceScoreAmount:90000,
+                    customers:0
                   }]
       },
         {
@@ -171,7 +173,8 @@ Team.find({}).remove(function() {
                       facilities: 0,
                       totalExpense: 0,
                       rankingPosition: 0,
-                      experienceScoreAmount:70000
+                      experienceScoreAmount:70000,
+                      customers:0
                     }]
         },{
           provider: 'local',
@@ -221,7 +224,8 @@ Team.find({}).remove(function() {
               facilities: 0,
               totalExpense: 0,
               rankingPosition: 0,
-              experienceScoreAmount:10000
+              experienceScoreAmount:10000,
+              customers:0
             }]
         },{
           provider: 'local',
@@ -264,7 +268,8 @@ Team.find({}).remove(function() {
               facilities: 0,
               totalExpense: 0,
               rankingPosition: 0,
-              experienceScoreAmount:34200
+              experienceScoreAmount:34200,
+              customers:0
             }]
         },{
           provider: 'local',
@@ -314,7 +319,8 @@ Team.find({}).remove(function() {
               facilities: 0,
               totalExpense: 0,
               rankingPosition: 0,
-              experienceScoreAmount:45000
+              experienceScoreAmount:45000,
+              customers:0
             }],
         },{
           provider: 'local',
@@ -392,7 +398,8 @@ Team.find({}).remove(function() {
               facilities: 0,
               totalExpense: 0,
               rankingPosition: 0,
-              experienceScoreAmount:23420
+              experienceScoreAmount:23420,
+              customers:0
             }]
         },{
           provider: 'local',
@@ -452,7 +459,8 @@ Team.find({}).remove(function() {
               facilities: 0,
               totalExpense: 0,
               rankingPosition: 0,
-              experienceScoreAmount:98800
+              experienceScoreAmount:98800,
+              customers:0
             }]
         },{
           provider: 'local',
@@ -502,7 +510,8 @@ Team.find({}).remove(function() {
               facilities: 0,
               totalExpense: 0,
               rankingPosition: 0,
-              experienceScoreAmount:100200
+              experienceScoreAmount:100200,
+              customers:0
             }]
         },{
           provider: 'local',
@@ -552,7 +561,8 @@ Team.find({}).remove(function() {
               facilities: 0,
               totalExpense: 0,
               rankingPosition: 0,
-              experienceScoreAmount:120000
+              experienceScoreAmount:120000,
+              customers:0
             }]
         },{
           provider: 'local',

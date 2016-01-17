@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+    <div class="panel-body profile bg-info" style="margin-bottom:15px">
+        <div class="profile-data">
+            <div class="profile-data-name">{{selected.name}}</div>
+        </div>
+    </div>
+    <div class="panel-body as-panel-customer">
+    <form name="modificationForm" novalidate="novalidate">
+        
+    	<div  align="center" style="margin-bottom:20px; ">
+    		<font size="3">Are you sure you want to manage out customer: "{{selected.businessName}}" ?</font>
+    	</div>
+    	
+    	<div  align="center" style="margin-bottom:20px;">
+    		<input type="button" value="Ok" style="width: 75px; height: 25px;"  class="btn btn-info btn-sm" ng-click="manageOut(selected.businessName);">&nbsp;&nbsp;&nbsp;
+    		<input type="button" value="Cancel" style="width: 75px; height: 25px;" class="btn btn-info btn-sm" ng-click="closeModal();">
+    	</div>
+    	
+    	</form>
+	</div>
+</div>

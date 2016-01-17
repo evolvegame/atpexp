@@ -202,7 +202,16 @@
 	"risk.addNewStrategy.errMsg3":"Error Duplicar",
 		
 	
-	"bc.link":"enlazar"
+	"bc.link":"enlazar",
+
+	"customer-portfolio.wonRound":"Won Round",
+	"customer-portfolio.wonFrom":"Won From",
+	"customer-portfolio.lostTo":"Lost To",
+	"customer-portfolio.lostIn":"Lost In",
+	"customer-portfolio.manageOut":"Manage Out",
+	"customer-portfolio.name":"Name",
+	"customer-portfolio.country":"Country",
+	"customer-portfolio.buyerSegment":"Buyer segment"
 	
 
 }

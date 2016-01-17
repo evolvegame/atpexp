@@ -7,6 +7,7 @@ var async = require('async');
 
 var _expScorePoint = 1000;
 var _selfInsured = "_SelfInsured";
+var _initialCapital = 5000000;
 
 function queryTeamsCurrentRound(roundNumber) {
   var query = Teams.find({
@@ -89,11 +90,96 @@ exports.deleteCalcRoundDetails = function(currentRound, callback) {
         },
         function(err) {
           if (err) return callback(err);
-          callback(null, 'All customers from all teams deleted');
+          callback(null,'All customers from all teams deleted');
+        });
+
+    },
+    function(msg,callback) {
+      Teams.find().exec(function(err, teams) {
+        if (err) return callback(err);
+        callback(null, teams);
+      });
+    },
+
+    function(teams,callback) {
+      async.forEachSeries(teams,
+        function(team, callback) {
+          if (currentRound == 1) {
+            var teamId = team._id;
+            Teams.update({
+              _id: teamId
+            }, {
+              $set: {
+                capital: _initialCapital,
+                premium: 0,
+                claims: 0,
+                claimsRatio: 0,
+                grossIncome: 0,
+                profit: 0,
+                investment: 0,
+                experienceScore: 0,
+                salesForceSize: 0,
+                underwriterDepartmentSize: 0,
+                iTMaintenance: 0,
+                marketingBudget: 0,
+                facilities: 0,
+                totalExpense: 0,
+                rankingPosition: 0
+              }
+            }, function(err) {
+              if (err != null) return callback(err)
+              console.log("Reset values for team for Round 1 --> " + team.name);
+              callback(null, "Reset completed for Round 1");
+            });
+
+          } else {
+            var roundInfos = team.roundLevelInformation;
+            var teamId = team._id;
+            if (checkVariables(roundInfos)) {
+              async.forEach(roundInfos,
+                function(roundInfo, callback) {
+                  if (checkVariables(roundInfos) && checkVariables(roundInfos.round) && roundInfos.round == (currRound - 1)) {
+                    Teams.update({
+                      _id: teamId
+                    }, {
+                      $set: {
+                        capital: roundInfos.capital,
+                        premium: roundInfos.premium,
+                        claims: roundInfos.claims,
+                        claimsRatio: roundInfos.claimsRatio,
+                        grossIncome: roundInfos.grossIncome,
+                        profit: roundInfos.profit,
+                        investment: roundInfos.investment,
+                        experienceScore: roundInfos.experienceScore,
+                        salesForceSize: roundInfos.salesForceSize,
+                        underwriterDepartmentSize: roundInfos.underwriterDepartmentSize,
+                        iTMaintenance: roundInfos.iTMaintenance,
+                        marketingBudget: roundInfos.marketingBudget,
+                        facilities: roundInfos.facilities,
+                        totalExpense: roundInfos.totalExpense,
+                        rankingPosition: roundInfos.rankingPosition
+                      }
+                    }, function(err) {
+                      if (err != null) return callback(err)
+                      console.log("Reset values for team for current round for team--> " + team.name);
+                      callback(null, "Reset completed for current round");
+                    });
+
+                  } else callback(null);
+                },
+                function(err) {
+                  if (err) return callback(err);
+                  return callback("Reset done for team --> " + team.name);
+                });
+            } else callback(null);
+          }
+        },
+        function(err) {
+          if (err) return callback(err);
+          return callback(null, "Reset of values for all teams completed")
         });
 
     }
-
   ], function(err, result) {
     if (err) return callback(err);
     callback(null, "Deletion task completed successfully")

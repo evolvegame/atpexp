@@ -16,6 +16,7 @@ var TeamSchema = mongoose.Schema({
   capital: Number,
   premium: Number,
   claims: Number,
+  grossIncome : Number,
   claimsRatio: Number,
   profit: Number,
   investment: Number,

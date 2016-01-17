@@ -126,7 +126,7 @@ exports.calculateRound = function(req, res) {
         CalcController.validateRound(toBeCalculatedRound, function(err, round) {
           if (err) return callback(err);
           currentRoundDetails = round;
-          console.log("Validation completed. Can proceed to Step 1");
+          console.log("Validation completed. Can proceed to Step 2");
           callback(null, round);
         });
       }

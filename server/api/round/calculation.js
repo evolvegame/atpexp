@@ -70,29 +70,30 @@ exports.deleteCalcRoundDetails = function(currentRound, callback) {
       async.forEachSeries(teams,
         function(team, callback) {
           var customers = team.customer;
-          try {
-            customers.forEach(function(customer) {
-              if (customer != null && checkVariables(customer.calculatedRound) && customer.calculatedRound == currentRound) {
-                console.log("Removing customer - " + customer.businessName + " from team - " + team.name);
-                customers.pull(customer._id);
-                console.log("Succesfully removed customer - " + customer.businessName + " from team - " + team.name);
-              }
+          if (checkVariables(customers)) {
+            try {
+              customers.forEach(function(customer) {
+                if (customer != null && checkVariables(customer.calculatedRound) && customer.calculatedRound == currentRound) {
+                  console.log("Removing customer - " + customer.businessName + " from team - " + team.name);
+                  customers.pull(customer._id);
+                  console.log("Succesfully removed customer - " + customer.businessName + " from team - " + team.name);
+                }
+              });
+            } catch (err) {
+              console.log("Failure in loop for customers" + err);
+              return callback(err);
+            }
+            team.save(function(err) {
+              if (err != null) return callback(err);
+              console.log("Saving team -->" + team.name);
+              callback(null, "Deletion for team completed");
             });
-          } catch (err) {
-            console.log("Failure in loop for customers" + err);
-            return callback(err);
-          }
-          team.save(function(err) {
-            if (err != null) return callback(err);
-            console.log("Saving team -->" + team.name);
-            callback(null, "Deletion for team completed");
-          });
+          } else callback(null, "Nothing to delete");
         },
         function(err) {
           if (err) return callback(err);
           callback(null, 'All customers from all teams deleted');
         });
-
     },
     function(msg, callback) {
       Teams.find().exec(function(err, teams) {
@@ -104,6 +105,7 @@ exports.deleteCalcRoundDetails = function(currentRound, callback) {
     function(teams, callback) {
       async.forEachSeries(teams,
         function(team, callback) {
+          console.log(currentRound);
           if (currentRound == 1) {
             var teamId = team._id;
             Teams.update({
@@ -133,45 +135,47 @@ exports.deleteCalcRoundDetails = function(currentRound, callback) {
             });
 
           } else {
+            var previousRound = currentRound-1;
             var roundInfos = team.roundLevelInformation;
             var teamId = team._id;
             if (checkVariables(roundInfos)) {
+              console.log(team.name)
               async.forEach(roundInfos,
                 function(roundInfo, callback) {
-                  if (checkVariables(roundInfos) && checkVariables(roundInfos.round) && roundInfos.round == (currRound - 1)) {
+                  if (checkVariables(roundInfos) && checkVariables(roundInfo.round) && roundInfo.round == previousRound) {
                     Teams.update({
                       _id: teamId
                     }, {
                       $set: {
-                        capital: roundInfos.capital,
-                        premium: roundInfos.premium,
-                        claims: roundInfos.claims,
-                        claimsRatio: roundInfos.claimsRatio,
-                        grossIncome: roundInfos.grossIncome,
-                        profit: roundInfos.profit,
-                        investment: roundInfos.investment,
-                        experienceScore: roundInfos.experienceScore,
-                        salesForceSize: roundInfos.salesForceSize,
-                        underwriterDepartmentSize: roundInfos.underwriterDepartmentSize,
-                        iTMaintenance: roundInfos.iTMaintenance,
-                        marketingBudget: roundInfos.marketingBudget,
-                        facilities: roundInfos.facilities,
-                        totalExpense: roundInfos.totalExpense,
-                        rankingPosition: roundInfos.rankingPosition
+                        capital: roundInfo.capital,
+                        premium: roundInfo.premium,
+                        claims: roundInfo.claims,
+                        claimsRatio: roundInfo.claimsRatio,
+                        grossIncome: roundInfo.grossIncome,
+                        profit: roundInfo.profit,
+                        investment: roundInfo.investment,
+                        experienceScore: roundInfo.experienceScore,
+                        salesForceSize: roundInfo.salesforceSize,
+                        underwriterDepartmentSize: roundInfo.underwriterDepartmentSize,
+                        iTMaintenance: roundInfo.iTMaintenance,
+                        marketingBudget: roundInfo.marketingBudget,
+                        facilities: roundInfo.facilities,
+                        totalExpense: roundInfo.totalExpense,
+                        rankingPosition: roundInfo.rankingPosition
                       }
                     }, function(err) {
-                      if (err != null) return callback(err)
+                      if (err != null) return callback(err);
                       console.log("Reset values for team for current round for team--> " + team.name);
                       callback(null, "Reset completed for current round");
                     });
 
-                  } else callback(null);
+                  } else callback(null,"Loop over");
                 },
                 function(err) {
                   if (err) return callback(err);
-                  return callback("Reset done for team --> " + team.name);
+                  return callback(null,"Reset done for team --> " + team.name);
                 });
-            } else callback(null);
+            } else callback(null,"No round Info");
           }
         },
         function(err) {
@@ -352,7 +356,6 @@ exports.expScoreRanking = function(input, callback) {
             if (checkVariables(currRoundInfo) && checkVariables(currRoundInfo._id) && checkVariables(currRoundInfo.round) && currRoundInfo.round == currRound) {
               var roundId = currRoundInfo._id;
               var expScore = currRoundInfo.experienceScore;
-              console.log(team.name+" -- "+expScore);
               var rank = swappedJSON[expScore];
               Teams.update({
                 "roundLevelInformation._id": roundId

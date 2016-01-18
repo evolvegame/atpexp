@@ -201,7 +201,7 @@ $scope.deleteOffer = function (offerId) {
   };
 })
 
-.controller('ModalInstanceCtrl', function ($scope, $modalInstance, selectedCustomer, toastr, Offer, $rootScope,$translate,Customer, Round,OfferCount){
+.controller('ModalInstanceCtrl', function ($scope, $modalInstance, selectedCustomer, toastr, Offer, $rootScope,$translate,Customer, Round,OfferCount, $http){
 
     // re-add selectedCustomer to $scope.selected
     $scope.selected = selectedCustomer;
@@ -511,11 +511,48 @@ $scope.deleteOffer = function (offerId) {
       // create new offer
     console.log("MarketBusinessName --> " + selectedCustomer.name);
     console.log("Price --> " + $scope.selected.price);
+
+    var buyer1Country=selectedCustomer.buyerPortfolio[0].country;
+    var buyer1Industry=selectedCustomer.buyerPortfolio[0].industry;;
+    var buyer1Rating=selectedCustomer.buyerPortfolio[0].rating;
+    var buyer1Cla=selectedCustomer.buyerPortfolio[0].cla;
+    var buyer1RiskAcceptance=$scope.getRiskAcceptanceRate(buyer1Country,buyer1Industry,buyer1Rating);        
+
+    var buyer2Country=selectedCustomer.buyerPortfolio[1].country;;
+    var buyer2Industry=selectedCustomer.buyerPortfolio[1].industry;
+    var buyer2Rating=selectedCustomer.buyerPortfolio[1].rating;
+    var buyer2Cla=selectedCustomer.buyerPortfolio[1].cla;
+    var buyer2RiskAcceptance=$scope.getRiskAcceptanceRate(buyer2Country,buyer2Industry,buyer2Rating);        
+
+    var buyer3Country=selectedCustomer.buyerPortfolio[2].country;;
+    var buyer3Industry=selectedCustomer.buyerPortfolio[2].industry;
+    var buyer3Rating=selectedCustomer.buyerPortfolio[2].rating;
+    var buyer3Cla=selectedCustomer.buyerPortfolio[2].cla;
+    var buyer3RiskAcceptance=$scope.getRiskAcceptanceRate(buyer3Country,buyer3Industry,buyer3Rating);                 
+
     var offerObj = {
       round: $scope.currentRoundNumber,
       marketBusinessName: selectedCustomer.name,
       price: $scope.selected.price,
-      cld :$scope.calculatedCld        
+      cld :$scope.calculatedCld,
+
+      buyer1Country:selectedCustomer.buyerPortfolio[0].country,
+      buyer1Industry:selectedCustomer.buyerPortfolio[0].industry,
+      buyer1Rating:selectedCustomer.buyerPortfolio[0].rating,
+      buyer1Cla:selectedCustomer.buyerPortfolio[0].cla,
+      buyer1RiskAcceptance:buyer1RiskAcceptance,        
+      
+      buyer2Country:selectedCustomer.buyerPortfolio[1].country,
+      buyer2Industry:selectedCustomer.buyerPortfolio[1].industry,
+      buyer2Rating:selectedCustomer.buyerPortfolio[1].rating,
+      buyer2Cla:selectedCustomer.buyerPortfolio[1].cla,
+      buyer2RiskAcceptance:buyer2RiskAcceptance,        
+      
+      buyer3Country:selectedCustomer.buyerPortfolio[2].country,
+      buyer3Industry:selectedCustomer.buyerPortfolio[2].industry,
+      buyer3Rating:selectedCustomer.buyerPortfolio[2].rating,
+      buyer3Cla:selectedCustomer.buyerPortfolio[2].cla,
+      buyer3RiskAcceptance:buyer3RiskAcceptance
     };
 
     var offerCountIncrementObj={
@@ -523,7 +560,7 @@ $scope.deleteOffer = function (offerId) {
       count : 1
     };
 
-    Offer.addOffer(offerObj).$promise.then(function(team){
+    Offer.makeOffer(offerObj).$promise.then(function(team){
       $rootScope.team=team;
       OfferCount.updateOfferCount(offerCountIncrementObj).$promise.then(function(customer){
       Customer.customers.query().$promise.then(function (customers) {
@@ -542,28 +579,95 @@ $scope.deleteOffer = function (offerId) {
           }
 
           $rootScope.customers = customers;
+          $modalInstance.dismiss('close');
+          toastr.success($scope.successMsg1 + selectedCustomer.name + '.', $scope.successMsg2);
+
         });
 
   
 
            }); 
 
-       
-
-      
-
-
-
+     
 
     });    
 
 
 
+    
+  }    
+
+};
+
+/*$scope.saveOfferUsingPostMethod = function() { 
+
+      validate();  
+      
+      if ( !$scope.showPriceValidation && 
+       !$scope.showAvgPriceValidation &&
+       riskAcceptanceValidForBuyerSegment1 &&
+       riskAcceptanceValidForBuyerSegment2 &&
+       riskAcceptanceValidForBuyerSegment3 &&
+       calculatedCldIsValid &&
+       experienceScoreEnough ){
+
+      // create new offer
+    console.log("MarketBusinessName --> " + selectedCustomer.name);
+    console.log("Price --> " + $scope.selected.price);
+    //var teamId={id:$rootScope.team._id};
+    var offerObj = {
+      _id:$rootScope.team._id,
+      round: $scope.currentRoundNumber,
+      marketBusinessName: selectedCustomer.name,
+      price: $scope.selected.price,
+      cld :$scope.calculatedCld        
+    };
+
+    var offerCountIncrementObj={
+      customerId:selectedCustomer._id,
+      count : 1
+    };
+
+
+    var res = $http.post('/api/team/saveOffer', offerObj);
+    res.success(function(data, status, headers, config) {
+      $scope.message = data;
+      $rootScope.team=data;
+      OfferCount.updateOfferCount(offerCountIncrementObj).$promise.then(function(customer){
+      Customer.customers.query().$promise.then(function (customers) {
+          for (var i = 0; i < customers.length ; i++) {
+            var obj = customers[i];                        
+            for (var j = 0; j < $rootScope.team.offer.length; j++) {
+              var offer = $rootScope.team.offer[j];                    
+              if (offer.marketBusinessName == obj.name ) {
+                obj.offerFound = true;
+                obj.offerId=offer._id;
+                obj.price=offer.price;
+                break;                
+              }
+            }                                  
+
+          }
+
+          $rootScope.customers = customers;
+        }); 
+
+           }); 
+    });
+    res.error(function(data, status, headers, config) {
+      alert( "failure message: " + JSON.stringify({data: data}));
+    });   
+  
+
     $modalInstance.dismiss('close');
     toastr.success($scope.successMsg1 + selectedCustomer.name + '.', $scope.successMsg2);
   }    
 
-};
+};*/
+
+
+
+
 
 $scope.modifyOffer = function() { 
 
@@ -577,14 +681,48 @@ $scope.modifyOffer = function() {
    calculatedCldIsValid){
 
       // modify offer
-    //console.log("MOdify offer MarketBusinessName --> " + $scope.selected.name);
-   // console.log("New Price --> " + $scope.selected.price);    
+    var buyer1Country=selectedCustomer.buyerPortfolio[0].country;
+    var buyer1Industry=selectedCustomer.buyerPortfolio[0].industry;;
+    var buyer1Rating=selectedCustomer.buyerPortfolio[0].rating;
+    var buyer1Cla=selectedCustomer.buyerPortfolio[0].cla;
+    var buyer1RiskAcceptance=$scope.getRiskAcceptanceRate(buyer1Country,buyer1Industry,buyer1Rating);        
+
+    var buyer2Country=selectedCustomer.buyerPortfolio[1].country;;
+    var buyer2Industry=selectedCustomer.buyerPortfolio[1].industry;
+    var buyer2Rating=selectedCustomer.buyerPortfolio[1].rating;
+    var buyer2Cla=selectedCustomer.buyerPortfolio[1].cla;
+    var buyer2RiskAcceptance=$scope.getRiskAcceptanceRate(buyer2Country,buyer2Industry,buyer2Rating);        
+
+    var buyer3Country=selectedCustomer.buyerPortfolio[2].country;;
+    var buyer3Industry=selectedCustomer.buyerPortfolio[2].industry;
+    var buyer3Rating=selectedCustomer.buyerPortfolio[2].rating;
+    var buyer3Cla=selectedCustomer.buyerPortfolio[2].cla;
+    var buyer3RiskAcceptance=$scope.getRiskAcceptanceRate(buyer3Country,buyer3Industry,buyer3Rating);   
+
     var offerObj = {
       offerId: $scope.selected.offerId,
       round: $scope.currentRoundNumber,
       marketBusinessName: $scope.selected.name,
       price: $scope.selected.price,
-      cld:$scope.calculatedCld        
+      cld:$scope.calculatedCld,
+
+      buyer1Country:selectedCustomer.buyerPortfolio[0].country,
+      buyer1Industry:selectedCustomer.buyerPortfolio[0].industry,
+      buyer1Rating:selectedCustomer.buyerPortfolio[0].rating,
+      buyer1Cla:selectedCustomer.buyerPortfolio[0].cla,
+      buyer1RiskAcceptance:buyer1RiskAcceptance,        
+      
+      buyer2Country:selectedCustomer.buyerPortfolio[1].country,
+      buyer2Industry:selectedCustomer.buyerPortfolio[1].industry,
+      buyer2Rating:selectedCustomer.buyerPortfolio[1].rating,
+      buyer2Cla:selectedCustomer.buyerPortfolio[1].cla,
+      buyer2RiskAcceptance:buyer2RiskAcceptance,        
+      
+      buyer3Country:selectedCustomer.buyerPortfolio[2].country,
+      buyer3Industry:selectedCustomer.buyerPortfolio[2].industry,
+      buyer3Rating:selectedCustomer.buyerPortfolio[2].rating,
+      buyer3Cla:selectedCustomer.buyerPortfolio[2].cla,
+      buyer3RiskAcceptance:buyer3RiskAcceptance        
     };
     Offer.modifyOffer(offerObj).$promise.then(function(team){
       $rootScope.team=team;

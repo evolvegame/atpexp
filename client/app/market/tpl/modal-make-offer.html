@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="panel-body as-panel-customer">
-     <div class="col-md-12">
+     <div class="row">
         <div class="col-md-4 as-col-md-4" ng-repeat="buyer in selected.buyerPortfolio">
             <span class="tile tile-default">
                 <div style="font-size:12px;"><h6>{{'market.tpl.buyerSegment'|translate}}
@@ -38,28 +38,30 @@
                     <p><span class="{{getRatingWeatherIcon(buyer.rating)}}" style="font-size: 20px;line-height: 54px;"></span></p>
                     <p style="font-size:12px"><span class="fa fa-globe" style="font-size: 12px;line-height: 18px;"></span> {{ buyer.industry }}</p> -->
 
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div >
+                                <p style="font-size:12px;">
+                                    <img ng-src="assets/img/flags/{{buyer.countryCode }}.png" width="12" height="12" style="margin-bottom:4px">
+                                    {{buyer.country}}</p>
+
+                                    <p style="font-size:12px">
+                                        <span class="fa fa-globe" style="font-size: 12px;line-height: 18px;"></span> {{ buyer.industry }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div ><p><span class="{{getRatingWeatherIcon(buyer.rating)}}" style="font-size: 26px;line-height: 54px;"></span></p></div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
 
 
-<div class="row">
-        <div class="col-md-8">
-        <div class="row">
-            <div class="col-md-8"><p style="font-size:12px;">
-                <img ng-src="assets/img/flags/{{buyer.countryCode }}.png" width="12" height="12" style="margin-bottom:4px">
-                    {{buyer.country}}</p>
-            </div>
-       <!--  </div>
-        <div class="row"> -->
-            <div class="col-md-4"><p style="font-size:12px">
-                <span class="fa fa-globe" style="font-size: 12px;line-height: 18px;"></span> {{ buyer.industry }}</p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4"><p><span class="{{getRatingWeatherIcon(buyer.rating)}}" style="font-size: 20px;line-height: 54px;"></span></p></div>
-</div>
-
-
-
-
+                            <br>
 
                     <p style="font-size:12px;"> {{'market.tpl.averageBuyerRating'|translate}} {{buyer.rating}}</p>
                     <!-- <p style="font-size:12px;">{{ratingText}}</p> -->

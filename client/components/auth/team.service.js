@@ -100,12 +100,27 @@ angular.module('atpexpApp')
 
 //Offer Page related Restful services factory
 .factory('Offer', function($resource){
-	return $resource('/api/team/:offerId/:round/:marketBusinessName/:price/:cld/:controller',{
+	return $resource('/api/team/:offerId/:round/:marketBusinessName/:price/:cld/:buyer1Country/:buyer1Industry/:buyer1Rating/:buyer1Cla/:buyer1RiskAcceptance/:buyer2Country/:buyer2Industry/:buyer2Rating/:buyer2Cla/:buyer2RiskAcceptance/:buyer3Country/:buyer3Industry/:buyer3Rating/:buyer3Cla/:buyer3RiskAcceptance/:controller',{
 		offerId:'@offerId',
 		marketBusinessName:'@marketBusinessName',
 		round: '@round',
 		price: '@price',
-		cld:'@cld'
+		cld:'@cld',		
+		buyer1Country:'@buyer1Country',
+        buyer1Industry:'@buyer1Industry',
+        buyer1Rating:'@buyer1Rating',
+        buyer1Cla:'@buyer1Cla',
+        buyer1RiskAcceptance:'@buyer1RiskAcceptance',        
+        buyer2Country:'@buyer2Country',
+        buyer2Industry:'@buyer2Industry',
+        buyer2Rating:'@buyer2Rating',
+        buyer2Cla:'@buyer2Cla',
+        buyer2RiskAcceptance:'@buyer2RiskAcceptance',        
+        buyer3Country:'@buyer3Country',
+        buyer3Industry:'@buyer3Industry',
+        buyer3Rating:'@buyer3Rating',
+        buyer3Cla:'@buyer3Cla',
+        buyer3RiskAcceptance:'@buyer3RiskAcceptance'
 	},{
 		deleteOffer: {
 	          method: 'PUT',
@@ -113,10 +128,10 @@ angular.module('atpexpApp')
 	        	  controller:'deleteOffer'
 	          }
 	 },
-		addOffer: {
+		makeOffer: {
 	          method: 'PUT',
 	          params: {
-	        	  controller:'offer'
+	        	  controller:'makeOffer'
 	          }
 	 },
 	   modifyOffer: {
@@ -125,6 +140,12 @@ angular.module('atpexpApp')
 		        	 controller:'modifyOffer'
 		          }
 		        },
+		      /* saveOffer: {
+		   method: 'POST',
+		   params: {
+		        	 controller:'saveOffer'
+		          }
+		        },*/
 	});
 })
 

@@ -9,6 +9,7 @@ var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
 var _ = require('lodash');
 var fs =require('fs');
+var ObjectId = require('mongodb').ObjectId; 
 
 var validationError = function(res, err) {
   return res.json(422, err);
@@ -391,24 +392,68 @@ exports.me = function(req, res, next) {
   });
 };
 
-exports.addOffer = function(req, res, next) {
+exports.makeOffer = function(req, res, next) {
 	var teamId = req.user._id;
 	var marketBusinessName = req.params.marketBusinessName;
 	var round = req.params.round;
 	var price = req.params.price;
 	var cld = req.params.cld;
-	console.log('Reached team controller addOffer !!! - marketBusinessName ' + marketBusinessName);
-	console.log('Reached team controller addOffer !!! - round ' + round);
-	console.log('Reached team controller addOffer !!! - price ' + price);
-	console.log('Reached team controller addOffer !!! - cld ' + cld);
-	console.log('Reached team controller addOffer !!! - teamId ' + teamId);
+
+	var buyer1Country=req.params.buyer1Country;
+    var buyer1Industry=req.params.buyer1Industry;
+    var buyer1Rating=req.params.buyer1Rating;
+    var buyer1Cla=req.params.buyer1Cla;
+    var buyer1RiskAcceptance=req.params.buyer1RiskAcceptance;
+
+    var buyer2Country=req.params.buyer2Country;
+    var buyer2Industry=req.params.buyer2Industry;
+    var buyer2Rating=req.params.buyer2Rating;
+    var buyer2Cla=req.params.buyer2Cla;
+    var buyer2RiskAcceptance=req.params.buyer2RiskAcceptance;
+
+    var buyer3Country=req.params.buyer3Country;
+    var buyer3Industry=req.params.buyer3Industry;
+    var buyer3Rating=req.params.buyer3Rating;
+    var buyer3Cla=req.params.buyer3Cla;
+    var buyer3RiskAcceptance=req.params.buyer3RiskAcceptance;
+
+
+
+
+	console.log('Reached team controller makeOffer !!! - marketBusinessName ' + marketBusinessName);
+	console.log('Reached team controller makeOffer !!! - round ' + round);
+	console.log('Reached team controller makeOffer !!! - price ' + price);
+	console.log('Reached team controller makeOffer !!! - cld ' + cld);
+	console.log('Reached team controller makeOffer !!! - teamId ' + teamId);
+	console.log('Reached team controller makeOffer !!! - req.params ' + JSON.stringify(req.params));
 	
 	Team.findById(teamId, function (err, team) {
 		team.offer.push({
 			round: round,
-		    marketBusinessName: marketBusinessName,
-		    price: price,
-		    cld:cld		    
+			marketBusinessName: marketBusinessName,
+			price: price,
+			cld:cld,
+			buyerPortfolio: [{
+				country:buyer1Country,
+				industry:buyer1Industry,
+				buyerRating:buyer1Rating,
+				cla:buyer1Cla,
+				riskAcceptance:buyer1RiskAcceptance
+			},			
+			{
+				country:buyer2Country,
+				industry:buyer2Industry,
+				buyerRating:buyer2Rating,
+				cla:buyer2Cla,
+				riskAcceptance:buyer2RiskAcceptance
+			},
+			{
+				country:buyer3Country,
+				industry:buyer3Industry,
+				buyerRating:buyer3Rating,
+				cla:buyer3Cla,
+				riskAcceptance:buyer3RiskAcceptance
+			}]		    
 		});
 		team.save(function(err){
 			  if (err) return validationError(res, err);
@@ -425,16 +470,97 @@ exports.modifyOffer = function(req, res, next) {
 	var round = req.params.round;
 	var price = req.params.price;
 	var cld = req.params.cld;
+
+	var buyer1Country=req.params.buyer1Country;
+    var buyer1Industry=req.params.buyer1Industry;
+    var buyer1Rating=req.params.buyer1Rating;
+    var buyer1Cla=req.params.buyer1Cla;
+    var buyer1RiskAcceptance=req.params.buyer1RiskAcceptance;
+
+    var buyer2Country=req.params.buyer2Country;
+    var buyer2Industry=req.params.buyer2Industry;
+    var buyer2Rating=req.params.buyer2Rating;
+    var buyer2Cla=req.params.buyer2Cla;
+    var buyer2RiskAcceptance=req.params.buyer2RiskAcceptance;
+
+    var buyer3Country=req.params.buyer3Country;
+    var buyer3Industry=req.params.buyer3Industry;
+    var buyer3Rating=req.params.buyer3Rating;
+    var buyer3Cla=req.params.buyer3Cla;
+    var buyer3RiskAcceptance=req.params.buyer3RiskAcceptance;
+
 	console.log('Reached team controller modifyOffer !!! - marketBusinessName ' + marketBusinessName);
 	console.log('Reached team controller modifyOffer !!! - round ' + round);
 	console.log('Reached team controller modifyOffer !!! - price ' + price);
-	console.log('Reached team controller addOffer !!! - cld ' + cld);
+	console.log('Reached team controller modifyOffer !!! - cld ' + cld);
 	console.log('Reached team controller modifyOffer !!! - offerId ' + offerId);
-	console.log('Reached team controller addOffer !!! - teamId ' + teamId);
+	console.log('Reached team controller modifyOffer !!! - teamId ' + teamId);
+	console.log('Reached team controller makeOffer !!! - req.params ' + JSON.stringify(req.params));
 
-	Team.update(
+	Team.findById(teamId, function (err, team) {
+		var offers = team.offer;
+		offers.pull(offerId);
+		offers.push({
+			round: round,
+			marketBusinessName: marketBusinessName,
+			price: price,
+			cld:cld,
+			buyerPortfolio: [{
+				country:buyer1Country,
+				industry:buyer1Industry,
+				buyerRating:buyer1Rating,
+				cla:buyer1Cla,
+				riskAcceptance:buyer1RiskAcceptance
+			},			
+			{
+				country:buyer2Country,
+				industry:buyer2Industry,
+				buyerRating:buyer2Rating,
+				cla:buyer2Cla,
+				riskAcceptance:buyer2RiskAcceptance
+			},
+			{
+				country:buyer3Country,
+				industry:buyer3Industry,
+				buyerRating:buyer3Rating,
+				cla:buyer3Cla,
+				riskAcceptance:buyer3RiskAcceptance
+			}]		    
+		});
+		team.save(function(err){
+			  if (err) return validationError(res, err);
+			  return res.json(200, team);
+		});
+	});	
+
+	/*Team.update(
 		{ _id: teamId, "offer._id": offerId },
-		{ $set: { "offer.$.price" : price,"offer.$.cld" : cld  } },function(err,result){
+		{ $set: { "offer.$.price" : price,"offer.$.cld" : cld ,
+
+		buyerPortfolio: [{
+				country:buyer1Country,
+				industry:buyer1Industry,
+				buyerRating:buyer1Rating,
+				cla:buyer1Cla,
+				riskAcceptance:buyer1RiskAcceptance
+			},			
+			{
+				country:buyer2Country,
+				industry:buyer2Industry,
+				buyerRating:buyer2Rating,
+				cla:buyer2Cla,
+				riskAcceptance:buyer2RiskAcceptance
+			},
+			{
+				country:buyer3Country,
+				industry:buyer3Industry,
+				buyerRating:buyer3Rating,
+				cla:buyer3Cla,
+				riskAcceptance:buyer3RiskAcceptance
+			}]	
+
+
+		 } },function(err,result){
 			console.log('Inside modifyOffer :'+result);
 			if (err) return validationError(res, err);
 
@@ -444,8 +570,28 @@ exports.modifyOffer = function(req, res, next) {
 			}
 			);
 		}			
-		);
+		);*/
 
+};
+
+exports.saveOffer = function(req, res, next) {
+	var teamId = req.body._id;
+	var offerObj = req.body;	
+	console.log('Reached team controller saveOffer !!! - offerObj ' + JSON.stringify(offerObj));
+	console.log('Reached team controller addOffer !!! - teamId ' + teamId);
+
+	var obj=JSON.stringify(offerObj);
+	
+	Team.findById(teamId, function (err, team) {
+		console.log('-->'+JSON.stringify(team));
+		if (err) return validationError(res, err);
+		team.offer.push(obj);
+		team.save(function(err){
+			  if (err) return validationError(res, err);
+		      res.send(200,team);
+		});  
+	});
+	
 };
 
 

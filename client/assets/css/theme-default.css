@@ -8854,3 +8854,9 @@ li.ext_zip {
 .row-fluid [class*="span"] {
     margin-left: 0;
 }
+
+
+.makeOffer{
+    display: inline-block;
+    vertical-align: middle;
+}

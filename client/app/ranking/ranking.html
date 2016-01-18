@@ -105,7 +105,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 <tr ng-repeat="team in rankingTeams | orderBy: 'experienceScoreRankingPosition'" style="color:{{fontStyle(team.teamName)}};">
+                                 <tr ng-repeat="team in rankingTeams | orderBy: 'experienceScoreRankingPosition'" style="color:{{fontStyle(team.teamName)}};" ng-click="clickTeamRow(team.teamName);">
                                    	<td>{{ team.experienceScoreRankingPosition }}</td>
                                     <td>{{ team.teamName }}</td>
                                     <td>{{ team.teamCountry }}</td>
@@ -160,7 +160,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 <tr ng-repeat="team in rankingTeams | filter: {teamCountry:loggedInTeam} |orderBy: 'countryLevelRankingPosition' :true" style="color:{{fontStyle(team.teamName)}};">
+                                 <tr ng-repeat="team in rankingTeams | filter: {teamCountry:loggedInTeam} |orderBy: 'countryLevelRankingPosition' :true" style="color:{{fontStyle(team.teamName)}};" ng-click="clickTeamRow(team.teamName);">
                                    	<td>
 										{{ team.countryLevelRankingPosition }}
 									</td>
@@ -211,7 +211,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 <tr ng-repeat="team in rankingTeams | filter: {teamCountry:loggedInTeam} | orderBy: 'CountryLevelExperienceScoreRankingPosition' :true" style="color:{{fontStyle(team.teamName)}};">
+                                 <tr ng-repeat="team in rankingTeams | filter: {teamCountry:loggedInTeam} | orderBy: 'CountryLevelExperienceScoreRankingPosition' :true" style="color:{{fontStyle(team.teamName)}};" ng-click="clickTeamRow(team.teamName);">
                                    	<td>
                                    		{{ team.CountryLevelExperienceScoreRankingPosition }}	
 									</td>

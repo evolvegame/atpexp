@@ -96,7 +96,7 @@ exports.populateValues = function(currentRound, callback) {
                     var customers = team.customer;
                     console.log("Extracting premiums from agreements for team -->" + team.name);
                     customers.forEach(function(customer) {
-                      if (checkVariables(customer.agreement.premium) &&
+                      if (checkVariables(customer) && checkVariables(customer.agreement) && checkVariables(customer.agreement.premium) &&
                         checkVariables(customer.agreement.status) &&
                         customer.agreement.status == 'Active') {
                         var agreementPremium = customer.agreement.premium;

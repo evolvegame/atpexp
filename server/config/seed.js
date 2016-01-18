@@ -361,7 +361,7 @@ Team.find({}).remove(function() {
               lostTo : "",
               lostIn : 0,
               calculatedRound: 0,
-               agreement : { premium : 0, premiumPercentage : 0, riskStrategyId : 1, status : "Active" }
+              agreement : { premium : 0, premiumPercentage : 0, riskStrategyId : 1, status : "Closed" }
           },{ businessName : "Calcent",
               businessRevenue : "200000",
               businessCountry : "Germany",

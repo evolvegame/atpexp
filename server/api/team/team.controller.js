@@ -601,6 +601,8 @@ exports.deleteOffer = function(req, res, next) {
 	console.log('Reached team controller deleteOffer !!! - teamId ' + teamId);
 	console.log('Reached team controller deleteOffer !!! - offerId ' + offerId);
 
+	//TODO needs logic to decrement offerCount of customer by 1 each time when an offer is pulled.
+	
 	Team.findById(teamId, function (err, team) {
 		var offers = team.offer;
 		offers.pull(offerId);

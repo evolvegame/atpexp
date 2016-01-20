@@ -68,7 +68,7 @@ angular.module('atpexpApp')
     Round.currentRound(function (currentRound) {
       var currentRoundRecord = currentRound;
       if(currentRoundRecord!=null && currentRoundRecord.round>0){
-        $scope.currentRoundNumber =currentRoundRecord.round;
+        $rootScope.currentRoundNumber =currentRoundRecord.round;
       }else{
         console.log("Error loading current round ");
         toastr.error("Error: Currently no details are available for current round. Request to initiate.");
@@ -81,20 +81,20 @@ angular.module('atpexpApp')
       Customer.customers.query().$promise.then(function (customers) {        
         for (var i = 0; i < customers.length ; i++) {
           var obj = customers[i]; 
-          //console.log(JSON.stringify(customers[i]));                       
+          console.log(JSON.stringify(customers[i]));                       
           for (var j = 0; j < $rootScope.team.offer.length; j++) {
-            //console.log("I am here 1");
+            console.log("I am here 1");
             var offer = $rootScope.team.offer[j];                    
-            if (offer.marketBusinessName == obj.name) {
+            if (offer.marketBusinessName == obj.name && offer.round == $rootScope.currentRoundNumber) {
               obj.offerFound = true;
               obj.offerId=offer._id;
-              //console.log('offer found:'+obj.name );
+              console.log('offer found:'+obj.name );
               break;                
             }
           }                                  
 
         }
-         console.log("I am here 4" +customers);
+         console.log("I am here 4" + JSON.stringify(customers));
         $rootScope.customers = customers;
       });
     }
@@ -108,7 +108,7 @@ angular.module('atpexpApp')
         var obj = customers[i];                        
         for (var j = 0; j < $rootScope.team.offer.length; j++) {
           var offer = $rootScope.team.offer[j];                    
-          if (offer.marketBusinessName == obj.name) {
+          if (offer.marketBusinessName == obj.name  && offer.round == $rootScope.currentRoundNumber) {
             obj.offerFound = true;
             obj.offerId=offer._id;
             obj.price=offer.price;
@@ -161,7 +161,7 @@ angular.module('atpexpApp')
           for (var j = 0; j < $rootScope.team.offer.length; j++) {
             
             var offer = $rootScope.team.offer[j];                    
-            if (offer.marketBusinessName == obj.name) {
+            if (offer.marketBusinessName == obj.name && offer.round == $rootScope.currentRoundNumber) {
               
               obj.offerFound = true;
               obj.offerId=offer._id;
@@ -369,7 +369,7 @@ $scope.deleteOffer = function (offerId) {
   Round.currentRound(function (currentRound) {
     var currentRoundRecord = currentRound;
     if(currentRoundRecord!=null && currentRoundRecord.round>0){
-      $scope.currentRoundNumber =currentRoundRecord.round;
+      $rootScope.currentRoundNumber =currentRoundRecord.round;
     }else{
       console.log("Error loading current round ");
       toastr.error("Error: Currently no details are available for current round. Request to initiate.");
@@ -531,7 +531,7 @@ $scope.deleteOffer = function (offerId) {
     var buyer3RiskAcceptance=$scope.getRiskAcceptanceRate(buyer3Country,buyer3Industry,buyer3Rating);                 
 
     var offerObj = {
-      round: $scope.currentRoundNumber,
+      round: $rootScope.currentRoundNumber,
       marketBusinessName: selectedCustomer.name,
       price: $scope.selected.price,
       cld :$scope.calculatedCld,
@@ -568,7 +568,7 @@ $scope.deleteOffer = function (offerId) {
             var obj = customers[i];                        
             for (var j = 0; j < $rootScope.team.offer.length; j++) {
               var offer = $rootScope.team.offer[j];                    
-              if (offer.marketBusinessName == obj.name ) {
+              if (offer.marketBusinessName == obj.name && offer.round == $rootScope.currentRoundNumber) {
                 obj.offerFound = true;
                 obj.offerId=offer._id;
                 obj.price=offer.price;
@@ -701,7 +701,7 @@ $scope.modifyOffer = function() {
 
     var offerObj = {
       offerId: $scope.selected.offerId,
-      round: $scope.currentRoundNumber,
+      round: $rootScope.currentRoundNumber,
       marketBusinessName: $scope.selected.name,
       price: $scope.selected.price,
       cld:$scope.calculatedCld,

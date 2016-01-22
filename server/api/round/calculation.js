@@ -250,8 +250,10 @@ exports.calculateExpScorePoints = function(input, callback) {
       var points = 0;
       var _1_teamName = team.name;
       var roundInformation_Id;
+      var accumulatedExpScore = 0;
       try {
-        console.log("Starting experience score calculcation for " + _1_teamName);
+    	console.log("Starting experience score calculcation for " + _1_teamName);
+    	if(checkVariables(team.experienceScore)) accumulatedExpScore = team.experienceScore;
         var expScoreAmtJSON = {};
         var roundInformation = team.roundLevelInformation;
         if (checkVariables(roundInformation)) {
@@ -262,6 +264,7 @@ exports.calculateExpScorePoints = function(input, callback) {
               if (checkVariables(currRoundInfo.experienceScoreAmount)) {
                 count++;
                 points = currRoundInfo.experienceScoreAmount / (_expScorePoint);
+                points = points + accumulatedExpScore;
                 expScores.push(points);
                 expScoreAmtJSON['Points'] = points;
                 teamCalcJSON[_1_teamName] = expScoreAmtJSON;
@@ -447,6 +450,7 @@ exports.calcOfferScore = function(input, callback) {
   var allTeams = input['allTeams'];
   var teamCalcJSON = input['teamCalcJSON'];
   var expScoreFactor = input['expScoreFactor'];
+  var toBeCalculatedRound = input['toBeCalculatedRound'];
   async.forEachSeries(allTeams,
     function(team, callback) {
       var _2_teamName = team.name;
@@ -459,28 +463,32 @@ exports.calcOfferScore = function(input, callback) {
       var roundPremium = 0;
       var roundCld = 0;
       var businessName;
+      var offerScore = 0;
       var intermediateJSON = {};
       try {
         if (checkVariables(offerArr)) {
           async.forEachSeries(offerArr,
             function(currOffer, callback) {
               try {
-                var currOfferId = currOffer._id;
-                if (checkVariables(currOffer.price) && currOffer.price > 0) roundPremium = currOffer.price;
-                if (checkVariables(currOffer.cld) && currOffer.cld > 0) roundCld = currOffer.cld;
-                if (checkVariables(currOffer.marketBusinessName)) businessName = currOffer.marketBusinessName;
-                var offerScore = 0;
-                if (roundPremium > 0) offerScore = (roundCld / roundPremium) * expScorePoint;
-                console.log(_2_teamName + " has an offerScore of " + offerScore + " for customer ->" + businessName);
+            	  
+            	  if (checkVariables(currOffer.round) && currOffer.round == toBeCalculatedRound) {
+            		  var currOfferId = currOffer._id;
+                      if (checkVariables(currOffer.price) && currOffer.price > 0) roundPremium = currOffer.price;
+                      if (checkVariables(currOffer.cld) && currOffer.cld > 0) roundCld = currOffer.cld;
+                      if (checkVariables(currOffer.marketBusinessName)) businessName = currOffer.marketBusinessName;
+                      if (roundPremium > 0) offerScore = (roundCld / roundPremium) * expScorePoint;
+                      console.log(_2_teamName + " has an offerScore of " + offerScore + " for customer ->" + businessName);
 
-                if (checkVariables(customerAllocation)) {
-                  if (checkVariables(customerAllocation[businessName])) {
-                    if (checkVariables(customerAllocation[businessName].winningScore) && customerAllocation[businessName].winningScore < offerScore) {
-                      customerAllocation[businessName].allocatedTo = _2_teamName;
-                      customerAllocation[businessName].winningScore = offerScore;
-                    }
-                  }
-                }
+                      if (checkVariables(customerAllocation)) {
+                        if (checkVariables(customerAllocation[businessName])) {
+                          if (checkVariables(customerAllocation[businessName].winningScore) && customerAllocation[businessName].winningScore < offerScore) {
+                            customerAllocation[businessName].allocatedTo = _2_teamName;
+                            customerAllocation[businessName].winningScore = offerScore;
+                          }
+                        }
+                      }
+            	  }
+                
               } catch (err) {
                 console.log("Error in offer score calculation-->" + err);
                 return callback(err);

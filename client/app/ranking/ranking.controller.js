@@ -5,6 +5,8 @@ angular.module('atpexpApp')
   .controller('RankingCtrl', function ($scope, $rootScope, $http, Auth, Ranking, Round, Team, $window) {
     
 	Round.currentRound(function(round){
+		$scope.isFirstRound = round.round == 1 ? true : false;
+		
 		$rootScope.previousRound = round.round - 1;
 		$rootScope.getCurrentTeam = Auth.getCurrentTeam;      
 		$rootScope.loggedInTeam =  $rootScope.getCurrentTeam().teamCountry;

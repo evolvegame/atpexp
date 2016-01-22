@@ -241,6 +241,7 @@ exports.calculateRound = function(req, res) {
         input["customerAllocation"] = customerAllocation;
         input["allTeams"] = allTeams;
         input["teamCalcJSON"] = teamCalcJSON;
+        input["toBeCalculatedRound"] = toBeCalculatedRound;
         input["expScoreFactor"] = expScoreFactor;
         CalcController.calcOfferScore(input, function(err, result) {
           if (err) return callback(err);

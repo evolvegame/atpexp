@@ -34,7 +34,7 @@
 	"ranking.tab.xpScoreRanking":"Clasificación Puntaje Experiencia",
 	"ranking.tab.xpScore":"Exp Puntuación",
 	"ranking.tab2.countryRanking":"País Clasificación",
-	"ranking.no.ranking.round.1":"Sin clasificación para la ronda 1",
+	"ranking.no.ranking.round.1":"No hay información de clasificación para la ronda 1",
 	
 	
 	"mimidash.ranking":"Categoría",
@@ -125,7 +125,8 @@
 	"market.tab2.region":"Región",
 	"market.tab2.industry":"Industria",
 	"market.tab2.buyerSegment":"segmento comprador",
-	"market.tab2.offerCount":"Oferta Conde",	
+	"market.tab2.offerCount":"Oferta Conde",
+	"market.tab2.offerType":"Tipo de Oferta",	
 	"market.tab2.offer":"Oferta",
 	"market.tab2.makeOffer":"Hacer oferta",
 	"market.tab2.modifyOffer":"Modify Offer",
@@ -150,7 +151,7 @@
 	"market.tpl.noRiskStrategyMsg":"Sin Estrategia de Riesgos",
 	"market.tpl.averageBuyerRating":"Valoración media de comprador",
 	"market.tpl.price":"Precio",
-	"market.tpl.avgPriceMsg":"El precio medio es de 0.1 de la facturación .",
+	"market.tpl.avgPriceMsg":"El precio medio es de 0.1% de la facturación .",
 	"market.tpl.service":"Servicio",
 	"market.tpl.xpScore":"Su puntaje de experiencia",
 	"market.tpl.xpScore.msgEnough":"Usted tiene suficiente experiencia para asegurar Puntuación",

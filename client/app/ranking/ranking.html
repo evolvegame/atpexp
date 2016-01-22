@@ -11,10 +11,16 @@
 <!-- END BREADCRUMB -->
 
 <div class="page-title">
-    <h2>{{'ranking.title'|translate}}</h2>
+    <h2>{{'ranking.title'|translate}} </h2> 
+    
 </div>
+
+<div align="center" ng-if="isFirstRound">
+	<h3>{{'ranking.no.ranking.round.1' | translate}}</h3>
+</div>
+
 <!-- PAGE CONTENT TABBED -->
-<tabset>
+<tabset ng-if="!isFirstRound">
 <tab heading={{'ranking.tab1.heading'|translate}}>
 <div class="tab-container" >
     <br>

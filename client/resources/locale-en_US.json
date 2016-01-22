@@ -31,7 +31,7 @@
 	"ranking.tab.xpScoreRanking":"Experience Score Ranking",
 	"ranking.tab.xpScore":"Exp Score",
 	"ranking.tab2.countryRanking":"Country Ranking",
-	"ranking.no.ranking.round.1":"No ranking for round 1",
+	"ranking.no.ranking.round.1":"There is No Ranking information for round 1.",
 	
 	
 	"mimidash.ranking":"Ranking",
@@ -156,7 +156,7 @@
 	"market.tpl.noRiskStrategyMsg":"No Risk Strategy",
 	"market.tpl.averageBuyerRating":"Average buyer rating",
 	"market.tpl.price":"Price",
-	"market.tpl.avgPriceMsg":"The average price is 0.1 of the turnover.",
+	"market.tpl.avgPriceMsg":"The average price is 0.1% of the turnover.",
 	"market.tpl.service":"Service",
 	"market.tpl.xpScore":"Your Experience Score",
 	"market.tpl.xpScore.msgEnough":"You have enough Experience Score to insure",

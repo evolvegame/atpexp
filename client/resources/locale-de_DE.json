@@ -32,7 +32,7 @@
 	"ranking.tab.xpScoreRanking":"Erleben Core-Ranking",
 	"ranking.tab.xpScore":"Exp Score",
 	"ranking.tab2.countryRanking":"Länderrangfolge",
-	"ranking.no.ranking.round.1":"Kein Ranking für Runde 1",
+	"ranking.no.ranking.round.1":"Es gibt kein Ranking Informationen für Runde 1",
 	
 
 	"mimidash.ranking":"Rang",
@@ -123,7 +123,8 @@
 	"market.tab2.region":"Region",
 	"market.tab2.industry":"Industrie",
 	"market.tab2.buyerSegment":"Käufer Segment",
-	"market.tab2.offerCount":"Angebot Count",	
+	"market.tab2.offerCount":"Angebot Count",
+	"market.tab2.offerType":"Art des Angebots",	
 	"market.tab2.offer":"Angebot",
 	"market.tab2.makeOffer":"Angebot unterbreiten",
 	"market.tab2.modifyOffer":"Modify Offer",
@@ -148,7 +149,7 @@
 	"market.tpl.noRiskStrategyMsg":"Keine Risikostrategie",
 	"market.tpl.averageBuyerRating":"Durchschnittliche Kundenbewertungs",
 	"market.tpl.price":"Preis",
-	"market.tpl.avgPriceMsg":"Der Durchschnittspreis liegt bei 0,1 des Umsatzes.",
+	"market.tpl.avgPriceMsg":"Der Durchschnittspreis liegt bei 0,1% des Umsatzes.",
 	"market.tpl.service":"Bedienung",
 	"market.tpl.xpScore":"Experience Score",
 	"market.tpl.xpScore.msgEnough":"Sie haben genug Erfahrung Punkte , um sicherzustellen",

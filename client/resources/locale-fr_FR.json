@@ -32,7 +32,7 @@
 	"ranking.tab.xpScoreRanking":"Expérience Score Classement",
 	"ranking.tab.xpScore":"Exp Score",
 	"ranking.tab2.countryRanking":"pays classement",
-	"ranking.no.ranking.round.1":"Pas de classement pour les rondes 1",
+	"ranking.no.ranking.round.1":"Il n'y a pas d'informations de classement pour les rondes 1",
 	
 	
 	"mimidash.ranking":"Classement",
@@ -126,6 +126,7 @@
 	"market.tab2.industry":"Industrie",
 	"market.tab2.buyerSegment":"Segment Acheteur",
 	"market.tab2.offerCount":"Nombre d'offre",
+	"market.tab2.offerType":"type d'offre",
 	"market.tab2.offer":"Offre",
 	"market.tab2.makeOffer":"Faire une offre",
 	"market.tab2.modifyOffer":"Modify Offer",
@@ -150,7 +151,7 @@
 	"market.tpl.noRiskStrategyMsg":"Aucune Stratégie des Risques",
 	"market.tpl.averageBuyerRating":"Note moyenne de l'acheteur",
 	"market.tpl.price":"Prix",
-	"market.tpl.avgPriceMsg":"Le prix moyen est de 0,1 du chiffre d'affaires .",
+	"market.tpl.avgPriceMsg":"Le prix moyen est de 0,1% du chiffre d'affaires .",
 	"market.tpl.service":"Service",
 	"market.tpl.xpScore":"Votre pointage de l'expérience",
 	"market.tpl.xpScore.msgEnough":"Vous avez suffisamment d'expérience pour assurer Score",

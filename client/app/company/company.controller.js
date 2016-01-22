@@ -4,6 +4,7 @@ angular.module('atpexpApp')
 
   .controller('CompanyCtrl', function ($scope, $http, Auth,Team, $rootScope, Project) {
     
+	  
 	  $http.get('/api/rounds/currentRound').success(function(round){  
     	  $scope.currentRound = round.round;
       });

@@ -69,9 +69,15 @@ exports.endCurrRound = function(req, res) {
           "Current round cannot be ended due to technical issues" + err);
         return handleError(res, err);
       } else {
-        setNewRoundLevelInfo(currRoundId + 1, function(err) {
+    	setNewRoundLevelInfo(currRoundId + 1, function(err) {
           if (err) return res.send(500);
-          return res.json(200, round);
+          	renewOffersForTeams(currRoundId + 1, function(err){
+          		if (err) return res.send(500);
+      			console.log('Finished renewing offers for all teams');
+      			return res.json(200, round);
+      		});
+          console.log('Finished New round level info for all teams');
+          
         });
       }
     });
@@ -371,6 +377,74 @@ function initializeRoundLevelInfo(newRound) {
   roundLevelInformation['project'] = [];
   roundLevelInformation['department'] = [];
   return roundLevelInformation;
+}
+
+function renewOffersForTeams(nextRoundNum, callback) {
+	async.waterfall([
+	   function(callback) {
+        Teams.find().exec(function(err, teams) {
+            if (err) return callback(err);
+            callback(null, teams);
+          });
+        },
+        function(teams, callback) {
+        	async.forEach(teams, function(team, callback){
+        		var existingOffers = team.offer;
+        		var customers = team.customer;
+        		async.forEach(existingOffers, function (existingOffer, callback){
+        			if (existingOffer.round == nextRoundNum - 1){
+        				for (var i = 0 ; i < customers.length; i ++) {
+        					if( customers[i].businessName == existingOffer.marketBusinessName && customers[i].agreement.status == 'Active') {
+        						var renewedOffer = {
+        							    round: nextRoundNum,
+        							    marketBusinessName: existingOffer.marketBusinessName,
+        							    price:existingOffer.price,
+        							    premiumPercentage: existingOffer.premiumPercentage,
+        							    cld:existingOffer.cld,
+        							    offerType: 'Renew',
+        							    offerScore: existingOffer.offerScore
+        						};
+        						
+        						var buyerPortfolio = new Array(existingOffer.buyerPortfolio.length);
+        						for (var j= 0; j<existingOffer.buyerPortfolio.length; j++) {
+        							var portfolio = {
+        								      country:existingOffer.buyerPortfolio[j].country,
+        								      industry:existingOffer.buyerPortfolio[j].industry,
+        								      buyerRating:existingOffer.buyerPortfolio[j].buyerRating,
+        								      cla:existingOffer.buyerPortfolio[j].cla,
+        								      riskAcceptance:existingOffer.buyerPortfolio[j].riskAcceptance
+        							}
+        							buyerPortfolio[j] = portfolio;
+        						}
+        						
+        						renewedOffer.buyerPortfolio = buyerPortfolio;
+        						
+        						team.offer.push(renewedOffer);
+        						team.save(function(err) {
+                                    if (err != null){
+                                    	console.log(JSON.stringify('Something went wrong while saving renewed Offer-- ' + err));
+                                    	return callback(err);
+                                    }
+                                    callback(null);
+                                });
+        						break;
+        					}
+        				}
+        				
+        			}
+        		}, function(err){
+        			if (err) return callback(err);
+                    callback(null);
+        		});
+        	}, function(err) {
+                if (err) return callback(err);
+                callback(null);
+              });
+        }]
+        , function(err) {
+	      if (err) return callback(err);
+	      callback(null);
+	    });
 }
 
 function setNewRoundLevelInfo(nextRoundNum, callback) {

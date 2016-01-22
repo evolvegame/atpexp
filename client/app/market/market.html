@@ -119,6 +119,7 @@
                                     <th>{{'market.tab2.buyerSegment'|translate}} 2</th>
                                     <th>{{'market.tab2.buyerSegment'|translate}} 3</th>
                                     <th>{{'market.tab2.offerCount'|translate}}</th>
+                                    <th>{{'market.tab2.offerType'|translate }}</th>
                                     <th>{{'market.tab2.offer'|translate}}</th>                                    
                                 </tr>
                             </thead>
@@ -131,7 +132,8 @@
                                     <td>{{ cust.buyerPortfolio[0].country }} - {{ cust.buyerPortfolio[0].industry }}</td>
                                     <td>{{ cust.buyerPortfolio[1].country }} - {{ cust.buyerPortfolio[1].industry }}</td>
                                     <td>{{ cust.buyerPortfolio[2].country }} - {{ cust.buyerPortfolio[2].industry }}</td>
-                                     <td>{{ cust.offerCount }}</td>
+                                    <td>{{ cust.offerCount }}</td>
+                                    <td>{{ cust.offerType }}</td>
                                     <td ng-if="!cust.offerFound"><button type="button" 
                                         class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust); open()">
                                        {{'market.tab2.makeOffer'|translate}}</button></td>

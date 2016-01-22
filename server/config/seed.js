@@ -30,28 +30,11 @@ Team.find({}).remove(function() {
         capital: 750,
         experienceScore: 50,
         role:'user',
-        customer:[{}],
+        customer:[],
         members :[
                   {name :'User1',email: 'user1@atradius.com' },
                 ],
-                offer:[
-                  { "round" : 1,
-                   "marketBusinessName" : "Ajo",
-                   "price" : 1000000,
-                   "cld":15000,
-                   "premium": 50000,
-                   "premiumPercentage": 100 ,
-                   "offerScore":0
-                 },
-                 { "round" : 1,
-                  "marketBusinessName" : "Bope",
-                  "price" : 1000000,
-                  "cld":15000,
-                  "premium": 300,
-                  "premiumPercentage": 100 ,
-                  "offerScore":0
-                }
-                ],
+                offer:[],
                 roundLevelInformation: [{
                     round: 1,
                     capital: 0,
@@ -82,28 +65,12 @@ Team.find({}).remove(function() {
         teamCountry: "USA",
         capital: 750,
         experienceScore: 50,
-        customer:[{}],
+        customer:[],
         role:'user',
         members :[
                   {name :'User2',email: 'user2@atradius.com' },
                 ],
-                offer:[
-                  { "round" : 1,
-                   "marketBusinessName" : "Ajo",
-                   "price" : 1000000,
-                   "cld":3000,
-                   "premium": 400000,
-                   "premiumPercentage": 100 ,
-                   "offerScore":0
-                 },
-                 { "round" : 1,
-                  "marketBusinessName" : "Bope",
-                  "price" : 1000000,
-                  "cld":3000,
-                  "premium": 23,
-                  "premiumPercentage": 100 ,
-                  "offerScore":0
-                }],
+                offer:[],
                 roundLevelInformation: [{
                     round: 1,
                     capital: 0,
@@ -134,28 +101,12 @@ Team.find({}).remove(function() {
           teamCountry: "USA",
           capital: 750,
           experienceScore: 50,
-          customer:[{}],
+          customer:[],
           role:'user',
           members :[
                     {name :'User3',email: 'user3@atradius.com'}
                   ],
-                  offer:[
-                    { "round" : 1,
-                     "marketBusinessName" : "Ajo",
-                     "price" : 1000000,
-                     "cld":65000,
-                     "premium": 9000,
-                     "premiumPercentage": 100 ,
-                     "offerScore":0
-                   },{ "round" : 1,
-                    "marketBusinessName" : "Bope",
-                    "price" : 1000000,
-                    "cld":3000,
-                    "premium": 242,
-                    "premiumPercentage": 100 ,
-                    "offerScore":0
-                  }
-                  ],
+                  offer:[],
                   roundLevelInformation: [{
                       round: 1,
                       capital: 0,
@@ -185,28 +136,12 @@ Team.find({}).remove(function() {
           teamCountry: "NL",
           capital: 775,
           experienceScore: 60,
-          customer:[{}],
+          customer:[],
           role:'user',
           members :[
                     {name :'User8',email: 'user8@atradius.com' }
                     ],
-          offer:[
-            { "round" : 1,
-             "marketBusinessName" : "Ajo",
-             "price" : 1000000,
-             "cld":90000,
-             "premium": 20000,
-             "premiumPercentage": 100 ,
-             "offerScore":0
-           },{ "round" : 1,
-            "marketBusinessName" : "Bope",
-            "price" : 1000000,
-            "cld":90000,
-            "premium": 2000,
-            "premiumPercentage": 100 ,
-            "offerScore":0
-          }
-          ],
+          offer:[],
           roundLevelInformation: [{
               round: 1,
               capital: 0,
@@ -237,20 +172,11 @@ Team.find({}).remove(function() {
           capital: 775,
           experienceScore: 60,
           role:'user',
-          customer:[{}],
+          customer:[],
           members :[
                     {name :'User9',email: 'user9@atradius.com' }
                     ],
-          offer:[
-            { "round" : 1,
-            "marketBusinessName" : "Bope",
-            "price" : 1000000,
-            "cld":30003,
-            "premium": 2342,
-            "premiumPercentage": 100 ,
-            "offerScore":0
-          }
-          ],
+          offer:[],
           roundLevelInformation: [{
               round: 1,
               capital: 0,
@@ -280,28 +206,12 @@ Team.find({}).remove(function() {
           teamCountry: "NL",
           capital: 775,
           experienceScore: 60,
-          customer:[{}],
+          customer:[],
           role:'user',
           members :[
                     {name :'User10',email: 'user10@atradius.com' }
                     ],
-          offer:[
-            { "round" : 1,
-             "marketBusinessName" : "Ajo",
-             "price" : 1000000,
-             "cld":90000,
-             "premium": 8000,
-             "premiumPercentage": 100 ,
-             "offerScore":0
-           },{ "round" : 1,
-            "marketBusinessName" : "Bope",
-            "price" : 1000000,
-            "cld":302300,
-            "premium": 2423,
-            "premiumPercentage": 100 ,
-            "offerScore":0
-          }
-          ],
+          offer:[],
           roundLevelInformation: [{
               round: 1,
               capital: 0,
@@ -335,52 +245,9 @@ Team.find({}).remove(function() {
           members :[
                     {name :'User11',email: 'user11@atradius.com'}
                     ],
-          offer:[
-            { "round" : 1,
-             "marketBusinessName" : "Ajo",
-             "price" : 1000000,
-             "cld":90000,
-             "premium": 1000000,
-             "premiumPercentage": 100 ,
-             "offerScore":0
-           },
-           { "round" : 1,
-            "marketBusinessName" : "Bope",
-            "price" : 1000000,
-            "cld":90000,
-            "premium": 1000000,
-            "premiumPercentage": 100 ,
-            "offerScore":0
-          }
-          ],customer :
-           [ { businessName : "Bope",
-              businessRevenue : "200000",
-              businessCountry : "Germany",
-              experiencescoreneeded: 50,
-              wonRound : 0,
-              lostTo : "",
-              lostIn : 0,
-              calculatedRound: 0,
-              agreement : { premium : 0, premiumPercentage : 0, riskStrategyId : 1, status : "Closed" }
-          },{ businessName : "Calcent",
-              businessRevenue : "200000",
-              businessCountry : "Germany",
-              experiencescoreneeded: 50,
-              wonRound : 1,
-              lostTo : "",
-              lostIn : 0,
-              calculatedRound: 1,
-               agreement : { premium : 0, premiumPercentage : 0, riskStrategyId : 1, status : "Active" }
-          },,{ businessName : "Bope",
-              businessRevenue : "200000",
-              businessCountry : "Germany",
-              experiencescoreneeded: 50,
-              wonRound : 1,
-              lostTo : "",
-              lostIn : 0,
-              calculatedRound: 1,
-               agreement : { premium : 0, premiumPercentage : 0, riskStrategyId : 1, status : "Active" }
-          }],
+          offer:[],
+          customer :
+           [],
           roundLevelInformation: [{
               round: 1,
               capital: 0,
@@ -412,36 +279,11 @@ Team.find({}).remove(function() {
           experienceScore: 60,
           role:'user',
           customer :
-          [ { businessName : "Ajo",
-              businessRevenue : "200000",
-              businessCountry : "Germany",
-              experiencescoreneeded: 50,
-              wonRound : 1,
-              lostTo : "",
-              lostIn : 0,
-              calculatedRound: 1,
-               agreement : { premium : 0, premiumPercentage : 0, riskStrategyId : 1, status : "Active" }
-          }],
+          [],
           members :[
                     {name :'User13',email: 'user13@atradius.com'}
                     ],
-          offer:[
-            { "round" : 1,
-             "marketBusinessName" : "Ajo",
-             "price" : 1000000,
-             "cld":90000,
-             "premium": 1000000,
-             "premiumPercentage": 100 ,
-             "offerScore":0
-           },{ "round" : 1,
-            "marketBusinessName" : "Bope",
-            "price" : 1000000,
-            "cld":90000,
-            "premium": 1000000,
-            "premiumPercentage": 100 ,
-            "offerScore":0
-          }
-          ],
+          offer:[],
           roundLevelInformation: [{
               round: 1,
               capital: 0,
@@ -471,28 +313,12 @@ Team.find({}).remove(function() {
           teamCountry: "NL",
           capital: 775,
           experienceScore: 60,
-          customer:[{}],
+          customer:[],
           role:'user',
           members :[
                     {name :'User14',email: 'user14@atradius.com'}
                     ],
-          offer:[
-            { "round" : 1,
-             "marketBusinessName" : "Ajo",
-             "price" : 1000000,
-             "cld":90000,
-             "premium": 1000000,
-             "premiumPercentage": 100 ,
-             "offerScore":0
-           },{ "round" : 1,
-            "marketBusinessName" : "Bope",
-            "price" : 1000000,
-            "cld":23000,
-            "premium": 1000,
-            "premiumPercentage": 100 ,
-            "offerScore":0
-          }
-        ],
+          offer:[],
           roundLevelInformation: [{
               round: 1,
               capital: 0,
@@ -522,28 +348,12 @@ Team.find({}).remove(function() {
           teamCountry: "NL",
           capital: 775,
           experienceScore: 60,
-          customer:[{}],
+          customer:[],
           role:'user',
           members :[
                     {name :'User15',email: 'user15@atradius.com'}
                     ],
-          offer:[
-            { "round" : 1,
-             "marketBusinessName" : "Ajo",
-             "price" : 1000000,
-             "cld":90000,
-             "premium": 1000000,
-             "premiumPercentage": 100,
-             "offerScore":0
-           },{ "round" : 1,
-            "marketBusinessName" : "Bope",
-            "price" : 1000000,
-            "cld":9340,
-            "premium": 112000,
-            "premiumPercentage": 100 ,
-            "offerScore":0
-          }
-          ],
+          offer:[],
           roundLevelInformation: [{
               round: 1,
               capital: 0,
@@ -582,23 +392,7 @@ Team.find({}).remove(function() {
                     {name :'Emanuel',email: 'emanuel@atradius.com'},
                     {name :'Prajakta',email: 'prajakta@atradius.com'}
                     ],
-          offer:[
-                    { "round" : 1,
-                     "marketBusinessName" : "Ajo",
-                     "price" : 1000000,
-                     "cld":80000,
-                     "premium": 900000,
-                     "premiumPercentage": 90 ,
-                     "offerScore":0
-                   },{ "round" : 1,
-                    "marketBusinessName" : "Bope",
-                    "price" : 1000000,
-                    "cld":1200000,
-                    "premium": 34000,
-                    "premiumPercentage": 100 ,
-                    "offerScore":0
-                  }
-                ],
+          offer:[],
           roundLevelInformation: [{
               round: 1,
               capital: 4,
@@ -971,12 +765,12 @@ Customer.find({}).remove(function() {
     region:"West-Europe",
     regionCode:"we",
     country:"The Netherlands",
-    minOfferScore:10,
+    minOfferScore:1,
     businessRisk: 40,
     countryCode:"nl",
     industry:"Services",
     industryCode:"ser",
-    experienceScoreNeeded:50,
+    experienceScoreNeeded:5,
     offerCount:0,
     buyerPortfolio:[
                     {region:"West-Europe",regionCode:"we",country:"Belgium",countryCode:"be",industry:"Food",industryCode:"foo",tpe:3579440,rating:30,cla:44678},

@@ -197,8 +197,7 @@ exports.agreementConversion = function(input, callback) {
                     teamOffers.forEach(function(offerDetails) {
                       if (checkVariables(offerDetails.round) && checkVariables(offerDetails.marketBusinessName) &&
                         offerDetails.round == toBeCalculatedRound && offerDetails.marketBusinessName == customerKey && count < 1) {
-                        newPremium = offerDetails.premium;
-                        newPremiumPct = offerDetails.premiumPercentage;
+                        newPremium = offerDetails.price;
                       }
 
                     });

@@ -76,9 +76,9 @@ var TeamSchema = mongoose.Schema({
     round: Number,
     marketBusinessName: String,
     price:Number,
-    premium: Number,
     premiumPercentage: Number,
     cld:Number,
+    offerType: String,
     offerScore:Number,
       buyerPortfolio: [{
       country:String,

@@ -129,6 +129,7 @@
 	"market.tab2.buyerSegment":"Buyer segment",
 	
 	"market.tab2.offerCount":"Offer Count",
+	"market.tab2.offerType":"Offer Type",
 	"market.tab2.offer":"Offer",
 	"market.tab2.makeOffer":"Make Offer",
 	"market.tab2.modifyOffer":"Modify Offer",
@@ -217,6 +218,7 @@
 	"customer-portfolio.lostTo":"Lost To",
 	"customer-portfolio.lostIn":"Lost In",
 	"customer-portfolio.manageOut":"Manage Out",
+	"customer-portfolio.renewalTerms":"Renewal Terms",
 	"customer-portfolio.name":"Name",
 	"customer-portfolio.country":"Country",
 	"customer-portfolio.buyerSegment":"Buyer segment"

@@ -19,8 +19,8 @@ router.put('/:round/:strategyName/:buyerCountry/:buyerIndustry/:strategyRatingBa
 router.get('/:id', auth.isAuthenticated(), controller.show);
 router.put('/:id/deleteRisk', auth.isAuthenticated(), controller.deleteRisk);
 router.put('/:id/:round/:strategyName/:buyerCountry/:buyerIndustry/:strategyRatingBand1/:strategyRatingBand2/:strategyRatingBand3/:strategyRatingBand4/:strategyRatingBand5/modifyRisk', auth.isAuthenticated(), controller.modifyRisk);
-router.put('/:round/:marketBusinessName/:price/:cld/:buyer1Country/:buyer1Industry/:buyer1Rating/:buyer1Cla/:buyer1RiskAcceptance/:buyer2Country/:buyer2Industry/:buyer2Rating/:buyer2Cla/:buyer2RiskAcceptance/:buyer3Country/:buyer3Industry/:buyer3Rating/:buyer3Cla/:buyer3RiskAcceptance/makeOffer', auth.isAuthenticated(), controller.makeOffer);
-router.put('/:id/:round/:marketBusinessName/:price/:cld/:buyer1Country/:buyer1Industry/:buyer1Rating/:buyer1Cla/:buyer1RiskAcceptance/:buyer2Country/:buyer2Industry/:buyer2Rating/:buyer2Cla/:buyer2RiskAcceptance/:buyer3Country/:buyer3Industry/:buyer3Rating/:buyer3Cla/:buyer3RiskAcceptance/modifyOffer', auth.isAuthenticated(), controller.modifyOffer);
+router.put('/:round/:marketBusinessName/:price/:cld/:offerType/:buyer1Country/:buyer1Industry/:buyer1Rating/:buyer1Cla/:buyer1RiskAcceptance/:buyer2Country/:buyer2Industry/:buyer2Rating/:buyer2Cla/:buyer2RiskAcceptance/:buyer3Country/:buyer3Industry/:buyer3Rating/:buyer3Cla/:buyer3RiskAcceptance/makeOffer', auth.isAuthenticated(), controller.makeOffer);
+router.put('/:id/:round/:marketBusinessName/:price/:cld/:offerType/:buyer1Country/:buyer1Industry/:buyer1Rating/:buyer1Cla/:buyer1RiskAcceptance/:buyer2Country/:buyer2Industry/:buyer2Rating/:buyer2Cla/:buyer2RiskAcceptance/:buyer3Country/:buyer3Industry/:buyer3Rating/:buyer3Cla/:buyer3RiskAcceptance/modifyOffer', auth.isAuthenticated(), controller.modifyOffer);
 router.put('/:id/deleteOffer', auth.isAuthenticated(), controller.deleteOffer);
 router.post('/', controller.create);
 router.get('/:previousRoundNumber/getAllTeamRankings', controller.getAllTeamRankings);

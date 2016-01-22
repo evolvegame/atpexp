@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('atpexpApp')
-.controller('MarketCtrl', function ($scope, $modal, $http, Customer, $rootScope, toastr,$translate, Round,Offer,OfferCount) {
+.controller('MarketCtrl', function ($scope, $modal, $http, Customer, $rootScope, toastr,$translate, Round ,Offer ,OfferCount) {
     // load selected customer in modal
     $scope.showCustomer = function(cust) {
       $scope.selected = cust;
@@ -81,20 +81,21 @@ angular.module('atpexpApp')
       Customer.customers.query().$promise.then(function (customers) {        
         for (var i = 0; i < customers.length ; i++) {
           var obj = customers[i]; 
-          console.log(JSON.stringify(customers[i]));                       
+//          console.log(JSON.stringify(customers[i]));                       
           for (var j = 0; j < $rootScope.team.offer.length; j++) {
-            console.log("I am here 1");
+//            console.log("I am here 1");
             var offer = $rootScope.team.offer[j];                    
             if (offer.marketBusinessName == obj.name && offer.round == $rootScope.currentRoundNumber) {
               obj.offerFound = true;
               obj.offerId=offer._id;
-              console.log('offer found:'+obj.name );
+              obj.offerType  = offer.offerType;
+//              console.log('offer found:'+obj.name );
               break;                
             }
           }                                  
 
         }
-         console.log("I am here 4" + JSON.stringify(customers));
+//         console.log("I am here 4" + JSON.stringify(customers));
         $rootScope.customers = customers;
       });
     }
@@ -112,7 +113,8 @@ angular.module('atpexpApp')
             obj.offerFound = true;
             obj.offerId=offer._id;
             obj.price=offer.price;
-            console.log('offer found:'+obj.name );
+            obj.offerType  = offer.offerType;
+//            console.log('offer found:'+obj.name );
             break;                
           }
         }                                  
@@ -165,6 +167,7 @@ angular.module('atpexpApp')
               
               obj.offerFound = true;
               obj.offerId=offer._id;
+              obj.offerType  = offer.offerType;
              // console.log('offer found:'+obj.name );
               break;                
             }
@@ -509,8 +512,8 @@ $scope.deleteOffer = function (offerId) {
        experienceScoreEnough ){
 
       // create new offer
-    console.log("MarketBusinessName --> " + selectedCustomer.name);
-    console.log("Price --> " + $scope.selected.price);
+//    console.log("MarketBusinessName --> " + selectedCustomer.name);
+//    console.log("Price --> " + $scope.selected.price);
 
     var buyer1Country=selectedCustomer.buyerPortfolio[0].country;
     var buyer1Industry=selectedCustomer.buyerPortfolio[0].industry;;
@@ -535,6 +538,7 @@ $scope.deleteOffer = function (offerId) {
       marketBusinessName: selectedCustomer.name,
       price: $scope.selected.price,
       cld :$scope.calculatedCld,
+      offerType:'New',
 
       buyer1Country:selectedCustomer.buyerPortfolio[0].country,
       buyer1Industry:selectedCustomer.buyerPortfolio[0].industry,
@@ -559,7 +563,9 @@ $scope.deleteOffer = function (offerId) {
       customerId:selectedCustomer._id,
       count : 1
     };
-
+    
+//    console.log('offerObj >>>> ' + JSON.stringify(offerObj));
+    
     Offer.makeOffer(offerObj).$promise.then(function(team){
       $rootScope.team=team;
       OfferCount.updateOfferCount(offerCountIncrementObj).$promise.then(function(customer){
@@ -572,6 +578,8 @@ $scope.deleteOffer = function (offerId) {
                 obj.offerFound = true;
                 obj.offerId=offer._id;
                 obj.price=offer.price;
+                obj.offerType  = offer.offerType;
+//                console.log('Offer type for ' + obj.name + ' is ---> ' + offer.offerType);
                 break;                
               }
             }                                  
@@ -699,12 +707,15 @@ $scope.modifyOffer = function() {
     var buyer3Cla=selectedCustomer.buyerPortfolio[2].cla;
     var buyer3RiskAcceptance=$scope.getRiskAcceptanceRate(buyer3Country,buyer3Industry,buyer3Rating);   
 
+//    console.log('$scope.selected.offerType -- ' + JSON.stringify($scope.selected));
+    
     var offerObj = {
       offerId: $scope.selected.offerId,
       round: $rootScope.currentRoundNumber,
       marketBusinessName: $scope.selected.name,
       price: $scope.selected.price,
       cld:$scope.calculatedCld,
+      offerType: $scope.selected.offerType,
 
       buyer1Country:selectedCustomer.buyerPortfolio[0].country,
       buyer1Industry:selectedCustomer.buyerPortfolio[0].industry,

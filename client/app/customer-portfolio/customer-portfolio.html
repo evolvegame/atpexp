@@ -54,11 +54,17 @@
                                     <td>{{ cust.wonFrom }}</td>
                                     <td>{{ cust.lostTo }}</td>
                                     <td>{{ cust.lostIn }}</td>
-                                                                  
-                                    <td><button type="button" 
-                                        class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust); deleteConfirmation()">
-                                       {{'customer-portfolio.manageOut'|translate}}</button></td>
-                                                         
+                                    <td ng-if="cust.showRenewalAndManageOut">
+	                                    <button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust);">
+	                                       {{'customer-portfolio.renewalTerms'|translate}}
+	                                     </button>
+	                                    <button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="selectCustomerForManageOut(cust); deleteConfirmation()">
+	                                       {{'customer-portfolio.manageOut'|translate}}
+	                                    </button>
+                                    </td>
+                                    <td ng-if="!cust.showRenewalAndManageOut">
+	                                    Managed Out
+                                    </td>                
 
                                 </tr>
                             </tbody>

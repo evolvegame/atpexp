@@ -466,7 +466,7 @@ exports.calcOfferScore = function(input, callback) {
             function(currOffer, callback) {
               try {
                 var currOfferId = currOffer._id;
-                if (checkVariables(currOffer.premium) && currOffer.premium > 0) roundPremium = currOffer.premium;
+                if (checkVariables(currOffer.price) && currOffer.price > 0) roundPremium = currOffer.price;
                 if (checkVariables(currOffer.cld) && currOffer.cld > 0) roundCld = currOffer.cld;
                 if (checkVariables(currOffer.marketBusinessName)) businessName = currOffer.marketBusinessName;
                 var offerScore = 0;

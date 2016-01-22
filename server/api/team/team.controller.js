@@ -398,6 +398,7 @@ exports.makeOffer = function(req, res, next) {
 	var round = req.params.round;
 	var price = req.params.price;
 	var cld = req.params.cld;
+	var offerType = req.params.offerType;
 
 	var buyer1Country=req.params.buyer1Country;
     var buyer1Industry=req.params.buyer1Industry;
@@ -433,6 +434,7 @@ exports.makeOffer = function(req, res, next) {
 			marketBusinessName: marketBusinessName,
 			price: price,
 			cld:cld,
+			offerType: offerType,
 			buyerPortfolio: [{
 				country:buyer1Country,
 				industry:buyer1Industry,
@@ -470,7 +472,8 @@ exports.modifyOffer = function(req, res, next) {
 	var round = req.params.round;
 	var price = req.params.price;
 	var cld = req.params.cld;
-
+	var offerType = req.params.offerType;
+	
 	var buyer1Country=req.params.buyer1Country;
     var buyer1Industry=req.params.buyer1Industry;
     var buyer1Rating=req.params.buyer1Rating;
@@ -493,6 +496,7 @@ exports.modifyOffer = function(req, res, next) {
 	console.log('Reached team controller modifyOffer !!! - round ' + round);
 	console.log('Reached team controller modifyOffer !!! - price ' + price);
 	console.log('Reached team controller modifyOffer !!! - cld ' + cld);
+	console.log('Reached team controller modifyOffer !!! - offerType ' + offerType);
 	console.log('Reached team controller modifyOffer !!! - offerId ' + offerId);
 	console.log('Reached team controller modifyOffer !!! - teamId ' + teamId);
 	console.log('Reached team controller makeOffer !!! - req.params ' + JSON.stringify(req.params));
@@ -505,6 +509,7 @@ exports.modifyOffer = function(req, res, next) {
 			marketBusinessName: marketBusinessName,
 			price: price,
 			cld:cld,
+			offerType: offerType,
 			buyerPortfolio: [{
 				country:buyer1Country,
 				industry:buyer1Industry,

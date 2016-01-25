@@ -233,11 +233,11 @@ angular.module('atpexpApp')
 			|| typeof($scope.selected.strategyRatingBand5)==='undefined') {
 			$scope.showModifyRatingBandRequiredError = true;
 			return;
-		} else if ($scope.selected.strategyRatingBand1 <1 || $scope.selected.strategyRatingBand1 > 100
-				|| $scope.selected.strategyRatingBand2 <1 || $scope.selected.strategyRatingBand2 > 100
-				|| $scope.selected.strategyRatingBand3 <1 || $scope.selected.strategyRatingBand3 > 100
-				|| $scope.selected.strategyRatingBand4 <1 || $scope.selected.strategyRatingBand4 > 100
-				|| $scope.selected.strategyRatingBand5 <1 || $scope.selected.strategyRatingBand5 > 100) {
+		} else if ($scope.selected.strategyRatingBand1 == 0
+				&& $scope.selected.strategyRatingBand2 == 0
+				&& $scope.selected.strategyRatingBand3 == 0
+				&& $scope.selected.strategyRatingBand4 == 0
+				&& $scope.selected.strategyRatingBand5 == 0) {
 			$scope.showModifyRatingBandRangeError = true;
 			return;
 		} else if (typeof($scope.selected.buyerCountry) == 'undefined') {
@@ -339,11 +339,9 @@ angular.module('atpexpApp')
 
 .controller('DeleteRiskModalInstanceCtrl', function ($http, $scope, $modalInstance, selectedDeleteRiskStrategy, Auth, toastr, Offer, $rootScope, Risk, $translate){
 	$scope.selectedDelete = selectedDeleteRiskStrategy;
-	console.log('in modal ctrle for delete strategy ---->>>>> ' + JSON.stringify(selectedDeleteRiskStrategy));
 	
 	//delete strategy
 	$scope.delete = function (strategy) {
-		console.log('strategy to be deleted..........................--> ' + JSON.stringify(strategy));
 		var toBedeletedRiskStrategy = {toBeDeletedId:strategy._id};
 		var strategies;
 		Risk.deleteRisk(toBedeletedRiskStrategy).$promise.then(function(strategies){
@@ -418,11 +416,11 @@ angular.module('atpexpApp')
 			|| typeof($scope.newRiskStrategy.strategyRatingBand5)==='undefined') {
 			$scope.showRatingBandRequiredError = true;
 			return;
-		} else if ($scope.newRiskStrategy.strategyRatingBand1 <1 || $scope.newRiskStrategy.strategyRatingBand1 > 100
-				|| $scope.newRiskStrategy.strategyRatingBand2 <1 || $scope.newRiskStrategy.strategyRatingBand2 > 100
-				|| $scope.newRiskStrategy.strategyRatingBand3 <1 || $scope.newRiskStrategy.strategyRatingBand3 > 100
-				|| $scope.newRiskStrategy.strategyRatingBand4 <1 || $scope.newRiskStrategy.strategyRatingBand4 > 100
-				|| $scope.newRiskStrategy.strategyRatingBand5 <1 || $scope.newRiskStrategy.strategyRatingBand5 > 100) {
+		} else if ($scope.newRiskStrategy.strategyRatingBand1 == 0
+				&& $scope.newRiskStrategy.strategyRatingBand2 == 0
+				&& $scope.newRiskStrategy.strategyRatingBand3 == 0
+				&& $scope.newRiskStrategy.strategyRatingBand4 == 0
+				&& $scope.newRiskStrategy.strategyRatingBand5 == 0) {
 			$scope.showRatingBandRangeError = true;
 			return;
 		} else if (typeof($scope.newRiskStrategy.buyerCountry) == 'undefined') {

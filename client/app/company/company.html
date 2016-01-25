@@ -15,6 +15,41 @@
 </div>
 <!-- PAGE CONTENT TABBED -->
 <tabset>
+
+<tab heading={{'company.tab2.title'|translate}}>
+<div class="tab-container" style="background: #FAFAFA;">
+    <br>
+
+                    <div style="color:black;" ng-controller="CompanyCtrl">
+                        <b></b>
+                        <table class="table datatable">
+                            <tbody>
+                                 <tr ng-repeat="department in departments">
+                                   	<td>{{department.name }}</td>
+                                   	<td ng-repeat="size in department.size">
+                                   	<toggle-switch class="switch-success" html="true" ng-model="size.switchStatus" off-label="&#10006;&nbsp;&nbsp;" on-label="&#10004;&nbsp;&nbsp;" knob-label="{{size.unit}}"
+                                   		ng-click="addDepartment(department, size)" style="min-width: 110px;"></toggle-switch>
+                                   	</td>
+                                    <td>&euro;&nbsp;{{ department.selectedCost }}</td>
+                                </tr> 
+                            </tbody>
+                        </table>
+                    </div>
+                    <br><br>
+                    <div style="border-radius: 10px;border: 1px solid  grey;padding: 10px;">
+                    	<h6>Information:</h6>
+							<p>
+								Sales department size determines number of sales managers available and hence number of possible offers.<br>
+								Marketing department size determines number of campaigns that can be run per round.<br> 
+								IT department size determines the number of IT projects that can be maintained per round.<br>
+								Risk department size determines the number of UW strategies that can be set.<br>
+							</p>
+                    </div>
+
+    </div>
+    
+</tab>
+
 <tab heading={{'company.tab1.title'|translate}}>
 <div class="tab-container" style="background: #FAFAFA;">
     <br>
@@ -93,44 +128,6 @@
 
 
 </tab>
-
-
-
-<tab heading={{'company.tab2.title'|translate}}>
-<div class="tab-container" style="background: #FAFAFA;">
-    <br>
-
-                    <div style="color:black;" ng-controller="CompanyCtrl">
-                        <b></b>
-                        <table class="table datatable">
-                            <tbody>
-                                 <tr ng-repeat="department in departments">
-                                   	<td>{{department.name }}</td>
-                                   	<td ng-repeat="size in department.size">
-                                   	<toggle-switch class="switch-success" html="true" ng-model="size.switchStatus" off-label="&#10006;&nbsp;&nbsp;" on-label="&#10004;&nbsp;&nbsp;" knob-label="{{size.unit}}"
-                                   		ng-click="addDepartment(department, size)" style="min-width: 110px;"></toggle-switch>
-                                   	</td>
-                                    <td>&euro;&nbsp;{{ department.selectedCost }}</td>
-                                </tr> 
-                            </tbody>
-                        </table>
-                    </div>
-                    <br><br>
-                    <div style="border-radius: 10px;border: 1px solid  grey;padding: 10px;">
-                    	<h6>Information:</h6>
-							<p>
-								Sales department size determines number of sales managers available and hence number of possible offers.<br>
-								Marketing department size determines number of campaigns that can be run per round.<br> 
-								IT department size determines the number of IT projects that can be maintained per round.<br>
-								Risk department size determines the number of UW strategies that can be set.<br>
-							</p>
-                    </div>
-
-    </div>
-    
-</tab>
-
-
 
 <tab heading={{'company.tab3.title'|translate}}>
 <div class="tab-container" style="background: #FAFAFA;">

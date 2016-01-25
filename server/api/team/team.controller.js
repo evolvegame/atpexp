@@ -643,7 +643,7 @@ exports.getAllTeamRankings = function(req, res, next) {
 	   var allTeams = {};
 	   
 	   allTeams.map = function() {
-		   emit(this, {_id: this._id, teamName: this.name, teamCountry: this.teamCountry, roundLevelInformation: this.roundLevelInformation});
+		   emit(this, {_id: this._id, teamName: this.name, teamCountry: this.teamCountry, roundLevelInformation: this.roundLevelInformation, role: this.role});
 	   }
 
 	   
@@ -667,8 +667,8 @@ exports.getAllTeamRankings = function(req, res, next) {
 				   experienceScore: typeof(roundLevelInformation) == 'undefined' ? null : roundLevelInformation.experienceScore,
 				   experienceScoreRankingPosition: typeof(roundLevelInformation) == 'undefined' ? null : roundLevelInformation.experienceScoreRankingPosition,
 				   countryLevelRankingPosition: typeof(roundLevelInformation) == 'undefined' ? null : roundLevelInformation.countryLevelRankingPosition,
-				   CountryLevelExperienceScoreRankingPosition: typeof(roundLevelInformation) == 'undefined' ? null : roundLevelInformation.CountryLevelExperienceScoreRankingPosition		   
-				   
+				   CountryLevelExperienceScoreRankingPosition: typeof(roundLevelInformation) == 'undefined' ? null : roundLevelInformation.CountryLevelExperienceScoreRankingPosition,		   
+				   role: data[i].value.role
 			   };
 		   }
 		   

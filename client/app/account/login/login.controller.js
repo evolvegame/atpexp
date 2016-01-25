@@ -15,18 +15,18 @@ angular.module('atpexpApp')
           //after scuccessfull authentication - store the team object at rootScope level
           $http.get('/api/team/me').success( function (team){
           $rootScope.team = team;     
-        
-          });
-         //after scuccessfull authentication - store the miniDashboard info at rootScope level
+          //after scuccessfull authentication - store the miniDashboard info at rootScope level
           $http.get('/api/team/0/miniDashboardInfo').success( function (miniDashboardInfo){
             $rootScope.miniDashboardInfo=miniDashboardInfo; 
             console.log('miniDashboardInfo: '+JSON.stringify(miniDashboardInfo) );                        
-             
+          //Logged in, redirect to company screen
+            $location.path('/company');
           }).error(function (error){
             console.log('Error :retriveing miniDashboard info');
-          });         
-          // Logged in, redirect to home
-          $location.path('/');
+          });
+          });
+                  
+        
           
         })
         .catch( function(err) {

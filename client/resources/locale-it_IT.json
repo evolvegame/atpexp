@@ -191,7 +191,7 @@
 	"risk.addNewStrategy.ratingBandSettings":"Impostazioni Valutazione banda",
 	"risk.addNewStrategy.buyerRatings":"Valutazioni Compratore",
 	"risk.addNewStrategy.acceptancePercentage":"percentuale di accettazione",
-	"risk.addNewStrategy.requiredMsg1":"Valutazione Banda",
+	"risk.addNewStrategy.requiredMsg1":"Atleast banda un rating dovrebbe essere maggiore di zero",
 	"risk.addNewStrategy.requiredMsg2":"è obbligatorio",	
 	"risk.addNewStrategy.country":"Nazione",
 	"risk.addNewStrategy.industry":"Settori",

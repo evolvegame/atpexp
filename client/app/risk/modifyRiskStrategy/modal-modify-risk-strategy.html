@@ -35,7 +35,7 @@
 					        				<td style="text-align: center;border: 1px solid;">
 						        				<input name="ratingBand{{$index+1}}" type="number"
 													ng-model="selected.ratingBand[$index+1]"
-													required/>
+													required min="0" max="100"/>
 												<span style="color: red" ng-show="modificationForm.ratingBand{{$index+1}}.$dirty && modificationForm.ratingBand{{$index+1}}.$invalid">
 													<span ng-show="modificationForm.ratingBand{{$index+1}}.$error.required">
 															{{'risk.addNewStrategy.requiredMsg1'|translate}} {{$index+1}} {{'risk.addNewStrategy.requiredMsg2'|translate}}.
@@ -45,10 +45,10 @@
 					        			</tr>			        	
 					        	</tbody>
 					        	<span style="color: red" ng-show="showModifyRatingBandRequiredError">
-														{{'risk.addNewStrategy.requiredMsg1'|translate}} {{'risk.addNewStrategy.requiredMsg2'|translate}}.<br><br>
+														{{'risk.addNewStrategy.ratingBand.range'|translate}}.<br><br>
 								</span>
 					        	<span style="color: red" ng-show="showModifyRatingBandRangeError">
-														{{'risk.addNewStrategy.ratingBand.range'|translate}}.<br><br>
+														{{'risk.addNewStrategy.requiredMsg1'|translate}}.<br><br>
 								</span>
 					        </table>
 					  

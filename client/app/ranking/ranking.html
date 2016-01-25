@@ -60,7 +60,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 <tr ng-repeat="team in rankingTeams | orderBy: 'rankingPosition'" style="color:{{fontStyle(team.teamName)}};" ng-click="clickTeamRow(team.teamName);">
+                                 <tr ng-repeat="team in rankingTeams | filter: {role: 'user'} | orderBy: 'rankingPosition'" style="color:{{fontStyle(team.teamName)}};">
                                    	<td>{{ team.rankingPosition }}</td>
                                     <td>{{ team.teamName }}</td>
                                     <td>{{ team.teamCountry }}</td>
@@ -111,7 +111,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 <tr ng-repeat="team in rankingTeams | orderBy: 'experienceScoreRankingPosition'" style="color:{{fontStyle(team.teamName)}};" ng-click="clickTeamRow(team.teamName);">
+                                 <tr ng-repeat="team in rankingTeams | filter: {role: 'user'} | orderBy: 'experienceScoreRankingPosition'" style="color:{{fontStyle(team.teamName)}};">
                                    	<td>{{ team.experienceScoreRankingPosition }}</td>
                                     <td>{{ team.teamName }}</td>
                                     <td>{{ team.teamCountry }}</td>
@@ -166,7 +166,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 <tr ng-repeat="team in rankingTeams | filter: {teamCountry:loggedInTeam} |orderBy: 'countryLevelRankingPosition' :true" style="color:{{fontStyle(team.teamName)}};" ng-click="clickTeamRow(team.teamName);">
+                                 <tr ng-repeat="team in rankingTeams | filter: ({teamCountry:loggedInTeam} && {role:'user'}) |orderBy: 'countryLevelRankingPosition' :true" style="color:{{fontStyle(team.teamName)}};">
                                    	<td>
 										{{ team.countryLevelRankingPosition }}
 									</td>
@@ -217,7 +217,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 <tr ng-repeat="team in rankingTeams | filter: {teamCountry:loggedInTeam} | orderBy: 'CountryLevelExperienceScoreRankingPosition' :true" style="color:{{fontStyle(team.teamName)}};" ng-click="clickTeamRow(team.teamName);">
+                                 <tr ng-repeat="team in rankingTeams | filter: ({teamCountry:loggedInTeam} && {role:'user'}) | orderBy: 'CountryLevelExperienceScoreRankingPosition' :true" style="color:{{fontStyle(team.teamName)}};">
                                    	<td>
                                    		{{ team.CountryLevelExperienceScoreRankingPosition }}	
 									</td>

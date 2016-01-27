@@ -166,7 +166,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 <tr ng-repeat="team in rankingTeams | filter: ({teamCountry:loggedInTeam} && {role:'user'}) |orderBy: 'countryLevelRankingPosition' :true" style="color:{{fontStyle(team.teamName)}};">
+                                 <tr ng-repeat="team in rankingTeams | filter: {role:'user'} | filter: {teamCountry:loggedInTeam} |orderBy: 'countryLevelRankingPosition' :true" style="color:{{fontStyle(team.teamName)}};">
                                    	<td>
 										{{ team.countryLevelRankingPosition }}
 									</td>
@@ -217,7 +217,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 <tr ng-repeat="team in rankingTeams | filter: ({teamCountry:loggedInTeam} && {role:'user'}) | orderBy: 'CountryLevelExperienceScoreRankingPosition' :true" style="color:{{fontStyle(team.teamName)}};">
+                                 <tr ng-repeat="team in rankingTeams | filter: {role:'user'} | filter: {teamCountry:loggedInTeam} | orderBy: 'CountryLevelExperienceScoreRankingPosition' :true" style="color:{{fontStyle(team.teamName)}};">
                                    	<td>
                                    		{{ team.CountryLevelExperienceScoreRankingPosition }}	
 									</td>

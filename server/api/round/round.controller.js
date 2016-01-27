@@ -285,7 +285,15 @@ exports.calculateRound = function(req, res) {
         });
       }
 
-      // step13 -- country level rankingPosition
+      ,
+      step13: function(callback) {
+        console.log("Step 13: Populate country level ranking");
+        calcResults.countryCapitalRanking(toBeCalculatedRound,function(err, result) {
+          if (err) return callback(err);
+          console.log("Step 13 completed. Proceed to Step 14");
+          callback(null);
+        });
+      }
 
       ,
       step14: function(callback) {

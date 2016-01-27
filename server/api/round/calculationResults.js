@@ -162,7 +162,7 @@ exports.populateValues = function(currentRound, callback) {
                 }
               ], function(err, results) {
                 if (err) return callback(err);
-                grossIncome = premium - (claims + totalExpense);
+                grossIncome = premium - (claims + totalExpense + investment);
                 console.log("Gross Income for team - " + team.name + " is -->" + grossIncome);
                 profit = grossIncome * 0.8; // to be checked
                 console.log("Profit for team - " + team.name + " is -->" + profit);
@@ -344,4 +344,204 @@ exports.capitalRanking = function(currRound, callback) {
     if (err) return callback(err);
   }
 
+}
+
+
+function groupByCountry(){
+    var query = Teams.aggregate(    
+    [
+        { $match : {role:'user'}},
+        { $group: {_id :"$teamCountry" , capital:{$push:"$capital"}, expScore:{$push:"$experienceScore"} , teams:{$push:"$name"} } }
+    ]
+    );
+    return query;
+}
+
+
+exports.countryCapitalRanking = function(currRound,callback){
+    
+    async.waterfall([
+        
+        function(callback){
+            var query = groupByCountry();
+            query.exec(function(err,results){
+                if(err) return callback(err);
+                console.log(results);
+                callback(null,results);  
+            });
+        },
+        
+        function(results,callback){
+            async.forEach(results,
+             function(result,callback){
+                 if(checkVariables(result._id)){
+                 console.log("Applying ranking for country -->"+result._id);
+                 
+                 async.parallel([
+                     
+                 function(callback){
+                 //Apply for capital ranking at country level
+                 if(checkVariables(result.capital)){
+                     console.log(" Starting country level capital ranking for --> " +result._id);
+                     // sort based on capital
+                    var sortedCapital = result.capital.slice().sort(function(a, b) {
+                        return b - a
+                    });
+                    var sortedCapitalJSON = {};
+                    // ranking order
+                    var ranks = sortedCapital.slice().map(function(v) {
+                        var rankIndex = sortedCapital.indexOf(v) + 1;
+                        if (sortedCapitalJSON != null && !(sortedCapitalJSON === undefined)) {
+                            if (sortedCapitalJSON.rankIndex == null || sortedCapitalJSON.rankIndex === undefined) {
+                            sortedCapitalJSON[rankIndex] = v;
+                            }
+                        }
+                    });
+                    
+                    // swap values
+                    var one, swappedCapitalJSON = {};
+                    for (one in sortedCapitalJSON) {
+                        if (sortedCapitalJSON.hasOwnProperty(one)) {
+                            swappedCapitalJSON[sortedCapitalJSON[one]] = one;
+                        }
+                    }
+                    
+                    console.log(JSON.stringify(swappedCapitalJSON));
+                    var teamList = result.teams;
+                    if(checkVariables(teamList)){
+                        console.log('I am here');                      
+                        teamList.forEach(function(team){
+                              Teams.findOne({
+                                  name: team,
+                                  teamCountry: result._id,
+                                  roundLevelInformation: {
+                                           $elemMatch: {
+                                            round: currRound
+                                            }
+                                  } 
+                              }).exec(function(err,teamResult){
+                                  if(err) return callback(err);
+                                  var rank = swappedCapitalJSON[teamResult.capital];
+                                  var roundId;
+                                  if(checkVariables(rank) && checkVariables(teamResult)&& rank>0){
+                                      var roundInfo = teamResult.roundLevelInformation;
+                                      if(checkVariables(roundInfo)){
+                                          roundInfo.forEach(function(roundDetails) {
+                                              if(checkVariables(roundDetails)&& checkVariables(roundDetails.round) && roundDetails.round == currRound){
+                                                  roundId = roundDetails._id;
+                                              }
+                                          });
+                                        Teams.update({
+                                                "roundLevelInformation._id": roundId
+                                            }, {
+                                            $set: {
+                                            "roundLevelInformation.$.countryLevelRankingPosition": rank
+                                             }
+                                            }, function(err) {
+                                            if (err != null) return callback(err)
+                                            console.log("Saving country level capital ranking for team -->" + teamResult.name + " value= " + rank);
+                                            callback(null, "Saved country level capital ranking");
+                                        });          
+                                      }else callback(new Error("Round Info cannot be obtained")); 
+                                  }else callback(null);
+                              });
+                          });
+                    } else callback(null); // No team list available so nothing to do
+                 } else callback(null); // No capital available so nothing to do
+               }
+               ,
+               function(callback){
+                 //Apply for capital ranking at country level
+                 if(checkVariables(result.expScore)){
+                     console.log(" Starting country level expScore ranking for --> " +result._id);
+                     // sort based on capital
+                    var sortedExpScore = result.expScore.slice().sort(function(a, b) {
+                        return b - a
+                    });
+                    var sortedExpScoreJSON = {};
+                    // ranking order
+                    var ranks = sortedExpScore.slice().map(function(v) {
+                        var rankIndex = sortedExpScore.indexOf(v) + 1;
+                        if (sortedExpScoreJSON != null && !(sortedExpScoreJSON === undefined)) {
+                            if (sortedExpScoreJSON.rankIndex == null || sortedExpScoreJSON.rankIndex === undefined) {
+                            sortedExpScoreJSON[rankIndex] = v;
+                            }
+                        }
+                    });
+                    
+                    // swap values
+                    var one, swappedExpScoreJSON = {};
+                    for (one in sortedExpScoreJSON) {
+                        if (sortedExpScoreJSON.hasOwnProperty(one)) {
+                            swappedExpScoreJSON[sortedExpScoreJSON[one]] = one;
+                        }
+                    }
+                    
+                    console.log(JSON.stringify(swappedExpScoreJSON));
+                    var teamList = result.teams;
+                    if(checkVariables(teamList)){                    
+                        teamList.forEach(function(team){
+                              Teams.findOne({
+                                  name: team,
+                                  teamCountry: result._id,
+                                  roundLevelInformation: {
+                                           $elemMatch: {
+                                            round: currRound
+                                            }
+                                  } 
+                              }).exec(function(err,teamResult){
+                                  if(err) return callback(err);
+                                  var rank = swappedExpScoreJSON[teamResult.experienceScore];
+                                  var roundId;
+                                  if(checkVariables(rank) && checkVariables(teamResult)&& rank>0){
+                                      var roundInfo = teamResult.roundLevelInformation;
+                                      if(checkVariables(roundInfo)){
+                                          roundInfo.forEach(function(roundDetails) {
+                                              if(checkVariables(roundDetails)&& checkVariables(roundDetails.round) && roundDetails.round == currRound){
+                                                  roundId = roundDetails._id;
+                                              }
+                                          });
+                                        Teams.update({
+                                                "roundLevelInformation._id": roundId
+                                            }, {
+                                            $set: {
+                                            "roundLevelInformation.$.CountryLevelExperienceScoreRankingPosition": rank
+                                             }
+                                            }, function(err) {
+                                            if (err != null) return callback(err)
+                                            console.log("Saving country level exp Score ranking for team -->" + teamResult.name + " value= " + rank);
+                                            callback(null, "Saved country level exp Score ranking");
+                                        });          
+                                      }else callback(new Error("Round Info cannot be obtained")); 
+                                  }else callback(null);
+                              });
+                          });
+                    } else callback(null); // No team list available so nothing to do
+                 } else callback(null); // No capital available so nothing to do
+               }
+                     
+                 ]
+                 , function(err){
+                     if(err) {console.log(err); return callback(err);}
+                     callback(null,"Successfully applied both capital and exp Score ranking at country level for --> "+result._id);
+                 })
+                 
+         
+                 } else callback(null);
+             },
+             
+             function(err){
+                 if(err) return callback(err);
+                 callback(null);
+             })
+        }
+        
+        
+    ],
+    
+     function(err){
+                 if(err) return callback(err);
+                 callback(null);
+             });
+    
 }

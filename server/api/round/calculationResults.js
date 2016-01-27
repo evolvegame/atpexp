@@ -372,7 +372,7 @@ exports.countryCapitalRanking = function(currRound,callback){
         },
         
         function(results,callback){
-            async.forEach(results,
+            async.forEachSeries(results,
              function(result,callback){
                  if(checkVariables(result._id)){
                  console.log("Applying ranking for country -->"+result._id);
@@ -382,7 +382,7 @@ exports.countryCapitalRanking = function(currRound,callback){
                  function(callback){
                  //Apply for capital ranking at country level
                  if(checkVariables(result.capital)){
-                     console.log(" Starting country level capital ranking for --> " +result._id);
+                     console.log("Starting country level capital ranking for --> " +result._id);
                      // sort based on capital
                     var sortedCapital = result.capital.slice().sort(function(a, b) {
                         return b - a
@@ -406,11 +406,11 @@ exports.countryCapitalRanking = function(currRound,callback){
                         }
                     }
                     
-                    console.log(JSON.stringify(swappedCapitalJSON));
+                    console.log('Swapped Capital JSON -->'+JSON.stringify(swappedCapitalJSON));
                     var teamList = result.teams;
-                    if(checkVariables(teamList)){
-                        console.log('I am here');                      
-                        teamList.forEach(function(team){
+                    if(checkVariables(teamList)){                      
+                        async.forEachSeries(teamList,
+                                    function(team,callback){
                               Teams.findOne({
                                   name: team,
                                   teamCountry: result._id,
@@ -422,6 +422,7 @@ exports.countryCapitalRanking = function(currRound,callback){
                               }).exec(function(err,teamResult){
                                   if(err) return callback(err);
                                   var rank = swappedCapitalJSON[teamResult.capital];
+                                  console.log('Rank is -->'+rank);
                                   var roundId;
                                   if(checkVariables(rank) && checkVariables(teamResult)&& rank>0){
                                       var roundInfo = teamResult.roundLevelInformation;
@@ -431,30 +432,41 @@ exports.countryCapitalRanking = function(currRound,callback){
                                                   roundId = roundDetails._id;
                                               }
                                           });
-                                        Teams.update({
-                                                "roundLevelInformation._id": roundId
-                                            }, {
-                                            $set: {
-                                            "roundLevelInformation.$.countryLevelRankingPosition": rank
-                                             }
-                                            }, function(err) {
-                                            if (err != null) return callback(err)
-                                            console.log("Saving country level capital ranking for team -->" + teamResult.name + " value= " + rank);
-                                            callback(null, "Saved country level capital ranking");
-                                        });          
+                                        console.log('Round id for Team --'+teamResult.name+' is -->'+roundId);
+                                        async.series([
+                                            function(callback){
+                                                Teams.update({
+                                                        "roundLevelInformation._id": roundId
+                                                    }, {
+                                                    $set: {
+                                                        "roundLevelInformation.$.countryLevelRankingPosition": rank
+                                                    }
+                                                    }, function(err) {
+                                                        if (err != null) return callback(err)
+                                                        console.log("Saving country level capital ranking for team -->" + teamResult.name + " value= " + rank);
+                                                        callback(null);
+                                                }); 
+                                            }
+                                        ], function(err){
+                                            if(err) return callback (err);
+                                            callback(null);
+                                        });   
                                       }else callback(new Error("Round Info cannot be obtained")); 
                                   }else callback(null);
                               });
-                          });
+                          }, function(err){
+                                            if(err) return callback (err);
+                                            callback(null);
+                                        });
                     } else callback(null); // No team list available so nothing to do
                  } else callback(null); // No capital available so nothing to do
                }
                ,
                function(callback){
-                 //Apply for capital ranking at country level
+                 //Apply for experience score at country level
                  if(checkVariables(result.expScore)){
-                     console.log(" Starting country level expScore ranking for --> " +result._id);
-                     // sort based on capital
+                     console.log("Starting experience score ranking at country level for --> " +result._id);
+                     // sort based on expScore
                     var sortedExpScore = result.expScore.slice().sort(function(a, b) {
                         return b - a
                     });
@@ -477,10 +489,11 @@ exports.countryCapitalRanking = function(currRound,callback){
                         }
                     }
                     
-                    console.log(JSON.stringify(swappedExpScoreJSON));
+                    console.log('Swapped Exp Score JSON -->'+JSON.stringify(swappedExpScoreJSON));
                     var teamList = result.teams;
-                    if(checkVariables(teamList)){                    
-                        teamList.forEach(function(team){
+                    if(checkVariables(teamList)){                      
+                        async.forEachSeries(teamList,
+                                    function(team,callback){
                               Teams.findOne({
                                   name: team,
                                   teamCountry: result._id,
@@ -492,6 +505,7 @@ exports.countryCapitalRanking = function(currRound,callback){
                               }).exec(function(err,teamResult){
                                   if(err) return callback(err);
                                   var rank = swappedExpScoreJSON[teamResult.experienceScore];
+                                  console.log('Rank is -->'+rank);
                                   var roundId;
                                   if(checkVariables(rank) && checkVariables(teamResult)&& rank>0){
                                       var roundInfo = teamResult.roundLevelInformation;
@@ -501,23 +515,34 @@ exports.countryCapitalRanking = function(currRound,callback){
                                                   roundId = roundDetails._id;
                                               }
                                           });
-                                        Teams.update({
-                                                "roundLevelInformation._id": roundId
-                                            }, {
-                                            $set: {
-                                            "roundLevelInformation.$.CountryLevelExperienceScoreRankingPosition": rank
-                                             }
-                                            }, function(err) {
-                                            if (err != null) return callback(err)
-                                            console.log("Saving country level exp Score ranking for team -->" + teamResult.name + " value= " + rank);
-                                            callback(null, "Saved country level exp Score ranking");
-                                        });          
+                                        console.log('Round id for Team --'+teamResult.name+' is -->'+roundId);
+                                        async.series([
+                                            function(callback){
+                                                Teams.update({
+                                                        "roundLevelInformation._id": roundId
+                                                    }, {
+                                                    $set: {
+                                                        "roundLevelInformation.$.CountryLevelExperienceScoreRankingPosition": rank
+                                                    }
+                                                    }, function(err) {
+                                                        if (err != null) return callback(err)
+                                                        console.log("Saving exp score ranking at country level for team -->" + teamResult.name + " value= " + rank);
+                                                        callback(null);
+                                                }); 
+                                            }
+                                        ], function(err){
+                                            if(err) return callback (err);
+                                            callback(null);
+                                        });   
                                       }else callback(new Error("Round Info cannot be obtained")); 
                                   }else callback(null);
                               });
-                          });
+                          }, function(err){
+                                            if(err) return callback (err);
+                                            callback(null);
+                                        });
                     } else callback(null); // No team list available so nothing to do
-                 } else callback(null); // No capital available so nothing to do
+                 } else callback(null); // No capital available so nothing to do 
                }
                      
                  ]

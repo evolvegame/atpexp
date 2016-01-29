@@ -502,7 +502,7 @@ exports.calcOfferScore = function(input, callback) {
             	  
             	  if (checkVariables(currOffer.round) && currOffer.round == toBeCalculatedRound) {
             		  var currOfferId = currOffer._id;
-            		  
+            		  var updatedBuyerPortfolio = currOffer.buyerPortfolio;
             		  if (checkVariables(riskStrategies) && riskStrategies.length > 0) {
             			  if (checkVariables(currOffer.marketBusinessName)) businessName = currOffer.marketBusinessName;
             			  if (checkVariables(customerAllocation) && checkVariables(customerAllocation[businessName])) {
@@ -510,7 +510,13 @@ exports.calcOfferScore = function(input, callback) {
             				  for (var i=0; i<buyerPortfolio.length; i++) {
             					  var riskAcceptance = getRiskAcceptanceRate(buyerPortfolio[i].country, buyerPortfolio[i].industry, buyerPortfolio[i].rating, riskStrategies);
             					  var cla = buyerPortfolio[i].cla;
-            					  roundCld = roundCld + (cla * (riskAcceptance/100));
+            					  var buyerPortfolioLeveCLD = cla * (riskAcceptance/100);
+            					  for (var j=0; j<updatedBuyerPortfolio.length; j++) {
+            						  if (updatedBuyerPortfolio[j].country == buyerPortfolio[i].country && updatedBuyerPortfolio[j].industry == buyerPortfolio[i].industry) {
+            							  updatedBuyerPortfolio[j].cld = buyerPortfolioLeveCLD;
+            						  }
+            					  }
+            					  roundCld = roundCld + buyerPortfolioLeveCLD;
             				  }
             				  console.log('Calculated cld for team - ' + _2_teamName + ' is ---> ' + roundCld);
             			  }
@@ -541,7 +547,8 @@ exports.calcOfferScore = function(input, callback) {
                 "offer._id": currOfferId
               }, {
                 $set: {
-                  "offer.$.offerScore": offerScore
+                  "offer.$.offerScore": offerScore,
+                  "offer.$.buyerPortfolio": updatedBuyerPortfolio
                 }
               }, function(err) {
                 if (err != null) return callback(err)

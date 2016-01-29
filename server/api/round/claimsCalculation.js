@@ -43,8 +43,8 @@ exports.calculateClaims = function (team, callback) {
                                 var lossratioVal = 0;
                                 var meanEl = 0;
                                 var stdDevEl = 0;
-                                if (checkVariables(buyer.cla) && checkVariables(buyer.riskAcceptance)) {
-                                    cld = buyer.cla * buyer.riskAcceptance;
+                                if (checkVariables(buyer.cld)) {
+                                    cld = buyer.cld;
                                     console.log("CLD value for customer " + customer.businessName + " is -->" + cld);
                                 }
 

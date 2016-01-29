@@ -538,7 +538,7 @@ $scope.deleteOffer = function (offerId) {
       round: $rootScope.currentRoundNumber,
       marketBusinessName: selectedCustomer.name,
       price: $scope.selected.price,
-      cld :$scope.calculatedCld,
+      cld :0,
       offerType:'New',
 
       buyer1Country:selectedCustomer.buyerPortfolio[0].country,
@@ -715,7 +715,7 @@ $scope.modifyOffer = function() {
       round: $rootScope.currentRoundNumber,
       marketBusinessName: $scope.selected.name,
       price: $scope.selected.price,
-      cld:$scope.calculatedCld,
+      cld:0,
       offerType: $scope.selected.offerType,
 
       buyer1Country:selectedCustomer.buyerPortfolio[0].country,

@@ -445,6 +445,35 @@ exports.expScoreFactor = function(expScores, callback) {
   }
 }
 
+function getRiskAcceptanceRate(buyerCountry, buyerIndustry, buyerRating, riskStrategies) {
+    var strategies = riskStrategies;
+    var riskAcceptance = 0;  
+
+    
+    for (var i =0; i<strategies.length; i++) {
+	   if (strategies[i].buyerCountry.indexOf(buyerCountry)>-1 && strategies[i].buyerIndustry.indexOf(buyerIndustry)>-1 ){
+	    if (buyerRating.between(1,30)){
+	      riskAcceptance =strategies[i].strategyRatingBand1;
+	      } else if (buyerRating.between(31,40)){
+	        riskAcceptance =strategies[i].strategyRatingBand2;
+	      } else if (buyerRating.between(41,50)){
+	        riskAcceptance =strategies[i].strategyRatingBand3;
+	      } else if (buyerRating.between(51,60)){
+	        riskAcceptance =strategies[i].strategyRatingBand4;
+	      } else {
+	        riskAcceptance =strategies[i].strategyRatingBand5;
+	      }        
+    }    
+  } 
+  
+  return riskAcceptance; 
+
+}
+
+Number.prototype.between = function(first,last){
+  return (first < last ? this >= first && this <= last : this >= last && this <= first);
+}
+
 exports.calcOfferScore = function(input, callback) {
   var customerAllocation = input['customerAllocation'];
   var allTeams = input['allTeams'];
@@ -460,6 +489,7 @@ exports.calcOfferScore = function(input, callback) {
       console.log("expScorePoint for " + _2_teamName + " is =" + expScorePoint)
       var offerArr = team.offer;
       var roundInformation = team.roundLevelInformation;
+      var riskStrategies = team.riskStrategy;
       var roundPremium = 0;
       var roundCld = 0;
       var businessName;
@@ -473,8 +503,22 @@ exports.calcOfferScore = function(input, callback) {
             	  
             	  if (checkVariables(currOffer.round) && currOffer.round == toBeCalculatedRound) {
             		  var currOfferId = currOffer._id;
+            		  
+            		  if (checkVariables(riskStrategies) && riskStrategies.length > 0) {
+            			  if (checkVariables(currOffer.marketBusinessName)) businessName = currOffer.marketBusinessName;
+            			  if (checkVariables(customerAllocation) && checkVariables(customerAllocation[businessName])) {
+            				  var buyerPortfolio = customerAllocation[businessName].CustomerDetails.buyerPortfolio;
+            				  for (var i=0; i<buyerPortfolio.length; i++) {
+            					  var riskAcceptance = getRiskAcceptanceRate(buyerPortfolio[i].country, buyerPortfolio[i].industry, buyerPortfolio[i].rating, riskStrategies);
+            					  var cla = buyerPortfolio[i].cla;
+            					  roundCld = roundCld + (cla * (riskAcceptance/100));
+            				  }
+            				  console.log('Calculated cld for team - ' + _2_teamName + ' is ---> ' + roundCld);
+            			  }
+            		  }
+            		  
                       if (checkVariables(currOffer.price) && currOffer.price > 0) roundPremium = currOffer.price;
-                      if (checkVariables(currOffer.cld) && currOffer.cld > 0) roundCld = currOffer.cld;
+//                      if (checkVariables(currOffer.cld) && currOffer.cld > 0) roundCld = currOffer.cld;
                       if (checkVariables(currOffer.marketBusinessName)) businessName = currOffer.marketBusinessName;
                       if (roundPremium > 0) offerScore = (roundCld / roundPremium) * expScorePoint;
                       console.log(_2_teamName + " has an offerScore of " + offerScore + " for customer ->" + businessName);

@@ -25,6 +25,7 @@ router.put('/:id/deleteOffer', auth.isAuthenticated(), controller.deleteOffer);
 router.post('/', controller.create);
 router.get('/:previousRoundNumber/getAllTeamRankings', controller.getAllTeamRankings);
 router.get('/:id/roundLevelInformation', auth.isAuthenticated(), controller.roundLevelInformation);
+router.get('/:id/notificationInformation', auth.isAuthenticated(), controller.notificationInformation);
 router.get('/:id/miniDashboardInfo', auth.isAuthenticated(), controller.miniDashboardInfo);
 router.put('/:id/:memberId/:password/resetPassword', auth.isAuthenticated(), controller.resetPassword);
 router.post('/saveOffer', controller.saveOffer);

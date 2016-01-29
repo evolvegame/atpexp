@@ -85,6 +85,7 @@ var TeamSchema = mongoose.Schema({
       industry:String,
       buyerRating:Number,
       cla:Number,
+      cld:Number,
       riskAcceptance:Number
     }]
   }],

@@ -41,7 +41,13 @@ angular.module('atpexpApp')
         params: {
           controller:'miniDashboardInfo'
         }
-      }
+      },
+      notificationInformation: {
+          method: 'GET',
+          params: {
+            controller:'notificationInformation'
+          }
+        }
 	  });
   })
 

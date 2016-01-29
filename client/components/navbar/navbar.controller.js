@@ -1,10 +1,30 @@
 'use strict';
 angular.module('atpexpApp')
-.controller('NavbarCtrl', function ($scope,$rootScope, $location, Auth, $translate, $window,$cookieStore,localeservice) {
+.controller('NavbarCtrl', function ($scope,$rootScope, $location, Auth, $translate, $window,$cookieStore,localeservice, Round, Team) {
 	$scope.menu = [{
 		'title': 'Home',
 		'link': '/'
 	}];
+	
+	Round.currentRound(function(round){
+		$rootScope.roundNumber = round.round;
+		
+		$rootScope.makeOfferClass = 'icheckbox_minimal-grey checked';
+		$rootScope.manageRiskClass = 'icheckbox_minimal-grey checked';
+		$rootScope.companyInvestmentClass = 'icheckbox_minimal-grey checked';
+		$rootScope.pendingTasks = 3;
+		
+		$rootScope.getCurrentTeam = Auth.getCurrentTeam;
+		Team.notificationInformation({id:0}).$promise.then(function(notificationObject){
+			console.log('Notification received from db -- ' + JSON.stringify(notificationObject));
+			$rootScope.makeOfferClass = notificationObject.numberOffers == 0 ?  'icheckbox_minimal-grey checked' : 'icheckbox_minimal-grey';
+			$rootScope.manageRiskClass = notificationObject.numOfRiskStrategies == 0 ? 'icheckbox_minimal-grey checked' : 'icheckbox_minimal-grey';
+			$rootScope.companyInvestmentClass = notificationObject.numOfProjects == 0 ? 'icheckbox_minimal-grey checked' : 'icheckbox_minimal-grey';
+			$rootScope.pendingTasks = notificationObject.numberOffers == 0 ? $rootScope.pendingTasks : $rootScope.pendingTasks - 1;
+			$rootScope.pendingTasks = notificationObject.numOfRiskStrategies == 0 ? $rootScope.pendingTasks : $rootScope.pendingTasks - 1;
+			$rootScope.pendingTasks = notificationObject.numOfProjects == 0 ? $rootScope.pendingTasks : $rootScope.pendingTasks - 1;
+		});
+	});
 
 	$scope.isCollapsed = true;
 	$scope.isLoggedIn = Auth.isLoggedIn;

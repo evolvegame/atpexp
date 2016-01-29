@@ -679,6 +679,56 @@ exports.getAllTeamRankings = function(req, res, next) {
 	
 };
 
+
+exports.notificationInformation = function (req, res, next) {
+	console.log('reached notification information !!!!');
+	var teamId = req.user._id;
+	var currentRoundNumber;
+	var numOffers = 0;
+	var numOfRiskStrategies = 0;
+	var numOfProjects = 0;
+	
+	Round.findOne({"currentRoundFlag":true}, function (err, round){
+		currentRoundNumber = round.round;
+		var currentRoundLevelInformation;
+		Team.findById(teamId, function (err, team) {
+			for (var i = 0 ; i < team.offer.length; i++) {
+				if(team.offer[i].round == currentRoundNumber) {
+					numOffers = numOffers;
+				}
+			}
+			
+			for (var i = 0; i < team.riskStrategy.length; i++) {
+				if (team.riskStrategy[i].round == currentRoundNumber) {
+					numOfRiskStrategies = numOfRiskStrategies + 1;
+				}
+			}
+			console.log('Number of proj 111 -- ' + JSON.stringify(team.roundLevelInformation[0].project.length) + ' and round number -- ' + currentRoundNumber);
+			for (var i = 0 ; i < team.roundLevelInformation.length ; i ++) {
+				if (team.roundLevelInformation[i].round == currentRoundNumber) {
+					currentRoundLevelInformation = team.roundLevelInformation[i];
+					numOfProjects = currentRoundLevelInformation.project.length;
+					console.log('Number of proj -- ' + numOfProjects);
+					break;
+				}
+			}
+			
+			var notification = {
+					numberOffers: numOffers,
+					numOfRiskStrategies: numOfRiskStrategies,
+					numOfProjects: numOfProjects
+			}
+			
+			res.json(notification);
+			
+		});		
+		
+	});
+	
+	
+}
+
+
 /**
  * Get MINIDASHBOARD INFO 
  */

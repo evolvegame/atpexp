@@ -2,13 +2,16 @@
 
 angular.module('atpexpApp')
 
-.controller('riskCtrl', function ($scope, $http, Auth, Team , $translate, Risk, $rootScope, $modal) {
+.controller('riskCtrl', function ($scope, $http, Auth, Team , $translate, Risk, $rootScope, $modal, Round) {
 
 	$http.get('/api/team/me').success(function (team) {     
 		$rootScope.team = team;       
 		$rootScope.strategies = $rootScope.team.riskStrategy; 
 	});
 
+	Round.currentRound(function(round){
+		$rootScope.currentRoundNumber = round.round;
+	});
 	
 
 	//get industry
@@ -160,6 +163,29 @@ angular.module('atpexpApp')
 			$scope.strategies = $rootScope.team.riskStrategy; 
 		});
 	}
+	
+	function updateNotifications () {
+		console.log('About to update notifications');
+		Round.currentRound(function(round){
+			$rootScope.roundNumber = round.round;
+			
+			$rootScope.makeOfferClass = 'icheckbox_minimal-grey checked';
+			$rootScope.manageRiskClass = 'icheckbox_minimal-grey checked';
+			$rootScope.companyInvestmentClass = 'icheckbox_minimal-grey checked';
+			$rootScope.pendingTasks = 3;
+			
+			$rootScope.getCurrentTeam = Auth.getCurrentTeam;
+			Team.notificationInformation({id:0}).$promise.then(function(notificationObject){
+				console.log('Notification received from db -- ' + JSON.stringify(notificationObject));
+				$rootScope.makeOfferClass = notificationObject.numberOffers == 0 ?  'icheckbox_minimal-grey checked' : 'icheckbox_minimal-grey';
+				$rootScope.manageRiskClass = notificationObject.numOfRiskStrategies == 0 ? 'icheckbox_minimal-grey checked' : 'icheckbox_minimal-grey';
+				$rootScope.companyInvestmentClass = notificationObject.numOfProjects == 0 ? 'icheckbox_minimal-grey checked' : 'icheckbox_minimal-grey';
+				$rootScope.pendingTasks = notificationObject.numberOffers == 0 ? $rootScope.pendingTasks : $rootScope.pendingTasks - 1;
+				$rootScope.pendingTasks = notificationObject.numOfRiskStrategies == 0 ? $rootScope.pendingTasks : $rootScope.pendingTasks - 1;
+				$rootScope.pendingTasks = notificationObject.numOfProjects == 0 ? $rootScope.pendingTasks : $rootScope.pendingTasks - 1;
+			});
+		});
+	}
 
 })
 
@@ -247,6 +273,8 @@ angular.module('atpexpApp')
 			$scope.showModifyBuyerIndustryError = true;
 			return;
 		}
+		
+		console.log('selected round number --- ' + $scope.selected.round);
 		
 		var riskStrategy = {
 				toBeDeletedId: $scope.selected._id,
@@ -337,7 +365,7 @@ angular.module('atpexpApp')
 	};
 })
 
-.controller('DeleteRiskModalInstanceCtrl', function ($http, $scope, $modalInstance, selectedDeleteRiskStrategy, Auth, toastr, Offer, $rootScope, Risk, $translate){
+.controller('DeleteRiskModalInstanceCtrl', function ($http, $scope, $modalInstance, selectedDeleteRiskStrategy, Auth, toastr, Offer, $rootScope, Risk, $translate, Round, Team){
 	$scope.selectedDelete = selectedDeleteRiskStrategy;
 	
 	//delete strategy
@@ -347,6 +375,7 @@ angular.module('atpexpApp')
 		Risk.deleteRisk(toBedeletedRiskStrategy).$promise.then(function(strategies){
 			console.log('Strategies back from server -- ' + JSON.stringify(strategies));
 			$rootScope.strategies = strategies;
+			updateNotifications();
 		});
 		$modalInstance.dismiss('close');
 	};
@@ -354,9 +383,32 @@ angular.module('atpexpApp')
 	$scope.closeModal = function () {
 		$modalInstance.dismiss('close');
 	};
+	
+	function updateNotifications () {
+		console.log('About to update notifications');
+		Round.currentRound(function(round){
+			$rootScope.roundNumber = round.round;
+			
+			$rootScope.makeOfferClass = 'icheckbox_minimal-grey checked';
+			$rootScope.manageRiskClass = 'icheckbox_minimal-grey checked';
+			$rootScope.companyInvestmentClass = 'icheckbox_minimal-grey checked';
+			$rootScope.pendingTasks = 3;
+			
+			$rootScope.getCurrentTeam = Auth.getCurrentTeam;
+			Team.notificationInformation({id:0}).$promise.then(function(notificationObject){
+				console.log('Notification received from db -- ' + JSON.stringify(notificationObject));
+				$rootScope.makeOfferClass = notificationObject.numberOffers == 0 ?  'icheckbox_minimal-grey checked' : 'icheckbox_minimal-grey';
+				$rootScope.manageRiskClass = notificationObject.numOfRiskStrategies == 0 ? 'icheckbox_minimal-grey checked' : 'icheckbox_minimal-grey';
+				$rootScope.companyInvestmentClass = notificationObject.numOfProjects == 0 ? 'icheckbox_minimal-grey checked' : 'icheckbox_minimal-grey';
+				$rootScope.pendingTasks = notificationObject.numberOffers == 0 ? $rootScope.pendingTasks : $rootScope.pendingTasks - 1;
+				$rootScope.pendingTasks = notificationObject.numOfRiskStrategies == 0 ? $rootScope.pendingTasks : $rootScope.pendingTasks - 1;
+				$rootScope.pendingTasks = notificationObject.numOfProjects == 0 ? $rootScope.pendingTasks : $rootScope.pendingTasks - 1;
+			});
+		});
+	}
 })
 
-.controller('CreateNewRiskModalInstanceCtrl', function ($http, $scope, newRiskStrategy, $modalInstance, Auth, toastr, Offer, $rootScope, Risk, $translate){
+.controller('CreateNewRiskModalInstanceCtrl', function ($http, $scope, newRiskStrategy, $modalInstance, Auth, toastr, Offer, $rootScope, Risk, $translate, Round, Team){
 
 	$scope.newRiskStrategy = newRiskStrategy;
 
@@ -432,7 +484,7 @@ angular.module('atpexpApp')
 		}
 		
 		var riskStrategy = {
-				round: 1,
+				round: $rootScope.currentRoundNumber,
 				strategyName: $scope.newRiskStrategy.strategyName,
 				buyerCountry: $scope.newRiskStrategy.buyerCountry,
 				buyerIndustry: $scope.newRiskStrategy.buyerIndustry,
@@ -489,9 +541,33 @@ angular.module('atpexpApp')
 			Risk.addRisk(riskStrategy);
 			refresh();
 			toastr.success($scope.newRiskStrategy.strategyName +  $scope.createSuccMsg1,   $scope.createSuccMsg2 );
+			updateNotifications();
 			$modalInstance.dismiss('close');
 		}		
 	};
+	
+	function updateNotifications () {
+		console.log('About to update notifications');
+		Round.currentRound(function(round){
+			$rootScope.roundNumber = round.round;
+			
+			$rootScope.makeOfferClass = 'icheckbox_minimal-grey checked';
+			$rootScope.manageRiskClass = 'icheckbox_minimal-grey checked';
+			$rootScope.companyInvestmentClass = 'icheckbox_minimal-grey checked';
+			$rootScope.pendingTasks = 3;
+			
+			$rootScope.getCurrentTeam = Auth.getCurrentTeam;
+			Team.notificationInformation({id:0}).$promise.then(function(notificationObject){
+				console.log('Notification received from db -- ' + JSON.stringify(notificationObject));
+				$rootScope.makeOfferClass = notificationObject.numberOffers == 0 ?  'icheckbox_minimal-grey checked' : 'icheckbox_minimal-grey';
+				$rootScope.manageRiskClass = notificationObject.numOfRiskStrategies == 0 ? 'icheckbox_minimal-grey checked' : 'icheckbox_minimal-grey';
+				$rootScope.companyInvestmentClass = notificationObject.numOfProjects == 0 ? 'icheckbox_minimal-grey checked' : 'icheckbox_minimal-grey';
+				$rootScope.pendingTasks = notificationObject.numberOffers == 0 ? $rootScope.pendingTasks : $rootScope.pendingTasks - 1;
+				$rootScope.pendingTasks = notificationObject.numOfRiskStrategies == 0 ? $rootScope.pendingTasks : $rootScope.pendingTasks - 1;
+				$rootScope.pendingTasks = notificationObject.numOfProjects == 0 ? $rootScope.pendingTasks : $rootScope.pendingTasks - 1;
+			});
+		});
+	}
 
 //	function arrayEquality
 

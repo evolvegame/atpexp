@@ -25,35 +25,35 @@
   <li class="xn-icon-button pull-right" ng-class="actionsActive">
     <a href="#" ng-click="toggleActions()"><span
       class="fa fa-check-square"></span></a> <!--NOTIFICATION COUNT-->
-    <div class="informer informer-warning">3</div> <!--END NOTIFICATION COUNT-->
+    <div class="informer informer-warning">{{pendingTasks}}</div> <!--END NOTIFICATION COUNT-->
     <div
       class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging">
       <div class="panel-heading">
         <h3 class="panel-title">
-          <span class="fa fa-tasks"></span> {{'navbar.roundTask'|translate}}
+          <span class="fa fa-tasks"></span> {{'navbar.round '|translate}} {{roundNumber}} {{' navbar.tasks' | translate}}
         </h3>
         <div class="pull-right">
-          <span class="label label-warning">{{'navbar.active'|translate}}</span>
+          <span class="label label-warning">{{pendingTasks}} {{'navbar.active'|translate}}</span>
         </div>
       </div>
       <div class="panel-body list-group scroll" style="height: 163px;">
         <div class="list-group border-bottom">
           <a href="#" class="list-group-item"> <label class="check">
-            <div class="icheckbox_minimal-grey"
+            <div class="{{makeOfferClass}}"
                  style="position: relative;">
               <input type="checkbox" class="icheckbox"
                      style="position: absolute; opacity: 0;" checked="checked">
             </div> {{'navbar.makeOffer'|translate}}
           </label>
           </a> <a href="#" class="list-group-item"> <label class="check">
-          <div class="icheckbox_minimal-grey"
+          <div class="{{manageRiskClass}}"
                style="position: relative;">
             <input type="checkbox" class="icheckbox"
                    style="position: absolute; opacity: 0;" checked="checked">
           </div> {{'navbar.manageRisk'|translate}}
         </label>
         </a> <a href="#" class="list-group-item"> <label class="check">
-          <div class="icheckbox_minimal-grey"
+          <div class="{{companyInvestmentClass}}"
                style="position: relative;">
             <input type="checkbox" class="icheckbox"
                    style="position: absolute; opacity: 0;" checked="checked">
@@ -61,9 +61,6 @@
         </label>
         </a> 
         </div>
-      </div>
-      <div class="panel-footer text-center">
-        <a href="pages-tasks.html">{{'navbar.showAllTasks'|translate}}</a>
       </div>
     </div>
   </li>

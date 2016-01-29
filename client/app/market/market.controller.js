@@ -404,13 +404,14 @@ $scope.deleteOffer = function (offerId) {
           buyerIndustry=selectedCustomer.buyerPortfolio[i].industry;
           buyerRating =selectedCustomer.buyerPortfolio[i].rating;
           cla =selectedCustomer.buyerPortfolio[i].cla; 
-          riskAcceptance = $scope.getRiskAcceptanceRate(buyerCountry,buyerIndustry,buyerRating); 
+          riskAcceptance = $scope.getRiskAcceptanceRate(buyerCountry,buyerIndustry,buyerRating);
+          selectedCustomer.buyerPortfolio[i].cld = cla *(riskAcceptance/100);
           /*console.log('Method getCld buyerCountry'+buyerCountry);
           console.log('Method getCld buyerIndustry'+buyerIndustry);
           console.log('Method getCld buyerRating'+buyerRating);
           console.log('Method getCld cla'+cla);
           console.log('Method getCld riskAcceptance'+riskAcceptance);    */      
-          cld=cld+(cla *(riskAcceptance/100));      
+          cld=cld+selectedCustomer.buyerPortfolio[i].cld;      
 
         }
       }

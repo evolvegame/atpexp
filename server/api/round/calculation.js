@@ -105,7 +105,6 @@ exports.deleteCalcRoundDetails = function(currentRound, callback) {
     function(teams, callback) {
       async.forEachSeries(teams,
         function(team, callback) {
-          console.log(currentRound);
           if (currentRound == 1) {
             var teamId = team._id;
             Teams.update({

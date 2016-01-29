@@ -19,8 +19,9 @@
  *      Algorithm AS 241: The Percentage Points of the Normal Distribution.
  *      Applied Statistics, 37, 477-484.
  */
+'use strict';
 
-function normsInv(p, mu, sigma)
+exports.normsInv =  function (p, mu, sigma)
 {
     if (p < 0 || p > 1)
     {
@@ -78,7 +79,7 @@ function normsInv(p, mu, sigma)
         else
             r = p;
 
-        r = Math.Sqrt(-Math.log(r));
+        r = Math.sqrt(-Math.log(r));
         /* r = sqrt(-log(r))  <==>  min(p, 1-p) = exp( - r^2 ) */
 
         if (r <= 5)

@@ -189,6 +189,7 @@ exports.agreementConversion = function(input, callback) {
                     var newPremium = 0;
                     var newPremiumPct = 0;
                     var count = 0;
+                    var buyerPortfolio;
                     var wonFrom = "";
                     if (stage == 2) {
                       wonFrom = team.name;
@@ -196,6 +197,14 @@ exports.agreementConversion = function(input, callback) {
                     var teamOffers = newTeam.offer;
                     teamOffers.forEach(function(offerDetails) {
                       if (checkVariables(offerDetails.round) && checkVariables(offerDetails.marketBusinessName) &&
+                        offerDetails.round == toBeCalculatedRound && offerDetails.marketBusinessName == customerKey && count < 1) {
+                        newPremium = offerDetails.price;
+                        if(checkVariables(offerDetails.buyerPortfolio)){
+                            buyerPortfolio = offerDetails.buyerPortfolio;
+                        }
+                      }
+                      
+                      if (checkVariables(offerDetails.round) && checkVariables(offerDetails.buyerPortfolio) &&
                         offerDetails.round == toBeCalculatedRound && offerDetails.marketBusinessName == customerKey && count < 1) {
                         newPremium = offerDetails.price;
                       }
@@ -208,7 +217,7 @@ exports.agreementConversion = function(input, callback) {
                     newCustomer['businessCountry']= customerAllocation[customerKey].CustomerDetails.businessCountry,
                     newCustomer['businessrisk']= customerAllocation[customerKey].CustomerDetails.businessrisk,
                     newCustomer['experiencescoreneeded']= customerAllocation[customerKey].CustomerDetails.experiencescoreneeded,
-                    newCustomer['buyerPortfolio']= customerAllocation[customerKey].CustomerDetails.buyerPortfolio,
+                    newCustomer['buyerPortfolio']= buyerPortfolio,
                     newCustomer['wonRound']= toBeCalculatedRound,
                     newCustomer['wonFrom']= wonFrom,
                     newCustomer['lostTo']= "",

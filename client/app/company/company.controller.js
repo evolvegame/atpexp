@@ -106,17 +106,17 @@ angular.module('atpexpApp')
 		Round.currentRound(function(round){
 			$rootScope.roundNumber = round.round;
 			
-			$rootScope.makeOfferClass = 'icheckbox_minimal-grey checked';
-			$rootScope.manageRiskClass = 'icheckbox_minimal-grey checked';
-			$rootScope.companyInvestmentClass = 'icheckbox_minimal-grey checked';
+			$rootScope.makeOfferClass = 'icheckbox_minimal-grey';
+			$rootScope.manageRiskClass = 'icheckbox_minimal-grey';
+			$rootScope.companyInvestmentClass = 'icheckbox_minimal-grey';
 			$rootScope.pendingTasks = 3;
 			
 			$rootScope.getCurrentTeam = Auth.getCurrentTeam;
 			Team.notificationInformation({id:0}).$promise.then(function(notificationObject){
 				console.log('Notification received from db -- ' + JSON.stringify(notificationObject));
-				$rootScope.makeOfferClass = notificationObject.numberOffers == 0 ?  'icheckbox_minimal-grey checked' : 'icheckbox_minimal-grey';
-				$rootScope.manageRiskClass = notificationObject.numOfRiskStrategies == 0 ? 'icheckbox_minimal-grey checked' : 'icheckbox_minimal-grey';
-				$rootScope.companyInvestmentClass = notificationObject.numOfProjects == 0 ? 'icheckbox_minimal-grey checked' : 'icheckbox_minimal-grey';
+				$rootScope.makeOfferClass = notificationObject.numberOffers == 0 ?  'icheckbox_minimal-grey' : 'icheckbox_minimal-grey checked';
+				$rootScope.manageRiskClass = notificationObject.numOfRiskStrategies == 0 ? 'icheckbox_minimal-grey' : 'icheckbox_minimal-grey checked';
+				$rootScope.companyInvestmentClass = notificationObject.numOfProjects == 0 ? 'icheckbox_minimal-grey' : 'icheckbox_minimal-grey checked';
 				$rootScope.pendingTasks = notificationObject.numberOffers == 0 ? $rootScope.pendingTasks : $rootScope.pendingTasks - 1;
 				$rootScope.pendingTasks = notificationObject.numOfRiskStrategies == 0 ? $rootScope.pendingTasks : $rootScope.pendingTasks - 1;
 				$rootScope.pendingTasks = notificationObject.numOfProjects == 0 ? $rootScope.pendingTasks : $rootScope.pendingTasks - 1;

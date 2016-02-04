@@ -131,25 +131,21 @@ exports.teamCompany = function(req, res, next) {
 		  console.log('currentRoundLevelInformationIndex --- ' + round);
 			  Team.findById(teamId, function (err, team) {
 				  Projects.findById(projectId, function(err, project){
-					  console.log("team projects length --x " + team.roundLevelInformation[currentRoundLevelInformationIndex].project.length);
-					  console.log("Project in server api - > " + project);
-					  var projectArray = team.roundLevelInformation[currentRoundLevelInformationIndex].project;
-					  if (state == 'true') {
-						  console.log('About to push the project from team');
-						  projectArray.push(projectId);
-					  } else {
-						  console.log('About to pull the project from team');
-						  projectArray.pull(projectId);
-					  }
-					  team.roundLevelInformation[currentRoundLevelInformationIndex].project = projectArray;
-					  var teamCapital = team.capital;
-					  if(state == 'true'){
-						  team.roundLevelInformation[currentRoundLevelInformationIndex].capital = teamCapital - project.amount;
-					  } else {
-						  team.roundLevelInformation[currentRoundLevelInformationIndex].capital = teamCapital + project.amount;
+					  for (var i = 0; i < team.roundLevelInformation.length; i++) {
+						  if (team.roundLevelInformation[i].round == currentRoundNumber) {
+							  var projectArray = team.roundLevelInformation[i].project;
+							  if (state == 'true') {
+								  console.log('About to push the project from team');
+								  projectArray.push(projectId);
+							  } else {
+								  console.log('About to pull the project from team');
+								  projectArray.pull(projectId);
+							  }
+							  team.roundLevelInformation[i].project = projectArray;
+							  break;
+						  }
 					  }
 					  
-					  team.capital = team.roundLevelInformation[currentRoundLevelInformationIndex].capital;
 					  team.save(function(err){
 						  if (err) return validationError(res, err);
 					      res.json(team);
@@ -176,15 +172,21 @@ exports.teamDepartment = function(req, res, next){
 					console.log("depart -- " + depart.name);
 					console.log("sizeUnit -- " + sizeUnit.size[0].unit);
 					console.log("sizeCost -- " + sizeUnit.size[0].cost);
-					var departments = team.roundLevelInformation[currentRoundLevelInformationIndex].department;
-					for(var i=0; i<departments.length ; i++){
-						var department = departments[i];
-						if (department.name == depart.name){
-							departments.pull(department);
+					for(var depIndex = 0; depIndex < team.roundLevelInformation.length; depIndex++) {
+						if(team.roundLevelInformation[depIndex].round == currentRoundNumber){
+							var departments = team.roundLevelInformation[depIndex].department;
+							for(var i=0; i<departments.length ; i++){
+								var department = departments[i];
+								if (department.name == depart.name){
+									departments.pull(department);
+									break;
+								}
+							}
+							team.roundLevelInformation[depIndex].department.push({name: depart.name, sizeUnit: sizeUnit.size[0].unit, cost: sizeUnit.size[0].cost});
 							break;
-						}
+						}							
 					}
-					team.roundLevelInformation[currentRoundLevelInformationIndex].department.push({name: depart.name, sizeUnit: sizeUnit.size[0].unit, cost: sizeUnit.size[0].cost});
+					
 					team.save(function(err){
 						  if (err) return validationError(res, err);
 					      res.json(team);

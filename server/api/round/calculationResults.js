@@ -90,6 +90,7 @@ exports.populateValues = function (currentRound, callback) {
                         var totalExpense = 0;
                         var expScore;
                         var roundInfoId;
+                        var countActiveCustomers = 0;
 
                         async.parallel([
                             function (callback) {
@@ -102,6 +103,7 @@ exports.populateValues = function (currentRound, callback) {
                                             customer.agreement.status == 'Active') {
                                             var agreementPremium = customer.agreement.premium;
                                             premium = premium + agreementPremium;
+                                            countActiveCustomers = countActiveCustomers + 1;
                                         }
                                     });
                                     console.log("Completed extraction of premiums for " + team.name + ". Premium value -->" + premium);
@@ -115,7 +117,7 @@ exports.populateValues = function (currentRound, callback) {
                                 console.log("Get the claims for all  active customers for team"+team.name);
                                 claimsCalc.calculateClaims(team,function (err, claimsTot) {
                                     if (err) return callback(err);
-                                    claims = claimsTot;
+                                    claims = (claimsTot.toFixed(2))/1;
                                     console.log("Completed claims calculation  for team"+team.name);
                                     callback(null);
                                 });
@@ -173,13 +175,13 @@ exports.populateValues = function (currentRound, callback) {
                         ], function (err, results) {
                             if (err) return callback(err);
                             grossIncome = premium - (claims + totalExpense + investment);
-                            grossIncome = +grossIncome.toFixed(2);
+                            grossIncome = (grossIncome.toFixed(2))/1;
                             console.log("Gross Income for team - " + team.name + " is -->" + grossIncome);
                             profit = grossIncome * 0.8; // to be checked
-                            profit = +profit.toFixed(2);
+                            profit = (profit.toFixed(2))/1;
                             console.log("Profit for team - " + team.name + " is -->" + profit);
                             capital = capital + profit;
-                            capital = +capital.toFixed(2);
+                            capital = (capital.toFixed(2))/1;
                             console.log("Capital for team - " + team.name + " is -->" + capital);
                             async.series([
                                 function (callback) {
@@ -200,7 +202,8 @@ exports.populateValues = function (currentRound, callback) {
                                                     "roundLevelInformation.$.underwriterDepartmentSize": underwriterDepartmentSize,
                                                     "roundLevelInformation.$.marketingBudget": marketingBudget,
                                                     "roundLevelInformation.$.facilities": facilities,
-                                                    "roundLevelInformation.$.totalExpense": totalExpense
+                                                    "roundLevelInformation.$.totalExpense": totalExpense,
+                                                    "roundLevelInformation.$.customers": countActiveCustomers
                                                 }
                                             }, function (err) {
                                                 if (err) return callback(err)

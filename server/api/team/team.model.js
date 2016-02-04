@@ -97,7 +97,7 @@ var TeamSchema = mongoose.Schema({
     experiencescoreneeded: Number,
     totalPremium: Number,
     totalClaims: Number,
-    buyerPortfolio: [{country: String, industry: String, buyerRating: Number, cla: Number, riskAcceptance: Number}],
+    buyerPortfolio: [{country: String, industry: String, buyerRating: Number, cla: Number, riskAcceptance: Number, cld: Number}],
     wonRound:Number,
     wonFrom:String,
     lostTo:String,

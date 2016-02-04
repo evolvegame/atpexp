@@ -80,25 +80,32 @@ angular.module('atpexpApp')
     	$rootScope.departments = departments;
     });
     
-    $scope.addProject= function(project) {
-    	var currentRoundLevelInformationIndex = $scope.currentRound - 1;
+    $scope.addProject= function(project) {    		
+    	var projects;	
     	Project.teamCompany(project).$promise.then(function(team){
-    		var projects = $scope.referentialListOfProjects;
-    		for (var i = 0; i<projects.length;i++) {
-    	         var obj = projects[i];
-    	         for(var j = 0; j < team.roundLevelInformation[currentRoundLevelInformationIndex].project.length; j++) {
-    	        	 var proj = team.roundLevelInformation[currentRoundLevelInformationIndex].project[j];
-    	        	 if (proj == obj._id) {
-    	        		 obj.switchStatus = true;
-    	        		 break;
-    	        	 }   	 
-    	         }
-    	      }
-    	      
-    		$rootScope.objects = projects;
+    		Team.roundLevelInformation({id: $scope.currentRound}).$promise.then(function(roundLevelInformatiom){
+	    		console.log('Called roundlvelinformation------ ');	
+	    		projects = $scope.referentialListOfProjects;
+	        		for (var i = 0; i<projects.length;i++) {
+	        	         var obj = projects[i];
+	        	         for(var j = 0; j < roundLevelInformatiom.project.length; j++) {
+	        	        	 var proj = roundLevelInformatiom.project[j];
+	        	        	 if (proj == obj._id) {
+	        	        		 obj.switchStatus = true;
+	        	        		 break;
+	        	        	 }   	 
+	        	         }
+	        	      }    	
+	        		
+        		$rootScope.objects = projects;
+        		
+        		updateNotifications();
+    		});
     		
-    		updateNotifications();
     	});
+    	      
+    		
+
     };
     
     function updateNotifications () {

@@ -137,7 +137,7 @@ Team.find({}).remove(function() {
           slogan:'Make it happen',
           picture:'evolve-avatar.png',
           teamCountry: "NL",
-          capital: 775,
+          capital: 7750000,
           experienceScore: 60,
           customer:[],
           role:'user',
@@ -147,7 +147,7 @@ Team.find({}).remove(function() {
           offer:[],
           roundLevelInformation: [{
               round: 1,
-              capital: 0,
+              capital: 7750000,
               premium: 0,
               claims: 0,
               grossIncome: 0,

@@ -47,12 +47,11 @@ angular.module('atpexpApp')
             
             for (var i = 0; i < customers.length ; i++) {
           	  var customer = customers[i];
+          	  customer.showRenewalAndManageOut = false;
           	  for (var j=0; j < offers.length; j++) {
           		  var offer = offers[j];
-          		  if (offer.marketBusinessName == customer.businessName && customer.agreement.status == 'Active' && offer.offerType == 'Renew') {
+          		  if (offer.marketBusinessName == customer.businessName && customer.agreement.status == 'Active' && offer.offerType == 'Renew' && offer.round == $scope.currentRoundNumber) {
           			  customer.showRenewalAndManageOut = true;
-          		  } else {
-          			  customer.showRenewalAndManageOut = false;
           		  }
           		  
           		  if(offer.marketBusinessName == customer.businessName  && offer.round == $scope.currentRoundNumber){
@@ -64,7 +63,9 @@ angular.module('atpexpApp')
           		  
           	  }
             }
-            
+            console.log('$scope.currentRoundNumber-- ' + JSON.stringify($scope.currentRoundNumber));
+            console.log('customers-- ' + JSON.stringify(customers));
+            console.log('offers-- ' + JSON.stringify(offers));
             $rootScope.customerPortfolio = customers;
 
           });

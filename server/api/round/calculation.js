@@ -7,7 +7,6 @@ var async = require('async');
 
 var _expScorePoint = 1000;
 var _selfInsured = "_SelfInsured";
-var _initialCapital = 5000000;
 
 function queryTeamsCurrentRound(roundNumber) {
   var query = Teams.find({
@@ -111,7 +110,6 @@ exports.deleteCalcRoundDetails = function(currentRound, callback) {
               _id: teamId
             }, {
               $set: {
-                capital: _initialCapital,
                 premium: 0,
                 claims: 0,
                 claimsRatio: 0,

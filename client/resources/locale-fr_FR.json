@@ -192,6 +192,8 @@
 	"risk.addNewStrategy.requiredMsg1":"Atleast une bande de notation devrait être supérieure à zéro",
 	"risk.addNewStrategy.country":"Pays",
 	"risk.addNewStrategy.industry":"les industries",
+	"risk.addNewStrategy.selected.countries":"Les pays sélectionnés",
+	"risk.addNewStrategy.selected.industries":"Industries sélectionnés",
 	"risk.addNewStrategy.Save":"Conserver",
 	"risk.addNewStrategy.close":"(Près)",
 	

@@ -197,6 +197,8 @@
 	"risk.addNewStrategy.requiredMsg2":"è obbligatorio",	
 	"risk.addNewStrategy.country":"Nazione",
 	"risk.addNewStrategy.industry":"Settori",
+	"risk.addNewStrategy.selected.countries":"Paesi selezionati",
+	"risk.addNewStrategy.selected.industries":"Industrie selezionati",
 	"risk.addNewStrategy.Save":"Salvare",
 	"risk.addNewStrategy.close":"(chiudere)",
 	

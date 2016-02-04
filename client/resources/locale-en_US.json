@@ -200,6 +200,8 @@
 	"risk.addNewStrategy.requiredMsg1":"Atleast one rating band should be greater than zero",
 	"risk.addNewStrategy.ratingBand.range":"Rating bands should be between 1 to 100",	
 	"risk.addNewStrategy.country":"Country",
+	"risk.addNewStrategy.selected.countries":"Selected Countries",
+	"risk.addNewStrategy.selected.industries":"Selected Industries",
 	"risk.addNewStrategy.industry":"Industries",
 	"risk.addNewStrategy.Save":"Save",
 	"risk.addNewStrategy.close":"(close)",

@@ -191,6 +191,8 @@
 	"risk.addNewStrategy.requiredMsg1":"Atleast jedan rejting bend bi trebao biti veći od nule",
 	"risk.addNewStrategy.country":"Land",
 	"risk.addNewStrategy.industry":"Branchen",
+	"risk.addNewStrategy.selected.countries":"ausgewählte Länder",
+	"risk.addNewStrategy.selected.industries":"ausgewählte Industries",
 	"risk.addNewStrategy.Save":"sparen",
 	"risk.addNewStrategy.close":"(nah dran)",
 	

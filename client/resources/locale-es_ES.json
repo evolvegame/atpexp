@@ -193,6 +193,8 @@
 	"risk.addNewStrategy.requiredMsg1":"Al menos orquesta calificación debe ser mayor que cero",
 	"risk.addNewStrategy.country":"País",
 	"risk.addNewStrategy.industry":"Industrias",
+	"risk.addNewStrategy.selected.countries":"Los países seleccionados",
+	"risk.addNewStrategy.selected.industries":"Industrias seleccionados",
 	"risk.addNewStrategy.Save":"Ahorrar",
 	"risk.addNewStrategy.close":"(cerca)",
 	

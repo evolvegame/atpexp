@@ -23,8 +23,8 @@ angular.module('atpexpApp')
 
 	//get country
 	$http.get('/api/country').success(function (countries) {
-
-		console.log(countries);
+		
+		console.log('Countries ---->>> ' + JSON.stringify(countries));
 		$scope.cou = countries;
 	});
 

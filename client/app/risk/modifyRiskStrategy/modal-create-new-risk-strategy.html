@@ -21,22 +21,22 @@
 						<span style="color: red" ng-show="showStrategyNameRequiredError">
 							{{'risk.addNewStrategy.name.validationMsg'|translate}}
 						</span>
-				</div> <br> <br> <br> <br>
+				</div> <br> <br> <br>
 				<span href="#" class="tile tile-default">
 					
 					<table>
 					<tr>
 						<td style="padding:15px;">
-					<table style="border: 1px solid;width:50%;" class="table datatable" align="center">
+					<table style="border: 1px solid;" class="table datatable" align="center">
 			 		<thead class="table datatable">
 						<tr>
 					    	<th style="text-align: center;border: 1px solid;">{{'risk.addNewStrategy.country'|translate}}</th>
 					    </tr>
-	</thead>
+					</thead>
 					 <tbody>
 					 	<tr>
 					 		<td style="text-align: center;">
-					 			<select size="10" name="strategyBuyerCountry" multiple="multiple" ng-model="newRiskStrategy.buyerCountry" required="required">
+					 			<select size="10" name="strategyBuyerCountry" multiple="multiple" ng-model="newRiskStrategy.buyerCountry" required="required" style="width:175px;">
 									<option ng-repeat="country in cou"
 													value="{{country.country}}">{{country.country}}</option>
 								</select>
@@ -52,20 +52,20 @@
 					 	</tr>
 					 </tbody>
 			 	
-			 	</table>
+			 		</table>
 					  
-					    </td>
-					    <td>
-					    	<table style="border: 1px solid;width:50%;" class="table datatable" align="center">
+				    </td>
+					<td style="padding:15px;">
+					    	<table style="border: 1px solid;" class="table datatable" align="center">
 			 		<thead class="table datatable">
 						<tr>
 					        <th style="text-align: center;border: 1px solid;">{{'risk.addNewStrategy.industry'|translate}}</th>
 					    </tr>
-	</thead>
+					</thead>
 					 <tbody>
 					 	<tr>
 					 		<td style="text-align: center;">
-					 			<select size="10" name="strategyBuyerIndustry" multiple="multiple" ng-model="newRiskStrategy.buyerIndustry" required="required">
+					 			<select size="10" name="strategyBuyerIndustry" multiple="multiple" ng-model="newRiskStrategy.buyerIndustry" required="required" style="width:175px;">
 									<option ng-repeat="industry in ind"
 													value="{{industry.industry}}">{{industry.industry}}</option>
 								</select>
@@ -81,15 +81,15 @@
 					 	</tr>
 					 </tbody>
 			 	
-			 	</table>
+			 		</table>
 					    </td>
 						<td style="padding:15px;">
 						
-					        <table style="border: 1px solid;width:50%;height:229px;" class="table datatable" align="center">
+					        <table style="border: 1px solid;height:229px;" class="table datatable" align="center">
 					        	<thead class="table datatable">
 					        		<tr>
-					        			<th style="text-align: center;border: 1px solid;">{{'risk.addNewStrategy.buyerRatings'|translate}}</th>
-					        			<th style="text-align: center;border: 1px solid;">{{'risk.addNewStrategy.acceptancePercentage'|translate}}</th>
+					        			<th style="border: 1px solid;">{{'risk.addNewStrategy.buyerRatings'|translate}}</th>
+					        			<th style="border: 1px solid;">{{'risk.addNewStrategy.acceptancePercentage'|translate}}</th>
 					        		</tr>
 					        	</thead>
 					        	<tbody>
@@ -119,9 +119,20 @@
 			 	
 			 	</td>
 			 	</tr>
+			 	<tr style="padding:15px;">
+			 		<td valign="top">
+			 		<label style="font-weight: 400;" ng-repeat="country in newRiskStrategy.buyerCountry" ng-if="$index < 15">
+							{{country}}{{$last ? '' : ',&nbsp'}} </label>{{newRiskStrategy.buyerCountry.length > 15 ? '...' : ''}}
+			 		</td>
+			 		
+			 		<td valign="top">
+			 		<label style="font-weight: 400;" ng-repeat="industry in newRiskStrategy.buyerIndustry">
+							{{industry}}{{$last ? '' : ',&nbsp'}}</label>
+			 		</td>
+			 	</tr>
 			 	</table>
-			 	<table style="width:100%;" class="table datatable" align="center">
-			 		<!-- <thead>
+			 	<!-- <table style="width:100%;" class="table datatable" align="center">
+			 		<thead>
 			 			<tr>
 			 				<th style="text-align: center;">
 			 					{{'risk.addNewStrategy.selected.countries'|translate}}
@@ -131,7 +142,7 @@
 			 					{{'risk.addNewStrategy.selected.industries'|translate}}
 			 				</th>
 			 			</tr>
-			 		</thead> -->
+			 		</thead>
 			 		<tbody>
 			 		<tr>
 			 			<td style="width:50%;">
@@ -144,7 +155,7 @@
 			 			</td>
 			 		</tr>
 			 		</tbody>
-			 	</table>
+			 	</table> -->
 			</span>
     	</div>
     	<div class="panel-body as-panel-customer">

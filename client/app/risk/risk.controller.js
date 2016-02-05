@@ -4,14 +4,23 @@ angular.module('atpexpApp')
 
 .controller('riskCtrl', function ($scope, $http, Auth, Team , $translate, Risk, $rootScope, $modal, Round) {
 
+	
 	$http.get('/api/team/me').success(function (team) {     
-		$rootScope.team = team;       
-		$rootScope.strategies = $rootScope.team.riskStrategy; 
+		Round.currentRound(function(round){
+			$rootScope.currentRoundNumber = round.round;
+			$rootScope.team = team;
+			var currentRoundStrategies = [];
+			for (var i = 0 ; i < team.riskStrategy.length; i++) {
+				if(team.riskStrategy[i].round == $rootScope.currentRoundNumber) {
+					currentRoundStrategies.push(team.riskStrategy[i]);
+				}
+			}
+			$rootScope.strategies = currentRoundStrategies;
+			console.log('$rootScope.strategies -- ' + JSON.stringify($rootScope.strategies)); 
+		});
 	});
 
-	Round.currentRound(function(round){
-		$rootScope.currentRoundNumber = round.round;
-	});
+	
 	
 
 	//get industry
@@ -200,7 +209,6 @@ angular.module('atpexpApp')
 			5: selectedRiskStrategy.strategyRatingBand5
 
 	};
-	console.log('Ssshhh... ' + JSON.stringify($scope.selected));
 	//get industry
 	$http.get('/api/ratingBands').success(function (ratingBands) {
 

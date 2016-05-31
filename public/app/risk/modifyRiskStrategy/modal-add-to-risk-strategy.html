@@ -1,0 +1,196 @@
+<div class="panel panel-default" ng-controller="riskCtrl">
+	<div class="panel-heading">
+		<div style="float:left;">Add Risk Strategy for - {{selectedBubbleIndustry}}</div>
+		 <div style="float:right;">
+			<button type="button" class="btn btn-info btn-sm pull-right"
+				data-toggle="modal" ng-click="showCreateNewRiskStrategy(); openCreateNewRiskStrategy();">{{
+				'risk.addNewStrategy' | translate }}</button>
+		</div>
+	</div>
+	<div class="panel-body">
+		<table class="table Datatable" >
+			<thead>
+				<tr>
+					<th class="text-center">#</th>
+					<th class="text-center">{{ 'risk.strategyName' |
+						translate }}</th>
+					<th class="text-center">{{ 'risk.country' | translate
+						}}</th>
+					<th class="text-center">{{ 'risk.industry' | translate
+						}}</th>
+					<th class="text-center">Action</th>
+				</tr>
+				
+
+			</thead>
+			<tbody>
+
+				<tr ng-repeat="strategy in strategies | orderBy: 'strategyId'">
+
+					<td class="text-center">{{strategy.strategyId}}</td>
+					<td class="text-center">{{strategy.strategyName}}</td>
+					<td class="text-center"><label style="font-weight: 400;" ng-repeat="country in strategy.buyerCountry" ng-if="$index < 3">
+							{{country | translate}}{{$last ? '' : ',&nbsp'}}
+						</label> {{strategy.buyerCountry.length > 3 ? '...' : ''}}</td>
+					<td class="text-center">
+						<label style="font-weight: 400;" ng-repeat="buyerIndustry in strategy.buyerIndustry" ng-if="$index < 3">
+							{{buyerIndustry | translate}}{{$last ? '' : ',&nbsp'}}
+						</label> {{strategy.buyerIndustry.length > 3 ? '...' : ''}}
+					</td>
+					<td class="text-center" ng-if="selectedNodeStrategyName != strategy.strategyName">
+						<button type="button" class="btn btn-info btn-sm pull-right"
+								data-toggle="modal" ng-click="addToRiskStrategy(strategy);">Add to this strategy
+						</button>
+					</td>
+					<td class="text-center">
+						<button type="button" class="btn btn-info btn-sm pull-right"
+								data-toggle="modal" ng-click="showModifyRiskStrategy(strategy);openModifyRiskStrategy(strategy);">Modify this strategy
+						</button>
+					</td>
+
+				</tr>
+		</table>
+							<div class="panel-body list-group" align="center">
+								<a href="#" ng-click="closeModal()"><span></span> Close</a>
+							</div>
+	</div>
+
+
+	<div class="container">
+
+
+
+
+
+		<!-- Modal -->
+		<div class="modal" id="myModal" role="dialog">
+			<div class="modal-dialog modal-sm">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">{{'risk.addNewStrategy.title'|translate}}</h4>
+					</div>
+					<div class="modal-body">
+
+						<form name="myForm" novalidate>
+
+							<p>
+								{{'risk.addNewStrategy.name'|translate}} <input type="text" name="strategyName"
+									ng-model="strategy.strategyName" required> <span
+									style="color: red"
+									ng-show="myForm.strategyName.$dirty && myForm.strategyName.$invalid">
+									<span ng-show="myForm.strategyName.$error.required">{{'risk.addNewStrategy.name.validationMsg'|translate}}</span>
+								</span>
+							</p>
+
+							<table>
+								<th colspan="2">{{'risk.addNewStrategy.ratingBandSettings'|translate}}</th>
+								<br>
+								<tr>
+									<td>1-30</td>
+									<td><input type="number" name="band1"
+										ng-model="strategy.strategyRatingBand1" min="0" max="99"
+										required />
+										<div role="alert">
+											<span style="color: red" class="error"
+												ng-show="myForm.band1.$error.required"> {{'risk.addNewStrategy.required'|translate}}! </span> <span
+												style="color: red" class="error"
+												ng-show="myForm.band1.$error.number"> {{'risk.addNewStrategy.invalidNbr'|translate}}!</span>
+										</div></td>
+								</tr>
+								<tr>
+									<td>31-40</td>
+									<td><input type="number" name="band2"
+										ng-model="strategy.strategyRatingBand2" min="0" max="99"
+										required />
+										<div role="alert">
+											<span style="color: red" class="error"
+												ng-show="myForm.band2.$error.required"> {{'risk.addNewStrategy.required'|translate}}!</span> <span
+												style="color: red" class="error"
+												ng-show="myForm.band2.$error.number"> {{'risk.addNewStrategy.invalidNbr'|translate}}!</span>
+										</div></td>
+								</tr>
+								<tr>
+									<td>41-50</td>
+									<td><input type="number" name="band3"
+										ng-model="strategy.strategyRatingBand3" min="0" max="99"
+										required />
+										<div role="alert">
+											<span style="color: red" class="error"
+												ng-show="myForm.band3.$error.required"> {{'risk.addNewStrategy.required'|translate}}! </span> <span
+												style="color: red" class="error"
+												ng-show="myForm.band3.$error.number"> {{'risk.addNewStrategy.invalidNbr'|translate}}!</span>
+										</div></td>
+								</tr>
+								<tr>
+									<td>51-60</td>
+									<td><input type="number" name="band4"
+										ng-model="strategy.strategyRatingBand4" min="0" max="99"
+										required />
+										<div role="alert">
+											<span style="color: red" class="error"
+												ng-show="myForm.band4.$error.required"> {{'risk.addNewStrategy.required'|translate}}! </span> <span
+												style="color: red" class="error"
+												ng-show="myForm.band4.$error.number"> {{'risk.addNewStrategy.invalidNbr'|translate}}!</span>
+										</div></td>
+								</tr>
+								<tr>
+									<td>60+</td>
+									<td><input type="number" name="band5"
+										ng-model="strategy.strategyRatingBand5" min="0" max="99"
+										required />
+										<div role="alert">
+											<span style="color: red" class="error"
+												ng-show="myForm.band5.$error.required"> {{'risk.addNewStrategy.required'|translate}}! </span> <span
+												style="color: red" class="error"
+												ng-show="myForm.band5.$error.number"> {{'risk.addNewStrategy.invalidNbr'|translate}}!</span>
+										</div></td>
+								</tr>
+							</table>
+
+
+							<table>
+								<tr>
+									<th>{{'risk.addNewStrategy.country'|translate}}</th>
+									<th>{{'risk.addNewStrategy.industry'|translate}}</th>
+								</tr>
+								<tr>
+									<td><div>
+											<select ng-model="selectedCountry">
+												<option ng-repeat="countries in cou"
+													value="{{countries.country}}">{{countries.country}}</option>
+											</select>
+										</div></td>
+
+									<td>
+										<div>
+											<select multiple ng-model="selectedIndustries">
+												<option ng-repeat="industries in ind"
+													value="{{industries.industry}}">{{industries.industry}}</option>
+											</select>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div>
+											<a ng-href="/risk" ng-click="closeModal()" >                           
+					                        	<span class="help-block" ng-style="{'padding-right':'40px','padding-left':'40px','color':'red'}" >
+					                            	{{'market.tpl.noRiskStrategyMsg'|translate}}
+					                        	</span>
+					                    	</a>
+					                    </div>
+									</td>
+								</tr>
+							</table>
+						</form>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+</div>

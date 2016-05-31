@@ -7,6 +7,7 @@ var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt');
 var compose = require('composable-middleware');
 var Team = require('../api/team/team.model');
+var GameControl = require('../api/gamecontrol/gamecontrol.model');
 var validateJwt = expressJwt({ secret: config.secrets.session });
 
 /**
@@ -23,16 +24,19 @@ function isAuthenticated() {
       }
       validateJwt(req, res, next);
     })
+    
     // Attach user to request
     .use(function(req, res, next) {
-//      console.log('isAuthenticated :'+ JSON.stringify(req.user));       
-      Team.findOne({"members._id":req.user._id},{'members.$': 1}, function (err, user) {
-//        console.log('Inside :'+JSON.stringify(user));
-        if (err) return next(err);
-        if (!user) return res.send(401);
-        req.user = user;
-        next();
-      });
+      GameControl.find({}, function (err, gamecontrol) {
+            if(err) console.log('Error in gamecontrol at start');
+              Team.findOne({"members._id":req.user._id},{'role':1,'members.$': 1}, function (err, user) {
+              if (err) return next(err);
+              if (!user ||(gamecontrol[0].gameonoffcontrol && user.role != 'admin')) {return res.send(401);}
+              req.user = user;
+              next();
+              });
+      });     
+      
     });
 }
 

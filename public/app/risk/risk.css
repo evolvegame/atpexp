@@ -1,0 +1,9 @@
+.center-popup {
+    position: fixed;
+    top: 30%;
+    left: -140%;
+    z-index: 1000;
+    width: 400%;
+    height: 400%;
+    margin-left: -10%;
+};

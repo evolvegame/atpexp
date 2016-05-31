@@ -5,8 +5,10 @@ var Schema = mongoose.Schema;
 
 var ProjectsSchema = mongoose.Schema({
   name: String,
+  description: String,
   type: String,
-  amount: Number
+  amount: Number,
+  experienceScore: Number
   });
 
 module.exports = mongoose.model('Projects', ProjectsSchema);

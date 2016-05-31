@@ -8,5 +8,5 @@ module.exports = {
     uri: 'mongodb://localhost/atpexp-dev'
   },
 
-  seedDB: true
+  seedDB: false
 };

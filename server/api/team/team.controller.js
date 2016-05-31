@@ -2,6 +2,7 @@
 
 var Team = require('./team.model');
 var Projects = require('../projects/projects.model');
+var Country = require('../country/country.model');
 var Departments = require('../departments/departments.model');
 var Round = require('../round/round.model.js');
 var passport = require('passport');
@@ -9,6 +10,8 @@ var config = require('../../config/environment');
 var jwt = require('jsonwebtoken');
 var _ = require('lodash');
 var fs =require('fs');
+var async = require('async');
+var mongoose = require('mongoose');
 //var ObjectId = require('mongodb').ObjectId; 
 
 var validationError = function(res, err) {
@@ -78,19 +81,14 @@ exports.changePassword = function(req, res, next) {
   var email = req.user.members[0].email;  
   var oldEncryptPassword={};
   var newEncryptPassword={};
-  console.log(req.user);
-  console.log('oldPass '+oldPass); 
-  console.log('newPass '+newPass);
-  console.log('teamId '+teamId);
-  console.log('email '+ email);
   
   Team.findOne({ 'members._id' :  userId },{'members.$': 1}, function (err, team) {    
     if(team.authenticate(oldPass)) {
       oldEncryptPassword =team.encryptPassword(oldPass,0);
-      console.log('oldEncryptPassword '+oldEncryptPassword);
-      console.log('oldEncryptPassword from db '+team.members[0].hashedPassword);
+      //console.log('oldEncryptPassword '+oldEncryptPassword);
+      //console.log('oldEncryptPassword from db '+team.members[0].hashedPassword);
       newEncryptPassword =team.encryptPassword(newPass,0);
-      console.log('newEncryptPassword '+newEncryptPassword);
+      //console.log('newEncryptPassword '+newEncryptPassword);
       Team.update({"members._id":userId,"members.hashedPassword" :oldEncryptPassword },{$set:{"members.$.hashedPassword" : newEncryptPassword}},function(err){
       if (err) return validationError(res, err);
         res.send(200);
@@ -122,33 +120,46 @@ exports.teamCompany = function(req, res, next) {
 	  var teamId = req.user._id;
 	  var projectId = req.params.id;
 	  var state = req.params.switchStatus;
-	  console.log("Logged project id - " + projectId);
-	  console.log("Company screen - " + state);
-//	  console.log("params -- " + req.params);
 	  Round.findOne({"currentRoundFlag":true}, function (err, round){
 		  var currentRoundNumber = round.round;
 		  var currentRoundLevelInformationIndex = currentRoundNumber - 1;
-		  console.log('currentRoundLevelInformationIndex --- ' + round);
 			  Team.findById(teamId, function (err, team) {
 				  Projects.findById(projectId, function(err, project){
+					  //console.log('pROJECT ----  ' + JSON.stringify(project));
 					  for (var i = 0; i < team.roundLevelInformation.length; i++) {
 						  if (team.roundLevelInformation[i].round == currentRoundNumber) {
 							  var projectArray = team.roundLevelInformation[i].project;
 							  if (state == 'true') {
-								  console.log('About to push the project from team');
 								  projectArray.push(projectId);
 							  } else {
-								  console.log('About to pull the project from team');
 								  projectArray.pull(projectId);
 							  }
 							  team.roundLevelInformation[i].project = projectArray;
+							  //TODO: Summation of experienceScore of project should be persisted to experienceScore of roundLevelInformation
+							  break;
+						  }
+					  }
+					  
+					  
+					  for(var i = 0 ; i < team.notification.length ; i++) {
+						  if(team.notification[i].round == currentRoundNumber) {
+							  for(var j= 0 ; j < team.notification[i].contents.length; j++) {
+									if (team.notification[i].contents[j].notificationHeader == 'Company') {
+										team.notification[i].contents[j].status = 'true';
+										team.notification[i].contents[j].displayType = 'icheckbox_minimal-grey checked';
+									}
+								}
 							  break;
 						  }
 					  }
 					  
 					  team.save(function(err){
 						  if (err) return validationError(res, err);
-					      res.json(team);
+                            var action = "Update Projects/Investments";
+                            var actionDetails = JSON.stringify(projectArray);
+                            writeAudit(team,req,action,actionDetails);                          
+                          
+					      res.json(team.roundLevelInformation);
 					  });  
 				  });
 		  
@@ -161,41 +172,174 @@ exports.teamCompany = function(req, res, next) {
 exports.teamDepartment = function(req, res, next){
 	var teamId = req.user._id;
 	var departmentId = req.params.id;
-	console.log('logged in team ya - ' + teamId);
-	console.log('Department size -- ya - ' + departmentId);
+//	console.log('logged in team ya - ' + teamId);
+//	console.log('Department size -- ya - ' + departmentId);
 	Round.findOne({"currentRoundFlag":true}, function (err, round){
-		 var currentRoundNumber = round.round;
-		 var currentRoundLevelInformationIndex = currentRoundNumber - 1;
+		var currentRoundNumber = round.round;
+		
 		Team.findById(teamId, function (err, team) {
-			Departments.findOne({'size._id' : departmentId}, {'size.$' : 1}, function(err, sizeUnit){
+			var currentRoundLevelInfo;
+			for (var i = 0; i < team.roundLevelInformation.length; i++) {
+				if (team.roundLevelInformation[i].round == currentRoundNumber) {
+					currentRoundLevelInfo = team.roundLevelInformation[i];
+					break;
+				}
+			}
+			
+			var projects = currentRoundLevelInfo.project;
+			var offers = team.offer;
+			var risks = team.riskStrategy;
+			
+			
+			Departments.findOne({'size._id' : departmentId, }, {'size.$' : 1}, function(err, sizeUnit){
 				Departments.findById(sizeUnit._id, function(err, depart){
-					console.log("depart -- " + depart.name);
+					/*console.log("depart -- " + depart.name);
 					console.log("sizeUnit -- " + sizeUnit.size[0].unit);
-					console.log("sizeCost -- " + sizeUnit.size[0].cost);
-					for(var depIndex = 0; depIndex < team.roundLevelInformation.length; depIndex++) {
-						if(team.roundLevelInformation[depIndex].round == currentRoundNumber){
-							var departments = team.roundLevelInformation[depIndex].department;
-							for(var i=0; i<departments.length ; i++){
-								var department = departments[i];
-								if (department.name == depart.name){
-									departments.pull(department);
-									break;
+					console.log("sizeCost -- " + sizeUnit.size[0].cost);*/
+					if (depart.name == 'IT') {
+						Projects.find({'type':'IT'}, function(err, projectsOfTypeIT){
+							var numOfITProjects = 0;
+							for (var i = 0 ; i < projects.length; i++){
+								var project = projects[i];
+								for (var j = 0 ; j < projectsOfTypeIT.length; j++) {
+									//console.log('projectsOfTypeIT[j]._id = ' + projectsOfTypeIT[j]._id + '&& project._id = ' + JSON.stringify(project)); 
+									if (projectsOfTypeIT[j]._id+"" == project) {
+										numOfITProjects = numOfITProjects + 1;
+									}
 								}
 							}
-							team.roundLevelInformation[depIndex].department.push({name: depart.name, sizeUnit: sizeUnit.size[0].unit, cost: sizeUnit.size[0].cost});
-							break;
-						}							
+							//console.log(' Number of IT projects -- ' + numOfITProjects);
+							//console.log(' sizeUnit.numberOfBenefits -- ' + JSON.stringify(sizeUnit));
+							if (sizeUnit.size[0].numberOfBenefits < numOfITProjects) {
+								return res.send(500, "You already have more IT projects");
+							}
+							
+							saveDepartment(req,team, currentRoundNumber, depart, sizeUnit, res);
+						});
+					} else if (depart.name == 'Compliance') {
+						Projects.find({'type':'Compliance'}, function(err, projectsOfTypeCompliance){
+							var numOfComplianceProjects = 0;
+							for (var i = 0 ; i < projects.length; i++){
+								var project = projects[i];
+								for (var j = 0 ; j < projectsOfTypeCompliance.length; j++) {
+									if (projectsOfTypeCompliance[j]._id+"" == project) {
+										numOfComplianceProjects = numOfComplianceProjects + 1;
+									}
+								}
+							}
+							if (sizeUnit.size[0].numberOfBenefits < numOfComplianceProjects) {
+								return res.send(500, "You already have more Compliance projects");
+							}
+							
+							saveDepartment(req,team, currentRoundNumber, depart, sizeUnit, res);
+						});
+					} else if (depart.name == 'Marketing') {
+						Projects.find({'type':'Marketing'}, function(err, projectsOfTypeMarketing){
+							var numOfMarketingProjects = 0;
+							for (var i = 0 ; i < projects.length; i++){
+								var project = projects[i];
+								for (var j = 0 ; j < projectsOfTypeMarketing.length; j++) {
+									if (projectsOfTypeMarketing[j]._id+"" == project) {
+										numOfMarketingProjects = numOfMarketingProjects + 1;
+									}
+								}
+							}
+							if (sizeUnit.size[0].numberOfBenefits < numOfMarketingProjects) {
+								return res.send(500, "You already have more Marketing projects");
+							}
+							
+							saveDepartment(req,team, currentRoundNumber, depart, sizeUnit, res);
+						});
+					} else if (depart.name == 'Strategy') {
+						Projects.find({'type':'Strategy'}, function(err, projectsOfTypeStrategy){
+							var numOfStrategyProjects = 0;
+							for (var i = 0 ; i < projects.length; i++){
+								var project = projects[i];
+								for (var j = 0 ; j < projectsOfTypeStrategy.length; j++) {
+									if (projectsOfTypeStrategy[j]._id+"" == project) {
+										numOfStrategyProjects = numOfStrategyProjects + 1;
+									}
+								}
+							}
+							if (sizeUnit.size[0].numberOfBenefits < numOfStrategyProjects) {
+								return res.send(500, "You already have more Strategy projects");
+							}
+							
+							saveDepartment(req,team, currentRoundNumber, depart, sizeUnit, res);
+						});
+					} else if (depart.name == 'Local Sales') {
+						var numberOfLocalOffers = 0;
+						for (var i = 0 ; i < offers.length; i++) {
+							if (offers[i].marketType == 'Local Market Portfolio') {
+								if (offers[i].numberOfResources != 'undefined'){
+									numberOfLocalOffers = numberOfLocalOffers + offers[i].numberOfResources;									
+								}
+							}
+						}
+						
+						if (numberOfLocalOffers > sizeUnit.size[0].numberOfBenefits) {
+							return res.send(500, "You already planned usage of more local resources");
+						}
+						saveDepartment(req,team, currentRoundNumber, depart, sizeUnit, res);
+					} else if (depart.name == 'Global Sales') {
+						var numberOfGlobalOffers = 0;
+						for (var i = 0 ; i < offers.length; i++) {
+							if ((offers[i].marketType != 'Local Market Portfolio') && (offers[i].offerType !='Renewal') && (offers[i].round ==currentRoundNumber)) {
+								numberOfGlobalOffers = numberOfGlobalOffers + 1;	
+							}
+						}
+						
+						console.log('numberOfGlobalOffers::' + numberOfGlobalOffers);
+						console.log('sizeUnit.size[0].numberOfBenefits:::' + sizeUnit.size[0].numberOfBenefits);
+						if (numberOfGlobalOffers > sizeUnit.size[0].numberOfBenefits) {
+							return res.send(500, "You already have made more Global offers");
+						}
+						saveDepartment(req,team, currentRoundNumber, depart, sizeUnit, res);
+					} else if (depart.name == 'Risk') {
+						var numberOfRisks = 0;
+						for (var i = 0 ; i < risks.length; i++) {
+							if (risks[i].round == currentRoundNumber) {
+								numberOfRisks = numberOfRisks + 1;	
+							}
+						}
+						
+						if (numberOfRisks > sizeUnit.size[0].numberOfBenefits) {
+							return res.send(500, "You already have more Risk Strategies");
+						}
+						saveDepartment(req, team, currentRoundNumber, depart, sizeUnit, res);
 					}
-					
-					team.save(function(err){
-						  if (err) return validationError(res, err);
-					      res.json(team);
-					  });  
+					 
 				});		
 			
 			 }); 	
 		});
 	});	
+}
+
+function saveDepartment(req,team, currentRoundNumber, depart, sizeUnit, res) {
+	
+	for(var depIndex = 0; depIndex < team.roundLevelInformation.length; depIndex++) {
+		if(team.roundLevelInformation[depIndex].round == currentRoundNumber){
+			var departments = team.roundLevelInformation[depIndex].department;
+			for(var i=0; i<departments.length ; i++){
+				var department = departments[i];
+				if (department.name == depart.name){
+					departments.pull(department);
+					break;
+				}
+			}
+			team.roundLevelInformation[depIndex].department.push({name: depart.name, sizeUnit: sizeUnit.size[0].unit, cost: sizeUnit.size[0].cost, numberOfBenefits: sizeUnit.size[0].numberOfBenefits});
+			break;
+		}							
+	}
+	
+	team.save(function(err){
+		  if (err) return validationError(res, err);
+           var action = "Update Department";
+           var actionDetails = '{name:' + depart.name + ', sizeUnit: ' + sizeUnit.size[0].unit + ', cost: ' + sizeUnit.size[0].cost + ', numberOfBenefits: '+ sizeUnit.size[0].numberOfBenefits + '}' ;
+           writeAudit(team,req,action,actionDetails);
+	      res.json(team);
+	  }); 
 }
 
 exports.addRisk = function(req, res, next) {
@@ -209,7 +353,7 @@ exports.addRisk = function(req, res, next) {
 	var strategyRatingBand3 = req.params.strategyRatingBand3;
 	var strategyRatingBand4 = req.params.strategyRatingBand4;
 	var strategyRatingBand5 = req.params.strategyRatingBand5;
-	console.log('Reached team controller!!! - strategyName ' + strategyName);
+	/*console.log('Reached team controller!!! - strategyName ' + strategyName);
 	console.log('Reached team controller!!! - round ' + round);
 	console.log('Reached team controller!!! - buyerCountry ' + buyerCountry);
 	console.log('Reached team controller!!! - buyerIndustry ' + buyerIndustry);
@@ -219,7 +363,7 @@ exports.addRisk = function(req, res, next) {
 	console.log('Reached team controller!!! - strategyRatingBand4 ' + strategyRatingBand4);
 	console.log('Reached team controller!!! - strategyRatingBand5 ' + strategyRatingBand5);
 	console.log('Reached team controller!!! - teamId ' + teamId);
-	
+	*/
 	Team.findById(teamId, function (err, team) {
 		var strategyId;
 		var foundStrategyName = false;
@@ -227,7 +371,7 @@ exports.addRisk = function(req, res, next) {
 			var existingRiskStrategy = team.riskStrategy[i];
 			if (existingRiskStrategy.strategyName == strategyName) {
 				strategyId = existingRiskStrategy.strategyId;
-				console.log('Found an existing strategy Id -- ' + strategyId);
+				//console.log('Found an existing strategy Id -- ' + strategyId);
 				foundStrategyName = true;
 				break;
 			}
@@ -240,7 +384,7 @@ exports.addRisk = function(req, res, next) {
 			} else {
 				strategyId = 1;
 			}			
-			console.log('Assigning new strategy Id -- ' + strategyId);
+			//console.log('Assigning new strategy Id -- ' + strategyId);
 		}
 		
 		team.riskStrategy.push({
@@ -255,9 +399,27 @@ exports.addRisk = function(req, res, next) {
 		    strategyRatingBand4: strategyRatingBand4,
 		    strategyRatingBand5: strategyRatingBand5
 		});
+		
+		var notificationCurrentRound;
+		for (var i = 0 ; i < team.notification.length; i++) {
+			if (team.notification[i].round == round) {
+				for(var j= 0 ; j < team.notification[i].contents.length; j++) {
+					if (team.notification[i].contents[j].notificationHeader == 'Risk') {
+						team.notification[i].contents[j].status = 'true';
+						team.notification[i].contents[j].displayType = 'icheckbox_minimal-grey checked';
+					}
+				}
+				break;
+			}
+		}
+		
+		
 		team.save(function(err){
 			  if (err) return validationError(res, err);
-		      return res.send(200, team.riskStrategy);
+              var action = "Add new Risk Strategy";
+              var actionDetails = JSON.stringify(team.riskStrategy);
+              writeAudit(team,req,action,actionDetails);
+		      return res.json(200, team.riskStrategy);
 		});  
 	});
 	
@@ -275,12 +437,16 @@ function compare(a, b) {
 
 exports.deleteRisk = function(req, res, next) {
 	var riskStrategyId = req.params.id;
+    var strategyName = req.params.strategyName;
 	var teamId = req.user._id;
 	Team.findById(teamId, function (err, team) {
 		var riskStrategies = team.riskStrategy;
 		riskStrategies.pull(riskStrategyId);
 		team.save(function(err){
 			  if (err) return validationError(res, err);
+              var action = "Delete Risk Strategy";
+              var actionDetails = "Strategy Id; "+riskStrategyId;
+              writeAudit(team,req,action,actionDetails);
 			  return res.json(200, riskStrategies);
 		});
 	});
@@ -312,7 +478,7 @@ exports.modifyRisk = function(req, res, next) {
 			var existingRiskStrategy = team.riskStrategy[i];
 			if (existingRiskStrategy.strategyName == strategyName) {
 				strategyId = existingRiskStrategy.strategyId;
-				console.log('Found an existing strategy Id -- ' + strategyId);
+				//console.log('Found an existing strategy Id -- ' + strategyId);
 				foundStrategyName = true;
 				break;
 			}
@@ -325,7 +491,7 @@ exports.modifyRisk = function(req, res, next) {
 			} else {
 				strategyId = 1;
 			}			
-			console.log('Assigning new strategy Id -- ' + strategyId);
+			//console.log('Assigning new strategy Id -- ' + strategyId);
 		}
 	    
 	    for (var i=0; i < team.riskStrategy.length; i++) {
@@ -345,6 +511,9 @@ exports.modifyRisk = function(req, res, next) {
 	    
 	    team.save(function(err){
 			  if (err) return validationError(res, err);
+              var action = "Modify Risk Strategy "+strategyName;
+              var actionDetails = JSON.stringify(team.riskStrategy[i]);
+              writeAudit(team,req,action,actionDetails);
 		      return res.send(200, strategies);
 		});
 	    
@@ -394,6 +563,212 @@ exports.me = function(req, res, next) {
   });
 };
 
+
+exports.globalOfferHistory = function(req, res, next) {
+	var teamId = req.user._id;
+	var marketBusinessName = req.params.marketBusinessName;
+	var round = req.params.round;
+	console.log('Reached team controller for fetching global offer history!!');
+
+	Team.findById(teamId, function (err, team) {
+		var offers = team.offer;
+		var customers = team.customer;
+		var pastOfferHistoryArray = [];
+		var teamHasPastOffers = false;
+		var teamRoundLevelInformations = team.roundLevelInformation;
+		
+		
+		
+		async.forEachSeries(offers, function(offer, callback){
+			var elligibleForMoreDetails = false;
+			var departments = [];
+			var departmentSize;
+			
+			//Fetch global sales department size for offer's that round.
+			teamRoundLevelInformations.forEach(function(roundLevelInfo){
+				  if (roundLevelInfo.round == (offer.round)) {
+					  departments = roundLevelInfo.department; 
+				  }
+			});
+			  
+			for (var i = 0; i < departments.length; i++) {
+				if (departments[i].name == 'Global Sales') {
+					departmentSize = departments[i].sizeUnit;
+					break;
+				 }
+			}
+			  
+			if (departmentSize == 'Huge') {
+				elligibleForMoreDetails = true;
+			}
+			
+			var offerHistory = {
+					elligibleForMoreDetails: elligibleForMoreDetails
+			};
+			
+			if (offer.round != round && offer.marketBusinessName == marketBusinessName) {
+				//console.log('match found for this offer in past!!');
+				teamHasPastOffers = true;
+				offerHistory.round = offer.round;
+				offerHistory.price = offer.price;
+				var offerBuyers = offer.buyerPortfolio;
+				
+				var offerCLD = 0;
+				offerBuyers.forEach(function(buyer){
+					offerCLD = offerCLD + buyer.cld;
+				});
+				offerHistory.cld = offerCLD;
+				
+				var queryAgreement = offerAgreement(marketBusinessName, offer.round);
+				
+				queryAgreement.exec(function(err, resultSet){
+					if (err) return callback(err);
+					console.log(' All teams who made offers ' + JSON.stringify(resultSet));
+					if (resultSet.length == 0) {
+						offerHistory.team = "Customer did not like the offer";
+					}
+					resultSet.forEach(function(result){
+						if (result.name == team.name) {
+							offerHistory.team = "You had the best offer";
+							offerHistory.claimAmount = result.customer.agreement.history.claims.claimAmount;
+						} else {
+							if (elligibleForMoreDetails) {
+								offerHistory.team = result.name;
+								offerHistory.wonTeamPremium = result.customer.agreement.history.premium;
+								var roundLevelInformations = result.roundLevelInformation;
+								roundLevelInformations.forEach(function(roundLevelInfo){
+									if (offer.round == roundLevelInfo.round) {
+										offerHistory.experienceScore = roundLevelInfo.experienceScore;
+									}
+								});
+								offerHistory.claimAmount = result.customer.agreement.history.claims.claimAmount;	
+							} else {
+								offerHistory.team = "Information not available";
+								
+								if (result.customer.agreement.history.premium > offerHistory.price) {
+									offerHistory.wonTeamPremium = "Higher";
+								} else if (result.customer.agreement.history.premium < offerHistory.price) {
+									offerHistory.wonTeamPremium = "Lower";
+								} else {
+									offerHistory.wonTeamPremium = "Same";
+								}
+								//console.log('offerHistory.wonTeamPremium ' + offerHistory.wonTeamPremium);
+								var roundLevelInformations = result.roundLevelInformation;
+								roundLevelInformations.forEach(function(roundLevelInfo){
+									if (offer.round == roundLevelInfo.round) {
+										offerHistory.experienceScore = roundLevelInfo.experienceScore;
+									}
+								});
+								
+								var yourTeamRoundExperience = 0;
+								teamRoundLevelInformations.forEach(function(roundLevelInfo){
+									  if (roundLevelInfo.round == offer.round) {
+										  yourTeamRoundExperience = roundLevelInfo.experienceScore; 
+									  }
+								});
+								if (offerHistory.experienceScore > yourTeamRoundExperience){
+									offerHistory.experienceScore = "Higher";
+								} else if (offerHistory.experienceScore < yourTeamRoundExperience) {
+									offerHistory.experienceScore = "Lower";
+								} else {
+									offerHistory.experienceScore = "Same";
+								}
+								offerHistory.claimAmount = result.customer.agreement.history.claims.claimAmount;	
+							}	
+						}
+											 
+					});
+					pastOfferHistoryArray.push(offerHistory);
+//					console.log(' Pushing offerHistory -- ' + JSON.stringify(pastOfferHistoryArray));
+					callback(null);
+				});
+				
+				
+				
+			} else {
+				callback(null);
+			}
+			
+		}, function(err) {
+	         if (err) {
+	        	 console.log("Error while getting global history = " + JSON.stringify(err))
+	        	 return res.json(500);
+	         }
+//	         console.log(" Returning with list from global offers history 1 == " + JSON.stringify(pastOfferHistoryArray));
+	         if (!teamHasPastOffers){
+	        	 	//console.log('There are no past offers, so just checking if some one else had won this customer in the past!!')
+	        	    var queryAgreement = offerAgreement(marketBusinessName, null);
+	        	    var offerHistoryArray = [];
+					queryAgreement.exec(function(err, resultSet){
+						if (err) return callback(err);
+						var offerHistory = {
+			 					
+			 			};
+						resultSet.forEach(function(result){
+							offerHistory.round = result.customer.agreement.history.round;
+							offerHistory.team = result.name;
+							offerHistory.wonTeamPremium = "NA";
+							var roundLevelInformations = result.roundLevelInformation;
+							roundLevelInformations.forEach(function(roundLevelInfo){
+								if (round == roundLevelInfo.round) {
+									offerHistory.experienceScore = "NA";
+								}
+							});
+							offerHistory.claimAmount = result.customer.agreement.history.claims.claimAmount; 
+							offerHistoryArray.push(offerHistory);
+						});
+						//console.log(" Returning with list from global offers history 2 == " + JSON.stringify(offerHistoryArray));
+						return res.json(200, offerHistoryArray);
+					});
+					
+	         } else {
+	        	 return res.json(200, pastOfferHistoryArray);	 
+	         }
+	         
+	    });
+	});
+	
+	
+	
+};
+
+
+function offerAgreement(marketBusinessName, roundNumber) {    
+    if (roundNumber == null) {
+    	var query = Team.aggregate(
+        		{
+        			$unwind:"$customer"
+        		},{
+        			$match: {"customer.businessName":marketBusinessName}
+        				
+        		}, {
+        			$unwind:"$customer.agreement.history"
+        		}
+        	
+        );	
+    } else {
+    	var query = Team.aggregate(
+        		{
+        			$unwind:"$customer"
+        		},{
+        			$match: {"customer.businessName":marketBusinessName}
+        				
+        		}, {
+        			$unwind:"$customer.agreement.history"
+        		}, {
+        			$match: {
+        				"customer.agreement.history.round":roundNumber
+       				}
+       			}
+        	
+        );
+    }
+	
+    
+    return query;
+
+}
+
 exports.makeOffer = function(req, res, next) {
 	var teamId = req.user._id;
 	var marketBusinessName = req.params.marketBusinessName;
@@ -423,14 +798,25 @@ exports.makeOffer = function(req, res, next) {
 
 
 
-	console.log('Reached team controller makeOffer !!! - marketBusinessName ' + marketBusinessName);
+/*	console.log('Reached team controller makeOffer !!! - marketBusinessName ' + marketBusinessName);
 	console.log('Reached team controller makeOffer !!! - round ' + round);
 	console.log('Reached team controller makeOffer !!! - price ' + price);
 	console.log('Reached team controller makeOffer !!! - cld ' + cld);
 	console.log('Reached team controller makeOffer !!! - teamId ' + teamId);
 	console.log('Reached team controller makeOffer !!! - req.params ' + JSON.stringify(req.params));
-	
+	*/
 	Team.findById(teamId, function (err, team) {
+		var offers = team.offer;
+		var duplicateOfferFound = false;
+		offers.forEach(function(existingOffer){
+			if (existingOffer.round == round && existingOffer.marketBusinessName == marketBusinessName) {
+				console.log('Duplicate offer found');
+				duplicateOfferFound = true;
+			}
+		});
+		if (!duplicateOfferFound) {
+			
+		
 		team.offer.push({
 			round: round,
 			marketBusinessName: marketBusinessName,
@@ -459,10 +845,34 @@ exports.makeOffer = function(req, res, next) {
 				riskAcceptance:buyer3RiskAcceptance
 			}]		    
 		});
+		
+		for(var i = 0 ; i < team.notification.length ; i++) {
+			  if(team.notification[i].round == round) {
+				  for(var j= 0 ; j < team.notification[i].contents.length; j++) {
+						if (team.notification[i].contents[j].notificationHeader == 'Offer') {
+							team.notification[i].contents[j].status = 'true';
+							team.notification[i].contents[j].displayType = 'icheckbox_minimal-grey checked';
+						}
+					}
+				  break;
+			  }
+		  }
+		
+		
+		var offers = [];
 		team.save(function(err){
 			  if (err) return validationError(res, err);
-		      res.send(200,team);
+              var action = "Make Global Offer";
+              var actionDetails = '';
+              writeAudit(team,req,action,actionDetails);
+              
+              offers = team.offer;
+		      res.send(200,offers);
 		});  
+		
+		} else {
+			res.send(500,"Duplicate error");
+		}
 	});
 	
 };
@@ -494,14 +904,14 @@ exports.modifyOffer = function(req, res, next) {
     var buyer3Cla=req.params.buyer3Cla;
     var buyer3RiskAcceptance=req.params.buyer3RiskAcceptance;
 
-	console.log('Reached team controller modifyOffer !!! - marketBusinessName ' + marketBusinessName);
+	/*console.log('Reached team controller modifyOffer !!! - marketBusinessName ' + marketBusinessName);
 	console.log('Reached team controller modifyOffer !!! - round ' + round);
 	console.log('Reached team controller modifyOffer !!! - price ' + price);
 	console.log('Reached team controller modifyOffer !!! - cld ' + cld);
 	console.log('Reached team controller modifyOffer !!! - offerType ' + offerType);
 	console.log('Reached team controller modifyOffer !!! - offerId ' + offerId);
 	console.log('Reached team controller modifyOffer !!! - teamId ' + teamId);
-	console.log('Reached team controller makeOffer !!! - req.params ' + JSON.stringify(req.params));
+	console.log('Reached team controller makeOffer !!! - req.params ' + JSON.stringify(req.params));*/
 
 	Team.findById(teamId, function (err, team) {
 		var offers = team.offer;
@@ -536,6 +946,9 @@ exports.modifyOffer = function(req, res, next) {
 		});
 		team.save(function(err){
 			  if (err) return validationError(res, err);
+              var action = "Modify Global Offer";
+              var actionDetails = 'Offer id modified: '+offerId;
+              writeAudit(team,req,action,actionDetails);
 			  return res.json(200, team);
 		});
 	});	
@@ -584,17 +997,20 @@ exports.modifyOffer = function(req, res, next) {
 exports.saveOffer = function(req, res, next) {
 	var teamId = req.body._id;
 	var offerObj = req.body;	
-	console.log('Reached team controller saveOffer !!! - offerObj ' + JSON.stringify(offerObj));
-	console.log('Reached team controller addOffer !!! - teamId ' + teamId);
+//	console.log('Reached team controller saveOffer !!! - offerObj ' + JSON.stringify(offerObj));
+//	console.log('Reached team controller addOffer !!! - teamId ' + teamId);
 
 	var obj=JSON.stringify(offerObj);
 	
 	Team.findById(teamId, function (err, team) {
-		console.log('-->'+JSON.stringify(team));
+		//console.log('-->'+JSON.stringify(team));
 		if (err) return validationError(res, err);
 		team.offer.push(obj);
 		team.save(function(err){
 			  if (err) return validationError(res, err);
+              var action = "Save Global Offer";
+              var actionDetails = obj;
+              writeAudit(team,req,action,actionDetails);
 		      res.send(200,team);
 		});  
 	});
@@ -605,47 +1021,104 @@ exports.saveOffer = function(req, res, next) {
 exports.deleteOffer = function(req, res, next) {
 	var offerId = req.params.id;
 	var teamId = req.user._id;
-	console.log('Reached team controller deleteOffer !!! - teamId ' + teamId);
-	console.log('Reached team controller deleteOffer !!! - offerId ' + offerId);
+	//console.log('Reached team controller deleteOffer !!! - teamId ' + teamId);
+	//console.log('Reached team controller deleteOffer !!! - offerId ' + offerId);
 
 	//TODO needs logic to decrement offerCount of customer by 1 each time when an offer is pulled.
-	
-	Team.findById(teamId, function (err, team) {
-		var offers = team.offer;
-		offers.pull(offerId);
-		team.save(function(err){
-			  if (err) return validationError(res, err);
-			  return res.json(200, team);
-		});
-	});	
+	Round.findOne({"currentRoundFlag":true}, function (err, round){
+		var currentRoundNumber = round.round;
+		Team.findById(teamId, function (err, team) {
+			var offers = team.offer;
+			offers.pull(offerId);
+			team.save(function(err){
+				  if (err) return validationError(res, err);
+	              var action = "Delete Global Offer";
+	              var actionDetails = 'OfferId: '+offerId;
+	              writeAudit(team,req,action,actionDetails);
+	              
+	              var updatedOffers = team.offer;
+	              var currentRoundNewGlobalOfferCount = 0;
+	              for (var i = 0; i < updatedOffers.length ; i++) {
+	            	  if (currentRoundNumber == updatedOffers[i].round && updatedOffers[i].marketType != 'Local Market Portfolio' && updatedOffers[i].offerType == 'New') {
+	            		  currentRoundNewGlobalOfferCount = currentRoundNewGlobalOfferCount + 1;
+	            	  }
+	              }
+				  return res.json(200, {currentRoundNewGlobalOfferCount:currentRoundNewGlobalOfferCount});
+			});
+		});	
+	});
 	
 };
 
 exports.roundLevelInformation = function(req, res, next) {
+	//console.log('Getting round info for team -- ' + req.user._id);
 	var roundId = req.params.id;
 	var teamId = req.user._id;
-	console.log('Reached team controller roundLevelInformation !!! - teamId ' + teamId);
-	console.log('Reached team controller roundLevelInformation !!! - roundId ' + roundId);
 	Team.findOne({'_id' : teamId, 'roundLevelInformation.round' :  roundId },{'roundLevelInformation.$': 1}, function(err, result) {
         if (err) return done(err); 
-        console.log('result:'+JSON.stringify(result));
         return res.json(200, result);
       });
+};
+
+exports.allRoundLevelInformation = function(req, res, next) {
+	var teamId = req.user._id;
 	
-	
+	var query = Team.aggregate([
+	                            { 
+	                            	$match : {_id : mongoose.Types.ObjectId(teamId)}
+		                         },
+		                         {   
+		                        	 $project : { 'roundLevelInformation' : 1}
+		                         }
+	            ]);
+	  
+	query.exec(function(err,teamRoundLevelInformation){
+		  res.json(teamRoundLevelInformation);
+	  });
+};
+
+exports.getAllWonCustomers = function(req, res, next) {
+	var teamId = req.user._id;
+	var activeCustomers = [];
+	Team.find({'_id' : teamId}, function(err, result) {
+        if (err) return done(err); 
+        var allActiceCustomers = result[0].customer;
+        for (var i = 0 ; i < allActiceCustomers.length ; i++){
+        	if (allActiceCustomers[i].agreement.status == 'Active') {
+        		activeCustomers.push(allActiceCustomers[i]);
+        	}
+        }
+        return res.json(200, activeCustomers);
+      });
+};
+
+exports.getAllOffersMade = function(req, res, next) {
+	var roundId = req.params.id;
+	var teamId = req.user._id;
+	var offers = [];
+	Team.find({'_id' : teamId}, function(err, result) {
+        if (err) return done(err); 
+        var allOffers = result[0].offer;
+        for (var i = 0 ; i < allOffers.length ; i++){
+        	if (allOffers[i].round == roundId) {
+        		offers.push(allOffers[i]);
+        	}
+        }
+        return res.json(200, offers);
+      });
 };
 
 exports.getAllTeamRankings = function(req, res, next) {
 	var previousRoundNumber = req.params.previousRoundNumber == 0 ? 1 : req.params.previousRoundNumber;
 
-	console.log('previousRoundNumber -- ' + previousRoundNumber);
+	//console.log('previousRoundNumber -- ' + previousRoundNumber);
 	
 	Team.find(function (err, teams) {
 	   if(err) return res.send(500, err);
 	   var allTeams = {};
 	   
 	   allTeams.map = function() {
-		   emit(this, {_id: this._id, teamName: this.name, teamCountry: this.teamCountry, roundLevelInformation: this.roundLevelInformation, role: this.role});
+		   emit(this, {_id: this._id, teamName: this.name, slogan:this.slogan, teamCountry: this.teamCountry, teamPicture: this.picture, roundLevelInformation: this.roundLevelInformation, members: this.members ,role: this.role});
 	   }
 
 	   
@@ -660,17 +1133,32 @@ exports.getAllTeamRankings = function(req, res, next) {
 				   }
 			   }
 			   
+			   var members ='';
+			   for(var j = 0; j < data[i].value.members.length; j++) {
+				   if(j == 0){
+					   members = members+(data[i].value.members[j].name);
+				   }else{
+					   members = members+','+(data[i].value.members[j].name);
+				   }
+			   }
+			   
 			   rankingTeams[i]= {
 				   _id: data[i].value._id,
 				   teamName: data[i].value.teamName,
 				   teamCountry: data[i].value.teamCountry,
+				   slogan: data[i].value.slogan,
+				   teamPicture: data[i].value.teamPicture,
+				   teamMembers: members,
 				   capital: typeof(roundLevelInformation) == 'undefined' ? null : roundLevelInformation.capital,
 				   rankingPosition: typeof(roundLevelInformation) == 'undefined' ? null : roundLevelInformation.rankingPosition,
 				   experienceScore: typeof(roundLevelInformation) == 'undefined' ? null : roundLevelInformation.experienceScore,
 				   experienceScoreRankingPosition: typeof(roundLevelInformation) == 'undefined' ? null : roundLevelInformation.experienceScoreRankingPosition,
 				   countryLevelRankingPosition: typeof(roundLevelInformation) == 'undefined' ? null : roundLevelInformation.countryLevelRankingPosition,
 				   CountryLevelExperienceScoreRankingPosition: typeof(roundLevelInformation) == 'undefined' ? null : roundLevelInformation.CountryLevelExperienceScoreRankingPosition,		   
-				   role: data[i].value.role
+				   role: data[i].value.role,
+				   profit: typeof(roundLevelInformation) == 'undefined' ? null : roundLevelInformation.profit,
+				   numberOfCustomers: typeof(roundLevelInformation) == 'undefined' ? null : roundLevelInformation.customers,
+				   claims: typeof(roundLevelInformation) == 'undefined' ? null : roundLevelInformation.claims,
 			   };
 		   }
 		   
@@ -683,45 +1171,22 @@ exports.getAllTeamRankings = function(req, res, next) {
 
 
 exports.notificationInformation = function (req, res, next) {
-	console.log('reached notification information !!!!');
 	var teamId = req.user._id;
 	var currentRoundNumber;
-	var numOffers = 0;
-	var numOfRiskStrategies = 0;
-	var numOfProjects = 0;
 	
 	Round.findOne({"currentRoundFlag":true}, function (err, round){
 		currentRoundNumber = round.round;
-		var currentRoundLevelInformation;
+		var currentRoundNotification;
 		Team.findById(teamId, function (err, team) {
-			for (var i = 0 ; i < team.offer.length; i++) {
-				if(team.offer[i].round == currentRoundNumber) {
-					numOffers = numOffers;
+			
+			for (var i = 0 ; i < team.notification.length; i++) {
+				if(team.notification[i].round == currentRoundNumber) {
+					currentRoundNotification = team.notification[i];
 				}
 			}
 			
-			for (var i = 0; i < team.riskStrategy.length; i++) {
-				if (team.riskStrategy[i].round == currentRoundNumber) {
-					numOfRiskStrategies = numOfRiskStrategies + 1;
-				}
-			}
-			console.log('Number of proj 111 -- ' + JSON.stringify(team.roundLevelInformation[0].project.length) + ' and round number -- ' + currentRoundNumber);
-			for (var i = 0 ; i < team.roundLevelInformation.length ; i ++) {
-				if (team.roundLevelInformation[i].round == currentRoundNumber) {
-					currentRoundLevelInformation = team.roundLevelInformation[i];
-					numOfProjects = currentRoundLevelInformation.project.length;
-					console.log('Number of proj -- ' + numOfProjects);
-					break;
-				}
-			}
-			
-			var notification = {
-					numberOffers: numOffers,
-					numOfRiskStrategies: numOfRiskStrategies,
-					numOfProjects: numOfProjects
-			}
-			
-			res.json(notification);
+			//console.log('notificaion information --- ' + JSON.stringify(currentRoundNotification));
+			res.json(currentRoundNotification);
 			
 		});		
 		
@@ -762,7 +1227,7 @@ exports.notificationInformation = function (req, res, next) {
  	var iconArrayColor =["informer-warning","informer-success","informer-danger"];
  	var teamId = req.user._id;
  	var roundNr;
- 	console.log('Reached team controller miniDashboardInfo !!! - teamId ' + teamId);	
+ 	//console.log('Reached team controller miniDashboardInfo !!! - teamId ' + teamId);	
  	
  	Round.findOne({"currentRoundFlag":true},function (err, round){
  		if (err) {
@@ -782,10 +1247,10 @@ exports.notificationInformation = function (req, res, next) {
  				if (!info) {
  				return res.json(401);
  				};
- 				console.log('INFO '+ info);
+ 				//console.log('INFO '+ info);
  				roundLevelInfo = info.roundLevelInformation[0];
- 				console.log ('CURRENT ROUND IS || : '+ round.round); 
- 				console.log('roundLevelInfo'+roundLevelInfo.rankingPosition+ info.roundLevelInformation[0].rankingPosition) ;
+ 				//console.log ('CURRENT ROUND IS || : '+ round.round); 
+ 				//console.log('roundLevelInfo'+roundLevelInfo.rankingPosition+ info.roundLevelInformation[0].rankingPosition) ;
  				//Icon Image
  				capitalIcon = iconArray[0];
  				claimsIcon = iconArray[0];
@@ -870,11 +1335,11 @@ exports.notificationInformation = function (req, res, next) {
       //logic claimsIcon
       if (currentRoundLevelInfo.claims> previousRoundLevelInfo.claims){
       	claimsIcon=iconArray[1];
-      	claimsIconColor=iconArrayColor[1];
+      	claimsIconColor=iconArrayColor[2];
       }
       else if (currentRoundLevelInfo.claims< previousRoundLevelInfo.claims){
       	claimsIcon=iconArray[2];
-      	claimsIconColor=iconArrayColor[2];
+      	claimsIconColor=iconArrayColor[1];
       }
       else{
       	claimsIcon=iconArray[0];
@@ -990,14 +1455,11 @@ exports.resetPassword = function(req, res, next) {
 	var password = req.params.password;
 	var newEncryptPassword={};
 	
-	console.log('Reached team controller resetPassword !!! - teamId ' + teamId);
-	console.log('Reached team controller resetPassword !!! - memberId ' + memberId);
-	console.log('Reached team controller resetPassword !!! - password ' + password);
-  
+	
   Team.findOne({ 'members._id' :  memberId },{'members.$': 1}, function (err, team) {   
      if (err) return validationError(res, err);
      newEncryptPassword =team.encryptPassword(password,0);
-      console.log('newEncryptPassword '+newEncryptPassword);
+      //console.log('newEncryptPassword '+newEncryptPassword);
       Team.update({"members._id":memberId },{$set:{"members.$.hashedPassword" : newEncryptPassword}},function(err){
       if (err) return validationError(res, err);
         res.send(200);
@@ -1015,4 +1477,352 @@ exports.resetPassword = function(req, res, next) {
  */
 exports.authCallback = function(req, res, next) {
   res.redirect('/');
+};
+
+var writeAudit=exports.writeAudit= function(team,req,action,actionDetails){
+var userId = req.user.members[0].name;
+var userEmailId = req.user.members[0].email;
+var currentRoundNumber=0;
+var time= new Date();
+
+//console.log(userId + ' action ' + action);
+
+Round.findOne({"currentRoundFlag":true}, function (err, round){
+		   currentRoundNumber= round.round;
+           team.audit.push({userId : userId,
+                 userEmailId : userEmailId,
+                 action : action,
+                 actionDetails : actionDetails,
+                 round : currentRoundNumber,
+                 time : time});
+           team.save(function(err,team) {
+           if (err) console.log('Error while auditing '+action);
+           });
+     if (err) console.log('Error while auditing '+action);
+});
+};
+
+exports.loggedInFlag=function(req, res, next){
+  var teamId = req.user._id;
+  var userId = req.user.members[0]._id;
+  var logInOrOut = req.params.flag;
+  console.log('UserId'+userId);
+  console.log('teamId'+teamId);
+  Team.update({"members._id": userId},{$set:{"members.$.isLoggedIn" : logInOrOut}},function(err){
+  if (err) console.log('Error in updating isLoggedin');
+  console.log('Done Updating');
+  res.json(userId);
+  });
+}
+
+exports.getTeamActions = function(req, res, next) {
+  var teamId = req.user._id;
+  
+  // get the current round 
+  Round.findOne({"currentRoundFlag":true}, function (err, round){
+          var currentRoundNumber = round.round;
+        
+        //for the current round, get the actions list
+        var query = Team.aggregate([
+                        { 
+                            $match : {_id : teamId}
+                        
+                        },
+                        {   $project : { audit : 1}
+                        },
+                        {   $unwind : '$audit'
+                        },
+                        {   $match : {'audit.round' : Number(currentRoundNumber)}
+                        },
+                        {   $sort : {'audit.time' : -1}
+                        }                
+                    ]);
+        query.exec(function (err, auditLog) {
+            if (err) {
+                res.send(200);
+            } else {
+                res.send(auditLog);
+				
+            }            
+        });    
+          
+  });
+};
+
+exports.getTeamMembers = function(req, res, next) {
+  var teamId = req.user._id;
+  var query = Team.aggregate([
+            { 
+                $match : {_id : teamId}
+            
+            },
+            {   $project : { 'members.name' : 1,'members.email' :1,'members.isLoggedIn' :1}
+            },
+            {   $unwind : '$members'
+            }
+        ]
+        );
+  query.exec(function (err, memberList) {
+     res.send(memberList);
+  });
+  
+};  
+  
+  
+exports.getTeamMessages = function(req, res, next) {
+  var teamId = req.user._id;
+  
+  Team.find([{_id : ObjectId(teamId) }, { message : 1 }], function(err, team ){
+  var message = team.message ;
+      res.send(message);  
+  });
+};
+
+exports.getCurrentRoundStrategyBand = function(req, res, next) {
+	  var teamId = req.user._id;
+	  var round = req.body.round;
+/*	  var industry = req.body.industry;
+	  var country = req.body.country;*/
+
+	  var query = Team.aggregate([
+	                              { 
+	                                  $match : {_id : mongoose.Types.ObjectId(teamId)}
+	                              },
+	                              {   $project : { 'riskStrategy' : 1}
+	                              },
+	                              {   $unwind : '$riskStrategy'
+	                              },
+	                              {   $match : {'riskStrategy.round' : round}
+	                              },
+	                              {    $project : { 
+	                                              'riskStrategy.strategyId' : 1,
+	                                              'riskStrategy.strategyName' : 1,
+	                                              'riskStrategy.buyerIndustry' : 1,
+	                                              'riskStrategy.buyerCountry' : 1,
+	                                              'riskStrategy.strategyRatingBand1' : 1,
+	                                              'riskStrategy.strategyRatingBand2' : 1,
+	                                              'riskStrategy.strategyRatingBand3' : 1,
+	                                              'riskStrategy.strategyRatingBand4' : 1,
+	                                              'riskStrategy.strategyRatingBand5' : 1,
+	                                  }                        
+	                              }]);
+	  
+	  query.exec(function(err,strategies){
+		  res.json(strategies);
+	  });
+};
+
+
+exports.getCurrentRoundGlobalSalesDepartmentInfo = function(req, res, next) {
+	 var teamId = req.user._id;
+	 var round = req.body.round;
+	 console.log('Arrived to fetch global sale department info ' + teamId + ' && ' + round);
+	 var query = Team.aggregate([
+	                         { 
+	                             $match : {_id : mongoose.Types.ObjectId(teamId)}
+	                         },
+	                         {   $project : { 'roundLevelInformation' : 1}
+	                         },
+	                         {   $unwind : '$roundLevelInformation'
+	                         },
+	                         {   $match : {'roundLevelInformation.round' : round}
+	                         },
+	                         {   $project : {'roundLevelInformation.department' : 1}
+	                         },
+	                         {    $unwind : '$roundLevelInformation.department'
+	                         },
+	                         {    $match : {'roundLevelInformation.department.name' : 'Global Sales' }
+	                         }   
+	 ]);
+	 
+	 query.exec(function(err,departments){
+		  res.json(departments);
+	 });
+};
+
+exports.getCurrentRoundNewGlobalOffers = function(req, res, next) {
+	var teamId = req.user._id;
+	var round = req.body.round;
+	
+	 console.log('Arrived to fetch global sale department info ' + teamId + ' && ' + round);
+	 var query = Team.aggregate([
+	                         { 
+	                             $match : {_id : mongoose.Types.ObjectId(teamId)}
+	                         },
+	                         {   
+	                        	 $project : { 'offer' : 1}
+	                         },
+	                         {   
+	                        	 $unwind : '$offer'
+	                         },
+	                         {   
+	                        	 $match : {$and:[{'offer.round' : Number(round)},{'offer.marketType':{$ne:'Local Market Portfolio'}},{'offer.offerType':'New'}]}
+	                         },
+	                         {   
+	                        	 $group : {"_id" : null, "count":{"$sum":1}}
+	                         }
+	 ]);
+	 
+	 query.exec(function(err,offerCount){
+		 console.log('Offers count??// ' + JSON.stringify(offerCount)); 
+		 res.json(offerCount);
+	 });
+};
+
+
+exports.getCurrentRoundRiskStrategies = function(req, res, next) {
+	var teamId = req.user.id;
+	var round = req.body.round;
+	var query = Team.aggregate([
+	                            { 
+	                            	$match : {_id : mongoose.Types.ObjectId(teamId)}
+		                         },
+		                         {   
+		                        	 $project : { 'riskStrategy' : 1}
+		                         },
+		                         {   
+		                        	 $unwind : '$riskStrategy'
+		                         },{
+		                        	 $match :{'riskStrategy.round' : round}
+		                         }
+ 
+	                            ]);
+	 query.exec(function(err,riskStrategies){
+//		 console.log('riskStrategies >>  ' + JSON.stringify(riskStrategies)); 
+		 res.json(riskStrategies);
+	 });
+}
+
+exports.addToRiskStrategy = function (req, res, next) {
+	var teamId = req.user.id;
+	var round = req.body.round;
+	var strategyId = req.body.strategyId;
+	var countryISOCode = req.body.countryISOCode;
+	var industry = req.body.industry;
+	console.log('Reached addToRiskStrategy' + JSON.stringify(req.body));
+	var country;
+	var countryNameQuery = Country.aggregate ([
+							            {       $match:{isoNumericalCode: countryISOCode}
+							            },
+							            {       $project : { country : 1}
+							            }
+							]);
+	countryNameQuery.exec(function(err, countryResult){
+		if (err) {
+			console.log(' error ' + JSON.stringify(err));
+		}
+		console.log(' error country' + JSON.stringify(countryResult));
+		country = countryResult[0].country;
+		var checkForCountryAndIndustry = Team.aggregate ([
+	            {       
+	            	$match:{_id: mongoose.Types.ObjectId(teamId) }
+	            },
+	            {       
+	            	$project : { riskStrategy : 1}
+	            },
+	            {
+	                $unwind:"$riskStrategy"
+	            },{
+	                $match:{"riskStrategy.round":Number(round),
+	                    "riskStrategy.buyerCountry":country,
+	                    "riskStrategy.buyerIndustry":industry
+	                }
+	            }
+			]);
+
+			checkForCountryAndIndustry.exec(function(err, existingStrategies){
+			console.log(' existingStrategies.length == ' + JSON.stringify(existingStrategies));
+			if (typeof(existingStrategies) != 'undefined' && existingStrategies.length > 0) {
+				return res.json(500, "Strategy already exists, please refresh screen.");
+			}
+			
+			var addToStrategyQuery = Team.update(
+				    { "riskStrategy._id" :  mongoose.Types.ObjectId(strategyId)},
+				    { $addToSet : {  'riskStrategy.$.buyerCountry':country,
+				         "riskStrategy.$.buyerIndustry":industry} 
+				    }
+				);
+			addToStrategyQuery.exec(function(err, result){
+			console.log('err & result :::: ' + JSON.stringify(err) + ' && ' + JSON.stringify(result));
+				if(err) {
+				res.json(500, "Error while adding to strategy!");
+			}else {
+				res.json(result);	
+			}
+			
+			});
+			
+			});
+	});
+//	console.log('What is tcountyu ' + JSON.stringify(country));
+	
+	
+	
+};
+
+exports.removeFromRiskStrategy = function (req, res, next) {
+	var teamId = req.user.id;
+	var round = req.body.round;
+	var strategyId = req.body.strategyId;
+	var countryISOCode = req.body.countryISOCode;
+	var industry = req.body.industry;
+	console.log('Reached addToRiskStrategy' + JSON.stringify(req.body));
+	var country;
+	var countryNameQuery = Country.aggregate ([
+							            {       $match:{isoNumericalCode: countryISOCode}
+							            },
+							            {       $project : { country : 1}
+							            }
+							]);
+	countryNameQuery.exec(function(err, countryResult){
+		if (err) {
+			console.log(' error ' + JSON.stringify(err));
+		}
+		console.log(' error country' + JSON.stringify(countryResult));
+		country = countryResult[0].country;
+/*		var checkForCountryAndIndustry = Team.aggregate ([
+	            {       
+	            	$match:{_id: mongoose.Types.ObjectId(teamId) }
+	            },
+	            {       
+	            	$project : { riskStrategy : 1}
+	            },
+	            {
+	                $unwind:"$riskStrategy"
+	            },{
+	                $match:{"riskStrategy.round":Number(round),
+	                    "riskStrategy.buyerCountry":country,
+	                    "riskStrategy.buyerIndustry":industry
+	                }
+	            }
+			]);*/
+
+//			checkForCountryAndIndustry.exec(function(err, existingStrategies){
+			/*console.log(' existingStrategies.length == ' + JSON.stringify(existingStrategies));
+			if (typeof(existingStrategies) != 'undefined' && existingStrategies.length > 0) {
+				return res.json(500, "Strategy already exists, please refresh screen.");
+			}*/
+			
+			var removeFromStrategyQuery = Team.update(
+				    { "riskStrategy._id" :  mongoose.Types.ObjectId(strategyId)},
+				    { $pull : {  'riskStrategy.$.buyerCountry':country,
+				         "riskStrategy.$.buyerIndustry":industry} 
+				    }
+				);
+			removeFromStrategyQuery.exec(function(err, result){
+			console.log('err & result :::: ' + JSON.stringify(err) + ' && ' + JSON.stringify(result));
+				if(err) {
+				res.json(500, "Error while removing from strategy!");
+			}else {
+				res.json(result);	
+			}
+			
+			});
+			
+//			});
+	});
+//	console.log('What is tcountyu ' + JSON.stringify(country));
+	
+	
+	
 };

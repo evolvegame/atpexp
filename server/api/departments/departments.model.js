@@ -5,9 +5,11 @@ var Schema = mongoose.Schema;
 
 var DepartmentsSchema = mongoose.Schema({
   name: String,
+	description: String,
   size: [{
 	  unit: String,
-	  cost: Number
+	  cost: Number,
+	  numberOfBenefits: Number
   	}]
   });
 

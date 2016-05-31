@@ -1,0 +1,33 @@
+<!-- START BREADCRUMB -->
+<ul class="breadcrumb">
+    <li class="active">{{'admin.title'|translate}}</li>
+</ul>
+<!-- END BREADCRUMB -->
+<div class="page-title">
+    <h2>{{'admin.title'|translate}}</h2>
+</div>
+<div class="page-content-wrap">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{'admin.round'|translate}}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-2">
+                        <a href="#" class="tile tile-{{colorCalculated}}">
+                            {{ currRound.round }}
+                            <p>{{'admin.currentRound'|translate}}</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn-danger pull-right" ng-click="calculateRound(currRound)" ng-disabled="disableCalculation()">{{'admin.calculateRound'|translate}} - {{ currRound.round }}</button>
+                    <button class="btn btn-success pull-right" ng-click="nextRound(currRound)" style="margin-right: 10px;" ng-disabled="disableNextRound()">{{'admin.goToNextRound'|translate}}</button>
+                    <toggle-switch class="switch-success" html="true" ng-model="switchStatus" off-label="&#10006;&nbsp;&nbsp;" on-label="&#10004;&nbsp;&nbsp;" knob-label="Stop the Game!!!"
+                                   		ng-click="switchGameControl()"  style="min-width: 350px;" title="When the switch is ON, the game is in stopped mode"></toggle-switch>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

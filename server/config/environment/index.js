@@ -18,15 +18,16 @@ var all = {
   // Root path of server
   root: path.normalize(__dirname + '/../../..'),
 
-  tempUploadDir: '/client/assets/img/uploads/temp',
+  tempUploadDir: '/public/assets/img/uploads/temp',
 
-  targetUploadDir: '/client/assets/img/uploads',
+  targetUploadDir: '/public/assets/img/uploads',
 
   // Server port
-  port: process.env.PORT || 9000,
-
+  
+  port: process.env.VCAP_APP_PORT || 9000,
+  host:process.env.VCAP_APP_HOST || 'localhost',
   // Should we populate the DB with sample data?
-  seedDB: true,
+  seedDB: process.env.ENABLE_SEED,
 
   // Secret for session, you will want to change this and make it an environment variable
   secrets: {

@@ -1,0 +1,438 @@
+<!-- START BREADCRUMB -->
+<div class="mini-dashboard col-md-12">
+   <div class="col-breadcrumb col-md-2">
+    <ul class="breadcrumb">
+        <li><a href="/">{{'bc.link'|translate}}</a></li>
+        <li class="active">{{'market.title'|translate}}</li>
+    </ul>
+</div>
+ <div ng-include="'components/minidash/minidash.html'"></div>
+</div>
+<!-- END BREADCRUMB -->      
+<div class="page-title" style="width:100%;">
+    <h2>{{'market.title'|translate}}</h2>
+	<div ng-show="localTab" class="tile tile-transparent" style="min-width:100px;width:auto;height:5px;border:0px;float:right;" ng-if="localActiveCustomers > 0">
+    	{{localActiveCustomers}} <p> renewal offers</p>
+	</div>
+	<div ng-show="localTab" class="tile tile-transparent" style="min-width:100px;width:auto;height:5px;border:0px;float:right;">
+			{{localNumberOfResources}} / {{localDepartmentSales}}
+		<p title="Number of new offers that you have made out of the total you can make">New offer count</p>
+	</div>
+	<div ng-show="globalTab" class="tile tile-transparent" style="min-width:100px;width:auto;height:5px;border:0px;float:right;" ng-if="globalActiveCustomers > 0">
+    	{{globalActiveCustomers}} <p> renewal offers</p>
+	</div>
+    <div ng-show="globalTab" class="tile tile-transparent" style="min-width:100px;width:auto;height:5px;border:0px;float:right;">
+    	{{globalOfferCount}} / {{globalDepartmentSales}}
+        <p>New offer count</p>
+	</div>
+    <h2 ng-show="" style="float:right"></h2>
+   <!--  <div id="gauge" style="width:400px; height:320px"></div> 
+  <div class="c100 p90 orange" style="font-size: 80px;">
+                    	<span>90</span>
+                        <div class="bar"></div>
+                        <div class="fill"></div>
+                    </div>
+    </div> -->
+    <!-- <percent-circle percent="myPercentModel"></percent-circle> -->
+</div>
+    
+      <!-- <script>
+      	var g = new JustGage({
+	        id: "gauge",
+	        value: 10,
+	        min: 0,
+	        max: 100,
+	        title: "buyer rating"
+      	});
+    </script> -->
+<tabset>
+<tab heading={{'market.tab1.title'|translate}} ng-click="localSelected()">
+<div class="row" style="background: #FAFAFA;">
+        <div class="panel panel-default">
+        <div class="panel-body">
+                <div class="table-responsive">
+                <table style="padding:0px;margin:0px;" width="100%">
+                <tr>
+                <td width=80% ng-show="!showCountryLocalMarket">       
+		        		<br>
+		        		<div class="map-div">
+                                <worldmap data="chartdata" callback-fn="mapChartFn(arg1)"></worldmap>
+                        </div>
+                        <div style="float:center;" ng-show="localMarketMapLoading" >
+                        	<span style="color:red; font-size:16px;">
+								<br>Loading local Market presence! Please wait...<br>
+							</span>
+                        </div>
+                        <div style="float:left;" ng-show="!localMarketMapLoading">
+                        	<br>
+                        	<p>
+                        	 Shaded countries show available local market.<br>
+                        	</p>
+                        </div>
+			</td>
+                	<td width="20%" valign="top" ng-show="!showCountryLocalMarket">
+		                <form name="filterForm" >
+		                <div class="panel-body" style="width:100%;float:top;" ng-show="!localMarketMapLoading" title="Filter for countries with certain market sizes">
+							<button type="button" style="" class="btn" data-toggle="collapse" data-target="#turnOver-panel">
+		            			Market Size &nbsp;<span class="glyphicon glyphicon-euro"></span>
+		        			</button>
+		        			<br> <br>
+		        			<div id="turnOver-panel" class="collapse filter-panel" style="padding:1px;width:auto;background-color:white;">
+		        				<span align="center">From M&nbsp;&euro;&nbsp;&nbsp; </span> 
+		        				<input style="width:50%;" type="number" min="0" name="priceInput" class="form-control" placeholder="{{minRevenue}}" ng-model="fromRevenue" ng-blur="setFromRevenue(fromRevenue)"/>
+		        				<br>  
+		        				<span style="" align="center">To M&nbsp;&euro;&nbsp;&nbsp;&nbsp;</span> 
+		        				<input style="width:50%;" type="number" min="0" ng-model="toRevenue" placeholder="{{maxRevenue}}" name="priceInput" class="form-control" ng-blur="setToRevenue(toRevenue)"/>  
+		        			</div>
+		                </div>
+		                
+		                <div class="panel-body" style="width:100%;float:bottom;" ng-show="!localMarketMapLoading" title="Filter for countries with certain risks">
+		                	<button type="button" style="" class="btn" data-toggle="collapse" data-target="#risk-panel">
+		            			Risk Involved&nbsp;&nbsp;</span><span class="glyphicon glyphicon-cloud"></span>
+		        			</button>
+		                	<div id="risk-panel" class="collapse filter-panel" style="padding:1px;background-color:white;">
+								<div ng-repeat="weather in weatherMap">
+				           			<input id="{{weather.riskRating}}" class="checkbox-custom" name="{{weather.riskRating}}" type="checkbox" ng-model="weather.weatherSelectionStatus" ng-click="CallFilters('weather')">
+				           			<label for="{{weather.riskRating}}" class="checkbox-custom-label"><span class="{{weather.weatherClass}}" style="font-size: 26px;line-height: 30px;" ></span></label>
+		        				</div>
+		                	</div>
+		                </div>
+		                
+		                <!-- <div class="panel-body" style="width:55%;float:right;">
+		                	<button type="button" style="" class="btn" data-toggle="collapse" data-target="#industry-panel">
+		            			Industry&nbsp;&nbsp;<span class="glyphicon glyphicon-oil"></span>
+		        			</button>
+		                	<div id="industry-panel" class="collapse filter-panel" style="padding:1px;background-color:white;position:absolute">
+		                		<div ng-repeat="industry in distinctIndustries">
+				           			<input id="{{industry.industry}}" class="checkbox-custom" name="{{industry.industry}}" type="checkbox" ng-model="industry.isIndustryPresent" ng-click="CallFilters('industry')">
+				           			<label for="{{industry.industry}}" class="checkbox-custom-label">{{industry.industry}}</label>
+		        				</div>	
+		                	</div>
+		                </div> -->
+		                
+		                <!-- <div class="panel-body" style="width:25%;float:left;">
+		                	<button type="button" style="" class="btn" data-toggle="collapse" data-target="#country-panel">
+		            			Countries&nbsp;&nbsp;<span class="glyphicon glyphicon-globe"></span>
+		        			</button>
+		                	<div id="country-panel" class="collapse filter-panel" style="padding:1px;">
+		                		<div>
+		                			<select ng-model="selectedCountry" ng-change="countrySelectEvent(selectedCountry);">
+		                				<option ng-repeat="country in distinctCountries">{{country.country}}</option>
+		                			</select>
+		        				</div>
+		                	</div>
+		                </div> -->
+		                </form>
+			         </td>
+			         
+		<td width="100%" valign="top" ng-show="showCountryLocalMarket">
+			<div class="table-responsive">
+						<div style="float:right;text-align:center;">
+						<a style="font-size:18px;float:right;" href="#" ng-click="goBackToMaps();" ng-show="!localMarketLoading" title="Switch to the world map">
+			            	Click to view map&nbsp;<span class="fa fa-globe"></span>
+		        		</a>
+		        		<span style="vertical-align:middle;" ng-show="!localMarketLoading"></span>
+		        		</div>
+                        <table class="table datatable hover" style="word-wrap:break-word;" width="100%">
+                        <col style="width:5%">
+				        <col style="width:15%">
+				        <col style="width:5%">
+				        <col style="width:5%">
+				        <col style="width:5%">
+				        <col style="width:15%">
+				        <col style="width:15%">
+				        <col style="width:12%">
+				        <col style="width:13%">
+				        <col style="width:5%">
+                            <thead >
+                            	<tr>
+                            		<th colspan="8" class="text-center" style="vertical-align: top;width:100%;" width="100%">
+                            			{{selectedCountry}}&emsp;&emsp;
+                            			<span style="color: red" ng-show="percentageValueError">
+											<br>(Please enter a valid percentage value between 1 - 100 )<br>
+										</span>
+										<span style="color: red" ng-show="resourcesError">
+											<br>(Please enter a valid number )<br>
+										</span>
+										<span style="color: red" ng-show="noLocalMarketError">
+											<br>There is no market present in selected country!<br>
+										</span>
+										<span style="color: red; font-size:16px;" ng-show="localMarketLoading">
+											<br>Loading...<br>
+										</span>
+										
+                            		</th>
+                            		<th align="right" >
+                            			
+                            		</th>
+                            	</tr>
+                                <tr>
+                                    <th rowspan="2" class="text-center" style="vertical-align: middle;"></th>
+                                    <th rowspan="2" class="text-center;" style="vertical-align: middle;">Industry</th>
+                                    <th colspan="2" class="text-center" style="vertical-align: middle;word-wrap:break-word;">Market</th>
+                                    <th colspan="2" class="text-center" style="vertical-align: middle;">&emsp;&emsp;# Offers&emsp;&emsp;</th>
+                                    <th rowspan="2" class="text-center" style="vertical-align: middle;" title="Premium rate in percentage (e.g. 0.1%)">Premium<br>%</th>
+                                    <th colspan="2" class="text-center" style="vertical-align: middle;">BuyerRating</th>
+                                    <th rowspan="2" class="text-center" style="vertical-align: middle;" title="Average accepted risk according to your risk strategies">Risk<br>Acceptance<br>%</th>
+                                </tr> 
+                                <tr>
+                                	<th class="text-center" style="vertical-align: middle;" title="Market size in million Euros"> &euro; M</th>
+                                	<th class="text-center" style="vertical-align: middle;" title="Number of prospective companies of this industry">#</th>
+                                	<th class="text-center" style="vertical-align: middle;" ng-if="currentRoundNumber > 1" title="Number of renewals in this industry">Renewal</th>
+                                	<th class="text-center" style="vertical-align: middle;" ng-if="currentRoundNumber == 1"></th>
+                                	<th class="text-center" style="vertical-align: middle;" title="Number of new offers to be made">New</th>
+                                	<th class="text-center" style="vertical-align: middle;" title="Offers will only be sent to customers with an average buyer rating at or above this value">From</th>
+                                	<th class="text-center" style="vertical-align: middle;" title="Offers will only be sent to customers with an average buyer rating at or below this value">To</th>
+                                	<th></th>
+                                </tr>                                                                        
+                            </thead>
+                            <tbody ng-repeat="cust in localCustomers">
+                             		<!-- <tr>
+	                             		<th>Round</th>
+	                             		<th>Requested CLA</th>
+	                            		<th>Premium %</th>
+	                                    <th>BuyerRating From</th>
+	                                    <th>BuyerRating To</th>
+	                                    <th>Agreed CLA</th>
+	                                    <th>Claims</th>
+                                    </tr> -->
+                                    <tr >
+                                    	<td>
+                                    		<input class="checkbox-custom" id ="{{cust.name}}" name="{{cust.name}}" type="checkbox" ng-model="cust.currentRoundOfferSelection;" ng-click="cust.offerEdited = true;"/>
+                                    		<label for="{{cust.name}}" class="checkbox-custom-label"></label>
+                                    	</td>
+                                    	<td><span class="{{cust.weatherClass}}" style=""></span> {{cust.industry}} </td>
+                                    	<td class="text-center" style="align: right;"> {{cust.revenue | currency:""}}</td>
+                                    	<td class="text-center" style="align: right;"> {{cust.numberOfOrganisation | number:0}}</td>
+                                    	<td>
+											{{cust.allocatedNumOfCustomers}}
+										</td>
+                                    	<td style="padding:5px;vertical-align: middle;" ng-show="cust.resourcesError">
+                                    		<input translate="yes" type="number" style="border-color:red;" name="priceInput" class="form-control" ng-model="cust.mdNumOfResources" ng-blur="cust.currentRoundOfferSelection = true; cust.offerEdited = true; calculateExpextedPremium(cust);"/>
+                                    	</td>
+                                    	<td style="padding:5px;vertical-align: middle;" ng-show="!cust.resourcesError">
+                                    		<input translate="yes" type="number" name="priceInput" class="form-control" ng-model="cust.mdNumOfResources" ng-blur="cust.currentRoundOfferSelection = true; cust.offerEdited = true; calculateExpextedPremium(cust);"/>
+                                    	</td>
+                                    	<td style="padding:1px;vertical-align: middle;" ng-show="cust.showErrorPremiumPercentage">
+											<input translate="yes" type="number" name="priceInput" class="form-control" style="width:90%;float:left;border-color:red;" ng-model="cust.premiumPercentage" ng-blur="premiumPercentageValueListener(cust)"/>
+										</td>
+										<td style="padding:1px;vertical-align: middle;" ng-show="!cust.showErrorPremiumPercentage">
+											<input translate="yes" type="number" name="priceInput" class="form-control" style="width:90%;float:left;" ng-model="cust.premiumPercentage" ng-blur="premiumPercentageValueListener(cust)"/>
+										</td>
+                                    	<td style="padding:1px;vertical-align: middle;" ng-show="cust.showFromError">
+                                    		<input type="number" name="priceInput" class="form-control" style="width:90%;float:left;border-color:red;" ng-model="cust.buyerRatingFrom" ng-blur="validatePercentageValue(cust, 'from');" />
+										</td>
+										<td style="padding:1px;vertical-align: middle;" ng-show="!cust.showFromError">
+											<input type="number" name="priceInput" class="form-control" style="width:90%;float:left;" ng-model="cust.buyerRatingFrom" ng-blur="validatePercentageValue(cust, 'from');" />
+										</td>
+                                    	<td style="padding:1px;vertical-align: middle;" ng-show="cust.showToError">
+											<input type="number" name="priceInput" class="form-control" ng-model="cust.buyerRatingTo" style="width:90%;float:left;border-color:red;" ng-blur="validatePercentageValue(cust, 'to');"/>
+										</td>
+										<td style="padding:1px;vertical-align: middle;" ng-show="!cust.showToError">
+											<input type="number" name="priceInput" class="form-control" ng-model="cust.buyerRatingTo" style="width:90%;float:left;" ng-blur="validatePercentageValue(cust, 'to');"/>
+										</td>
+										<td>
+											{{cust.riskAcceptance}}
+										</td>
+                                    	<td style="vertical-align: bottom;" title="Display your market history for this industry">
+                                    		<input type=checkbox ng-model=show ng-class="show ? 'glyphicon glyphicon-minus':'glyphicon glyphicon-plus'" style="height:10px;font-size: 10px;line-height: 30px;" ng-show="cust.showPastOffers">
+                                    	</td>
+                                    </tr>
+                                    <tr ng-show=show>
+                                    	
+                                    	<td colspan="9" width="100%" align="right">
+                                    	<table class="datatable hover" style="background-color:#e5e5cc;" width="100%">
+									        <col style="width:10%">
+									        <col style="width:15%">
+									        <col style="width:10%">
+									        <col style="width:10%">
+									        <col style="width:15%">
+									        <col style="width:15%">
+									        <col style="width:15%">
+                                    		<tr>
+		                                    	<th class="text-center" style="text-align: middle;" rowspan="2">Round</th>
+			                             		<th class="text-center" style="text-align: center;" colspan="2">Offer</th> <!--  Expected market share -->
+			                            		<th class="text-center" style="text-align: right;" rowspan="2" title="Premium rate that has been proposed in percent">Premium %</th> <!--  -->
+			                                    <th class="text-center" style="text-align: center;" colspan="2">BuyerRating</th> <!--  -->
+			                                    <th class="text-center" style="text-align: right;" rowspan="2" title="Earned premium as a result of this local market strategy">Premium</th>
+			                                    <th class="text-center" style="text-align: center;" rowspan="2" title="Average risk acceptance for this industry and country combined">Risk Acceptance %</th>  
+			                                    <th class="text-center" style="text-align: right;" rowspan="2" title="Paid out claims as a result of this local market strategy">Claims</th> <!--  -->
+	                                    	</tr>
+	                                    	<tr style="border-bottom: 1pt solid">
+	                                    		<th class="text-center" style="align: left;" title="Number of prospective customers that have been approached">Quoted</th>
+	                                    		<th class="text-center" style="align: left;" title="Number of prospective customers that have been won">Won</th>
+	                                    		<th class="text-center" style="align: left;" title="Offers were only sent to customers with an average buyer rating at or above this value">From</th>
+			                                    <th class="text-center" style="align: left;" title="Offers were only sent to customers with an average buyer rating at or below this value">To</th>
+	                                    	</tr>
+	                                    	<tbody ng-repeat="pastOffer in cust.pastOffers">
+	                                    		<tr>
+		                                    		<td style="text-align: center;">{{pastOffer.round}}</td>
+		                                    		<td style="text-align: right;">{{pastOffer.totalOfferCount}}</td>
+		                                    		<td style="text-align: right;">{{pastOffer.allocatedNumOfCustomers}}</td>
+		                                    		<td style="text-align: right;">{{pastOffer.premiumPercentage | currency:""}}</td>
+		                                    		<td style="text-align: center;">{{pastOffer.buyerRatingFrom | currency:""}}</td>
+		                                    		<td style="text-align: center;">{{pastOffer.buyerRatingTo  | currency:""}}</td>
+		                                    		<td style="text-align: right;">{{pastOffer.agreementPremium | currency:""}}</td>
+		                                    		<td style="text-align: center;">{{pastOffer.riskAcceptance | currency:""}}</td>
+		                                    		<td style="text-align: right;">{{pastOffer.claimAmount | currency:""}}</td>
+	                                    		</tr>
+	                                    	</tbody>
+	                                    </table>
+                                    	</td>
+                                    	
+	                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="padding:5px;float:right;">
+                    	<button type="button" style="" class="btn btn-info btn-sm pull-right" data-toggle="collapse" data-target="#country-panel" ng-click="updateLocalOffers();">
+		            			Save
+		        		</button>
+		        	</div>
+		        	<div style="padding:5px;float:right;">
+                    	<button type="button" style="" class="btn btn-info btn-sm pull-right" data-toggle="collapse" data-target="#country-panel" ng-click="goBackToMaps();">
+		            			Cancel
+		        		</button>
+                    </div>
+		</td>
+		</tr>
+		</table>
+</div> 
+</div>
+</div>
+</div>
+</tab>      
+<tab heading={{'market.tab2.title'|translate}} ng-click="globalSelected()"> 
+<div class="row">
+    <div class="col-md-12">    
+        <div class="panel panel-default">
+                <div class="panel-heading">
+                    <ul class="panel-controls">
+                       <!--  <li><a href="#" ng-click="isCollapsedCustomer = !isCollapsedCustomer" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li> -->
+                       <li><a href="#" ng-click="refreshMarketGlobal()" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                    </ul>
+                </div>
+            
+                <div class="panel-body">
+                <div class="table-responsive">
+                        <table datatable="ng" class="table datatable hover" dt-options="dtOptions" width="100%">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:left">{{'market.tab2.name'|translate}}</th>
+                                    <th style="text-align:left">{{'market.tab2.country'|translate}}</th>
+                                    <th style="text-align:left">{{'market.tab2.industry'|translate}}</th>
+                                    <th style="text-align:left" title="Important buyer industry and country of the prospective customer">{{'market.tab2.buyerSegment'|translate}} 1</th>
+                                    <th style="text-align:left" title="Important buyer industry and country of the prospective customer">{{'market.tab2.buyerSegment'|translate}} 2</th>
+                                    <th style="text-align:left" title="Important buyer industry and country of the prospective customer">{{'market.tab2.buyerSegment'|translate}} 3</th>
+                                    <th style="text-align:center" title="Average percentage of risk acceptance, resulting from your current risk strategies"> Risk <br>Acceptance % </th>
+									<th style="text-align:center" title="Experience Score needed for making offer for this customer"> Experience <br>Score <br>Needed </th>
+                                    <th style="text-align:right" title="Amount of money that this company earned in the last year">{{'market.tpl.turnover'|translate}} (€)</th>
+                                    <th style="text-align:center" title="Number of offers the prospective customer has received from all teams">{{'market.tab2.offerCount'|translate}}</th> 
+                                    <th style="text-align:center" title="Make an offer to this company">{{'market.tab2.offer'|translate}}</th> 
+                                                                       
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="cust in customers | filter: { offerFound : '!true' } | filter: {marketType : 'Individual'}">
+                                    <td style="text-align:left">{{ cust.name }}</td>
+                                    <td style="text-align:left">{{ cust.country | translate}}</td>
+                                    <td style="text-align:left">{{ cust.industry | translate}}</td>
+                                    <td style="text-align:left"> <span class="{{cust.buyerPortfolio[0].weatherClass}}"></span>&nbsp;{{ cust.buyerPortfolio[0].country | translate}} - {{ cust.buyerPortfolio[0].industry | translate}}</td>
+                                    <td style="text-align:left"><span class="{{cust.buyerPortfolio[1].weatherClass}}"></span>{{ cust.buyerPortfolio[1].country | translate}} - {{ cust.buyerPortfolio[1].industry | translate}}</td>
+                                    <td style="text-align:left"><span class="{{cust.buyerPortfolio[2].weatherClass}}"></span>{{ cust.buyerPortfolio[2].country | translate}} - {{ cust.buyerPortfolio[2].industry | translate}}</td>
+                                    <td align="center">
+                                    <!-- <div class="c100 {{cust.riskClass}} green" style="font-size: 70px;">
+                        				<span>{{cust.totalRiskAcceptance}}</span>
+                        				<div class="bar"></div>
+				                        <div class="fill"></div>
+          					          </div>
+    								</div> -->
+    								<span>{{cust.totalRiskAcceptance}}</span>
+                                    </td>
+									<td align="center"> {{cust.experienceScoreNeeded}}</td>
+                                    <td align="right">{{ cust.revenue | currency:""}}</td>
+                                    <td align="center">{{ cust.offerCount }}</td>
+                                    <td style="align:center"ng-if="!cust.offerFound"><button type="button" 
+                                        class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust); open()">
+                                       {{'market.tab2.makeOffer'|translate}}</button></td>
+                                    <td ng-if="cust.offerFound"><button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust); modify()">{{'market.tab2.modifyOffer'|translate}}</button>
+                                    <button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust); deleteConfirmation()">{{'market.tab2.deleteOffer'|translate}}</button></td>                                    
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>    
+
+               <!--  <div class="panel-footer" collapse="isCollapsedCustomer"> </div> -->
+            </div>
+        </div> 
+
+</div> 
+
+</div>            
+
+</tab>
+<tab heading={{'market.tab3.title'|translate}} ng-click="offersSelected()">
+<div class="row">
+    <div class="col-md-12">    
+        <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{'market.tab2.default'|translate}}</h3>
+                    <ul class="panel-controls">
+                        <!-- <li><a href="#" ng-click="isCollapsedCustomer = !isCollapsedCustomer" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li> -->
+                       <li><a href="#" ng-click="refreshMarketGlobal()" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                    </ul>
+                </div>
+            
+                <div class="panel-body">
+                <div class="table-responsive">
+                        <table datatable="ng" class="table datatable hover" dt-options="dtOptions" width ="100%">
+                            <thead>
+                                <tr>
+                                    <th>{{'market.tab2.name'|translate}}</th>
+                                    <th>{{'market.tab2.country'|translate}}</th>
+                                    <th title="Expected premium amount for this offer">{{'mimidash.premium'|translate}}</th>
+                                    <th title="Industry of the prospective customer">{{'market.tab2.industry'|translate}}</th>
+                                    <th title="Important buyer industry and country of the prospective customer">{{'market.tab2.buyerSegment'|translate}} 1</th>
+                                    <th title="Important buyer industry and country of the prospective customer">{{'market.tab2.buyerSegment'|translate}} 2</th>
+                                    <th title="Important buyer industry and country of the prospective customer">{{'market.tab2.buyerSegment'|translate}} 3</th>
+                                    <th title="Number of offers the prospective customer has received from all teams">{{'market.tab2.offerCount'|translate}}</th>
+                                    <th title="Renewal or new offer">{{'market.tab2.offerType'|translate }}</th>
+                                    <th>{{'market.tab2.offer'|translate}}</th>                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="cust in customers | filter:{offerFound:true} | filter: {marketType : 'Individual'}">
+                                    <td>{{ cust.name }}</td>
+                                    <td>{{ cust.country | translate}}</td>
+                                    <td>{{ cust.price }}</td>
+                                    <td>{{ cust.industry | translate}}</td>
+                                    <td>{{ cust.buyerPortfolio[0].country | translate}} - {{ cust.buyerPortfolio[0].industry | translate}}</td>
+                                    <td>{{ cust.buyerPortfolio[1].country | translate}} - {{ cust.buyerPortfolio[1].industry | translate}}</td>
+                                    <td>{{ cust.buyerPortfolio[2].country | translate}} - {{ cust.buyerPortfolio[2].industry | translate}}</td>
+                                    <td>{{ cust.offerCount }}</td>
+                                    <td>{{ cust.offerType | translate}}</td>
+                                    <td ng-if="!cust.offerFound"><button type="button" 
+                                        class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust); open()">
+                                       {{'market.tab2.makeOffer'|translate}}</button></td>
+                                    <td ng-if="cust.offerFound"><button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust); modify()" title="Change offer parameters">{{'market.tab2.modifyOffer'|translate}}</button>
+                                    <button type="button" class="btn btn-info btn-rounded btn-xs" ng-click="showCustomer(cust); deleteConfirmation()" title="Cancel this offer">{{'market.tab2.deleteOffer'|translate}}</button></td>                                    
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>    
+
+                <div class="panel-footer" collapse="isCollapsedCustomer"> </div>
+            </div>
+        </div> 
+
+</div> 
+
+</div>            
+
+</tab>
+</tabset>
+
+<!-- END PAGE CONTENT TABBED -->

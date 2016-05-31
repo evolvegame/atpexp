@@ -8,7 +8,7 @@ var TeamSchema = mongoose.Schema({
   name: String,
   provider: String,
   role: { type: String, default: 'user' },
-  members: [{ name: String, email: { type: String, lowercase: true,unique:true }, hashedPassword: String,  salt: String } ],
+  members: [{ name: String, email: { type: String, lowercase: true,unique:true }, hashedPassword: String,  salt: String, isLoggedIn: String} ],
   representingUnit: String,
   slogan: String,
   picture: String,
@@ -31,6 +31,7 @@ var TeamSchema = mongoose.Schema({
   roundLevelInformation: [{
     round: Number,
     capital: Number,
+    bonus : Number,
     premium: Number,
     claims: Number,
     grossIncome: Number,
@@ -57,7 +58,9 @@ var TeamSchema = mongoose.Schema({
   	department: [{
   		name:String,
   		sizeUnit: String,
-  		cost: Number
+  		cost: Number,
+  		numberOfBenefits: Number,
+  		numOfResources: Number
   	}]
   }],
   riskStrategy:[ {
@@ -78,15 +81,33 @@ var TeamSchema = mongoose.Schema({
     price:Number,
     premiumPercentage: Number,
     cld:Number,
+    cla:Number,
     offerType: String,
     offerScore:Number,
-      buyerPortfolio: [{
+    status: String,
+    marketType: String, // to determine if this offer is for local or global market.\
+    buyerRatingFrom: Number,
+    buyerRatingTo: Number,
+    numberOfResources: Number,
+    diffNumberOfResources: Number,
+    allocatedNumOfCustomers: Number,
+    totalOfferCount:Number,
+    buyerPortfolio: [{
+      offerStatus: String,
       country:String,
       industry:String,
       buyerRating:Number,
       cla:Number,
       cld:Number,
-      riskAcceptance:Number
+      riskAcceptance:Number,
+      numberOfOrganisation:Number,
+      allocatedNumOfCustomers: Number,
+      region:String,
+      regionCode: String,
+      countryCode:String,
+      buyerISOCountryCode:String,
+      industryCode: String,
+      rating:Number
     }]
   }],
   customer: [{
@@ -97,7 +118,8 @@ var TeamSchema = mongoose.Schema({
     experiencescoreneeded: Number,
     totalPremium: Number,
     totalClaims: Number,
-    buyerPortfolio: [{country: String, industry: String, buyerRating: Number, cla: Number, riskAcceptance: Number, cld: Number}],
+    marketType: String,
+    buyerPortfolio: [{country: String, industry: String, buyerRating: Number, cla: Number, riskAcceptance: Number, cld: Number, allocatedNumOfCustomers:Number}],
     wonRound:Number,
     wonFrom:String,
     lostTo:String,
@@ -106,9 +128,23 @@ var TeamSchema = mongoose.Schema({
     agreement: {
       premium: Number,
       premiumPercentage: Number,
-      riskStrategyId: Number,
+      riskStrategyId: Number, // TODO: needs to be deleted
       status: String,
-      claims: {claimNumber: Number, buyerPortfolio: Number, claimAmount: Number, round: String}
+      allocatedNumOfCustomers: Number,
+      claims: {claimNumber: Number, buyerPortfolio: Number, claimAmount: Number, round: String},
+      history: [
+			    {
+			      round: Number,
+			      premium: Number,
+			      premiumPercentage: Number,
+			      riskStrategyId: Number, // TODO: needs to be deleted
+			      status: String,
+			      cld: Number,
+			      cla: Number,
+			      allocatedNumOfCustomers: Number,
+			      claims: {claimNumber: Number, buyerPortfolio: Number, claimAmount: Number, round: String}
+			    }
+			   ]
     }
   }],
 
@@ -118,13 +154,30 @@ var TeamSchema = mongoose.Schema({
     percentageCompletion: Number
   },
 
-  notification: {
+  audit: [{
+	userId : String,
+    userEmailId : String,
+    action : String,
+    actionDetails : String,
+    round : Number,
+    time : Date
+}],
+
+  notification: [{
     round: Number,
-    notificationHeader: String,
-    notificationText: String,
-    status: String,
-    displayType: String
-  }
+    contents: [{
+    	notificationHeader: String,
+        notificationText: String,
+        status: String,
+        displayType: String
+    }],
+    audit: [{
+    	round: Number,
+    	user: String,
+    	notificationText: String,
+    	notificationTime: Date
+    }]
+  }]
 
 });
 

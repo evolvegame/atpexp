@@ -4,6 +4,7 @@ var _this = this;
 var Round = require('./round.model');
 var Teams = require('../team/team.model');
 var Customers = require('../customer/customer.model');
+var Projects = require('../projects/projects.model');
 var CalcController = require('./calculation');
 var agreementConverter = require('./agreement.conversion');
 var calcResults = require('./calculationResults');
@@ -191,12 +192,15 @@ exports.calculateRound = function(req, res) {
         var input = {};
         input["allTeams"] = allTeams;
         input["currentRound"] = toBeCalculatedRound;
-        CalcController.calculateExpScorePoints(input, function(err, resultJSON) {
-          if (err) return callback(err);
-          expScores = resultJSON['value1'];
-          teamCalcJSON = resultJSON['value2'];
-          console.log("Step 6 completed.Proceed to Step 7");
-          callback(null, resultJSON);
+        Projects.find(function(err, projects){
+        	input["projects"] = projects;
+        	CalcController.calculateExpScorePoints(input, function(err, resultJSON) {
+	          if (err) return callback(err);
+	          expScores = resultJSON['value1'];
+	          teamCalcJSON = resultJSON['value2'];
+	          console.log("Step 6 completed.Proceed to Step 7");
+	          callback(null, resultJSON);
+	        });
         });
       }
 
@@ -266,7 +270,20 @@ exports.calculateRound = function(req, res) {
       }
 
       ,
+      
       step11: function(callback) {
+          console.log("Step 11: Customer Allocation for Local Market");
+          var input = {};
+          input["customerAllocation"] = customerAllocation;
+          input["toBeCalculatedRound"] = toBeCalculatedRound;
+          agreementConverter.agreementConversionLocalMarket(input, function(err, result) {
+            if (err) return callback(err);
+            console.log("Step 11 completed.Proceed to Step 12");
+            callback(null, result);
+          });
+        }
+      ,
+      step12: function(callback) {
         console.log("Step 11: Populate round level values");
         calcResults.populateValues(toBeCalculatedRound, function(err, result) {
           if (err) return callback(err);
@@ -276,7 +293,7 @@ exports.calculateRound = function(req, res) {
       }
 
       ,
-      step12: function(callback) {
+      step13: function(callback) {
         console.log("Step 12: Populate capital ranking");
         calcResults.capitalRanking(toBeCalculatedRound, function(err, result) {
           if (err) return callback(err);
@@ -286,7 +303,7 @@ exports.calculateRound = function(req, res) {
       }
 
       ,
-      step13: function(callback) {
+      step14: function(callback) {
         console.log("Step 13: Populate country level ranking");
         calcResults.countryCapitalRanking(toBeCalculatedRound,function(err, result) {
           if (err) return callback(err);
@@ -296,8 +313,8 @@ exports.calculateRound = function(req, res) {
       }
 
       ,
-      step14: function(callback) {
-        console.log("Final step. Update Calculation Flag to true for the round");
+      step15: function(callback) {
+        console.log("Step 14. Update Calculation Flag to true for the round");
         Round.findOneAndUpdate(
           {
             "round": toBeCalculatedRound
@@ -308,10 +325,24 @@ exports.calculateRound = function(req, res) {
           }
          , function(err) {
           if (err != null) return callback(err)
-          console.log("Great Job... Calculation completed successfully. Hurray...");
+          console.log("Step 14 completed. Proceed to Step 15");
           callback(null);
         });
-      }
+      },
+      step16: function(callback) {
+          console.log("Final step. Reset offer count for all customers to zero");
+          Customers.update({},{
+        		  offerCount : 0
+          },
+          {
+        	  multi: true
+          },
+          function (err) {
+              if (err) return callback(err)
+              console.log("Great Job... Calculation completed successfully. Hurray...");
+              callback(null);
+          });
+        }
     },
     // End - async.series1. Handle results
     function(err, results) {
@@ -360,7 +391,54 @@ function handleErrors(res, err, errorCode) {
   });
 }
 
-function initializeRoundLevelInfo(newRound) {
+function initializeNewRoundNotifications(nextRoundNum, notificationArray){
+	var newRoundNotification = {};
+	for (var i = 0; i < notificationArray.length; i++) {
+		var notification = notificationArray[i];
+		if (notification.round == (nextRoundNum - 1)) {
+			newRoundNotification['round'] = nextRoundNum;
+			var newRoundContents = [];
+			for (var j = 0 ; j < notification.contents.length; j++) {
+				var contents = {};
+				contents['notificationHeader'] = notification.contents[j].notificationHeader;
+				contents['notificationText'] = notification.contents[j].notificationText;
+				contents['status'] = 'false';
+				contents['displayType'] = 'icheckbox_minimal-grey';
+				newRoundContents.push(contents);
+			}
+			newRoundNotification['contents'] = newRoundContents;
+			break;
+		}
+	}
+	
+	return newRoundNotification;
+}
+
+function copyOverRiskStrategyFromPreviousRound(newRound, allPreviousRoundRiskStrategies){
+	var currentRoundRiskStrategies = [];
+	
+	
+	allPreviousRoundRiskStrategies.forEach(function(previousRoundRiskStrategy){
+		if(checkVariables(previousRoundRiskStrategy) && previousRoundRiskStrategy.round == (newRound - 1)) {
+			var currentRoundRiskStrategy = {};
+			currentRoundRiskStrategy['round'] = newRound;
+			currentRoundRiskStrategy['strategyId'] = previousRoundRiskStrategy.strategyId;
+			currentRoundRiskStrategy['strategyName'] = previousRoundRiskStrategy.strategyName;
+			currentRoundRiskStrategy['buyerCountry'] = previousRoundRiskStrategy.buyerCountry;
+			currentRoundRiskStrategy['buyerIndustry'] = previousRoundRiskStrategy.buyerIndustry;
+			currentRoundRiskStrategy['strategyRatingBand1'] = previousRoundRiskStrategy.strategyRatingBand1;
+			currentRoundRiskStrategy['strategyRatingBand2'] = previousRoundRiskStrategy.strategyRatingBand2;
+			currentRoundRiskStrategy['strategyRatingBand3'] = previousRoundRiskStrategy.strategyRatingBand3;
+			currentRoundRiskStrategy['strategyRatingBand4'] = previousRoundRiskStrategy.strategyRatingBand4;
+			currentRoundRiskStrategy['strategyRatingBand5'] = previousRoundRiskStrategy.strategyRatingBand5;
+			currentRoundRiskStrategies.push(currentRoundRiskStrategy);
+		}
+	});
+	return currentRoundRiskStrategies;
+	
+}
+
+function initializeRoundLevelInfo(newRound, allPreviousRoundLevelInformation) {
   var roundLevelInformation = {};
   roundLevelInformation['round'] = newRound;
   roundLevelInformation['capital'] = 0;
@@ -384,11 +462,29 @@ function initializeRoundLevelInfo(newRound) {
   roundLevelInformation['CountryLevelExperienceScoreRankingPosition'] = 0;
   roundLevelInformation['customers'] = 0;
   roundLevelInformation['project'] = [];
-  roundLevelInformation['department'] = [];
+  var currentRoundDepartments = [];
+  allPreviousRoundLevelInformation.forEach(function(prevRoundLevelInformation){
+	  if(checkVariables(prevRoundLevelInformation) && prevRoundLevelInformation.round == (newRound - 1)){
+		  var prevRoundDepartment = prevRoundLevelInformation.department;
+		  if(checkVariables(prevRoundDepartment)) {
+			  prevRoundDepartment.forEach(function(previousDepartment){
+				  var department = {
+						  name: previousDepartment.name,
+						  sizeUnit: previousDepartment.sizeUnit,
+						  cost: previousDepartment.cost,
+						  numberOfBenefits: previousDepartment.numberOfBenefits
+				  }
+				  currentRoundDepartments.push(department);
+			  });
+		  }
+	  }
+  });
+  roundLevelInformation['department'] = currentRoundDepartments;
   return roundLevelInformation;
 }
 
 function renewOffersForTeams(nextRoundNum, callback) {
+	console.log('About to renew offers -- !!!');
 	async.waterfall([
 	   function(callback) {
         Teams.find().exec(function(err, teams) {
@@ -397,49 +493,84 @@ function renewOffersForTeams(nextRoundNum, callback) {
           });
         },
         function(teams, callback) {
-        	async.forEach(teams, function(team, callback){
+        	async.forEachSeries(teams, function(team, callback){
+        		//console.log('working on offer renewals for team -- ' + team.name);
         		var existingOffers = team.offer;
         		var customers = team.customer;
-        		async.forEach(existingOffers, function (existingOffer, callback){
+        		async.forEachSeries(existingOffers, function (existingOffer, callback){
         			if (existingOffer.round == nextRoundNum - 1){
-        				for (var i = 0 ; i < customers.length; i ++) {
-        					if( customers[i].businessName == existingOffer.marketBusinessName && customers[i].agreement.status == 'Active') {
-        						var renewedOffer = {
-        							    round: nextRoundNum,
-        							    marketBusinessName: existingOffer.marketBusinessName,
-        							    price:existingOffer.price,
-        							    premiumPercentage: existingOffer.premiumPercentage,
-        							    cld:existingOffer.cld,
-        							    offerType: 'Renew',
-        							    offerScore: existingOffer.offerScore
-        						};
-        						
-        						var buyerPortfolio = new Array(existingOffer.buyerPortfolio.length);
-        						for (var j= 0; j<existingOffer.buyerPortfolio.length; j++) {
-        							var portfolio = {
-        								      country:existingOffer.buyerPortfolio[j].country,
-        								      industry:existingOffer.buyerPortfolio[j].industry,
-        								      buyerRating:existingOffer.buyerPortfolio[j].buyerRating,
-        								      cla:existingOffer.buyerPortfolio[j].cla,
-        								      riskAcceptance:existingOffer.buyerPortfolio[j].riskAcceptance
-        							}
-        							buyerPortfolio[j] = portfolio;
-        						}
-        						
-        						renewedOffer.buyerPortfolio = buyerPortfolio;
-        						
-        						team.offer.push(renewedOffer);
-        						team.save(function(err) {
-                                    if (err != null){
-                                    	console.log(JSON.stringify('Something went wrong while saving renewed Offer-- ' + err));
-                                    	return callback(err);
-                                    }
-                                    callback(null);
-                                });
-        						break;
-        					}
+        				if(!checkVariables(existingOffer.marketType) || existingOffer.marketType != 'Local Market Portfolio'){
+	        				for (var i = 0 ; i < customers.length; i ++) {
+	        					if( customers[i].businessName == existingOffer.marketBusinessName && customers[i].agreement.status == 'Active') {
+	        						var renewedOffer = {
+	        							    round: nextRoundNum,
+	        							    marketBusinessName: existingOffer.marketBusinessName,
+	        							    price:existingOffer.price,
+	        							    premiumPercentage: existingOffer.premiumPercentage,
+	        							    cld:existingOffer.cld,
+	        							    offerType: 'Renewal',
+	        							    offerScore: existingOffer.offerScore
+	        						};
+	        						
+	        						var buyerPortfolio = new Array(existingOffer.buyerPortfolio.length);
+	        						for (var j= 0; j<existingOffer.buyerPortfolio.length; j++) {
+	        							var portfolio = {
+	        								      country:existingOffer.buyerPortfolio[j].country,
+	        								      industry:existingOffer.buyerPortfolio[j].industry,
+	        								      buyerRating:existingOffer.buyerPortfolio[j].buyerRating,
+	        								      cla:existingOffer.buyerPortfolio[j].cla,
+	        								      riskAcceptance:existingOffer.buyerPortfolio[j].riskAcceptance
+	        							}
+	        							buyerPortfolio[j] = portfolio;
+	        						}
+	        						
+	        						renewedOffer.buyerPortfolio = buyerPortfolio;
+	        						
+	        						team.offer.push(renewedOffer);
+	        						team.save(function(err) {
+	                                    if (err != null){
+	                                    	console.log('Saving team -- ' + JSON.stringify(renewedOffer) + ' for team -- ' + team.name);
+	                                    	console.log(JSON.stringify('Something went wrong while saving renewed Offer-- ' + err));
+	                                    	return callback(err);
+	                                    }
+	//                                    callback(null);
+	                                });
+	        						break;
+	        					}
+	        				}
+	        				callback(null);
+        				} else {
+        					var renewedOffer = {
+    							    round: nextRoundNum,
+    							    marketBusinessName: existingOffer.marketBusinessName,
+    							    price:existingOffer.price,
+    							    premiumPercentage: existingOffer.premiumPercentage,
+    							    cld:existingOffer.cld,
+    							    offerType: 'Renewal',
+    							    offerScore: existingOffer.offerScore,
+    							    marketType: 'Local Market Portfolio',
+    							    buyerRatingFrom: existingOffer.buyerRatingFrom,
+    							    buyerRatingTo: existingOffer.buyerRatingTo,
+    							    numberOfResources: existingOffer.numberOfResources,
+    							    diffNumberOfResources: 0,
+    							    allocatedNumOfCustomers: existingOffer.allocatedNumOfCustomers
+    						};
+    						
+    						renewedOffer.buyerPortfolio = existingOffer.buyerPortfolio;
+    						//console.log('Renewing offer for local market ---> ' + JSON.stringify(renewedOffer));
+    						team.offer.push(renewedOffer);
+    						team.save(function(err) {
+    							//console.log('Saving team -- ' + JSON.stringify(renewedOffer) + ' for team -- ' + team.name);
+    							if (err){
+                                	console.log(JSON.stringify('Something went wrong while saving renewed Offer-- ' + err));
+                                	callback(err);
+                                }
+                                callback(null);
+                            });
         				}
-        				
+        			} else {
+        				//console.log('About to call back in else');
+        				callback(null);
         			}
         		}, function(err){
         			if (err) return callback(err);
@@ -482,7 +613,7 @@ function setNewRoundLevelInfo(nextRoundNum, callback) {
                   roundsInfo.pull(roundInfoId);
                   team.save(function(err) {
                     if (err != null) return callback(err);
-                    console.log("Deleting duplicate round info -->" + team.name);
+                    //console.log("Deleting duplicate round info -->" + team.name);
                     callback(null);
                   });
                 }
@@ -510,11 +641,22 @@ function setNewRoundLevelInfo(nextRoundNum, callback) {
       function(teams, callback) {
         async.forEach(teams,
           function(team, callback) {
-            var newRoundInfo = initializeRoundLevelInfo(nextRoundNum);
+            var newRoundInfo = initializeRoundLevelInfo(nextRoundNum, team.roundLevelInformation);
             team.roundLevelInformation.push(newRoundInfo);
+            
+            var newRoundNotifications = initializeNewRoundNotifications(nextRoundNum, team.notification);
+            team.notification.push(newRoundNotifications);
+            
+            var newRoundRiskStrategies = copyOverRiskStrategyFromPreviousRound(nextRoundNum, team.riskStrategy);
+            if(checkVariables(newRoundRiskStrategies)){
+            	newRoundRiskStrategies.forEach(function(newRoundRiskStrategy) {
+            		team.riskStrategy.push(newRoundRiskStrategy);
+            	});
+            	
+            }
             team.save(function(err) {
               if (err != null) return callback(err);
-              console.log("Saving team with new round info-->" + team.name);
+              //console.log("Saving team with new round info-->" + team.name);
               callback(null);
             });
           },

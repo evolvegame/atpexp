@@ -6,7 +6,16 @@ var mongoose = require('mongoose'),
 var CountrySchema = new Schema({
 	sno: String,
 	region:String,
-    country: String
+    country: String,
+    isoNumericalCode: String,
+    termData: [{
+    		termId: Number,
+    		industryName: String,
+    		meanEL: Number,
+        	standardDeviationEL: Number,
+        	weatherSymbolRating: Number    		
+    }]
+        	
  
 });
 

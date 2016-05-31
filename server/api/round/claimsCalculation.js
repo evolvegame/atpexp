@@ -2,7 +2,7 @@
 var Round = require('./round.model');
 var Teams = require('../team/team.model');
 var Customers = require('../customer/customer.model');
-var LossRatio = require('../customer/lossratio.model');
+var Country = require('../country/country.model');
 var normInv = require('./norminv');
 var async = require('async');
 
@@ -11,23 +11,35 @@ function checkVariables(input) {
     else return false;
 }
 
-function lossRatioQuery(country, industry) {
-    var query = LossRatio.findOne({
-        Country: country,
-        Industry: industry
-    });
+function lossRatioQuery(countryName, industry) {    
+    var query = Country.aggregate(
+                {
+                    $match:{"country":countryName}
+                },{
+                    $unwind:"$termData"
+                },{
+                    $match:{"termData.industryName":industry}
+                },{
+                    $sort:{"termData.termId":-1}
+                },{
+                    $limit:1
+                }
+    );
     return query;
 }
 
+
+
 // Claims calculation for each agreement which is active 
 // is being done here
-exports.calculateClaims = function (team, callback) {
+exports.calculateClaims = function (team, currentRound, callback) {
     var claims = 0;
     try {
         var customers = team.customer;
         console.log("Extracting claims from agreements for team -->" + team.name);
         async.forEachSeries(customers,
             function (customer, callback) {
+        	//TODO: loop through agreement level for each customer.
                 var customerClaim = 0;
                 var buyerPortfolio;
                 if (checkVariables(customer) && checkVariables(customer.agreement) && checkVariables(customer.agreement.status) &&
@@ -47,13 +59,13 @@ exports.calculateClaims = function (team, callback) {
                                     cld = buyer.cld;
                                     console.log("CLD value for customer " + customer.businessName + " is -->" + cld);
                                 }
-
+                                console.log('buyer.buyerRating ---->>>>>>>>>>>>>> ' + buyer.buyerRating);
                                 if (checkVariables(buyer.buyerRating) && buyer.buyerRating > 0) {
                                     var buyerRating = buyer.buyerRating;
-                                    var upperMean = 100;
+                                    var upperMean = 1;
                                     var lowerMean = 0;
-                                    if (buyerRating < 95) upperMean = (buyerRating + 5) / 100;
-                                    if (buyerRating > 5) lowerMean = (buyerRating - 5) / 100;
+                                    if (buyerRating < 95) upperMean = (buyerRating + 10) / 100;
+                                    if (buyerRating > 5) lowerMean = (buyerRating - 10) / 100;
                                     probability = Math.random() * (upperMean - lowerMean) + lowerMean;
                                     console.log("Probability value for customer " + customer.businessName + " is -->" + probability);
                                 }
@@ -67,9 +79,9 @@ exports.calculateClaims = function (team, callback) {
                                             var query = lossRatioQuery(country, industry);
                                             query.exec(function (err, lossRatio) {
                                                 if (err) return callback(err);
-                                                if (checkVariables(lossRatio)) {
-                                                    meanEl = lossRatio.MeanEL;
-                                                    stdDevEl = lossRatio.StandardDeviationEL;
+                                                if (checkVariables(lossRatio) && checkVariables(lossRatio[0].termData)) {
+                                                    meanEl = lossRatio[0].termData.meanEL;
+                                                    stdDevEl = lossRatio[0].termData.standardDeviationEL;
                                                     if (probability > 0 && probability < 1 && stdDevEl >= 0) {
                                                         lossratioVal = normInv.normsInv(probability, meanEl, stdDevEl);
                                                     }
@@ -95,8 +107,26 @@ exports.calculateClaims = function (team, callback) {
                             },
                             function (err) {
                                 if (err) return callback(err);
-                                claims = claims + customerClaim;
-                                callback(null);
+                                var agreementHistory = customer.agreement.history;
+                                for (var i = 0 ; i < agreementHistory.length; i++) {
+                                	if(agreementHistory[i].round == currentRound) {
+                                		agreementHistory[i].claims.claimAmount = customerClaim;
+                                		break;
+                                	}
+                                }
+                                Teams.update({
+                                    "customer._id": customer._id
+                                  }, {
+                                    $set: {
+                                      "customer.$.agreement.claims.claimAmount": customerClaim,
+                                      "customer.$.agreement.history": agreementHistory
+                                    }
+                                  }, function(err) {
+                                    if (err != null) return callback(err)
+                                    claims = claims + customerClaim;
+                                    callback(null);
+                                  });
+                                
                             });
 
                     } else {

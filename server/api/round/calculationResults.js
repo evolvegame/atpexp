@@ -75,6 +75,7 @@ exports.populateValues = function (currentRound, callback) {
                     function (team, callback) {
 
                         var capital = team.capital;
+                        var bonus = 0;
                         var premium = 0;
                         var claims = 0;
                         var claimsRatio = 0;
@@ -96,17 +97,21 @@ exports.populateValues = function (currentRound, callback) {
                             function (callback) {
                                 try {
                                     var customers = team.customer;
-                                    console.log("Extracting premiums from agreements for team -->" + team.name);
+//                                    console.log("Extracting premiums from agreements for team -->" + team.name);
                                     customers.forEach(function (customer) {
                                         if (checkVariables(customer) && checkVariables(customer.agreement) && checkVariables(customer.agreement.premium) &&
                                             checkVariables(customer.agreement.status) &&
                                             customer.agreement.status == 'Active') {
                                             var agreementPremium = customer.agreement.premium;
                                             premium = premium + agreementPremium;
-                                            countActiveCustomers = countActiveCustomers + 1;
+                                            if (customer.marketType == 'Individual') {
+                                            	countActiveCustomers = countActiveCustomers + 1;	
+                                            } else {
+                                            	countActiveCustomers = countActiveCustomers + customer.agreement.allocatedNumOfCustomers;
+                                            }                                            
                                         }
                                     });
-                                    console.log("Completed extraction of premiums for " + team.name + ". Premium value -->" + premium);
+//                                    console.log("Completed extraction of premiums for " + team.name + ". Premium value -->" + premium);
                                     callback(null);
                                 } catch (err) {
                                     if (err) return callback(err);
@@ -114,11 +119,11 @@ exports.populateValues = function (currentRound, callback) {
                             }
                             ,
                             function (callback) {
-                                console.log("Get the claims for all  active customers for team"+team.name);
-                                claimsCalc.calculateClaims(team,function (err, claimsTot) {
+//                                console.log("Get the claims for all  active customers for team"+team.name);
+                                claimsCalc.calculateClaims(team, currentRound, function (err, claimsTot) {
                                     if (err) return callback(err);
                                     claims = (claimsTot.toFixed(2))/1;
-                                    console.log("Completed claims calculation  for team"+team.name);
+//                                    console.log("Completed claims calculation  for team"+team.name);
                                     callback(null);
                                 });
                             }
@@ -130,13 +135,18 @@ exports.populateValues = function (currentRound, callback) {
                                         if (checkVariables(roundInfo) && checkVariables(roundInfo.round) && roundInfo.round == currentRound) {
                                             roundInfoId = roundInfo._id;
                                             expScore = roundInfo.experienceScore;
+                                            
+                                            if (checkVariables(roundInfo.bonus)) {
+                                                    bonus  = roundInfo.bonus;    
+                                            }
+                                            
                                             if (checkVariables(roundInfo.project)) {
                                                 try {
                                                     var projects = roundInfo.project;
                                                     projects.forEach(function (project) {
                                                         investment = investment + calculateInvestment(project, allProjects);
                                                     });
-                                                    console.log("Completed extraction of investments for " + team.name + ". Investment value -->" + investment);
+//                                                    console.log("Completed extraction of investments for " + team.name + ". Investment value -->" + investment);
                                                 } catch (err) {
                                                     if (err) return callback(err);
                                                 }
@@ -151,16 +161,18 @@ exports.populateValues = function (currentRound, callback) {
                                                             if (department.name == 'Local Sales' || department.name == 'Global Sales') salesforceSize = salesforceSize + department.cost;
                                                             if (department.name == 'Marketing') marketingBudget = marketingBudget + department.cost;
                                                             if (department.name == 'Facilities') facilities = facilities + department.cost;
+                                                            
+                                                            totalExpense = totalExpense + department.cost;
                                                         }
                                                     });
-                                                    totalExpense = salesforceSize + underwriterDepartmentSize + iTMaintenance + marketingBudget + facilities;
-                                                    console.log("Completed extraction of expenses for " + team.name + ". Expenses value -->" + totalExpense);
+                                                    //totalExpense = salesforceSize + underwriterDepartmentSize + iTMaintenance + marketingBudget + facilities;
+//                                                    console.log("Completed extraction of expenses for " + team.name + ". Expenses value -->" + totalExpense);
                                                 } catch (err) {
                                                     if (err) return callback(err);
                                                 }
                                             }
 
-                                            console.log("Completed all round level information for team --> " + team.name)
+//                                            console.log("Completed all round level information for team --> " + team.name)
                                             callback(null)
 
                                         } else {
@@ -174,18 +186,23 @@ exports.populateValues = function (currentRound, callback) {
                             }
                         ], function (err, results) {
                             if (err) return callback(err);
-                            grossIncome = premium - (claims + totalExpense + investment);
+                            grossIncome = premium + bonus - (claims + totalExpense + investment);
                             grossIncome = (grossIncome.toFixed(2))/1;
-                            console.log("Gross Income for team - " + team.name + " is -->" + grossIncome);
-                            profit = grossIncome * 0.8; // to be checked
+//                            console.log("Gross Income for team - " + team.name + " is -->" + grossIncome);
+                            if (grossIncome > 0 ){
+                             profit = grossIncome * 0.8; // to be checked
+                            }
+                            else{
+                              profit = grossIncome; 
+                            }
                             profit = (profit.toFixed(2))/1;
-                            console.log("Profit for team - " + team.name + " is -->" + profit);
-                            capital = capital + profit;
+//                            console.log("Profit for team - " + team.name + " is -->" + profit);
+                            capital = capital + profit + bonus ;
                             capital = (capital.toFixed(2))/1;
-                            console.log("Capital for team - " + team.name + " is -->" + capital);
+//                            console.log("Capital for team - " + team.name + " is -->" + capital);
                             async.series([
                                 function (callback) {
-                                    console.log("Update the calculation results at current round level -->" + roundInfoId);
+//                                    console.log("Update the calculation results at current round level -->" + roundInfoId);
                                     try {
                                         Teams.update({
                                             "roundLevelInformation._id": roundInfoId
@@ -193,6 +210,7 @@ exports.populateValues = function (currentRound, callback) {
                                                 $set: {
                                                     "roundLevelInformation.$.capital": capital,
                                                     "roundLevelInformation.$.premium": premium,
+                                                    "roundLevelInformation.$.bonus": bonus,
                                                     "roundLevelInformation.$.claims": claims,
                                                     "roundLevelInformation.$.grossIncome": grossIncome,
                                                     "roundLevelInformation.$.claimsRatio": claimsRatio,
@@ -203,11 +221,12 @@ exports.populateValues = function (currentRound, callback) {
                                                     "roundLevelInformation.$.marketingBudget": marketingBudget,
                                                     "roundLevelInformation.$.facilities": facilities,
                                                     "roundLevelInformation.$.totalExpense": totalExpense,
-                                                    "roundLevelInformation.$.customers": countActiveCustomers
+                                                    "roundLevelInformation.$.customers": countActiveCustomers,
+                                                    "roundLevelInformation.$.experienceScore": expScore
                                                 }
                                             }, function (err) {
                                                 if (err) return callback(err)
-                                                console.log("Update completed for round level information for team" + team.name);
+//                                                console.log("Update completed for round level information for team" + team.name);
                                                 callback(null);
                                             });
                                     } catch (err) {
@@ -215,7 +234,7 @@ exports.populateValues = function (currentRound, callback) {
                                     }
                                 },
                                 function (callback) {
-                                    console.log("Update the calculation results at top level for team -->" + team.name);
+//                                    console.log("Update the calculation results at top level for team -->" + team.name);
                                     try {
                                         var teamId = team._id;
                                         Teams.update({
@@ -239,7 +258,7 @@ exports.populateValues = function (currentRound, callback) {
                                                 }
                                             }, function (err) {
                                                 if (err != null) return callback(err)
-                                                console.log("Update completed at top level for team " + team.name);
+//                                                console.log("Update completed at top level for team " + team.name);
                                                 callback(null, "Updates done successfully for calculation results.");
                                             });
                                     } catch (err) {
@@ -334,7 +353,7 @@ exports.capitalRanking = function (currRound, callback) {
                                                 }
                                             }, function (err) {
                                                 if (err != null) return callback(err)
-                                                console.log("Saving capital ranking for team -->" + team.name + " rank= " + rank);
+//                                                console.log("Saving capital ranking for team -->" + team.name + " rank= " + rank);
                                                 callback(null, "Saved capital ranking");
                                             });
                                     } else callback(null);
@@ -390,14 +409,14 @@ exports.countryCapitalRanking = function (currRound, callback) {
             async.forEachSeries(results,
                 function (result, callback) {
                     if (checkVariables(result._id)) {
-                        console.log("Applying ranking for country -->" + result._id);
+//                        console.log("Applying ranking for country -->" + result._id);
 
                         async.parallel([
 
                             function (callback) {
                                 //Apply for capital ranking at country level
                                 if (checkVariables(result.capital)) {
-                                    console.log("Starting country level capital ranking for --> " + result._id);
+//                                    console.log("Starting country level capital ranking for --> " + result._id);
                                     // sort based on capital
                                     var sortedCapital = result.capital.slice().sort(function (a, b) {
                                         return b - a
@@ -421,7 +440,7 @@ exports.countryCapitalRanking = function (currRound, callback) {
                                         }
                                     }
 
-                                    console.log('Swapped Capital JSON -->' + JSON.stringify(swappedCapitalJSON));
+//                                    console.log('Swapped Capital JSON -->' + JSON.stringify(swappedCapitalJSON));
                                     var teamList = result.teams;
                                     if (checkVariables(teamList)) {
                                         async.forEachSeries(teamList,
@@ -456,7 +475,7 @@ exports.countryCapitalRanking = function (currRound, callback) {
                                                                             }
                                                                         }, function (err) {
                                                                             if (err != null) return callback(err)
-                                                                            console.log("Saving country level capital ranking for team -->" + teamResult.name + " rank = " + rank);
+//                                                                            console.log("Saving country level capital ranking for team -->" + teamResult.name + " rank = " + rank);
                                                                             callback(null);
                                                                         });
                                                                 }
@@ -478,7 +497,7 @@ exports.countryCapitalRanking = function (currRound, callback) {
                             function (callback) {
                                 //Apply for experience score at country level
                                 if (checkVariables(result.expScore)) {
-                                    console.log("Starting experience score ranking at country level for --> " + result._id);
+//                                    console.log("Starting experience score ranking at country level for --> " + result._id);
                                     // sort based on expScore
                                     var sortedExpScore = result.expScore.slice().sort(function (a, b) {
                                         return b - a
@@ -502,7 +521,7 @@ exports.countryCapitalRanking = function (currRound, callback) {
                                         }
                                     }
 
-                                    console.log('Swapped Exp Score JSON -->' + JSON.stringify(swappedExpScoreJSON));
+//                                    console.log('Swapped Exp Score JSON -->' + JSON.stringify(swappedExpScoreJSON));
                                     var teamList = result.teams;
                                     if (checkVariables(teamList)) {
                                         async.forEachSeries(teamList,
@@ -537,7 +556,7 @@ exports.countryCapitalRanking = function (currRound, callback) {
                                                                             }
                                                                         }, function (err) {
                                                                             if (err != null) return callback(err)
-                                                                            console.log("Saving exp score ranking at country level for team -->" + teamResult.name + " rank = " + rank);
+//                                                                            console.log("Saving exp score ranking at country level for team -->" + teamResult.name + " rank = " + rank);
                                                                             callback(null);
                                                                         });
                                                                 }
@@ -558,7 +577,7 @@ exports.countryCapitalRanking = function (currRound, callback) {
 
                         ]
                             , function (err) {
-                                if (err) { console.log(err); return callback(err); }
+//                                if (err) { console.log(err); return callback(err); }
                                 callback(null, "Successfully applied both capital and exp Score ranking at country level for --> " + result._id);
                             })
 

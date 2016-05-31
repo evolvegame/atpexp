@@ -1,0 +1,224 @@
+<div class="panel panel-default" style="width:auto;">
+	<table style="width:100%;">
+	<tr>
+		<td>
+		
+	    <div class="panel-body profile bg-info" style="margin-bottom:15px">
+	        <div class="profile-data">
+	            <div class="profile-data-name">{{ selected.name }}</div>
+	        </div>
+	    </div>
+	    </td>
+    </tr>
+    <tr>
+    <td>
+    <div class="panel-body as-panel-customer" style="width:50%;height:100%;">        
+        <div class="col-md-12">
+            <span href="#" class="tile tile-default">
+                <div style="font-size:12px;"><h6>{{'market.tpl.customer'|translate}}</h6></div>
+                <div class="col-md-4">
+                    <img ng-src="assets/img/flags/{{selected.countryCode | lowercase}}.png" width="32" height="32" style="margin-bottom:4px">
+                    <p style="margin-top:2px;line-height:14px;">{{selected.country | translate}}<small style="color:#bbb"><br>({{ selected.industry | translate}} {{'market.tpl.sector'|translate}})</small></p>
+                </div>
+                <div class="col-md-4">
+                    <span class="label label-warning label-form"><span class="fa fa-flash"></span>&nbsp{{selected.experienceScoreNeeded}}</span>
+                    <p style="line-height:14px;margin-top:10px;">{{'market.tpl.serviceNeed'|translate}}</p>
+                </div>
+                <div class="col-md-4">
+                    <span style="font-size:28px;line-height:36px;">{{(selected.revenue)/1000000 | currency : "&euro;"}}</span>
+                    <p style="margin-top:2px;line-height:14px;">{{'market.tpl.turnover'|translate}}<small style="color:#bbb"><br>{{'market.tpl.millionEuro'|translate}}</small></p>
+                </div>
+            </span>
+        </div>
+    </div>
+    
+    <div class="panel-body as-panel-customer" style="padding-right:15px;width:50%;height:100%;">
+            <span href="#" class="tile tile-default">
+                <div class="col-md-4" style="width:50%;height:70%;"><h6>{{'market.tpl.service'|translate}}</h6>
+                <span class="label label-warning label-form"><span class="fa fa-flash"></span> 
+                &nbsp{{team.experienceScore}} </span> 
+                <p style="line-height:14px;margin-top:8px;padding-right:40px;padding-left:40px;">{{'market.tpl.xpScore'|translate}}</p></div>
+                <div class="col-md-4" style="width:50%;height:70%;">
+                	<p style="font-size:12px;">Risk Acceptance {{selected.totalRiskAcceptance}}%</p>
+                        <p>
+                                <div class="progress progress-small">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{selected.totalRiskAcceptance}}%;"></div>
+                                </div>
+                        </p>
+                </div>
+                <div style="width:100%;heigth:auto;float:left;">
+                <small ng-show="{{team.experienceScore >=selected.experienceScoreNeeded ? true:false }}" style="color:#bbb">
+
+                ({{'market.tpl.xpScore.msgEnough'|translate}}              
+
+                {{ selected.name }}.)</small>
+
+                <small ng-hide="{{team.experienceScore >=selected.experienceScoreNeeded ? true:false }}" style="color:red">
+                {{'market.tpl.xpScore.msgNotEnough'|translate}}              
+
+                {{ selected.name }}.</small>
+                </div>
+            </span>
+        </div>
+    </td>
+    </tr>
+    <tr>
+    <td>
+    <div class="panel-body as-panel-customer">
+     <table>
+     	<tr >
+        <td  width="75%" valign="top">
+           <table style="width:100%;">
+           <tr>
+           <td ng-repeat="buyer in selected.buyerPortfolio" style="padding:15px;">
+            <span class="tile tile-default" style="min-height:320px;min-width:170px;" >
+                <div style="font-size:12px;">
+                	<h6>{{'market.tpl.buyerSegment'|translate}}&nbsp{{$index+1}}</h6>
+                </div>
+                <p style="font-size:12px;"> {{'market.tpl.creditLimitAmount'|translate}} </p>
+                <p style="font-size:12px;"> {{buyer.cla | currency:"&euro;"}}</p>
+                <!-- <p style="font-size:12px;"><img ng-src="assets/img/flags/{{buyer.countryCode }}.png" width="12" height="12" style="margin-bottom:4px">
+                    {{buyer.country}}</p>
+
+                    <p><span class="{{getRatingWeatherIcon(buyer.rating)}}" style="font-size: 20px;line-height: 54px;"></span></p>
+                    <p style="font-size:12px"><span class="fa fa-globe" style="font-size: 12px;line-height: 18px;"></span> {{ buyer.industry }}</p> -->
+
+                    <div class="row">
+                        <div class="col-md-4" style="min-height: 133px;">
+                            <div >
+                                <p style="font-size:12px;">
+                                    <img ng-src="assets/img/flags/{{buyer.countryCode | lowercase}}.png" width="12" height="12" style="margin-bottom:4px">
+                                    {{buyer.country | translate}}</p>
+							</div>
+							<div align="bottom">
+                                    <p style="font-size:12px; bottom:0;" >
+                                        <span class="fa fa-globe" style="font-size: 12px;line-height: 18px;"></span> {{ buyer.industry | translate}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-8" style="postion:absolute; bottom:5px;">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div ><p><span class="{{getRatingWeatherIcon(buyer.country, buyer.industry)}}" style="font-size: 26px;line-height: 54px;"></span></p></div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                     </div>
+
+
+                            <br>
+
+                    
+                    <!-- <p style="font-size:12px;">{{ratingText}}</p> -->
+
+                    <div ng-show="{{ buyer.riskFlag }}" style="position:absolute;bottom: 10px;">
+						<p style="font-size:12px;"> {{'market.tpl.averageBuyerRating'|translate}} {{buyer.rating}}</p>
+                        <br>
+                        <p style="font-size:12px;">Risk Acceptance {{buyer.riskAcceptance}}%</p>
+                        <p>
+                                <div class="progress progress-small">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{buyer.riskAcceptance}}%;"></div>
+                                </div>
+                        </p>
+                    </div>
+
+
+                    <div ng-show="{{!buyer.riskFlag}}" style="position:absolute;bottom: 10px;">
+                    <p style="font-size:12px;"> {{'market.tpl.averageBuyerRating'|translate}} {{buyer.rating}}</p>
+                    <br>
+                    <a ng-href="/risk" ng-click="closeModal()" >                           
+                        <span class="help-block" ng-style="{'padding-right':'40px','padding-left':'40px','color':'red'}" >
+                            {{'market.tpl.noRiskStrategyMsg'|translate}}
+                        </span>
+                    </a>
+                    </div>
+
+                </span>
+                </td>
+                </tr>
+                </table>
+            </td>
+            <td valign="top" style="width:50%;padding: 10px;" >
+            <div class="table-responsive">
+            			<label>Past offer history</label>
+                        <table class="table datatable hover" width="100%" >
+						<thead>
+                                <tr >
+                                	<th width = "8%" rowspan="2" style="text-align:center;" >Round</th>
+                                    <th width = "15%" colspan="2" class="text-center" style="color: blue" title="Details of the offer you made">{{'main.offer.offerDetails'|translate}} </th>
+                                    <th width = "77%" colspan="4" class="text-center" style="color: red" title="Details of the offer that won the customer"> {{'main.offer.wonOfferDetails'|translate}} </th>                                    
+                                  </tr>
+                                  <tr>
+                                  	<th width = "8%" style="text-align:right ; color: blue" title="Total proposed premium amount by your offer">{{'mimidash.premium'|translate}} (€)</th>
+                                    <th width = "10%" style="text-align:right; color: blue; word-wrap: break-word" title="Amount provided as a credit limit by your offer">{{'main offer CLD'|translate}} (€)</th>
+                                    <th width = "32%" style="text-align:left; color: red" title="Reaction of the customer">&emsp;&emsp;Team&emsp;&emsp;</th>
+                                    <th width = "10%" style="text-align:right; color: red" title="Total premium of the winning contract">{{'mimidash.premium'|translate}} (€)</th> 
+                                    <th width = "7%" style="text-align:center; color: red; word-wrap: break-word" title="Experience score of the winning contract">{{'mimidash.xpScore'|translate}}</th>
+                                    <th width = "10%"  style="text-align:right; color: red; word-wrap: break-word" title="Total amount of claims for the winning contract">Claims (€)</th>
+                                </tr>
+                            </thead>
+    			<tbody>
+    				<tr ng-repeat="hist in globalOffersHistory">
+    					<td align="right">{{hist.round}}</td>
+    					<td align="right" style="color: blue">{{hist.price | currency:""}}</td>
+    					<td align="right" style="color: blue">{{hist.cld | currency:""}}</td>
+    					<td align="left" style="color: red">{{hist.team}}</td>
+    					<td align="right" style="color: red">{{hist.wonTeamPremium}}</td>
+    					<td align="right" style="color: red">{{hist.experienceScore}}</td>
+    					<td align="right" style="color: red">{{hist.claimAmount | currency:""}}</td>
+    				</tr>
+    			</tbody>
+    		</table>
+    		</div>
+            </td>
+            </tr>
+            </table>
+        </div>    
+    
+    </td>
+    </tr>
+    <tr>
+    <td>
+    <div class="panel-body as-panel-customer">
+      <form name="offerForm" novalidate >  
+        <div class="col-md-6 as-col-md-6">
+            <span href="#" class="tile tile-default" style="height:130px;" ng-show="!cannotMakeOffer">
+                <div style="font-size:10px;width:50%;float:left;padding:10px;" title="Fill in the premium in €"><h4>{{'market.tpl.price'|translate}}</h4></div>
+                <div style="font-size:10px;width:50%;float:left;padding:10px;" title="Fill in the premium rate in percent (e.g. 0.1% is 10 basis points)"><h4>Premium %</h4></div>
+                <div class="input-group" style="width:50%;float:left;padding:10px;">
+                    <span class="input-group-addon"><span class="fa fa-eur"></span></span>
+                    <input type="number" min="0" name="priceInput" class="form-control" ng-model="selected.price" required="required" ng-change="calculatePercentage();"/>       
+                </div>
+                <div class="input-group" style="width:50%;float:left;padding:10px;">
+                    <span class="input-group-addon"><span>&#37</span></span>
+                    <input type="number" min="0" name="priceInput" class="form-control" ng-model="selected.pricePercentage" required="required" ng-change="calculatePrice();"/>       
+                </div>
+                <span style="color: red" ng-show="showPriceValidation">{{errorTextPriceValiation}}</span>             
+                <span class="help-block" 
+                ng-style="showAvgPriceValidation ? {'padding-right':'40px','padding-left':'40px','color':'red'} :{'padding-right':'40px','padding-left':'40px'}">
+                {{'market.tpl.avgPriceMsg'|translate}} ({{selected.revenue*0.001 | currency : "&euro;"}})
+            </span>  
+            </span>  
+            <span href="#" class="tile tile-default" style="color: red;height:130px;" ng-show="cannotMakeOffer">
+            	{{'market.tpl.cannotMake.Offer1'|translate}} {{numOfBenefits}} {{'market.tpl.cannotMake.Offer2'|translate}} {{globalDepartmentSizeUnit | translate}}
+            </span>
+        </div>
+        
+    </div>
+    </td>
+    </tr>
+    <tr>
+    <td>
+    <div class="panel-body as-panel-customer" style="margin-bottom:15px;">
+        <div class="col-md-12">
+            <a href="#" class="btn btn-block btn-lg btn-success" ng-click="submitOffer()"><span class="fa fa-comments-o"></span>{{'market.tpl.makeOffer'|translate}}!</a>         
+        </div>
+    </div>
+    <div class="panel-body list-group">
+        <a href="#" class="list-group-item btn btn-lg" ng-click="closeModal()"><span></span> {{'market.tpl.close'|translate}}</a>
+    </div>
+    </td>
+    </tr>
+    </table>
+</div>

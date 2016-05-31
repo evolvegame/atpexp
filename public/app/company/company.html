@@ -1,0 +1,402 @@
+<!-- START BREADCRUMB -->
+
+   <div class="mini-dashboard col-md-12">
+   <div class="col-breadcrumb col-md-2">
+    <ul class="breadcrumb">
+        <li><a href="/">{{'bc.link'|translate}}</a></li>
+        <li class="active">{{'company.title'|translate}}</li>
+    </ul>
+</div>
+ <div ng-include="'components/minidash/minidash.html'"></div>
+</div>
+<!-- END BREADCRUMB -->            
+
+<div class="page-title">
+    <h2>{{'company.title'|translate}}</h2>
+</div>
+<!-- PAGE CONTENT TABBED -->
+<tabset>
+<tab heading={{'company.tab3.title'|translate}} title="Financial information about your company">
+    
+
+<div class="row" style="background: #FAFAFA;">
+    <div class="col-md-12" style="background: #FAFAFA;">    
+    <div style="float:right;">
+    	<a style="font-size:24px;float:right;" href="#">
+    		<span class="fa fa-bar-chart-o" ng-click="showChart();" style="color:{{graphIconColor}}" title="Graph View"></span>
+    		<span>|</span>
+    		<span class="fa fa-reorder" ng-click="showTabularData();" style="color:{{tableIconColor}}" title="Tabular View"></span>
+    	</a>
+    </div>
+    <table style="width: 100%;">
+    	<tr>
+    		<td width="90%" ng-show="showGraphView">
+            	<div id="d3stackbar" angulard3-stackbar-chart datajson="chartdata"
+                    xaxis-name = ""
+                    xaxis-pos = ""
+                    yaxis-name = "'Population'"
+                    yaxis-pos = "8"
+                    d3-format= ""
+                    />
+              </td>
+          </tr>
+          <tr>
+          	  <td width="100%" ng-show="showTabularView">
+                    <div style="color:black;width:100%;" ng-controller="CompanyCtrl">
+                        <table class="table datatable" style="width:80%;">
+	                            <thead >
+	                                <tr>
+	                                    <th style="width: 20%;text-align: right;"></th>
+	                                    <th style="width: 10%;text-align: right;">{{'company.tab3.round'|translate}} 1</th>
+	                                    <th style="width: 10%;text-align: right;">{{'company.tab3.round'|translate}} 2</th>
+	                                    <th style="width: 10%;text-align: right;">{{'company.tab3.round'|translate}} 3</th>
+	                                    <th style="width: 10%;text-align: right;">{{'company.tab3.round'|translate}} 4</th>
+	                                    <th style="width:10%;text-align: right;">{{'company.tab3.round'|translate}} 5</th>
+	                                    <th style="width:10%;text-align: right;">{{'company.tab3.round'|translate}} 6</th>
+	                                    <th style="width:10%;text-align: right;">{{'company.tab3.round'|translate}} 7</th>
+	                                    <th style="width:10%;text-align: right;">{{'company.tab3.round'|translate}} 8</th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                 <tr style="height:25px;">
+												<td align="left">
+													<font> {{'company.tab3.premiumIncome'|translate}} </font>
+												</td>							
+												<td ng-repeat="round in roundLevelInformation" align="right">
+													{{round.premium | currency : "&euro;"}}
+												</td>					                     	
+	                                </tr> 
+	                                <tr style="height:25px;">
+												<td align="left">
+													<font> {{'Bonus'|translate}} </font>
+												</td>							
+												<td ng-repeat="round in roundLevelInformation" align="right">
+													{{round.bonus | currency : "&euro;"}}
+												</td>					                     	
+	                                </tr> 
+	                                <tr style="height:25px;">
+												<td align="left">
+													<font> {{'company.tab3.claimsPaid'|translate}} </font>
+												</td>							
+												<td ng-repeat="round in roundLevelInformation" align="right">
+													{{round.claims | currency : "&euro;"}}
+												</td>					                     	
+	                                </tr>									
+	                                <tr style="height:25px;">
+												<td align="left">
+													<font>{{'company.tab3.operatingExpenses'|translate}}</font>
+												</td>							
+												<td ng-repeat="round in roundLevelInformation" align="right">
+													{{round.totalExpense | currency : "&euro;"}}
+												</td>					                     	
+	                                </tr> 
+	                                <tr style="height:25px;">
+												<td align="left">
+													<font>{{'company.tab3.projectExpenses'|translate}}</font>
+												</td>							
+												<td ng-repeat="round in roundLevelInformation" align="right">
+													{{round.investment | currency : "&euro;"}}
+												</td>					                     	
+	                                </tr>                                     
+	                                <tr style="height:25px;">
+												<td align="left">
+													<font> {{'company.tab3.grossIncome'|translate}} </font>
+												</td>							
+												<td ng-repeat="round in roundLevelInformation" align="right">
+													{{round.grossIncome | currency : "&euro;"}}
+												</td>					                     	
+	                                </tr> 
+	                                <tr style="height:25px;">
+												<td align="left">
+													<font> {{'company.tab3.taxes'|translate}} </font>
+												</td>							
+												<td ng-repeat="round in roundLevelInformation" align="right">
+													{{(round.grossIncome - round.profit)  | currency : "&euro;"}}
+												</td>					                     	
+	                                </tr>                                     
+	                                <tr style="height:25px;">
+												<td align="left">
+													<font> {{'company.tab3.profit'|translate}} </font>
+												</td>							
+												<td ng-repeat="round in roundLevelInformation" align="right">
+													{{round.profit | currency : "&euro;"}}
+												</td>					                     	
+	                                </tr> 
+	                            </tbody>
+                        </table>
+                    </div>
+                    </td>
+                    </tr>
+         </table>            
+
+    </div>
+ </div>
+</tab>
+<tab heading={{'company.tab2.title'|translate}} title="Invest in the departments of your company">
+<!-- <div class="tab-container" style="background: #FAFAFA;"> -->
+<div class="row" style="background: #FAFAFA;">
+    <div class="col-md-12" style="background: #FAFAFA;">    
+        <!-- <div class="panel panel-default" style="background: #FAFAFA;"> -->
+    <br>
+
+                    <div style="color:black;" ng-controller="CompanyCtrl">
+                        <b></b>
+                        <table class="table datatable">
+                            <tbody>
+                                 <tr ng-repeat="department in departments">
+                                   	<td title="{{department.description}}">{{department.name | translate}}</td>
+                                   	<td ng-repeat="size in department.size">
+                                   	<toggle-switch class="switch-success" html="true" ng-model="size.switchStatus" off-label="&#10006;&nbsp;&nbsp;" on-label="&#10004;&nbsp;&nbsp;" knob-label="{{size.unit | translate}}"
+                                   		ng-click="addDepartment(department, size)" style="min-width: 110px;"></toggle-switch>
+                                   	</td>
+                                    <td>{{ department.selectedCost | currency : "&euro;"}}</td>
+                                    <td>{{ department.selectedNumOfBenefits}} 
+                                    	<label ng-if="department.name == 'Local Sales'"> &nbsp;Resources </label> 
+                                    	<label ng-if="department.name == 'Global Sales'"> &nbsp;Offers </label>
+                                    	<label ng-if="department.name == 'Marketing'"> &nbsp;Projects </label>
+                                    	<label ng-if="department.name == 'IT'"> &nbsp;Projects </label>
+                                    	<label ng-if="department.name == 'Risk'"> &nbsp;Strategies </label>
+                                    	<label ng-if="department.name == 'Compliance'"> &nbsp;Projects </label>
+                                    	<label ng-if="department.name == 'Strategy'"> &nbsp;Projects </label>
+                                    </td>
+                                </tr> 
+                            </tbody>
+                        </table>
+                    </div>
+                    <br><br>
+                    <div style="border-radius: 10px;border: 1px solid  grey;padding: 10px;">
+                    	<h6>{{'company.information.title'| translate}}:</h6> 
+							<p>
+								{{'company.information.1'| translate}}<br>
+								{{'company.information.2'| translate}}<br> 
+								{{'company.information.3'| translate}}<br>
+								{{'company.information.4'| translate}}<br>
+							</p>
+                    </div>
+
+    </div>
+    </div>
+    <!-- </div> -->
+</tab>
+
+<tab heading={{'company.tab1.title'|translate}} title="Plan projects for your departments to increase your experience score">
+<div class="row" style="background: #FAFAFA;">
+    <div class="col-md-12" style="background: #FAFAFA;">    
+        <!-- <div class="panel panel-default" style="background: #FAFAFA;"> -->
+    <br>
+					<div style="color:black;height:100%" ng-controller="CompanyCtrl">
+                        <div style="width:20%; float: left; margin-left: 30px;margin-right: 30px;">
+                        	<table>
+	                            <thead>
+	                                <tr>
+	                                    <th style="height: 10px; text-decoration: underline; text-align: center;">{{'company.tab1.compliance' |translate}}</th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+
+	                                 <tr style="height:70px;" ng-repeat="project in objects | filter: {type : 'Compliance'}">
+										<td align="center" title="{{project.description}}">
+										<toggle-switch class="switch-success" html="true" ng-model="project.switchStatus" off-label="&#10006;&nbsp;&nbsp;{{project.amount|currency: '&euro;'}}" on-label="&#10004;&nbsp;&nbsp;{{project.amount|currency: '&euro;'}}" knob-label="{{project.name | translate}}" 
+											ng-click="addProject(project, switchStatus)"><toggle-switch>
+										</td>												                     	
+	                                </tr>
+	                            </tbody>
+                        </table>
+                        </div>
+                        <div style="width:20%; float: left; margin-right: 30px;">
+	                        <table>
+	                            <thead >
+	                                <tr>
+	                                    <th style="height: 10px;text-decoration: underline; text-align: center;">{{'company.tab1.it'|translate}}</th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                 <tr style="height:70px;" ng-repeat="project in objects | filter: {type : 'IT'}">
+												<td align="center" title="{{project.description}}">
+													<toggle-switch class="switch-success" html="true" ng-model="project.switchStatus" off-label="&#10006;&nbsp;&nbsp;{{project.amount|currency: '&euro;'}}" on-label="&#10004;&nbsp;&nbsp;{{project.amount|currency: '&euro;'}}" knob-label="{{project.name | translate}}" 
+														ng-click="addProject(project, switchStatus)"><toggle-switch>
+												</td>												                     	
+	                                </tr> 
+	                            </tbody>
+                        </table>
+                        </div>
+                        <div style="width:20%; float: left; margin-right: 30px;">
+	                        <table>
+	                            <thead >
+	                                <tr>
+	                                    <th style="height: 10px;text-decoration: underline; text-align: center;">{{'company.tab1.marketing'|translate}}</th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                 <tr style="height:70px;" ng-repeat="project in objects | filter: {type : 'Marketing'}">
+												<td align="center" title="{{project.description}}">
+													<toggle-switch class="switch-success" html="true" ng-model="project.switchStatus" off-label="&#10006;&nbsp;&nbsp;{{project.amount|currency: '&euro;'}}" on-label="&#10004;&nbsp;&nbsp;{{project.amount|currency: '&euro;'}}" knob-label="{{project.name | translate}}" 
+														ng-click="addProject(project, switchStatus)"><toggle-switch>
+												</td>												                     	
+	                                </tr> 
+	                            </tbody>
+                        </table>
+                        </div>
+                        <div  style="width:20%; float: left;">
+	                        <table>
+	                            <thead >
+	                                <tr>
+	                                    <th style="height: 10px;text-decoration: underline;text-align: center;">{{'company.tab1.strategy'|translate}}</th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                 <tr style="height:70px;" ng-repeat="project in objects | filter: {type : 'Strategy'}">
+												<td align="center" title="{{project.description}}">
+													<toggle-switch class="switch-success" html="true" ng-model="project.switchStatus" off-label="&#10006;&nbsp;&nbsp;{{project.amount |currency: '&euro;'}}" on-label="&#10004;&nbsp;&nbsp;{{project.amount|currency: '&euro;'}}" knob-label="{{project.name | translate}}" 
+														ng-click="addProject(project, switchStatus)"><toggle-switch>
+												</td>												                     	
+	                                </tr>
+	                            </tbody>
+                        </table>
+                        </div>
+                        <div style="width:5%; float: left;">
+	                        <table>
+	                            <thead >
+	                                <tr>
+	                                    <th style="height: 10px;text-decoration: underline;text-align: center;">Total</th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                 <tr style="height:70px;">
+										<td align="center">{{total |currency: "&euro;" }}</td>												                     	
+	                                </tr> 
+	                            </tbody>
+                        </table>
+                        </div>
+						<div style="color:black;" style="width:100%; float: left;" ng-controller="CompanyCtrl">
+							<table style="width:100%;" >
+											<tr style="width:100%">
+												<td style="width:20%;position: absolute;left: 2%;top:100%" align="center">{{compliance |currency: "&euro;" }}</td>
+												
+												<td style="width:20%;position: absolute;left: 20%;top:100%" align="center">{{it |currency : "&euro;"}}</td>
+												
+												<td style="width:20%;position: absolute;left: 40%;top:100%" align="center">{{marketing |currency : "&euro;"}}</td>
+												
+												<td style="width:20%;position: absolute;left: 60%;top:100%" align="center">{{strategy |currency : "&euro;"}}</td>    											                     	
+											</tr>
+							</table>
+                        </div>
+                    </div>
+              </div>
+       </div>
+<!-- </div> -->
+</tab>
+
+<!--<tab heading={{'company.tab3.title'|translate}}>
+<div class="row" style="background: #FAFAFA;">
+    <div class="col-md-12" style="background: #FAFAFA;">    
+
+            <div id="d3stackbar" angulard3-stackbar-chart datajson="chartdata"
+                    xaxis-name = ""
+                    xaxis-pos = ""
+                    yaxis-name = "'Population'"
+                    yaxis-pos = "8"
+                    d3-format= ""
+                    />
+ <br>
+
+                    <div style="color:black;" ng-controller="CompanyCtrl">
+                        <b></b>
+                        <b>{{'company.tab3.profit&loss'|translate}}</b>
+                        <table>
+	                            <thead >
+	                                <tr>
+	                                    <th style="height: 100px; width: 150px;text-align: right;"></th>
+	                                    <th style="height: 100px; width: 110px;text-align: right;">{{'company.tab3.round'|translate}} 1</th>
+	                                    <th style="height: 100px; width: 110px;text-align: right;">{{'company.tab3.round'|translate}} 2</th>
+	                                    <th style="height: 100px; width: 110px;text-align: right;">{{'company.tab3.round'|translate}} 3</th>
+	                                    <th style="height: 100px; width: 110px;text-align: right;">{{'company.tab3.round'|translate}} 4</th>
+	                                    <th style="height: 100px; width: 110px;text-align: right;">{{'company.tab3.round'|translate}} 5</th>
+	                                    <th style="height: 100px; width: 110px;text-align: right;">{{'company.tab3.round'|translate}} 6</th>
+	                                    <th style="height: 100px; width: 110px;text-align: right;">{{'company.tab3.round'|translate}} 7</th>
+	                                    <th style="height: 100px; width: 110px;text-align: right;">{{'company.tab3.round'|translate}} 8</th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                 <tr style="height:25px;">
+												<td align="left">
+													<font> {{'company.tab3.premiumIncome'|translate}} </font>
+												</td>							
+												<td ng-repeat="round in roundLevelInformation" align="right">
+													{{round.premium | currency : "&euro;"}}
+												</td>					                     	
+	                                </tr> 
+	                                <tr style="height:25px;">
+												<td align="left">
+													<font> {{'company.tab3.claimsPaid'|translate}} </font>
+												</td>							
+												<td ng-repeat="round in roundLevelInformation" align="right">
+													{{round.claims | currency : "&euro;"}}
+												</td>					                     	
+	                                </tr> 
+	                                <tr style="height:25px;">
+												<td align="left">
+													<font>{{'company.tab3.operatingExpenses'|translate}}</font>
+												</td>							
+												<td ng-repeat="round in roundLevelInformation" align="right">
+													{{round.totalExpense | currency : "&euro;"}}
+												</td>					                     	
+	                                </tr> 
+	                                <tr style="height:25px;">
+												<td align="left">
+													<font>{{'company.tab3.projectExpenses'|translate}}</font>
+												</td>							
+												<td ng-repeat="round in roundLevelInformation" align="right">
+													{{round.investment | currency : "&euro;"}}
+												</td>					                     	
+	                                </tr>                                     
+	                                <tr style="height:25px;">
+												<td align="left">
+													<font> {{'company.tab3.grossIncome'|translate}} </font>
+												</td>							
+												<td ng-repeat="round in roundLevelInformation" align="right">
+													{{round.grossIncome | currency : "&euro;"}}
+												</td>					                     	
+	                                </tr> 
+	                                <tr style="height:25px;">
+												<td align="left">
+													<font> {{'company.tab3.taxes'|translate}} </font>
+												</td>							
+												<td ng-repeat="round in roundLevelInformation" align="right">
+													{{(round.grossIncome - round.profit)  | currency : "&euro;"}}
+												</td>					                     	
+	                                </tr>                                     
+	                                <tr style="height:25px;">
+												<td align="left">
+													<font> {{'company.tab3.profit'|translate}} </font>
+												</td>							
+												<td ng-repeat="round in roundLevelInformation" align="right">
+													{{round.profit | currency : "&euro;"}}
+												</td>					                     	
+	                                </tr> 
+	                            </tbody>
+                        </table>
+                    </div>
+                     
+
+    </div>
+ </div>
+ </div>
+
+ 
+    
+</tab>-->
+<!--<tab heading={{'company.tab3.title'|translate}}>
+    <div class="panel panel-default" ng-controller="CompanyCtrl">
+	   <div class="panel-heading">  
+           <div id="d3stackbar" angulard3-stackbar-chart datajson="chartdata"
+                    xaxis-name = ""
+                    xaxis-pos = ""
+                    yaxis-name = "'Population'"
+                    yaxis-pos = "8"
+                    d3-format= "">
+       </div>
+    </div>
+</tab>-->
+</tabset>
+<!-- END PAGE CONTENT TABBED  -->

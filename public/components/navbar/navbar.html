@@ -1,0 +1,75 @@
+<!-- START X-NAVIGATION HORIZONTAL -->
+<ul class="x-navigation x-navigation-horizontal x-navigation-panel" ng-controller="NavbarCtrl" ng-show="isLoggedIn()">
+    <!-- TOGGLE NAVIGATION -->
+    <li class="xn-icon-button" >
+        <a href="#" class="x-navigation-minimize" ng-click="toggleCollapseSideBar()" title="Toggle the sidebar"><span ng-class="collapseSideBarActive"></span></a>
+    </li>
+    <!-- END TOGGLE NAVIGATION -->
+    <!-- POWER OFF -->
+	<li style="height:100%;" >
+           <div class = "panel-heading" >
+           		<h3 style="color:white;" title="The current round">{{'navbar.round '|translate}} {{roundNumber}}</h3>
+           </div>
+	</li>
+    <li class="xn-icon-button pull-right last" ng-show="isLoggedIn()" ng-class="logoutActive">
+        <a href="#" ng-click="toggleLogout()"><span class="fa fa-power-off"  title = "Log-off" ></span></a>
+        <div class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{'navbar.logOutMsg' | translate}}</h3>
+            </div>
+            <div class="panel-footer text-center">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-success btn-sm" ng-click="logout()"><span class="fa fa-coffee"></span> {{'navbar.btnYes'| translate}}</button>
+                    <button type="button" class="btn btn-danger btn-sm" ng-click="toggleLogout()"><span class="fa fa-heart"></span> {{'navbar.btnNo'| translate}}</button>
+                </div>
+            </div>
+        </div>
+    </li>
+    <!-- END POWER OFF -->
+    <!-- settings -->
+    <li class="xn-icon-button pull-right last" ng-show="true">
+         <a href="/settings" class="profile-control-left"><span class="fa fa-cogs" title = "Settings" ></span></a>
+    </li>    
+    
+  <!--START LANG-->
+  <li class="xn-icon-button pull-right" ng-class="languageActive">
+    <a href="#" ng-click="toggleLanguage()"  title = "Set language" ><span
+    class="{{language}}"></span></a>
+    <ul class="xn-drop-left xn-drop-white animated zoomIn">
+      <li><a href="#" ng-click="changeLang('flag flag-gb','English')" >
+      <span class="flag flag-gb"></span>
+        Global</a></li>
+      <li><a href="#" ng-click="changeLang('flag flag-es','Spanish')" >
+      <span class="flag flag-es"></span>
+        European</a></li>
+    </ul>
+  </li>
+  <!--END LANG-->
+<li style="height:100%;width:60%" >
+    <div class = "panel-heading" >
+      
+					<!--<div class="table-responsive">-->
+					  <div class="form-group">
+                        <div class="col-md-6 col-xs-12">
+                        <table>
+                            <tbody>
+                              <tr>  
+								<td ng-repeat=" member in members" style="word-break:normal;align:left;vertical-align:middle;padding:2px" title="Members of your team. Members that are online are shown in white">
+										<div ng-if= "member.members.isLoggedIn=='Y'">
+											<a href="mailto:{{member.members.email}}" style="title:{{member.members.email}};color:white;"<i class="fa fa-user" style="vertical-align:middle;">  {{member.members.name}}</i></a>
+										</div>	
+										<div ng-if= "member.members.isLoggedIn=='N'">
+											<i class="fa fa-user" style="color:grey;vertical-align:middle;">  {{member.members.name}}</i>
+										</div>	
+										
+								</td>                          
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+					  </div>
+					<!--</div>-->
+    </div>
+  </li>
+  
+</ul>

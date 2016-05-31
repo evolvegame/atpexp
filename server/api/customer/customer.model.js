@@ -5,28 +5,33 @@ var mongoose = require('mongoose'),
 var CustomerSchema = new Schema({
   name:String,
   revenue:Number,
-  turnover:Number,
   region:String,
   regionCode:String,
   country:String,
   countryCode:String,
-  businessRisk :Number,
+  customerISOCountryCode:String,
+  businessRisk :Number, //TODO: This can be deleted
   industry:String,
   industryCode:String,
-  businessRisk:Number,
   experienceScoreNeeded:Number,
   minOfferScore:Number,
   offerCount:Number,
+  numberOfCustomers: Number,
+  groupCustomerName: String,
+  marketType: String, // Possible values are 'Local Market Portfolio' & 'Individual'
   buyerPortfolio:[
-  {region:String,
+  {
+	region:String,
     regionCode:String,
     country:String,
     countryCode:String,
+    buyerISOCountryCode:String,
     industry:String,
     industryCode:String,
     tpe:Number,
     rating:Number,
-    cla:Number
+    cla:Number,
+    numberOfOrganisation: Number,
   }
     ]
 

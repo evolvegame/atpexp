@@ -1,0 +1,326 @@
+<!-- START BREADCRUMB -->
+<div class="mini-dashboard col-md-12">
+   <div class="col-breadcrumb col-md-2">
+    <ul class="breadcrumb">
+        <li><a href="/">{{'bc.link'|translate}}</a></li>
+        <li class="active">Dashboard</li>
+    </ul>
+</div>
+ <div ng-include="'components/minidash/minidash.html'"></div>
+</div>
+<!-- END BREADCRUMB --> 
+
+<div class="page-title">
+    <h2>Dashboard</h2>
+</div>                   
+               
+               
+<tabset>
+
+	<tab heading='Home Page'>
+		<div class="panel panel-default">
+		
+			<div class="panel-body" title="Messages from the admins">
+				<h3> My messages </h3>
+					<div class="table-responsive">
+					{{messages}}
+					</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">    
+				<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">{{'My Team Actions'|translate}}</h3>
+							<ul class="panel-controls">
+								<!-- <li><a href="#" ng-click="isCollapsedCustomer = !isCollapsedCustomer" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li> -->
+							<!-- <li><a href="#" ng-click="refreshMarketGlobal()" class="panel-refresh"><span class="fa fa-refresh"></span></a></li> -->
+							</ul>
+						</div>
+					
+						<div class="panel-body" collapse="isCollapsedCustomer">
+						<div class="table-responsive">
+								<table datatable="ng" class="table datatable hover" dt-options="dtOptions" width ="100%">
+									<thead>
+										<tr>
+											<th title="User that made the change">User</th>
+											<th title="Action taken by the user">Action</th>
+											<th title="Time and date that the action has been taken">Date-Time</th>                                    
+										</tr>
+									</thead>
+									<tbody>
+										<tr ng-repeat="audit in audits">
+											<td>{{audit.audit.userId}}</td>
+											<td>{{audit.audit.action}}</td>
+											<td>{{audit.audit.time | date:'yyyy-MM-dd HH:mm:ss Z'}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>    
+
+						<div class="panel-footer" collapse="isCollapsedCustomer"> </div>
+					</div>
+				</div> 
+
+		</div> 
+
+	</div>            
+
+
+	</tab>
+	<tab heading={{'ranking.tab1.heading'|translate}} ng-if="(!isFirstRound && !singleplayermode)">
+	<!-- <div class="tab-container" > -->
+		<br>
+		<div class="row">
+			<div class="col-md-12">
+				<!-- START DEFAULT DATATABLE -->
+				<div class="panel panel-default">
+				
+					<div class="panel-body" >
+						<div class="table-responsive">
+								<ul class="panel-controls">
+									<li><a href="#" ng-click="isCollapsedCapitalRanking = !isCollapsedCapitalRanking" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+								</ul>  	
+							<div ng-switch on="previousRound">
+								<div ng-switch-when="0">
+									<b>{{'ranking.tab1.title'|translate}} </b>({{loggedInTeamName}} : {{'ranking.no.ranking.round.1' | translate}})<br><br>
+								</div>
+								<div ng-switch-default>
+									<b>{{'ranking.tab1.title'|translate}} </b>({{loggedInTeamName}} : {{loggedInTeamRankForPreviousRound}})<br><br>
+								</div>
+												
+							</div>
+							<div collapse="isCollapsedCapitalRanking">
+							<table datatable="ng" class="table datatable hover" collapse="isCollapsedCustomer" width = "100%">
+								<thead>
+									<tr>
+										<th style="width:5%;text-align:center">{{'ranking.tab.rank'|translate}}
+										<div ng-switch on="previousRound">
+												<div ng-switch-when="0" style="color: red;">
+													{{'ranking.no.ranking.round.1' | translate}}
+												</div>
+											</div>
+										</th>
+										<th style="width:10%; text-align:left;">{{'ranking.tab.team-name'|translate}}</th>
+										<th style="width:30%; text-align:left;">Team Slogan </th>
+										<th style="width:20%; text-align:left;">Team Members </th>
+										<th style="width:5%; text-align:left;">{{'ranking.tab.country'|translate}}</th>
+										<th style="width:8%; text-align:right;">{{'Profit'|translate}}</th>
+										<th style="width:5%; text-align:center;">{{'# Customers'|translate}}</th>
+										<th style="width:7%; text-align:right;">{{'Claims'|translate}}</th>
+										<th style="width:10%;text-align:right">{{'ranking.tab.capital'|translate}}</th> 
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="team in rankingTeams | filter: {role: 'user'} | orderBy: 'rankingPosition'" style="color:{{fontStyle(team.teamName)}};">
+										<td width="5%" align="center">{{ team.rankingPosition }}</td>
+										<td width="10%"><img src="assets/img/uploads/{{team.teamPicture}}" style="border-radius: 50%;" height="30" width="30" onmouseover="enlargeImg(this)" onmouseout="normalImg(this)"> &nbsp;&nbsp; {{ team.teamName }}</td>
+										<td width="30%">{{team.slogan}}</td>
+										<td width="20%">{{team.teamMembers}}</td>
+										<td width="5%">{{team.teamCountry }}</td>
+										<td width="8%" align="right">{{team.profit | currency:""}}</td>
+										<td width="5%" align="center">{{team.numberOfCustomers}}</td>
+										<td width="7%" align="right">{{team.claims | currency:""}}</td>
+										<td width="10%" align="right">{{ team.capital | currency:""}}</td>
+									</tr> 
+								</tbody>
+							</table>
+							<script>
+								function enlargeImg(x) {
+									x.style.height = "75px";
+									x.style.width = "75px";
+								}
+								
+								function normalImg(x) {
+									x.style.height = "30px";
+									x.style.width = "30px";
+								}
+							</script>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END DEFAULT DATATABLE -->
+			</div>
+		</div>
+		
+		<br>
+		<div class="row">
+			<div class="col-md-12">
+				<!-- START DEFAULT DATATABLE -->
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="table-responsive">
+							<ul class="panel-controls">
+									<li><a href="#" ng-click="isCollapsedExpScore = !isCollapsedExpScore" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+							</ul> 
+						<div ng-switch on="previousRound">
+								<div ng-switch-when="0">
+									<b>{{'ranking.tab.xpScoreRanking'|translate}} </b>({{loggedInTeamName}} : {{'ranking.no.ranking.round.1' | translate}})<br><br>
+								</div>
+								<div ng-switch-default>
+									<b>{{'ranking.tab.xpScoreRanking'|translate}} </b>({{loggedInTeamName}} : {{loggedInTeamExpScoreRankForPreviousRound}})<br><br>
+								</div>                 	
+							</div>
+							<div collapse="isCollapsedExpScore">
+							<table datatable="ng" class="table datatable hover"  width = "100%">
+								<thead>
+									<tr>
+										<th style="width:5%;text-align:center">{{'ranking.tab.rank'|translate}}
+										<div ng-switch on="previousRound">
+											<div ng-switch-when="0" style="color:red;">
+												{{'ranking.no.ranking.round.1' | translate}}
+											</div>
+										</div>
+										</th>
+										<th style="width:25%; text-align:left;">{{'ranking.tab.team-name'|translate}}</th>
+										<th style="width:30%; text-align:left;">Team Slogan </th>
+										<th style="width:20%; text-align:left;">Team Members </th>
+										<th style="width:25%; text-align:left;">{{'ranking.tab.country'|translate}}</th>
+										<th style="width:25%;text-align:center" title="Experience Score caption">{{'ranking.tab.xpScore'|translate}}</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="team in rankingTeams | filter: {role: 'user'} | orderBy: 'experienceScoreRankingPosition'" style="color:{{fontStyle(team.teamName)}};">
+										<td align="center">{{ team.experienceScoreRankingPosition }}</td>
+										<td><img src="assets/img/uploads/{{team.teamPicture}}" style="border-radius: 50%;" height="30" width="30" onmouseover="enlargeImg(this)" onmouseout="normalImg(this)"> &nbsp;&nbsp; {{ team.teamName }}</td>
+										<td>{{team.slogan}}</td>
+										<td>{{team.teamMembers}}</td>
+										<td>{{ team.teamCountry }}</td>
+										<td align="center">{{ team.experienceScore }}</td>
+									</tr> 
+								</tbody>
+							</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END DEFAULT DATATABLE -->
+			</div>
+		</div>
+		
+	<!-- </div> -->
+
+	</tab>
+	<tab heading="{{loggedInTeam}} {{'ranking.tab2.countryRanking'|translate}}" ng-if="(!isFirstRound && !singleplayermode)">
+	<!-- <div class="tab-container" > -->
+		<br>
+		<div class="row">
+			<div class="col-md-12">
+				<!-- START DEFAULT DATATABLE -->
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="table-responsive">
+						<ul class="panel-controls">
+							<li><a href="#" ng-click="isCollapsedCountryLevelCapital = !isCollapsedCountryLevelCapital" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+						</ul>
+							<div ng-switch on="previousRound">
+								<div ng-switch-when="0">
+									<b>{{'ranking.tab1.title'|translate}} </b>({{loggedInTeamName}} : {{'ranking.no.ranking.round.1' | translate}})<br><br>
+								</div>
+								<div ng-switch-default>
+									<b>{{'ranking.tab1.title'|translate}} </b>({{loggedInTeamName}} : {{countryLevelTeamRankForPreviousRound}})<br><br>
+								</div>                 	
+							</div>
+							<div collapse="isCollapsedCountryLevelCapital">
+							<table datatable="ng" class="table datatable hover" width = "100%">
+								<thead>
+									<tr>
+										<th style="width:25%;text-align:center">{{'ranking.tab.rank'|translate}}
+											<div ng-switch on="previousRound" style="color:red;">
+												<div ng-switch-when="0">
+													{{'ranking.no.ranking.round.1' | translate}}
+												</div>
+											</div>
+										</th>
+										<th style="width:25%; text-align:left;">{{'ranking.tab.team-name'|translate}}</th>
+										<th style="width:20%; text-align:left;">Team Slogan </th>
+										<th style="width:15%; text-align:left;">Team Members </th>
+										<th style="width:25%; text-align:right;">{{'Profit'|translate}}</th>
+										<th style="width:25%; text-align:center">{{'# Customers'|translate}}</th>
+										<th style="width:25%; text-align:right;">{{'Claims'|translate}}</th>
+										<th style="width:300px; text-align:right">{{'ranking.tab.capital'|translate}}</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="team in rankingTeams | filter: {role:'user'} | filter: {teamCountry:loggedInTeam} |orderBy: 'countryLevelRankingPosition' :true" style="color:{{fontStyle(team.teamName)}};">
+										<td align="center">
+											{{ team.countryLevelRankingPosition }}
+										</td>
+										<td><img src="assets/img/uploads/{{team.teamPicture}}" style="border-radius: 50%;" height="30" width="30" onmouseover="enlargeImg(this)" onmouseout="normalImg(this)"> &nbsp;&nbsp; {{ team.teamName }}</td>
+										<td>{{team.slogan}}</td>
+										<td>{{team.teamMembers}}</td>
+										<td align="right">{{team.profit | currency:""}}</td>
+										<td align="center">{{team.numberOfCustomers}}</td>
+										<td align="right">{{team.claims | currency:""}}</td>
+										<td align="right">{{ team.capital | currency:"" }}</td>
+									</tr> 
+								</tbody>
+							</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END DEFAULT DATATABLE -->
+			</div>
+		</div>
+		
+		<br>
+		<div class="row">
+			<div class="col-md-12">
+				<!-- START DEFAULT DATATABLE -->
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="table-responsive">
+						<ul class="panel-controls">
+							<li><a href="#" ng-click="isCollapsedCountryLevelExpScore = !isCollapsedCountryLevelExpScore" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+						</ul>
+							<div ng-switch on="previousRound">
+								<div ng-switch-when="0">
+									<b>{{'ranking.tab.xpScoreRanking'|translate}} </b>({{loggedInTeamName}} : {{'ranking.no.ranking.round.1' | translate}})<br><br>
+								</div>
+								<div ng-switch-default>
+									<b>{{'ranking.tab.xpScoreRanking'|translate}} </b>({{loggedInTeamName}} : {{countryLevelTeamExpScoreRankForPreviousRound}})<br><br>
+								</div>                 	
+							</div>
+							<div collapse="isCollapsedCountryLevelExpScore">
+							<table datatable="ng" class="table datatable hover" width = "100%">
+								<thead>
+									<tr>
+										<th style="width:25%;text-align:center">{{'ranking.tab.rank'|translate}}
+											<div ng-switch on="previousRound" style="color:red;">
+													<div ng-switch-when="0">
+														{{'ranking.no.ranking.round.1' | translate}}
+													</div>
+											</div>
+										</th>
+										<th style="width:25%;">{{'ranking.tab.team-name'|translate}}</th>
+										<th style="width:20%; text-align:left;">Team Slogan </th>
+										<th style="width:15%; text-align:left;">Team Members </th>
+										<th style="width:300px;text-align:center">{{'ranking.tab.xpScore'|translate}}</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="team in rankingTeams | filter: {role:'user'} | filter: {teamCountry:loggedInTeam} | orderBy: 'CountryLevelExperienceScoreRankingPosition' :true" style="color:{{fontStyle(team.teamName)}};">
+										<td align="center">
+											{{ team.CountryLevelExperienceScoreRankingPosition }}	
+										</td>
+										<td><img src="assets/img/uploads/{{team.teamPicture}}" style="border-radius: 50%;" height="30" width="30" onmouseover="enlargeImg(this)" onmouseout="normalImg(this)" title="{{team.slogan}}+'<br>'+{{team.teamMembers}}"> &nbsp;&nbsp; {{ team.teamName }}</td>
+										<td>{{team.slogan}}</td>
+										<td>{{team.teamMembers}}</td>
+										<td align="center">{{ team.experienceScore }}</td>
+									</tr> 
+								</tbody>
+							</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END DEFAULT DATATABLE -->
+			</div>
+		</div>
+	<!-- </div> -->
+	</tab>
+	
+</tabset>

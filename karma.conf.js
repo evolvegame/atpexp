@@ -11,25 +11,25 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'client/bower_components/jquery/dist/jquery.js',
-      'client/bower_components/angular/angular.js',
-      'client/bower_components/angular-mocks/angular-mocks.js',
-      'client/bower_components/angular-resource/angular-resource.js',
-      'client/bower_components/angular-cookies/angular-cookies.js',
-      'client/bower_components/angular-sanitize/angular-sanitize.js',
-      'client/bower_components/angular-route/angular-route.js',
-      'client/bower_components/lodash/dist/lodash.compat.js',
-      'client/bower_components/angular-ui-router/release/angular-ui-router.js',
-      'client/app/app.js',
-      'client/app/app.coffee',
-      'client/app/**/*.js',
-      'client/app/**/*.coffee',
-      'client/components/**/*.js',
-      'client/components/**/*.coffee',
-      'client/app/**/*.jade',
-      'client/components/**/*.jade',
-      'client/app/**/*.html',
-      'client/components/**/*.html'
+      'public/bower_components/jquery/dist/jquery.js',
+      'public/bower_components/angular/angular.js',
+      'public/bower_components/angular-mocks/angular-mocks.js',
+      'public/bower_components/angular-resource/angular-resource.js',
+      'public/bower_components/angular-cookies/angular-cookies.js',
+      'public/bower_components/angular-sanitize/angular-sanitize.js',
+      'public/bower_components/angular-route/angular-route.js',
+      'public/bower_components/lodash/dist/lodash.compat.js',
+      'public/bower_components/angular-ui-router/release/angular-ui-router.js',
+      'public/app/app.js',
+      'public/app/app.coffee',
+      'public/app/**/*.js',
+      'public/app/**/*.coffee',
+      'public/components/**/*.js',
+      'public/components/**/*.coffee',
+      'public/app/**/*.jade',
+      'public/components/**/*.jade',
+      'public/app/**/*.html',
+      'public/components/**/*.html'
     ],
 
     preprocessors: {
@@ -39,11 +39,11 @@ module.exports = function(config) {
     },
 
     ngHtml2JsPreprocessor: {
-      stripPrefix: 'client/'
+      stripPrefix: 'public/'
     },
 
     ngJade2JsPreprocessor: {
-      stripPrefix: 'client/'
+      stripPrefix: 'public/'
     },
 
     // list of files / patterns to exclude

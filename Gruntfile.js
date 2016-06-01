@@ -30,7 +30,7 @@ module.exports = function (grunt) {
     pkg: grunt.file.readJSON('package.json'),
     yeoman: {
       // configurable paths
-      client: require('./bower.json').appPath || 'client',
+      public: require('./bower.json').appPath || 'public',
       dist: 'dist'
     },
     express: {
@@ -57,15 +57,15 @@ module.exports = function (grunt) {
     watch: {
       injectJS: {
         files: [
-          '<%= yeoman.client %>/{app,components}/**/*.js',
-          '!<%= yeoman.client %>/{app,components}/**/*.spec.js',
-          '!<%= yeoman.client %>/{app,components}/**/*.mock.js',
-          '!<%= yeoman.client %>/app/app.js'],
+          '<%= yeoman.public %>/{app,components}/**/*.js',
+          '!<%= yeoman.public %>/{app,components}/**/*.spec.js',
+          '!<%= yeoman.public %>/{app,components}/**/*.mock.js',
+          '!<%= yeoman.public %>/app/app.js'],
         tasks: ['injector:scripts']
       },
       injectCss: {
         files: [
-          '<%= yeoman.client %>/{app,components}/**/*.css'
+          '<%= yeoman.public %>/{app,components}/**/*.css'
         ],
         tasks: ['injector:css']
       },
@@ -75,8 +75,8 @@ module.exports = function (grunt) {
       },
       jsTest: {
         files: [
-          '<%= yeoman.client %>/{app,components}/**/*.spec.js',
-          '<%= yeoman.client %>/{app,components}/**/*.mock.js'
+          '<%= yeoman.public %>/{app,components}/**/*.spec.js',
+          '<%= yeoman.public %>/{app,components}/**/*.mock.js'
         ],
         tasks: ['newer:jshint:all', 'karma']
       },
@@ -85,12 +85,12 @@ module.exports = function (grunt) {
       },
       livereload: {
         files: [
-          '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.css',
-          '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.html',
-          '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
-          '!{.tmp,<%= yeoman.client %>}{app,components}/**/*.spec.js',
-          '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js',
-          '<%= yeoman.client %>/assets/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}'
+          '{.tmp,<%= yeoman.public %>}/{app,components}/**/*.css',
+          '{.tmp,<%= yeoman.public %>}/{app,components}/**/*.html',
+          '{.tmp,<%= yeoman.public %>}/{app,components}/**/*.js',
+          '!{.tmp,<%= yeoman.public %>}{app,components}/**/*.spec.js',
+          '!{.tmp,<%= yeoman.public %>}/{app,components}/**/*.mock.js',
+          '<%= yeoman.public %>/assets/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}'
         ],
         options: {
           livereload: true
@@ -111,7 +111,7 @@ module.exports = function (grunt) {
     // Make sure code styles are up to par and there are no obvious mistakes
     jshint: {
       options: {
-        jshintrc: '<%= yeoman.client %>/.jshintrc',
+        jshintrc: '<%= yeoman.public %>/.jshintrc',
         reporter: require('jshint-stylish')
       },
       server: {
@@ -130,14 +130,14 @@ module.exports = function (grunt) {
         src: ['server/**/*.spec.js']
       },
       all: [
-        '<%= yeoman.client %>/{app,components}/**/*.js',
-        '!<%= yeoman.client %>/{app,components}/**/*.spec.js',
-        '!<%= yeoman.client %>/{app,components}/**/*.mock.js'
+        '<%= yeoman.public %>/{app,components}/**/*.js',
+        '!<%= yeoman.public %>/{app,components}/**/*.spec.js',
+        '!<%= yeoman.public %>/{app,components}/**/*.mock.js'
       ],
       test: {
         src: [
-          '<%= yeoman.client %>/{app,components}/**/*.spec.js',
-          '<%= yeoman.client %>/{app,components}/**/*.mock.js'
+          '<%= yeoman.public %>/{app,components}/**/*.spec.js',
+          '<%= yeoman.public %>/{app,components}/**/*.mock.js'
         ]
       }
     },
@@ -211,8 +211,8 @@ module.exports = function (grunt) {
     // Automatically inject Bower components into the app
     wiredep: {
       target: {
-        src: '<%= yeoman.client %>/index.html',
-        ignorePath: '<%= yeoman.client %>/',
+        src: '<%= yeoman.public %>/index.html',
+        ignorePath: '<%= yeoman.public %>/',
         exclude: [/bootstrap-sass-official/, /bootstrap.js/, '/json3/', '/es5-shim/']
       }
     },
@@ -235,7 +235,7 @@ module.exports = function (grunt) {
     // concat, minify and revision files. Creates configurations in memory so
     // additional tasks can operate on them
     useminPrepare: {
-      html: ['<%= yeoman.client %>/index.html'],
+      html: ['<%= yeoman.public %>/index.html'],
       options: {
         dest: '<%= yeoman.dist %>/public'
       }
@@ -265,7 +265,7 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= yeoman.client %>/assets/images',
+          cwd: '<%= yeoman.public %>/assets/images',
           src: '{,*/}*.{png,jpg,jpeg,gif}',
           dest: '<%= yeoman.dist %>/public/assets/images'
         }]
@@ -276,7 +276,7 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= yeoman.client %>/assets/images',
+          cwd: '<%= yeoman.public %>/assets/images',
           src: '{,*/}*.svg',
           dest: '<%= yeoman.dist %>/public/assets/images'
         }]
@@ -313,7 +313,7 @@ module.exports = function (grunt) {
         usemin: 'app/app.js'
       },
       main: {
-        cwd: '<%= yeoman.client %>',
+        cwd: '<%= yeoman.public %>',
         src: ['{app,components}/**/*.html'],
         dest: '.tmp/templates.js'
       },
@@ -337,7 +337,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           dot: true,
-          cwd: '<%= yeoman.client %>',
+          cwd: '<%= yeoman.public %>',
           dest: '<%= yeoman.dist %>/public',
           src: [
             '*.{ico,png,txt}',
@@ -363,7 +363,7 @@ module.exports = function (grunt) {
       },
       styles: {
         expand: true,
-        cwd: '<%= yeoman.client %>',
+        cwd: '<%= yeoman.public %>',
         dest: '.tmp/',
         src: ['{app,components}/**/*.css']
       }
@@ -458,7 +458,7 @@ module.exports = function (grunt) {
       scripts: {
         options: {
           transform: function(filePath) {
-            filePath = filePath.replace('/client/', '');
+            filePath = filePath.replace('/public/', '');
             filePath = filePath.replace('/.tmp/', '');
             return '<script src="' + filePath + '"></script>';
           },
@@ -466,11 +466,11 @@ module.exports = function (grunt) {
           endtag: '<!-- endinjector -->'
         },
         files: {
-          '<%= yeoman.client %>/index.html': [
-              ['{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
-               '!{.tmp,<%= yeoman.client %>}/app/app.js',
-               '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js',
-               '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js']
+          '<%= yeoman.public %>/index.html': [
+              ['{.tmp,<%= yeoman.public %>}/{app,components}/**/*.js',
+               '!{.tmp,<%= yeoman.public %>}/app/app.js',
+               '!{.tmp,<%= yeoman.public %>}/{app,components}/**/*.spec.js',
+               '!{.tmp,<%= yeoman.public %>}/{app,components}/**/*.mock.js']
             ]
         }
       },
@@ -479,7 +479,7 @@ module.exports = function (grunt) {
       css: {
         options: {
           transform: function(filePath) {
-            filePath = filePath.replace('/client/', '');
+            filePath = filePath.replace('/public/', '');
             filePath = filePath.replace('/.tmp/', '');
             return '<link rel="stylesheet" href="' + filePath + '">';
           },
@@ -487,8 +487,8 @@ module.exports = function (grunt) {
           endtag: '<!-- endinjector -->'
         },
         files: {
-          '<%= yeoman.client %>/index.html': [
-            '<%= yeoman.client %>/{app,components}/**/*.css'
+          '<%= yeoman.public %>/index.html': [
+            '<%= yeoman.public %>/{app,components}/**/*.css'
           ]
         }
       }
@@ -556,7 +556,7 @@ module.exports = function (grunt) {
       ]);
     }
 
-    else if (target === 'client') {
+    else if (target === 'public') {
       return grunt.task.run([
         'clean:server',
         'env:all',
@@ -583,7 +583,7 @@ module.exports = function (grunt) {
 
     else grunt.task.run([
       'test:server',
-      'test:client'
+      'test:public'
     ]);
   });
 

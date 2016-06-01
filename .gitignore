@@ -2,6 +2,7 @@ node_modules
 public
 .tmp
 .idea
+public/bower_components
 client/bower_components
 dist
 /server/config/local.env.js
@@ -9,5 +10,6 @@ dist
 .project
 .settings/
 document/css zip
-client/assets/img/uploads
+public/assets/img/uploads
+
 
